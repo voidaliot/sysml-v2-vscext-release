@@ -2,6 +2,38 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.9.28] - 2026-07-05
+
+### Added
+
+- **Geometry View is back — on the interactive canvas.** GEV returned to the view selector, rebuilt on the same React Flow canvas as the other views: parts typed by Geometry-library shapes (Box/Sphere/Cylinder/Cone/Wedge/Pyramid) draw as isometric solids placed by their `x`/`y`/`z` attributes, flat x/y layouts draw as a 2D top-view plan, and the coordinate axes always render — an empty Geometry View is a labelled frame to place parts on, and shape-typed parts without positions stack in a strip below it. Pan/zoom/fit, minimap, click-to-reveal, Properties, and SVG export work like every other view. Positions come from the model's attributes, so geometry objects are deliberately not movable by drag; package overviews stack each part's spatial frame as its own tile.
+
+### Changed
+
+- **Connector highlights contrast harder.** Selected connectors and the child-connection highlights use a brighter highlight colour derived from your theme's foreground, so they step away from both the other lines and the canvas on any theme. (issue #164)
+
+- **One toolbar in both modes.** The docked side panel now shows the same single-row toolbar as the full tab — including the General View quick-filter chips (previously a second row) and all editing tools — and the "Diagram" header text is gone. Only the last button differs: it opens the full tab instead of docking. (issue #165)
+
+### Fixed
+
+- **Interconnection View — clicking a port selects the port.** Previously the owning part stayed selected and the code highlight jumped to the part; now the port itself is selected like any other element: its square highlights, Properties shows the port, and its declaration is highlighted in the source. (issue #163)
+
+## [0.9.27] - 2026-07-05
+
+### Added
+
+- **Editing tools live directly on the toolbar.** The ＋Tools toggle and its floating menu are gone — every view shows the add/link tools inside the same top toolbar row in both tab and side mode. If the pane is too narrow, the toolbar uses a custom transparent overlay thumb that appears on hover without changing toolbar height or icon alignment. The strip now offers the **full element vocabulary** a view can depict: the General View gets package + every definition kind (interfaces, connections, calcs, views, viewpoints, renderings, enums, allocations, metadata, occurrences, …). Elements that only make sense inside another element (like an actor in a use case) stay in the right-click menu. (issue #143)
+
+- **General View: a quick-filter chip for parts.** Parts can now be hidden like every other category (the "parts always show" rule is gone). (issue #158)
+
+- **Selecting an element highlights its child connections.** Click a part (or action, or lifeline) and every connection to its immediate children lights up; highlighted connectors also contrast much better with the background on any theme (background halo + accent glow + thicker stroke). (issue #160)
+
+### Changed
+
+- **General View — Full mode is more compact.** Rings sit closer together, boxes closer along each ring, and unrelated clusters pack tighter — with a corrected no-overlap guarantee at every density. (issue #159)
+
+- **Big diagrams are much snappier to drag and pan.** Dragging one element no longer re-renders every connector on the canvas each frame, and very large graphs (300+ elements) only render what is visible in the viewport while panning. (issue #161)
+
 ## [0.9.26] - 2026-07-05
 
 ### Added
