@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SysML v2 for Visual Studio Code</title>
+  <meta name="description" content="A complete SysML v2 and KerML modeling environment for VS Code with language intelligence, diagnostics, standard library support, and live editable diagrams.">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #08111f;
+      --bg-2: #0d1829;
+      --panel: rgba(17, 31, 52, 0.78);
+      --panel-strong: #13233a;
+      --ink: #eef6ff;
+      --muted: #9fb3c8;
+      --line: rgba(148, 180, 214, 0.2);
+      --accent: #50b7ff;
+      --accent-2: #65e4c5;
+      --accent-3: #f2b366;
+      --danger: #ff6b8a;
+      --shadow: 0 22px 70px rgba(0, 0, 0, 0.42);
+      --radius: 8px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at 72% 8%, rgba(80, 183, 255, 0.17), transparent 28rem),
+                  radial-gradient(circle at 15% 16%, rgba(101, 228, 197, 0.12), transparent 22rem),
+                  linear-gradient(180deg, var(--bg), #0a1020 42%, #070b13);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(8, 17, 31, 0.82);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: 0; text-decoration: none; }
+    .brand img { width: 34px; height: 34px; border-radius: 7px; }
+    .nav-links { display: flex; align-items: center; gap: 18px; color: var(--muted); font-size: 14px; }
+    .nav-links a { text-decoration: none; }
+    .nav-links a:hover { color: var(--ink); }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 7px;
+      border: 1px solid rgba(80, 183, 255, 0.35);
+      background: rgba(80, 183, 255, 0.13);
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .button.primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06101f; border: none; }
+    .button:hover { transform: translateY(-1px); }
+    .hero { padding: 78px 0 52px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 0.88fr) minmax(420px, 1.12fr); gap: 46px; align-items: center; }
+    .eyebrow { color: var(--accent-2); font-weight: 800; text-transform: uppercase; font-size: 13px; letter-spacing: 0.12em; }
+    h1 { margin: 16px 0 18px; font-size: clamp(46px, 7vw, 82px); line-height: 0.95; letter-spacing: 0; }
+    .lead { font-size: 20px; color: #c5d4e4; max-width: 650px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 36px; max-width: 680px; }
+    .stat { border: 1px solid var(--line); background: rgba(255, 255, 255, 0.045); border-radius: var(--radius); padding: 16px; }
+    .stat strong { display: block; font-size: 26px; color: var(--ink); }
+    .stat span { color: var(--muted); font-size: 13px; }
+    .screen-frame { border: 1px solid rgba(119, 169, 222, 0.3); background: #0c1423; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .screen-top { display: flex; align-items: center; gap: 7px; height: 34px; padding: 0 14px; border-bottom: 1px solid var(--line); background: #0f1b2d; }
+    .dot { width: 10px; height: 10px; border-radius: 99px; background: #55718e; }
+    .dot:nth-child(1) { background: #ff6b6b; }
+    .dot:nth-child(2) { background: #f2b366; }
+    .dot:nth-child(3) { background: #65e4c5; }
+    .screen-frame img { width: 100%; display: block; }
+    section { padding: 70px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+    .section-head h2 { margin: 0; font-size: clamp(30px, 4vw, 48px); line-height: 1.05; letter-spacing: 0; }
+    .section-head p { margin: 0; max-width: 640px; color: var(--muted); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { border: 1px solid var(--line); background: var(--panel); border-radius: var(--radius); padding: 22px; }
+    .card h3 { margin: 0 0 9px; font-size: 18px; }
+    .card p { margin: 0; color: var(--muted); }
+    .icon { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 7px; margin-bottom: 16px; background: rgba(80,183,255,0.14); color: var(--accent); font-weight: 900; }
+    .feature-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; margin-top: 22px; color: #cbd8e5; }
+    .feature-list div { padding-left: 22px; position: relative; }
+    .feature-list div::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 8px; height: 8px; border-radius: 2px; background: var(--accent-2); }
+    .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .shot { border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel-strong); overflow: hidden; }
+    .shot img { width: 100%; display: block; aspect-ratio: 16 / 9; object-fit: cover; object-position: top center; }
+    .shot.wide { grid-column: 1 / -1; }
+    .shot.wide img { aspect-ratio: 2.45 / 1; }
+    .shot figcaption { padding: 14px 16px 16px; color: var(--muted); font-size: 14px; }
+    .views { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .view { border: 1px solid var(--line); background: rgba(255,255,255,0.04); border-radius: 7px; padding: 14px; }
+    .view strong { display: block; margin-bottom: 4px; }
+    .view span { color: var(--muted); font-size: 14px; }
+    .guide { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 24px; align-items: start; }
+    .steps { counter-reset: step; display: grid; gap: 12px; }
+    .step { counter-increment: step; border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 16px 16px 58px; background: rgba(255,255,255,0.045); position: relative; }
+    .step::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 28px; height: 28px; border-radius: 7px; display: grid; place-items: center; background: var(--accent); color: #06101f; font-weight: 900; }
+    .step h3 { margin: 0 0 4px; font-size: 17px; }
+    .step p { margin: 0; color: var(--muted); }
+    .cta { border: 1px solid rgba(101, 228, 197, 0.35); background: linear-gradient(135deg, rgba(80,183,255,0.18), rgba(101,228,197,0.12)); border-radius: var(--radius); padding: 34px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+    .cta h2 { margin: 0 0 8px; font-size: 34px; }
+    .cta p { margin: 0; color: var(--muted); }
+    footer { border-top: 1px solid var(--line); color: var(--muted); padding: 28px 0 42px; }
+    @media (max-width: 920px) {
+      .hero-grid, .guide { grid-template-columns: 1fr; }
+      .cards, .views { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 12px; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 28px, 1180px); }
+      .hero { padding-top: 44px; }
+      .stats, .cards, .shots, .views, .feature-list { grid-template-columns: 1fr; }
+      .shot.wide { grid-column: auto; }
+      .cta { display: block; }
+      .cta .button { margin-top: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top"><img src="assets/icons/sysml-v2-icon.png" alt=""> SysML v2 for VS Code</a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#diagrams">Diagrams</a>
+        <a href="#guide">Guide</a>
+        <a href="user-guide.html">User guide</a>
+        <a class="button" href="releases/">Releases</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">SysML v2 and KerML modeling in VS Code</div>
+          <h1>Engineer text models and diagrams in one workspace.</h1>
+          <p class="lead">A local, Langium-based VS Code extension for SysML v2 and KerML with full language intelligence, a bundled OMG standard library, deterministic diagnostics, and live editable SysML v2 graphical views.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="releases/">Download VSIX</a>
+            <a class="button" href="user-guide.html">Read the user guide</a>
+            <a class="button" href="https://github.com/voidaliot/sysml-v2-vscext-release/issues">Report an issue</a>
+          </div>
+          <div class="stats" aria-label="Extension highlights">
+            <div class="stat"><strong>9</strong><span>standard diagram views</span></div>
+            <div class="stat"><strong>45+</strong><span>SysML and KerML snippets</span></div>
+            <div class="stat"><strong>0</strong><span>telemetry or cloud runtime</span></div>
+          </div>
+        </div>
+        <div class="screen-frame" aria-label="Software-defined vehicle diagram screenshot">
+          <div class="screen-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <img src="assets/screenshots/feature-editor-diagram-workspace.png" alt="VS Code workspace showing sdv.sysml source and a live SysML diagram side by side">
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Built for real SysML v2 authoring.</h2>
+          <p>The extension treats textual SysML as source code: parsed, indexed, formatted, refactored, traced, and visualized without a separate Java runtime or PlantUML server.</p>
+        </div>
+        <div class="cards">
+          <article class="card"><span class="icon">{ }</span><h3>Complete language workbench</h3><p>Syntax highlighting, semantic tokens, folding, outline, workspace symbols, hover, completion, signature help, inlay hints, and AST-based formatting for <code>.sysml</code> and <code>.kerml</code>.</p></article>
+          <article class="card"><span class="icon">!</span><h3>Diagnostics and quick fixes</h3><p>Stable lexical, syntax, resolution, semantic, style, unit, and migration diagnostic families with configurable severities and mechanical quick fixes.</p></article>
+          <article class="card"><span class="icon">↔</span><h3>Cross-file navigation</h3><p>Go to definition, find references, document highlight, alias declaration lookup, and rename across workspace models and the read-only bundled standard library.</p></article>
+          <article class="card"><span class="icon">Σ</span><h3>Requirements and verification</h3><p>Requirement reference CodeLens, runnable verification cases, satisfy/verify tracing, dimensional checks, and an editable requirements Grid View with CSV export.</p></article>
+          <article class="card"><span class="icon">▣</span><h3>Standard library included</h3><p>The official OMG SysML v2 release library is bundled and pre-indexed, including Systems, Kernel, Quantities and Units, Geometry, Analysis, Metadata, and Requirement Derivation.</p></article>
+          <article class="card"><span class="icon">#</span><h3>Agent-ready tooling</h3><p>VS Code language-model tools expose server-backed model context, draft validation, library search, symbol resolution, requirement tracing, and diagnostic explanation.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="diagrams">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Live editable diagrams from the same model.</h2>
+          <p>The SDV example (<code>reference/sdv.sysml</code>) exercises structure, behavior, requirements, cases, sequences, and geometry. Diagrams are rendered locally on a React Flow canvas and write edits back through guarded language-server workspace edits.</p>
+        </div>
+        <figure class="shot wide">
+          <img src="assets/screenshots/feature-diagram-geometry.png" alt="VS Code Geometry View with SDV source and 2D/3D vehicle layout frames">
+          <figcaption>Geometry View beside the source: placement attributes drive the 2D plan and isometric 3D vehicle-layout frames.</figcaption>
+        </figure>
+        <div class="shots" style="margin-top:18px">
+          <figure class="shot"><img src="assets/screenshots/feature-diagram-interconnection.png" alt="VS Code Interconnection View for the SDV model"><figcaption>Interconnection View renders nested parts, ports, connectors, interfaces, and item flows from the same textual model.</figcaption></figure>
+          <figure class="shot"><img src="assets/screenshots/feature-diagram-action-flow.png" alt="VS Code Action Flow View for the SDV model"><figcaption>Action Flow View shows behavior steps, control nodes, item flows, and performer structure.</figcaption></figure>
+          <figure class="shot"><img src="assets/screenshots/feature-diagram-state-transition.png" alt="VS Code State Transition View anchored on an SDV state machine"><figcaption>State Transition View stays tied to the source state block, including composite states and transitions.</figcaption></figure>
+          <figure class="shot"><img src="assets/screenshots/feature-diagram-sequence.png" alt="VS Code Sequence View with lifelines and messages"><figcaption>Sequence View lays out lifelines, activation context, message arrows, payload labels, and replies.</figcaption></figure>
+          <figure class="shot"><img src="assets/screenshots/feature-diagram-case.png" alt="VS Code Case View with use cases and actors"><figcaption>Case View presents use, analysis, and verification cases with actors, subjects, includes, and boundaries.</figcaption></figure>
+          <figure class="shot"><img src="assets/screenshots/feature-diagram-grid.png" alt="VS Code Grid View requirements table"><figcaption>Grid View is an editable requirements table with documentation, subjects, attributes, trace links, status, and CSV export.</figcaption></figure>
+        </div>
+        <div class="views" style="margin-top:24px">
+          <div class="view"><strong>General</strong><span>Definitions, packages, usage links, specialization, imports, requirements, and quick filters.</span></div>
+          <div class="view"><strong>Interconnection</strong><span>Nested parts, directional ports, connectors, interfaces, bindings, and item flows.</span></div>
+          <div class="view"><strong>Action Flow</strong><span>Actions, fork/join, decide/merge, send/accept, final nodes, item flows, and performers.</span></div>
+          <div class="view"><strong>State Transition</strong><span>Composite and parallel states, transitions, guards, effects, exhibit edges, and causation.</span></div>
+          <div class="view"><strong>Sequence</strong><span>Lifelines, activation bars, event occurrences, messages, payload labels, and replies.</span></div>
+          <div class="view"><strong>Case</strong><span>Use, analysis, and verification cases with actors, subjects, includes, and specialization.</span></div>
+          <div class="view"><strong>Geometry</strong><span>2D plan or isometric 3D shapes from model-declared positions and dimensions.</span></div>
+          <div class="view"><strong>Grid</strong><span>Editable requirement table with doc, subject, per-attribute columns, constraints, links, status, and CSV export.</span></div>
+          <div class="view"><strong>Browser panel</strong><span>Package and membership tree with expand/collapse and diagram-element highlighting.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="guide">
+      <div class="wrap guide">
+        <div>
+          <div class="section-head" style="display:block;margin-bottom:18px"><h2>Start with the SDV example.</h2><p>The guide walks through installation, opening a model, using editor intelligence, selecting diagrams, editing diagrams, and configuring project-level defaults.</p></div>
+          <a class="button primary" href="user-guide.html">Open the full guide</a>
+        </div>
+        <div class="steps">
+          <article class="step"><h3>Install the VSIX</h3><p>Download the latest package from <code>releases/</code>, then install it with VS Code's Install from VSIX command.</p></article>
+          <article class="step"><h3>Open <code>sdv.sysml</code></h3><p>Load the workspace and open <code>reference/sdv.sysml</code> to see highlighting, outline, diagnostics, hover, and completion.</p></article>
+          <article class="step"><h3>Run <code>SysML: Show Diagram</code></h3><p>Switch between General, Interconnection, Action Flow, State Transition, Sequence, Case, Geometry, and Grid views.</p></article>
+          <article class="step"><h3>Edit visually or textually</h3><p>Use diagram tools to add, connect, rename, resize, reconnect, or delete elements; the source remains the authoritative SysML text.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap cta">
+        <div><h2>Private, local, and source-controlled.</h2><p>No telemetry, no hosted parser, no PlantUML service, no model upload. Source text, diagram side-cars, and project config stay in your repository.</p></div>
+        <a class="button primary" href="releases/">Get the extension</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">Built with Langium, vscode-languageclient, React Flow, and the OMG SysML v2 standard library.</div>
+    <div class="wrap">Screenshot model: <code>reference/sdv.sysml</code>. The sysml file was AI generated.</div>
+  </footer>
+</body>
+</html>
+
+
+

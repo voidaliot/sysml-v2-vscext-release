@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User Guide — SysML v2 for Visual Studio Code</title>
+  <meta name="description" content="How to install and use the SysML v2 and KerML VS Code extension: editor intelligence, diagnostics, live editable diagrams, the bundled OMG standard library, settings, and troubleshooting.">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #08111f;
+      --bg-2: #0d1829;
+      --panel: rgba(17, 31, 52, 0.78);
+      --panel-strong: #13233a;
+      --ink: #eef6ff;
+      --muted: #9fb3c8;
+      --line: rgba(148, 180, 214, 0.2);
+      --accent: #50b7ff;
+      --accent-2: #65e4c5;
+      --accent-3: #f2b366;
+      --danger: #ff6b8a;
+      --shadow: 0 22px 70px rgba(0, 0, 0, 0.42);
+      --radius: 8px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at 78% 4%, rgba(80, 183, 255, 0.16), transparent 26rem),
+                  radial-gradient(circle at 8% 12%, rgba(101, 228, 197, 0.1), transparent 22rem),
+                  linear-gradient(180deg, var(--bg), #0a1020 42%, #070b13);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--ink); }
+    code, kbd { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+    code {
+      background: rgba(80, 183, 255, 0.12);
+      border: 1px solid rgba(80, 183, 255, 0.18);
+      color: #d7e8fb;
+      padding: 1px 6px;
+      border-radius: 5px;
+      font-size: 0.88em;
+    }
+    kbd {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--line);
+      border-bottom-width: 2px;
+      border-radius: 6px;
+      padding: 1px 7px;
+      font-size: 0.82em;
+      color: var(--ink);
+    }
+    .wrap { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+
+    /* ---- top nav (shared look with index.html) ---- */
+    .nav {
+      position: sticky; top: 0; z-index: 30;
+      backdrop-filter: blur(18px);
+      background: rgba(8, 17, 31, 0.82);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; color: var(--ink); }
+    .brand img { width: 34px; height: 34px; border-radius: 7px; }
+    .nav-links { display: flex; align-items: center; gap: 18px; color: var(--muted); font-size: 14px; }
+    .nav-links a { color: var(--muted); }
+    .nav-links a.active { color: var(--ink); }
+    .nav-links a:hover { color: var(--ink); }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 42px; padding: 0 16px; border-radius: 7px;
+      border: 1px solid rgba(80, 183, 255, 0.35);
+      background: rgba(80, 183, 255, 0.13);
+      color: var(--ink); font-weight: 700; white-space: nowrap;
+    }
+    .button.primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06101f; border: none; }
+    .button:hover { transform: translateY(-1px); color: var(--ink); }
+    .button.primary:hover { color: #06101f; }
+
+    /* ---- guide header ---- */
+    .guide-head { padding: 56px 0 26px; border-bottom: 1px solid var(--line); }
+    .eyebrow { color: var(--accent-2); font-weight: 800; text-transform: uppercase; font-size: 13px; letter-spacing: 0.12em; }
+    .guide-head h1 { margin: 14px 0 14px; font-size: clamp(38px, 6vw, 60px); line-height: 1.0; }
+    .guide-head p { margin: 0; font-size: 19px; color: #c5d4e4; max-width: 720px; }
+    .crumbs { margin-top: 22px; font-size: 14px; color: var(--muted); }
+    .crumbs a { color: var(--muted); }
+    .crumbs a:hover { color: var(--ink); }
+
+    /* ---- layout: sticky TOC + content ---- */
+    .layout { display: grid; grid-template-columns: 244px minmax(0, 1fr); gap: 44px; padding: 40px 0 90px; align-items: start; }
+    .toc { position: sticky; top: 92px; }
+    .toc-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin: 0 0 12px; padding-left: 12px; }
+    .toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+    .toc li { counter-increment: toc; }
+    .toc a {
+      display: block; padding: 7px 12px; border-radius: 7px;
+      color: var(--muted); font-size: 14px; border-left: 2px solid transparent;
+    }
+    .toc a::before { content: counter(toc) ". "; color: var(--accent); font-weight: 700; }
+    .toc a:hover { background: rgba(255, 255, 255, 0.04); color: var(--ink); }
+    .toc a.active { color: var(--ink); background: rgba(80, 183, 255, 0.1); border-left-color: var(--accent); }
+
+    .content { min-width: 0; }
+    .content section { scroll-margin-top: 92px; padding: 12px 0 34px; border-bottom: 1px solid var(--line); }
+    .content section:last-of-type { border-bottom: none; }
+    .content h2 {
+      display: flex; align-items: baseline; gap: 12px;
+      margin: 12px 0 14px; font-size: clamp(24px, 3.4vw, 33px); line-height: 1.15;
+    }
+    .content h2 .num {
+      flex: none; display: inline-grid; place-items: center;
+      min-width: 34px; height: 34px; padding: 0 8px; border-radius: 8px;
+      background: rgba(80, 183, 255, 0.14); color: var(--accent);
+      font-size: 16px; font-weight: 900;
+    }
+    .content h3 { margin: 26px 0 10px; font-size: 19px; }
+    .content p { color: #cdd9e6; margin: 0 0 14px; }
+    .content ul, .content ol { color: #cdd9e6; margin: 0 0 14px; padding-left: 22px; }
+    .content li { margin: 6px 0; }
+    .content ul li::marker { color: var(--accent-2); }
+    .lead-p { font-size: 17px; color: #d6e2f0; }
+
+    /* ordered "steps" */
+    .steps { counter-reset: step; display: grid; gap: 12px; margin: 6px 0 18px; }
+    .step {
+      counter-increment: step; position: relative;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 16px 18px 16px 60px; background: rgba(255, 255, 255, 0.045);
+    }
+    .step::before {
+      content: counter(step); position: absolute; left: 16px; top: 16px;
+      width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center;
+      background: var(--accent); color: #06101f; font-weight: 900;
+    }
+    .step h3 { margin: 0 0 4px; font-size: 16px; }
+    .step p { margin: 0; color: var(--muted); }
+
+    /* tables */
+    .table-scroll { overflow-x: auto; margin: 6px 0 18px; border: 1px solid var(--line); border-radius: var(--radius); }
+    table { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 520px; }
+    thead th {
+      text-align: left; padding: 12px 16px; background: var(--panel-strong);
+      color: var(--ink); font-weight: 700; border-bottom: 1px solid var(--line); white-space: nowrap;
+    }
+    tbody td { padding: 11px 16px; border-bottom: 1px solid var(--line); color: #cdd9e6; vertical-align: top; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:nth-child(even) { background: rgba(255, 255, 255, 0.02); }
+    td code, th code { white-space: nowrap; }
+
+    /* callouts */
+    .note {
+      display: flex; gap: 13px; margin: 6px 0 18px; padding: 14px 16px;
+      border: 1px solid var(--line); border-left: 3px solid var(--accent);
+      border-radius: var(--radius); background: rgba(80, 183, 255, 0.07);
+    }
+    .note.tip { border-left-color: var(--accent-2); background: rgba(101, 228, 197, 0.07); }
+    .note.warn { border-left-color: var(--accent-3); background: rgba(242, 179, 102, 0.08); }
+    .note .ico { flex: none; font-weight: 900; color: var(--accent); }
+    .note.tip .ico { color: var(--accent-2); }
+    .note.warn .ico { color: var(--accent-3); }
+    .note p { margin: 0; color: #d6e2f0; font-size: 14.5px; }
+
+    /* screenshot */
+    figure.shot { margin: 6px 0 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel-strong); overflow: hidden; }
+    figure.shot img { width: 100%; display: block; }
+    figure.shot figcaption { padding: 12px 16px 14px; color: var(--muted); font-size: 13.5px; }
+
+    .backtop { display: inline-block; margin-top: 8px; font-size: 13px; color: var(--muted); }
+
+    footer { border-top: 1px solid var(--line); color: var(--muted); padding: 26px 0 44px; font-size: 14px; }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--ink); }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; gap: 8px; }
+      .toc { position: static; margin-bottom: 8px; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+      .nav-links a:not(.active):not(.button) { display: none; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 28px, 1180px); }
+      .guide-head { padding-top: 36px; }
+    }
+  </style>
+</head>
+<body id="top">
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html"><img src="assets/icons/sysml-v2-icon.png" alt=""> SysML v2 for VS Code</a>
+      <div class="nav-links">
+        <a href="index.html#features">Features</a>
+        <a href="index.html#diagrams">Diagrams</a>
+        <a class="active" href="user-guide.html">User guide</a>
+        <a class="button" href="releases/">Releases</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="guide-head">
+    <div class="wrap">
+      <div class="eyebrow">User guide</div>
+      <h1>Model SysML v2 and KerML in VS Code.</h1>
+      <p>How to install the extension, open the software-defined vehicle example, use the editor intelligence, render and edit live diagrams, and configure project defaults — everything local, with no Java runtime, PlantUML server, or telemetry.</p>
+      <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; User guide</div>
+    </div>
+  </header>
+
+  <div class="wrap layout">
+    <!-- ---------- table of contents ---------- -->
+    <nav class="toc" aria-label="Guide contents">
+      <p class="toc-title">On this page</p>
+      <ol>
+        <li><a href="#install">Install</a></li>
+        <li><a href="#showcase">Open the SDV showcase</a></li>
+        <li><a href="#editor">Core editor workflow</a></li>
+        <li><a href="#diagrams">Diagram views</a></li>
+        <li><a href="#edit-diagrams">Edit diagrams safely</a></li>
+        <li><a href="#library">Standard library</a></li>
+        <li><a href="#settings">Recommended settings</a></li>
+        <li><a href="#troubleshooting">Troubleshooting</a></li>
+        <li><a href="#links">Links</a></li>
+      </ol>
+    </nav>
+
+    <!-- ---------- content ---------- -->
+    <main class="content">
+
+      <section id="install">
+        <h2><span class="num">1</span> Install</h2>
+        <p class="lead-p">The extension ships as a single VSIX package. There is nothing else to install — no Java, no PlantUML, no diagram server, no cloud account.</p>
+        <div class="steps">
+          <article class="step"><h3>Download the VSIX</h3><p>Grab the latest <code>vscode-sysml-v2-*.vsix</code> from the <a href="releases/">releases</a> folder.</p></article>
+          <article class="step"><h3>Install from VSIX</h3><p>In VS Code run <code>Extensions: Install from VSIX…</code> from the Command Palette (<kbd>Ctrl/Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>) and pick the file.</p></article>
+          <article class="step"><h3>Open a model folder</h3><p>Open a folder containing <code>.sysml</code>, <code>.kerml</code>, or <code>.kpar</code> files.</p></article>
+          <article class="step"><h3>Wait for ready</h3><p>Open a <code>.sysml</code> file and wait until the status bar shows <code>SysML: ready</code>. The bundled library is pre-indexed, so this is fast.</p></article>
+        </div>
+        <div class="note tip"><span class="ico">✓</span><p>The extension runs entirely on your machine. Source text, diagram side-cars, and project config stay in your repository.</p></div>
+        <a class="backtop" href="#top">↑ Back to top</a>
+      </section>
+
+      <section id="showcase">
+        <h2><span class="num">2</span> Open the SDV showcase</h2>
+        <p>Use the source-repository example as a guided feature tour:</p>
+        <div class="note"><span class="ico">▸</span><p><code>reference/sdv.sysml</code></p></div>
+        <p>The model describes a <strong>software-defined vehicle</strong> with external actors, vehicle subsystems, typed ports and interfaces, actions, states, sequences, requirements, verification cases, variation points, and geometry examples. It is intentionally broad, so every diagram view has meaningful content to show.</p>
+        <figure class="shot">
+          <img src="assets/screenshots/feature-editor-diagram-workspace.png" alt="VS Code workspace showing sdv.sysml source alongside a live SysML diagram">
+          <figcaption>The SDV model open beside a live diagram — text on the left stays the single source of truth.</figcaption>
+        </figure>
+        <a class="backtop" href="#top">↑ Back to top</a>
+      </section>
+
+      <section id="editor">
+        <h2><span class="num">3</span> Core editor workflow</h2>
+        <p class="lead-p">Treat SysML and KerML files like code. Everything below is server-backed and works across your workspace and the read-only bundled standard library.</p>
+        <ul>
+          <li><strong>Syntax highlighting</strong> works instantly for <code>.sysml</code> and <code>.kerml</code>.</li>
+          <li><strong>Completion</strong> offers keywords, snippets, visible symbols, library names, members, and units.</li>
+          <li><strong>Hover</strong> shows element kind, typing, multiplicity, documentation, and links to the library source.</li>
+          <li><strong>Diagnostics</strong> appear in Problems with stable codes such as <code>RES001</code>, <code>SEM006</code>, <code>UNIT003</code>, and <code>MIG001</code>.</li>
+          <li><strong>Quick fixes</strong> handle mechanical rewrites: missing imports, boolean-operator migration, missing requirement subjects, unit suggestions, and SysML&nbsp;v1 idiom migration.</li>
+          <li><strong>Formatting</strong> is AST-based and follows your VS Code indentation settings.</li>
+          <li><strong>Navigation</strong>: go to definition, find references, rename, document symbols, workspace symbols, document highlight, signature help, and inlay hints.</li>
+        </ul>
+
+        <h3>Useful commands</h3>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Command</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td><code>SysML: Show Diagram</code></td><td>Open the live diagram preview for the active model or element.</td></tr>
+              <tr><td><code>SysML: Which Diagram? (view guidance)</code></td><td>Pick the question you want answered and open the recommended view.</td></tr>
+              <tr><td><code>SysML: Toggle Diagram Side / Tab Mode</code></td><td>Switch between the side panel and a full tab (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd>).</td></tr>
+              <tr><td><code>SysML: Show Diagnostic Reference</code></td><td>Open the diagnostic-code catalogue.</td></tr>
+              <tr><td><code>SysML: Open Standard Library Folder</code></td><td>Browse the bundled OMG standard-library source.</td></tr>
+              <tr><td><code>SysML: Open .kpar Archive</code></td><td>Open an OMG package archive as read-only extracted model files.</td></tr>
+              <tr><td><code>SysML: Export Abstract Syntax JSON</code></td><td>Export the active textual model to OMG abstract-syntax JSON.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <a class="backtop" href="#top">↑ Back to top</a>
+      </section>
+
+      <section id="diagrams">
+        <h2><span class="num">4</span> Diagram views</h2>
+        <p>Run <code>SysML: Show Diagram</code> on <code>sdv.sysml</code>. The extension detects which views have content and offers the relevant options. Diagrams render locally on a React&nbsp;Flow canvas.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>View</th><th>Shows</th></tr></thead>
+            <tbody>
+              <tr><td><strong>General</strong></td><td>Definitions, packages, usage links, specialization, imports, requirements, metadata, variation, compartments, and quick category filters.</td></tr>
+              <tr><td><strong>Interconnection</strong></td><td>Nested parts, ports, connectors, bindings, interfaces, item flows, endpoint docking, and reconnectable connectors.</td></tr>
+              <tr><td><strong>Action Flow</strong></td><td>Actions, control nodes, send/accept nodes, item flows, final/terminate nodes, and performers.</td></tr>
+              <tr><td><strong>State Transition</strong></td><td>States, composite and parallel state frames, transitions, guards, effects, exhibit and causation links.</td></tr>
+              <tr><td><strong>Sequence</strong></td><td>Lifelines, activation bars, messages, payload labels, replies, and event occurrences.</td></tr>
+              <tr><td><strong>Case</strong></td><td>Use, analysis, and verification cases with actors, subjects, includes, specialization, and optional boundary-box presentation.</td></tr>
+              <tr><td><strong>Geometry</strong></td><td>2D plan or isometric 3D shape layout from model-declared positions and dimensions.</td></tr>
+              <tr><td><strong>Grid</strong></td><td>Editable requirements table with documentation, subject, per-attribute columns, constraints, satisfy/verify links, status, and CSV export.</td></tr>
+              <tr><td><strong>Browser</strong></td><td>Package and membership tree panel with expand/collapse and diagram-element highlighting.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note tip"><span class="ico">✓</span><p>Diagram colors follow the active VS Code theme. Layout state is stored under <code>.vscode/sysml/diagrams/</code> in the repository, never inside the <code>.sysml</code> source.</p></div>
+
+        <figure class="shot">
+          <img src="assets/screenshots/feature-diagram-interconnection.png" alt="Interconnection View for the SDV model">
+          <figcaption>Interconnection View — nested parts, ports, connectors, interfaces, and item flows from the textual model.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="assets/screenshots/feature-diagram-grid.png" alt="Grid View requirements table for the SDV model">
+          <figcaption>Grid View — an editable requirements table with trace links, status, and CSV export.</figcaption>
+        </figure>
+        <a class="backtop" href="#top">↑ Back to top</a>
+      </section>
+
+      <section id="edit-diagrams">
+        <h2><span class="num">5</span> Edit diagrams safely</h2>
+        <p class="lead-p">The diagram preview is not just a picture — it sends <strong>guarded workspace edits</strong> through the language server.</p>
+        <p>Common actions:</p>
+        <ul>
+          <li>Drag and resize nodes.</li>
+          <li>Rename elements with <kbd>F2</kbd> or the toolbar action.</li>
+          <li>Add view-specific elements from the toolbar tools.</li>
+          <li>Draw relationships with two clicks: connect, transition, succession, message, include, satisfy, and other view-specific links.</li>
+          <li>Select connectors, delete them, reconnect endpoints, or adjust waypoints.</li>
+          <li>Export graph views as SVG.</li>
+          <li>Export Grid View as CSV.</li>
+        </ul>
+        <div class="note warn"><span class="ico">!</span><p>The text model stays authoritative. If an edit would produce invalid SysML, the server rejects it instead of corrupting the file.</p></div>
+        <a class="backtop" href="#top">↑ Back to top</a>
+      </section>
+
+      <section id="library">
+        <h2><span class="num">6</span> Standard library</h2>
+        <p>The complete OMG SysML v2 release standard library is bundled and pre-indexed:</p>
+        <ul>
+          <li><strong>Systems Library</strong> — Parts, Ports, Items, Actions, States, Requirements, Constraints, Cases, Views, SysML.</li>
+          <li><strong>Kernel Libraries</strong> — data types, functions, and semantic kernel packages.</li>
+          <li><strong>Domain Libraries</strong> — Quantities and Units, Geometry, Analysis, Metadata, Cause and Effect, Requirement Derivation.</li>
+        </ul>
+        <p><code>sysml.standardLibraryPath</code> can point at an external <code>sysml.library/</code> source tree, a <code>.kpar</code> archive, or a directory of <code>.kpar</code> archives. Leave it empty to use the bundled library.</p>
+        <a class="backtop" href="#top">↑ Back to top</a>
+      </section>
+
+      <section id="settings">
+        <h2><span class="num">7</span> Recommended settings</h2>
+        <p>Open VS Code settings and search for <code>sysml</code>.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Setting</th><th>Default</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td><code>sysml.editor.autoImportOnSave</code></td><td><code>true</code></td><td>Add missing cross-package imports on save.</td></tr>
+              <tr><td><code>sysml.diagnostics.units</code></td><td><code>true</code></td><td>Enable quantity and unit diagnostics.</td></tr>
+              <tr><td><code>sysml.inlayHints.dimension</code></td><td><code>false</code></td><td>Show physical-dimension hints.</td></tr>
+              <tr><td><code>sysml.preview.diagrams.defaultKind</code></td><td><code>gv</code></td><td>Preferred primary diagram view.</td></tr>
+              <tr><td><code>sysml.preview.diagrams.defaultMode</code></td><td><code>side</code></td><td>Open diagrams in side-panel or tab mode.</td></tr>
+              <tr><td><code>sysml.preview.diagrams.update</code></td><td><code>on-save</code></td><td>Choose live, on-save, or manual diagram refresh.</td></tr>
+              <tr><td><code>sysml.preview.diagrams.lineStyle</code></td><td><code>orthogonal</code></td><td>Default connector routing style.</td></tr>
+              <tr><td><code>sysml.preview.diagrams.syncUsageToDef</code></td><td><code>true</code></td><td>Let Interconnection structural edits synchronize to typed definitions.</td></tr>
+              <tr><td><code>sysml.validation.severities</code></td><td><code>{}</code></td><td>Override individual diagnostic severities.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note tip"><span class="ico">✓</span><p>Project teams can check in <code>.vscode/sysml/project.json</code> to set diagram defaults consistently across a repository.</p></div>
+        <a class="backtop" href="#top">↑ Back to top</a>
+      </section>
+
+      <section id="troubleshooting">
+        <h2><span class="num">8</span> Troubleshooting</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Symptom</th><th>Fix</th></tr></thead>
+            <tbody>
+              <tr><td>Language identifier is not <code>SysML</code>.</td><td>Confirm the file extension is <code>.sysml</code> and select the language manually from the VS Code status bar.</td></tr>
+              <tr><td>Diagnostics look stale.</td><td>Run <code>SysML: Restart Language Server</code>.</td></tr>
+              <tr><td>A diagram view is missing.</td><td>The active model or selected anchor probably has no content for that view. Run <code>SysML: Which Diagram? (view guidance)</code> to choose the right view for your question.</td></tr>
+              <tr><td>A standard-library symbol does not resolve.</td><td>Leave <code>sysml.standardLibraryPath</code> empty to use the bundled pre-indexed library, or verify that your external path points at a valid source tree or <code>.kpar</code> archive.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <a class="backtop" href="#top">↑ Back to top</a>
+      </section>
+
+      <section id="links">
+        <h2><span class="num">9</span> Links</h2>
+        <ul>
+          <li><a href="index.html">Front page</a></li>
+          <li><a href="releases/">Releases</a></li>
+          <li><a href="https://github.com/voidaliot/sysml-v2-vscext-release/issues">Report an issue</a></li>
+          <li>Bundled library attribution: see the extension package <code>resources/sysml.library/</code> licenses.</li>
+        </ul>
+        <a class="backtop" href="#top">↑ Back to top</a>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <div class="wrap">Built with Langium, vscode-languageclient, React Flow, and the OMG SysML v2 standard library. Screenshot model: <code>reference/sdv.sysml</code>. &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="releases/">Releases</a></div>
+  </footer>
+
+  <script>
+    // Highlight the current TOC entry as you scroll.
+    (function () {
+      var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+      var map = {};
+      links.forEach(function (a) {
+        var id = a.getAttribute('href').slice(1);
+        var el = document.getElementById(id);
+        if (el) map[id] = a;
+      });
+      var sections = Object.keys(map).map(function (id) { return document.getElementById(id); });
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            links.forEach(function (l) { l.classList.remove('active'); });
+            if (map[e.target.id]) map[e.target.id].classList.add('active');
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+      sections.forEach(function (s) { obs.observe(s); });
+    })();
+  </script>
+</body>
+</html>
