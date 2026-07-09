@@ -2,6 +2,32 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.9.35] - 2026-07-09
+
+### Fixed
+
+- **Delegation connectors now always show.** A connector from an internal part's port to a boundary port of the enclosing part (e.g. `connect wheels.spin to roadContact;`) could be missing from the Interconnection View even though it was correctly written in the model. Such a connector docks on the port's *inner* side, but the port only drew a handle on its outer side, so React Flow couldn't resolve the endpoint and silently dropped the whole edge. Every port now renders a connect handle on both its outer and inner sides, so the connector is always drawn. (issue #195)
+- **Dropping a connector onto a port is reliable anywhere on it, and the line snaps to the connection point.** While you drag a connector, moving it over a port highlights the port and the preview line visibly snaps to the port's connection dot, so you can see exactly where it will land; releasing lands it anywhere on the port — inside the square or on any edge — with no pixel-perfect sweetspot, and a nearby part edge can no longer steal the drop. Ports stay fully selectable and movable (grab cursor on hover), and you still draw a connector by dragging from the port's connect dot, exactly as before. Where the connector docks is chosen automatically by whether it comes from inside or outside the part. (issue #195)
+
+## [0.9.34] - 2026-07-09
+
+### Added
+
+- **Reset connector routing without disturbing the layout.** A new bottom-left control-bar button (beside Fit and Reset) snaps every connector line back to its automatic route while KEEPING the node/block positions and port placements you arranged. The existing Reset still returns everything to automatic layout. (issue #188)
+- **Create named messages in the Sequence View.** Draw an arrow between two lifelines (or use the ✉ tool) and an inline text box immediately appears for the message name; on Enter the message is written into the owning `occurrence def`/part (`message <name> from a to b;`). Leaving the name blank creates an anonymous message. (issue #192)
+
+### Fixed
+
+- **Ports connect reliably in the Interconnection View, and land on the connection point.** Starting a connector from a port used to fail intermittently — the port-move grab area covered the connect dots, so a drag often slid the port instead of drawing a line; the move handle is now a thin strip that leaves the connect dot targetable. And a port now shows a single connect dot on its outer edge instead of two, so a dropped connector lands on that point on the part boundary rather than snapping to an "imaginary" point inside the port. (issue #187)
+- **Right-click ▸ Rename works on Interconnection View parts.** A container part is drawn as a frame, and Rename/Delete previously only recognised leaf nodes, so the menu items did nothing on any part with internals. The frame's title is now editable in place — right-click ▸ Rename (or F2), type, Enter. (issue #189)
+- **Ports are much easier to connect.** Dropping (or starting) a connector no longer needs a pixel-perfect sweetspot: the port's connect handle has a larger invisible hit area and a more forgiving snap radius, and in the Interconnection View a ported part connects only through its ports (its body no longer competes for the drop), so a drop anywhere near the port lands on it and the port highlights as the drop target. (issue #190)
+- **Sequence View `send` events are labelled.** A `send DoorStatus() to …` message arrow now carries its payload/signal label (`DoorStatus`), like `message` arrows; previously send arrows were blank. (issue #191)
+- **Metadata annotations show their attribute values.** A named metadata usage (`metadata m : SafetyLevel { level = 3; }`) or a `@`-annotation (`@SafetyLevel { level = 3; }`) now displays its attribute value assignments — e.g. `SafetyLevel { level = 3 }` — on its diagram annotation node/badge, not just the bare metadata type name. (issue #121)
+
+### Changed
+
+- **Sequences are `occurrence def` interactions, shown in the Sequence View and kept out of the Interconnection View.** The Sequence View now anchors on an `occurrence def` — the canonical OMG interaction container — whose participants are `ref part` references, and such an interaction (and the parts it references) no longer appears as blocks in the Interconnection View. The bundled Software-Defined-Vehicle showcase's five sequences were re-modelled from standalone `part def`s accordingly. (issue #113)
+
 ## [0.9.33] - 2026-07-08
 
 ### Fixed
