@@ -2,7 +2,14 @@
 
 All notable changes to this extension will be documented in this file.
 
-## [0.9.36] - in work
+## [0.9.37] - 
+
+### Fixed
+
+- **A handful more name-resolution false positives are gone.** A name lookup shared by several diagnostics (cyclic-specialization, private-import, dotted-namespace, and import-cycle checks) ignored which file a reference was written in, so a locally-declared name that happened to also exist elsewhere (a standard-library attribute, an unrelated file's usage of the same word) could resolve to the wrong element. Name resolution now prefers a declaration in the same file before falling back to the wider index. (issue #94)
+- **`structure` is usable as an ordinary name again.** The grammar accepted `structure` as an undocumented alternate spelling of the KerML `struct` keyword, so any declaration or feature path segment named `structure` (`part structure : Structure;`) was misread as a keyword and rejected with a KerML-construct error. Only `struct` is reserved, per the OMG KerML grammar. (issue #1)
+
+## [0.9.36] - 2026-07-12
 
 ### Added
 
@@ -31,7 +38,6 @@ All notable changes to this extension will be documented in this file.
 ### Fixed
 
 - **OMG reference models validate without ghost errors.** Relative, re-exported, inherited, and dotted names now resolve (`P1::B`, `Person::Life`, `system.uc1`); flow definitions are valid type targets; legal reference subsetting, owner-body metadata, KerML `featured by` Features, coordinate-frame/measurement-reference postfixes, local units, and Unicode unit exponents no longer raise false SYN/RES/KSM/UNIT errors. A new semantic corpus gate validates every committed OMG validation, examples, training, and KerML model at zero error diagnostics. (issue #184)
-
 - **Interconnection View layout directions now describe the top level.** Top→Down stacks top-level parts vertically and Left→Right places them horizontally; the contents inside every part retain the established left-to-right flow in both modes. (user direction 2026-07-11)
 - **Multiline notes (`//* … */`) are recognized.** The KerML `//* … */` note is now lexed as hidden trivia and highlighted as a foldable block comment, instead of the opening `//` swallowing the line and leaving the closing `*/` as stray code. Five OMG release examples that use this note form now parse. (issue #180)
 - **Unrestricted names accept backslash escapes.** A single-quoted name may contain the KerML escapes `\'`, `\"`, `\t`, `\n`, `\\`, etc. (`part def 'A\'B';`), and names are compared by their decoded value, so references resolve regardless of how the escapes are written; renaming to a name with spaces or quotes writes a correctly-escaped token. (issue #181)
