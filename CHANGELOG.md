@@ -2,15 +2,59 @@
 
 All notable changes to this extension will be documented in this file.
 
-## [0.9.38] - in work
+## [0.10.1] - 2026-07-14
+
+### Added
+
+- **Sequence interactions warn when a reference participant does not select an actual occurrence.** `SSM014` flags a typed-only `ref part p : T;` when `p` is used as a message lifeline inside an `occurrence def`; bind it with `= context.actual` or redefine/subset an existing feature. The syntax remains valid elsewhere, so ordinary reference features and unused sequence scaffolds are not warned.
+
+### Changed
+
+- **Diagram creation has moved from the toolbar to focused right-click menus.** Right-click a blank surface to add an element to that diagram's exact model anchor, or right-click an element/port to choose a relationship valid from that source and then select a compatible target. Menus show the canonical icon and text, omit generic clipboard actions, and preserve Interconnection View's direct port drag handles. ([issue #81](https://github.com/voidaliot/sysml-v2-vsc-ext/issues/81))
+- **Right-click add menus now match what each view and element can actually hold.** The blank-surface menu offers every element kind the view depicts at diagram level — Interconnection adds constraints/actions/states/calcs/occurrences alongside parts/ports/attributes/items, Action Flow and State Transition add their frame compartment rows, and the Grid View's choices follow the active preset (Requirements, Elements, Data, Matrix). Element menus offer only children that are semantically valid inside that element: an `enum def` offers enumeration values — never the view's generic list — and a Sequence View lifeline can add the `event occurrence` marks the view renders. Grid View table rows now open their own element context menu (rename, delete, add valid children) instead of the whole-table menu.
+- **Context-menu relationships are drawn like port connectors.** Choosing a nameable relationship (transition, message) asks for the name first; then a live rubber-band line follows the pointer from the right-clicked element until you click the target to place the link (`Esc` cancels). No more name popup after the fact.
 
 ### Fixed
 
-- **Interconnection View: connecting two ports no longer resets the canvas.** Dragging from one port to another to create a connector re-ran the automatic layout over the WHOLE graph, visibly snapping every un-dragged part back to its computed position. Adding a connector now only draws the new edge; every existing node stays exactly where it was. (issue #50)
+- **An escaped line break no longer hides an unterminated string or name.** A backslash at the end of a line inside a string literal or unrestricted name used to make the lexical scanner run on across the line break, losing the LEX001/LEX003 unterminated-literal report. The invalid escape (LEX004) and the unterminated literal are now both reported at the right place.
+- **`SYN098` now reads the parsed model instead of the raw text.** A recovery-form `verify … by …` clause split across lines is now caught, and a member legitimately named `by` inside a verify statement no longer triggers a false error.
+- **Clearing a value from the Data table works when a comment sits inside the value clause.** `attribute x = /* note */ 5;` now clears to `attribute x;` instead of silently failing the syntax guard.
+- **Reset connector routing now has a simpler icon.** The crowded connector-plus-reset-arrow glyph is replaced by a clear orthogonal connector with two endpoints.
+- **Bound `ref part` features now point to the actual part instead of duplicating it on the General View.** A binding such as `ref part driver = context.driver;` renders as an open-diamond link to the existing usage; only an unbound reference feature keeps a separate feature box. The SDV showcase sequences now bind every lifeline to its concrete participant in `demonstrationEcosystem`, matching the canonical OMG interaction examples.
+- **`imports` background indexing now follows unrestricted package names and preserves import identity.** Opening a file such as the OMG training `Interface Example.sysml` now discovers and indexes its quoted `'Port Example'` import. After indexing, references and Go to Definition are relinked through that explicit import even if a same-named element in another package had already satisfied the permissive global fallback.
+- **Remaining KerML feature and connector semantics are visible in diagrams.** Modifier-led and anonymous redefinition feature shorthands now appear in their owner's Features compartment; explicit subset and disjoint statements render as source-linked General View relationships; and binary/n-ary `connector` declarations plus complete `from … to …` end statements render in the Interconnection View using the existing connector/association-dot notation. Disjointness uses a neutral dashed `{disjoint}` line with no directional arrow. ([issue #80](https://github.com/voidaliot/sysml-v2-vsc-ext/issues/80))
+
+## [0.10.0] - 2026-07-13
+
+### Added
+
+- **Grid matrices are separated by relationship type and table settings are isolated.** Matrix mode now requires a toolbar choice of Allocation, Dependency, Satisfy, Flow, or Connection; Interface and the unreadable combined matrix are not offered. Requirements, Elements, Data, and every Matrix family remember independent column order/width settings (legacy single-table settings migrate only to their former active view). Qualified model identities keep same-named elements in different namespaces distinct, and GRV is offered when any preset—not only Requirements—has content.
+- **Elements and Data tables edit the model.** Elements supports Name, applicable Type/Multiplicity, and Doc edits while Kind stays read-only. Data supports Name, Type, and Value edits while Owner stays read-only. Double-click edits add, replace, or clear textual notation through the language server's syntax guard.
+
+### Fixed
+
+- **Imported definitions now contribute their structure to diagrams.** A typed part in one file now expands the parts, ports, connectors, pins, case structure, and geometry declared by its definition in another imported workspace or library file. In the OMG training Interface Example, `tankAssy` now shows its inherited `fuelTankPort`, `eng` shows its `engineFuelPort`, and the `FuelInterface` usage now draws the interface edge between those ports by following each `role ::> concrete.port` mapping, with navigation back to the Port Example definitions.
+- **Case View no longer shows elements from another view.** Rapid view switches and live edits now discard older asynchronous diagram responses, so a late General View model cannot repaint a selected Case View with part/item/state definitions. Case View admits only case-family elements and subjects; its definitions toggle now includes standalone case definitions, uses an icon instead of a `defs` text button, and unnamed bound subjects no longer collide with their case node IDs.
+- **Auto-import on save is now safe, scoped, and off by default.** Opting in no longer lets an import in one package suppress or redirect imports in a sibling, never adds a second same-named candidate when one is already imported, inserts the same needed import into every relevant namespace, preserves CRLF files, and persists ambiguity choices without racing the original save. `sysml.editor.autoImportOnSave` now defaults to `false`.
+- **Empty diagrams are now editable — build a model from scratch on the canvas.** A view anchored on an element with no content for that kind (e.g. State Transition on a bare `part def`) now keeps that element as its anchor instead of reporting "No anchor element found": toolbox adds nest inside the anchored element and appear on the next render, so a valid SysML file can be grown entirely from an (initially empty) diagram. The view-kind selector still greys out contentless kinds, and an `occurrence def` still never anchors an Interconnection View. (issue #203)
+- **`occurrence def` / `occurrence` offer the "Show diagram" CodeLens.** Occurrences are the OMG interaction containers, so they now carry the lens like parts/states/actions; an occurrence usage opens its natural Sequence View. (issue #204)
+- **A part-anchored General View no longer includes unrelated package siblings.** A package-level relationship statement (`dependency from A to C;`) used to pull the whole package into the focused view; it now relates only its endpoints. A package-level `satisfy R by part;` now correctly relates the requirement to its satisfying part. (issue #205)
+- **`ref` part membership uses the Release open diamond.** General View Tree now depicts a `ref part` as non-composite feature membership with an open owner diamond and a separate «defined by» edge, distinct from `::>` reference subsetting. Group mode keeps the single compartment row; Tree avoids duplication and does not recurse into elsewhere-owned ref contents. (issue #69)
+- **N-ary dependencies use the Release hub notation.** Binary dependencies remain direct dashed open arrows; dependencies with multiple clients or suppliers now render one named central dot, arrowless client spokes, and open-arrow supplier spokes instead of a misleading clients×suppliers expansion. (issue #68)
+- **Imports now require Release visibility.** An unqualified recovery-form `import` receives SYN067 and a preferred quick-fix to `private import`; snippets, auto-import fixes, hover examples, requirements, and acceptance guidance now always emit explicit visibility. Public re-export and protected-inheritance behavior is unchanged. (issue #66)
+- **Textual output and diagnostics now follow the Release BNF.** Completions, snippets, refactorings, samples, and guides emit `analysis [def]` / `verification [def]`. Recovery-only `readonly`, `analysis case` / `verification case`, `verify … by …`, `.?field`, and bodyless `@Metadata` forms now receive targeted SYN018/SYN097/SYN098/SYN047/SYN075 errors instead of being presented as supported notation. (issue #63)
+- **Names and strings use the exact KerML escape set.** LEX004 now rejects escapes outside Table 4 in both strings and unrestricted names; non-standard `\r`, `\v`, and `\0` handling is gone. (issue #65)
+- **Constructor bodies now have the correct AST owner.** In `return feature x = new T(...) { ... }`, the body belongs to the return feature, matching KerML §8.2.5.8.3; `NewExpr` ends after its argument list. (issue #64)
+
+## [0.9.38] - 2026-07-13
+
+### Fixed
+
+- **Interconnection View: connecting two ports no longer resets the canvas.** Dragging from one port to another to create a connector re-ran the automatic layout over the whole graph, visibly snapping every un-dragged part back to its computed position. Adding a connector now only draws the new edge; every existing node stays exactly where it was. (issue #50)
 - **Interconnection View: the canvas can be panned from inside a part again.** Dragging on empty space inside a part moved the part instead of panning the canvas, so a large part with mostly-empty interior made the canvas hard to navigate. A part's drag-to-move gesture is now scoped to its keyword/name label; dragging anywhere else on it pans the canvas (a plain click still selects the part). (issue #58)
 - **The read-only library boundary is actually enforced.** Renaming a symbol declared in the bundled (or a configured `standardLibraryPath`) library is now refused outright, and a workspace rename whose references happen to reach into a library file no longer proposes an edit to it. The bundled and any configured library tree are also marked read-only in the editor, so opening a library file (e.g. via go-to-definition) refuses direct edits. (issue #202)
 
-## [0.9.37] - 
+## [0.9.37] - 2026-07-12
 
 ### Fixed
 
@@ -46,6 +90,7 @@ All notable changes to this extension will be documented in this file.
 ### Fixed
 
 - **OMG reference models validate without ghost errors.** Relative, re-exported, inherited, and dotted names now resolve (`P1::B`, `Person::Life`, `system.uc1`); flow definitions are valid type targets; legal reference subsetting, owner-body metadata, KerML `featured by` Features, coordinate-frame/measurement-reference postfixes, local units, and Unicode unit exponents no longer raise false SYN/RES/KSM/UNIT errors. A new semantic corpus gate validates every committed OMG validation, examples, training, and KerML model at zero error diagnostics. (issue #184)
+
 - **Interconnection View layout directions now describe the top level.** Top→Down stacks top-level parts vertically and Left→Right places them horizontally; the contents inside every part retain the established left-to-right flow in both modes. (user direction 2026-07-11)
 - **Multiline notes (`//* … */`) are recognized.** The KerML `//* … */` note is now lexed as hidden trivia and highlighted as a foldable block comment, instead of the opening `//` swallowing the line and leaving the closing `*/` as stray code. Five OMG release examples that use this note form now parse. (issue #180)
 - **Unrestricted names accept backslash escapes.** A single-quoted name may contain the KerML escapes `\'`, `\"`, `\t`, `\n`, `\\`, etc. (`part def 'A\'B';`), and names are compared by their decoded value, so references resolve regardless of how the escapes are written; renaming to a name with spaces or quotes writes a correctly-escaped token. (issue #181)
