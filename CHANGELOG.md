@@ -2,6 +2,19 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.10.3] - 2026-07-15
+
+### Added
+
+- **The requirements table shows an Id column.** Each requirement's declared identifier — its `reqId` attribute value, or its short name (`requirement <'REG-01'> …`) — now appears in an Id column right after the row number.
+- **The requirements table nests sub-requirements.** A requirement declared inside another appears indented beneath it, and a parent row carries a chevron next to its name to collapse or expand its sub-requirements (to any depth).
+
+## [0.10.2] - 2026-07-15
+
+### Fixed
+
+- **Relationship drag-to-create works again with the correct per-view defaults.** The 0.10.1 context-menu change accidentally hid and disabled the connection dots, leaving only Interconnection View port handles. General packages now set real package ownership (shown with circled-plus links to direct package members), definitions specialize definitions, usages redefine usages; Interconnection connects; Action Flow creates succession or pin flow; State Transition creates transitions; Sequence creates messages only between lifeline-line points; and Case creates includes. Geometry/Grid intentionally expose none, incompatible drops cancel, and right-click menus still choose the other relationship kinds.
+
 ## [0.10.1] - 2026-07-14
 
 ### Added
@@ -10,7 +23,7 @@ All notable changes to this extension will be documented in this file.
 
 ### Changed
 
-- **Diagram creation has moved from the toolbar to focused right-click menus.** Right-click a blank surface to add an element to that diagram's exact model anchor, or right-click an element/port to choose a relationship valid from that source and then select a compatible target. Menus show the canonical icon and text, omit generic clipboard actions, and preserve Interconnection View's direct port drag handles. ([issue #81](https://github.com/voidaliot/sysml-v2-vsc-ext/issues/81))
+- **Diagram creation has moved from the toolbar to focused right-click menus.** Right-click a blank surface to add an element to that diagram's exact model anchor, or right-click an element/port to choose a relationship valid from that source and then select a compatible target. Menus show the canonical icon and text, omit generic clipboard actions, and coexist with hover-visible drag-to-create connection dots; Interconnection View retains its specialized port handles. ([issue #81](https://github.com/voidaliot/sysml-v2-vsc-ext/issues/81))
 - **Right-click add menus now match what each view and element can actually hold.** The blank-surface menu offers every element kind the view depicts at diagram level — Interconnection adds constraints/actions/states/calcs/occurrences alongside parts/ports/attributes/items, Action Flow and State Transition add their frame compartment rows, and the Grid View's choices follow the active preset (Requirements, Elements, Data, Matrix). Element menus offer only children that are semantically valid inside that element: an `enum def` offers enumeration values — never the view's generic list — and a Sequence View lifeline can add the `event occurrence` marks the view renders. Grid View table rows now open their own element context menu (rename, delete, add valid children) instead of the whole-table menu.
 - **Context-menu relationships are drawn like port connectors.** Choosing a nameable relationship (transition, message) asks for the name first; then a live rubber-band line follows the pointer from the right-clicked element until you click the target to place the link (`Esc` cancels). No more name popup after the fact.
 
