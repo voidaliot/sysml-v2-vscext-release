@@ -2,6 +2,25 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.10.4] - in work
+
+### Changed
+
+- **The General View's Group mode is clutter-free again.** Group no longer draws the package ownership links added in 0.10.2 — the type bands already show which package owns what. Group is the plain element inventory; switch to Tree to see ownership and every other relationship.
+- **Dragging a link on the General View now reads both ends.** Drag from one definition to another to give the first a **feature membership** — a usage of the second (`part def Vehicle` → `part def Engine` adds `part engine : Engine;`). Drag from a usage to a definition for the **defined by** link, setting the usage's type — this previously refused with "that connection dot cannot target this element". Dragging between two usages still creates a redefinition, and specialization moved to the right-click menu. Both are offered in the right-click menu under the same names the diagram uses for those links.
+- **A «defined by» link now reads "defined by" in Properties.** It previously showed the internal name (`definedBy`, badged `DEFINEDBY`).
+
+### Fixed
+
+- **Linking to a definition now always uses the one you clicked.** When two packages each declare a definition with the same name, drawing a feature-membership or defined-by link to one of them could silently bind to the other. The written type is now qualified (`P2::B`) whenever the plain name would be ambiguous.
+- **Feature-membership links work on analysis and verification case definitions.** The gesture was refused on those two.
+- **"Show all diagrams" appears on files without a package.** A file of bare `requirement def` / `attribute def` declarations was missing the lens even though the views can draw it.
+- **Big diagrams stay responsive.** A 200-part model froze the General View tree and made new Interconnection connections take seconds to appear. Connector rendering no longer re-routes every line on every click or drag frame — while you drag a box, untouched connectors keep their route and settle once on release (crossing bridges reappear then too) — and adding a connection no longer re-runs automatic layout over the whole diagram: the new line simply appears, everything else stays put. Verified on a 495-element model with one definition used by 424 parts: dragging previously ran at ~3–7 fps because every box and line re-rendered on every frame; they are now skipped unless actually affected, and a line attached to the box you are dragging follows as a plain elbow until you release it.
+
+### Added
+
+- **"Show all diagrams" on the first line of every model file.** Opens the whole-file overview — every top-level package included — without having to reach for the editor title bar or the command palette. The per-element "Show diagram" lenses are unchanged and still open focused on their element.
+
 ## [0.10.3] - 2026-07-15
 
 ### Added
