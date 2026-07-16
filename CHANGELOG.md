@@ -2,7 +2,13 @@
 
 All notable changes to this extension will be documented in this file.
 
-## [0.10.4] - in work
+## [0.10.5] - 2026-07-16
+
+### Fixed
+
+- **Diagram links to a definition stay correct across files too.** Extending 0.10.4's fix: when a definition with the same name lives in **another file** of the workspace (or the standard library), drawing a feature-membership or defined-by link — or a relationship link written by name such as `satisfy`, `verify`, specialization, or dependency — now writes a qualified reference so it binds to the definition you clicked, not a same-named one elsewhere. Connector links (`connect`, `bind`, item flows, messages, transitions) keep their local part/port paths.
+
+## [0.10.4] - 2026-07-15
 
 ### Changed
 
