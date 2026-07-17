@@ -2,6 +2,17 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.10.6] - 2026-07-17
+
+### Fixed
+
+- **Accept actions render as a single node.** An `action trigger accept scene : Scene;` now shows in the Action Flow View as one accept action named `trigger`, with the accepted event `scene : Scene` as an input pin — instead of a duplicate plain action plus a stray node labelled by its accepted event. The pin a reference like `trigger.scene` needs is now present.
+- **Action pins connect with flows.** In the Action Flow View, dragging between two action pins now creates an item flow rather than a succession. Successions between actions stay available from the right-click menu.
+
+### Changed
+
+- **Action pins can be moved.** Drag an action's pins along its edge to reposition them in the Action Flow View, the same as ports in the Interconnection View.
+
 ## [0.10.5] - 2026-07-16
 
 ### Fixed
