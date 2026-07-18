@@ -2,6 +2,13 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.10.7] - 2026-07-18
+
+### Fixed
+
+- **Your own files are no longer treated as read-only library content.** A workspace folder whose name merely contains `sysml.library` (for example `sysml.library-experiments`) is no longer mistaken for the bundled standard library, so renaming and editing symbols in it works normally again. The read-only guard now matches the actual library roots instead of any path containing that text.
+- **`.kpar` standard libraries are protected where you actually browse them.** When `sysml.standardLibraryPath` points at a `.kpar` archive, the sources are extracted to a temp folder and go-to-definition opens those files; they are now correctly marked read-only, both by the editor and by the rename guard.
+
 ## [0.10.6] - 2026-07-17
 
 ### Fixed
