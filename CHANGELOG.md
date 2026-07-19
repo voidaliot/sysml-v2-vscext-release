@@ -2,6 +2,14 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.10.9] - 2026-07-19
+
+### Changed
+
+- **The «defined by» link now reads as a solid `———:>` arrow.** A usage-to-definition typing link (the graphical form of `x : Def`) is drawn as a solid line ending in a filled arrowhead preceded by a colon, matching the textual `:` syntax, instead of the previous dashed line with a hollow triangle. Applies wherever the link appears — General View tree and Case View. The hollow-triangle notation still marks specialization, redefinition, and reference subsetting.
+- **Feature membership no longer draws a target arrowhead.** A feature-membership link (composite or `ref`) now shows only the diamond at the owner end — filled for composite, open for `ref` — with no arrow at the other end; the diamond already conveys ownership and direction.
+- **Connectors fill a side from the middle outward.** A single relation on an element's side docks at the midpoint, and each additional relation fans out around it, so several relations on the same side no longer stack on one point — one lands in the middle and the rest spread. Applies across the General View, Action Flow, State Transition, Case, and Interconnection views. Drag a connector onto any snap point to place it precisely.
+
 ## [0.10.8] - 2026-07-18
 
 ### Added
