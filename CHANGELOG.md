@@ -2,6 +2,18 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.10.10] - 2026-07-20
+
+### Added
+
+- **`sysml.lint.profile` setting (`default` / `quiet` / `strict`).** Style and formatting notices no longer flood the Problems panel when you open canonical SysML v2 models. On the shipped **default** profile, formatting notices become hints (still visible as squiggles with quick-fixes, but out of the Problems panel) and the two that fire on the spec's own formatting — mixed tab/space indentation and redundant explicit `[1]` multiplicity — are suppressed; **quiet** hides all style notices; **strict** keeps the previous behaviour. Every diagnostic stays individually overridable via `sysml.validation.severities`, which always wins over the profile.
+
+### Fixed
+
+- **No more false "ambiguous import" warnings on standard models.** The ambiguous-name warning is now reported where a name is actually used ambiguously, not on every import that could introduce it — so opening the spec's own vehicle models no longer produces a wall of warnings for names the file never even references.
+- **Fewer spurious warnings on spec-canonical constructs.** Import cycles, library-name shadowing (declaring a local `attribute mass`), requirements without an explicit `subject`, CamelCase usage names, `const end` association features, and excluded-variant `[0]` members are no longer flagged as warnings on valid SysML v2 content.
+- **Portability import hints no longer fire within one model.** A reference into a nested sibling package under the same top-level package no longer suggests adding an explicit import.
+
 ## [0.10.9] - 2026-07-19
 
 ### Changed
