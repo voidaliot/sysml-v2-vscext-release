@@ -2,6 +2,14 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.10.11] - 2026-07-21
+
+### Changed
+
+- **Bundled standard-library release recorded.** The vendored OMG SysML v2 standard library now records its source release (**2026-04**) in the bundle's `NOTICE.md`.
+- **Corrected the bundled standard-library license to Eclipse Public License v2.0.**
+- **README and marketplace summary rewritten around what the extension does**.
+
 ## [0.10.10] - 2026-07-20
 
 ### Added
