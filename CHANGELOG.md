@@ -2,6 +2,12 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.10.13] - 2026-07-23
+
+### Changed
+
+- **Bundled standard library updated to the OMG SysML v2 2026-05 release.** Picks up the latest adopted-release corrections, including a formal key-uniqueness constraint on `Map`, `OrderedMap` now specialising `OrderedCollection`, non-unique tensor/vector elements, and several documentation fixes.
+
 ## [0.10.12] - 2026-07-23
 
 ### Fixed
