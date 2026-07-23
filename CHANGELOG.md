@@ -2,6 +2,12 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.10.12] - 2026-07-23
+
+### Fixed
+
+- **Named `disjoining` declarations now parse.** KerML/SysML source can name a disjoining relationship (`disjoining birdMammalDisjoining disjoint Bird from Mammal;`) — and give it a body — just like the other named relationship forms (`specialization`, `subtype`, …); the anonymous `disjoint … from …` form is unchanged. A named disjoining shows its name on the General View `{disjoint}` edge.
+
 ## [0.10.11] - 2026-07-21
 
 ### Changed
