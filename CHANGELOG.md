@@ -2,6 +2,12 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.14.4] - 2026-08-10
+
+### Fixed
+
+- **Sequence diagrams: you can now say WHEN a message happens.** Drag a message arrow up or down to move it earlier or later — a dashed line shows where it will land, and the source is rewritten to match. New messages are no longer always added at the bottom either: the connection points down a lifeline now sit between the existing messages, and the point you start the drag from is where the new message is written. Where the order comes from the model itself — lifelines sequenced with `then event occurrence` — the drag is declined and tells you which lifeline's chain sets the order, instead of appearing to work and changing nothing.
+
 ## [0.14.3] - 2026-08-06
 
 ### Fixed
