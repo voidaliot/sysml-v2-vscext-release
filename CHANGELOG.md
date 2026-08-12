@@ -2,6 +2,12 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.15.2]
+
+### Changed
+
+- **Keyword and operator tooltips now cite the OMG specification.** Hovering `perform` used to end in `Source: info/language/03-keywords-and-operators.md:1` — a file inside the extension, not something a reader could check. Every keyword and operator tooltip now names the clause that specifies it, such as `OMG SysML v2.0 Part 1 §8.2.2.17.2 (Action Usages)` or `OMG KerML v1.0 §8.2.5.8.1 (Operator Expressions)`. Tooltips about your own model still cite the file and line where the element is declared.
+
 ## [0.15.1] - 2026-08-12
 
 ### Added
