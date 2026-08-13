@@ -2,6 +2,19 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.15.3] - 2026-08-13
+
+### Fixed
+
+- **`exhibit` now accepts a package-qualified state.** `exhibit VehicleStates::operating;` is legal SysML — an exhibit state usage is a kind of perform action usage — but the parser accepted only a dotted path and reported a syntax error.
+- **Diagram edits write the shortest path that resolves.** A reference that needed qualifying was written out in full (`VehicleSystem::Powertrain::Engine`) where `Powertrain::Engine` resolves just as unambiguously and reads better.
+- **A connector drawn to a nested element now points at it.** An endpoint below the container the statement lands in was written as its bare name, which resolved to something else or to nothing; it is now chained from that container (`c.b`).
+- **`::` and `.` are no longer interchangeable in written paths.** A member of a usage is reached with `.` and a member of a definition with `::`, as the language defines it — the diagram used to join every segment with `::`. Endpoints whose first link carries a namespace qualifier (`Pkg::part.port`) are also accepted instead of refused.
+
+### Added
+
+- **New diagnostic `RES019`.** A `perform`, `exhibit`, or connector-end path that chains a definition's member with `.` instead of `::` — valid here, refused by the reference implementation — is now flagged as a warning, and configurable like any other code.
+
 ## [0.15.2]
 
 ### Changed
