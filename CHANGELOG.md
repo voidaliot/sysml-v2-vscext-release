@@ -2,6 +2,19 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.15.4] - 2026-08-14
+
+### Fixed
+
+- **`$::` now leads a path after `perform`, `exhibit`, `assert`, `entry`/`do`/`exit` and `event`.** The root-namespace qualifier worked only in connector ends, so `perform $::ActionTree::providePower;` was reported as a syntax error.
+- **`assert` and `entry`/`do`/`exit` accept a package-qualified target.** `assert Limits::massLimit;` and `entry Startup::initialize;` are legal SysML the parser refused, taking a dotted path only.
+
+- **A path that starts with the package you are writing inside now resolves.** `perform Q::C.cmd;` inside `package Q` left every segment unresolved, so the head was not navigable and nothing after it was checked.
+
+### Changed
+
+- **`RES019` now covers every reference form.** The warning about reaching a definition's member with `.` instead of `::` reached `perform`, `exhibit` and connector ends only; `assert`, `entry`/`do`/`exit` and `event` can spell the same non-portable path.
+
 ## [0.15.3] - 2026-08-13
 
 ### Fixed
