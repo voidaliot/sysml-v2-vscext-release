@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>User Guide — SysML v2 for Visual Studio Code</title>
   <meta name="description" content="How to install and use the SysML v2 and KerML VS Code extension: editor intelligence, diagnostics, live editable diagrams, the bundled OMG standard library, settings, and troubleshooting.">
+  <meta name="theme-color" content="#08111f">
+  <meta property="og:title" content="ALIOT SysML v2 for VS Code — User Guide">
+  <meta property="og:description" content="Go from a public sample model to live editable SysML v2 diagrams in VS Code.">
+  <meta property="og:image" content="https://voidaliot.github.io/sysml-v2-vscext-release/assets/ALIOT_banner_4K.png">
+  <link rel="canonical" href="https://voidaliot.github.io/sysml-v2-vscext-release/user-guide.html">
+  <link rel="icon" href="assets/icons/sysml-v2-icon.png">
   <style>
     :root {
       color-scheme: dark;
@@ -192,8 +198,9 @@
       <div class="nav-links">
         <a href="index.html#features">Features</a>
         <a href="index.html#diagrams">Diagrams</a>
+        <a href="index.html#samples">Samples</a>
         <a class="active" href="user-guide.html">User guide</a>
-        <a class="button" href="releases/">Releases</a>
+        <a class="button" href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2">Install</a>
       </div>
     </div>
   </nav>
@@ -202,7 +209,7 @@
     <div class="wrap">
       <div class="eyebrow">User guide</div>
       <h1>Model SysML v2 and KerML in VS Code.</h1>
-      <p>How to install the extension, open the software-defined vehicle example, use the editor intelligence, render and edit live diagrams, and configure project defaults — everything local, with no Java runtime, PlantUML server, or telemetry.</p>
+      <p>Install the extension, open a public sample model, use code-grade language intelligence, and round-trip changes through live diagrams—everything local, with no Java runtime, PlantUML server, or telemetry.</p>
       <div class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; User guide</div>
     </div>
   </header>
@@ -213,7 +220,7 @@
       <p class="toc-title">On this page</p>
       <ol>
         <li><a href="#install">Install</a></li>
-        <li><a href="#showcase">Open the SDV showcase</a></li>
+        <li><a href="#showcase">Open the sample workspace</a></li>
         <li><a href="#editor">Core editor workflow</a></li>
         <li><a href="#diagrams">Diagram views</a></li>
         <li><a href="#edit-diagrams">Edit diagrams safely</a></li>
@@ -229,10 +236,10 @@
 
       <section id="install">
         <h2><span class="num">1</span> Install</h2>
-        <p class="lead-p">The extension ships as a single VSIX package. There is nothing else to install — no Java, no PlantUML, no diagram server, no cloud account.</p>
+        <p class="lead-p">Install from the Marketplace or use a standalone VSIX. There is nothing else to install—no Java, PlantUML, diagram server, or cloud account.</p>
         <div class="steps">
-          <article class="step"><h3>Download the VSIX</h3><p>Grab the latest <code>vscode-sysml-v2-*.vsix</code> from the <a href="releases/">releases</a> folder.</p></article>
-          <article class="step"><h3>Install from VSIX</h3><p>In VS Code run <code>Extensions: Install from VSIX…</code> from the Command Palette (<kbd>Ctrl/Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>) and pick the file.</p></article>
+          <article class="step"><h3>Install from Marketplace</h3><p>Open <a href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2">SysML v2 on the Visual Studio Marketplace</a> and choose <strong>Install</strong>.</p></article>
+          <article class="step"><h3>Or install a VSIX</h3><p>If you have a standalone package, run <code>Extensions: Install from VSIX…</code> from the Command Palette (<kbd>Ctrl/Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>).</p></article>
           <article class="step"><h3>Open a model folder</h3><p>Open a folder containing <code>.sysml</code>, <code>.kerml</code>, or <code>.kpar</code> files.</p></article>
           <article class="step"><h3>Wait for ready</h3><p>Open a <code>.sysml</code> file and wait until the status bar shows <code>SysML: ready</code>. The bundled library is pre-indexed, so this is fast.</p></article>
         </div>
@@ -241,10 +248,15 @@
       </section>
 
       <section id="showcase">
-        <h2><span class="num">2</span> Open the SDV showcase</h2>
-        <p>Use the source-repository example as a guided feature tour:</p>
-        <div class="note"><span class="ico">▸</span><p><code>reference/sdv.sysml</code></p></div>
-        <p>The model describes a <strong>software-defined vehicle</strong> with external actors, vehicle subsystems, typed ports and interfaces, actions, states, sequences, requirements, verification cases, variation points, and geometry examples. It is intentionally broad, so every diagram view has meaningful content to show.</p>
+        <h2><span class="num">2</span> Open the sample workspace</h2>
+        <p>Clone the public sample repository, then open the folder in VS Code:</p>
+        <div class="note"><span class="ico">▸</span><p><code>git clone https://github.com/voidaliot/sysml-v2-samples.git</code><br><code>code sysml-v2-samples</code></p></div>
+        <p>Start with <a href="https://github.com/voidaliot/sysml-v2-samples/blob/main/e-mountainbike.sysml"><code>e-mountainbike.sysml</code></a> for the broadest tour, or <a href="https://github.com/voidaliot/sysml-v2-samples/blob/main/sdv.sysml"><code>sdv.sysml</code></a> for a larger vehicle architecture. Smaller drone, flashlight, vehicle, cruise-ship, and robocopter models let you learn one concept at a time.</p>
+        <div class="steps">
+          <article class="step"><h3>Explore the text</h3><p>Use hover, completion, outline, go-to-definition, references, and Problems while the status bar shows <code>SysML: ready</code>.</p></article>
+          <article class="step"><h3>Ask which view fits</h3><p>Run <code>SysML: Which Diagram?</code> and choose the engineering question you want to answer.</p></article>
+          <article class="step"><h3>Round-trip an edit</h3><p>Move a node or waypoint, then rename or add an element and inspect the resulting source and <code>.vscode/sysml/diagrams/</code> layout sidecar.</p></article>
+        </div>
         <figure class="shot">
           <img src="assets/screenshots/feature-editor-diagram-workspace.png" alt="VS Code workspace showing sdv.sysml source alongside a live SysML diagram">
           <figcaption>The SDV model open beside a live diagram — text on the left stays the single source of truth.</figcaption>
@@ -386,8 +398,9 @@
       <section id="links">
         <h2><span class="num">9</span> Links</h2>
         <ul>
-          <li><a href="index.html">Front page</a></li>
-          <li><a href="releases/">Releases</a></li>
+          <li><a href="index.html">Feature tour</a></li>
+          <li><a href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2">Visual Studio Marketplace</a></li>
+          <li><a href="https://github.com/voidaliot/sysml-v2-samples">Public sample models</a></li>
           <li><a href="https://github.com/voidaliot/sysml-v2-vscext-release/issues">Report an issue</a></li>
           <li>Bundled library attribution: see the extension package <code>resources/sysml.library/</code> licenses.</li>
         </ul>
@@ -398,7 +411,7 @@
   </div>
 
   <footer>
-    <div class="wrap">Built with Langium, vscode-languageclient, React Flow, and the OMG SysML v2 standard library. Screenshot model: <code>reference/sdv.sysml</code>. &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="releases/">Releases</a></div>
+    <div class="wrap">Built with Langium, vscode-languageclient, React Flow, and the OMG SysML v2 standard library. &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="https://github.com/voidaliot/sysml-v2-samples">Samples</a> &nbsp;·&nbsp; <a href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2">Install</a></div>
   </footer>
 
   <script>

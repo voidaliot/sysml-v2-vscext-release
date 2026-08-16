@@ -4,7 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SysML v2 for Visual Studio Code</title>
-  <meta name="description" content="A complete SysML v2 and KerML modeling environment for VS Code with language intelligence, diagnostics, standard library support, and live editable diagrams.">
+  <meta name="description" content="Model SysML v2 and KerML as code in VS Code with language intelligence, deterministic diagnostics, the OMG standard library, and live editable diagrams.">
+  <meta name="theme-color" content="#070d1c">
+  <meta property="og:title" content="ALIOT — SysML v2 for Visual Studio Code">
+  <meta property="og:description" content="Model as code. Understand it as diagrams. Keep both in sync.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://voidaliot.github.io/sysml-v2-vscext-release/">
+  <meta property="og:image" content="https://voidaliot.github.io/sysml-v2-vscext-release/assets/ALIOT_banner_4K.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://voidaliot.github.io/sysml-v2-vscext-release/">
+  <link rel="icon" href="assets/icons/sysml-v2-icon.png">
   <style>
     :root {
       color-scheme: dark;
@@ -66,13 +75,17 @@
     }
     .button.primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #06101f; border: none; }
     .button:hover { transform: translateY(-1px); }
-    .hero { padding: 78px 0 52px; }
-    .hero-grid { display: grid; grid-template-columns: minmax(0, 0.88fr) minmax(420px, 1.12fr); gap: 46px; align-items: center; }
+    .hero { padding: 34px 0 48px; }
+    .hero-art { position: relative; overflow: hidden; aspect-ratio: 3840 / 1757; border: 1px solid rgba(119, 169, 222, 0.28); border-radius: 12px; background: #030816; box-shadow: var(--shadow); }
+    .hero-art::after { content: ""; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 80px rgba(28, 104, 255, 0.08); }
+    .hero-art img { width: 100%; height: auto; display: block; object-fit: contain; }
+    .hero-copy { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr); gap: 44px; align-items: end; padding-top: 40px; }
     .eyebrow { color: var(--accent-2); font-weight: 800; text-transform: uppercase; font-size: 13px; letter-spacing: 0.12em; }
     h1 { margin: 16px 0 18px; font-size: clamp(46px, 7vw, 82px); line-height: 0.95; letter-spacing: 0; }
     .lead { font-size: 20px; color: #c5d4e4; max-width: 650px; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
     .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 36px; max-width: 680px; }
+    .hero-copy .stats { grid-template-columns: 1fr; margin-top: 0; max-width: none; }
     .stat { border: 1px solid var(--line); background: rgba(255, 255, 255, 0.045); border-radius: var(--radius); padding: 16px; }
     .stat strong { display: block; font-size: 26px; color: var(--ink); }
     .stat span { color: var(--muted); font-size: 13px; }
@@ -106,6 +119,12 @@
     .view strong { display: block; margin-bottom: 4px; }
     .view span { color: var(--muted); font-size: 14px; }
     .guide { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 24px; align-items: start; }
+    .sample-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .sample { display: block; border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; background: rgba(255,255,255,0.04); text-decoration: none; transition: transform .18s ease, border-color .18s ease, background .18s ease; }
+    .sample:hover { transform: translateY(-2px); border-color: rgba(80,183,255,0.48); background: rgba(80,183,255,0.08); }
+    .sample strong { display: block; margin-bottom: 6px; }
+    .sample span { color: var(--muted); font-size: 14px; }
+    .sample.featured { grid-column: span 2; background: linear-gradient(135deg, rgba(80,183,255,0.12), rgba(124,92,255,0.09)); }
     .steps { counter-reset: step; display: grid; gap: 12px; }
     .step { counter-increment: step; border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 16px 16px 58px; background: rgba(255,255,255,0.045); position: relative; }
     .step::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 28px; height: 28px; border-radius: 7px; display: grid; place-items: center; background: var(--accent); color: #06101f; font-weight: 900; }
@@ -116,8 +135,9 @@
     .cta p { margin: 0; color: var(--muted); }
     footer { border-top: 1px solid var(--line); color: var(--muted); padding: 28px 0 42px; }
     @media (max-width: 920px) {
-      .hero-grid, .guide { grid-template-columns: 1fr; }
+      .hero-copy, .guide { grid-template-columns: 1fr; }
       .cards, .views { grid-template-columns: 1fr 1fr; }
+      .sample-grid { grid-template-columns: 1fr 1fr; }
       .nav-links { display: none; }
       .section-head { display: block; }
       .section-head p { margin-top: 12px; }
@@ -125,7 +145,8 @@
     @media (max-width: 620px) {
       .wrap { width: min(100% - 28px, 1180px); }
       .hero { padding-top: 44px; }
-      .stats, .cards, .shots, .views, .feature-list { grid-template-columns: 1fr; }
+      .stats, .cards, .shots, .views, .feature-list, .sample-grid { grid-template-columns: 1fr; }
+      .sample.featured { grid-column: auto; }
       .shot.wide { grid-column: auto; }
       .cta { display: block; }
       .cta .button { margin-top: 18px; }
@@ -139,34 +160,35 @@
       <div class="nav-links">
         <a href="#features">Features</a>
         <a href="#diagrams">Diagrams</a>
+        <a href="#samples">Samples</a>
         <a href="#guide">Guide</a>
         <a href="user-guide.html">User guide</a>
-        <a class="button" href="releases/">Releases</a>
+        <a class="button" href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2">Install</a>
       </div>
     </div>
   </nav>
 
   <main id="top">
     <section class="hero">
-      <div class="wrap hero-grid">
-        <div>
+      <div class="wrap">
+        <div class="hero-art">
+          <img src="assets/ALIOT_banner_4K.png" width="3840" height="1757" alt="ALIOT SysML v2 — architecture, language, integration, orchestration, and traceability connected across a model-as-code workflow">
+        </div>
+        <div class="hero-copy">
+          <div>
           <div class="eyebrow">SysML v2 and KerML modeling in VS Code</div>
-          <h1>Engineer text models and diagrams in one workspace.</h1>
-          <p class="lead">A local VS Code extension for SysML v2 and KerML with full language intelligence, a bundled OMG standard library, deterministic diagnostics, and live editable SysML v2 graphical views.</p>
+          <h1>Model as code.<br>See the system.</h1>
+          <p class="lead">Author SysML v2 and KerML with code-grade intelligence, then explore and edit the same model through live, native graphical views. Everything runs locally in VS Code.</p>
           <div class="hero-actions">
-            <a class="button primary" href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2">Get the VSIX</a>
-            <a class="button" href="user-guide.html">Read the user guide</a>
-            <a class="button" href="https://github.com/voidaliot/sysml-v2-vscext-release/issues">Report an issue</a>
+            <a class="button primary" href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2">Install from Marketplace</a>
+            <a class="button" href="https://github.com/voidaliot/sysml-v2-samples">Try a sample model</a>
+          </div>
           </div>
           <div class="stats" aria-label="Extension highlights">
-            <div class="stat"><strong>9</strong><span>standard diagram views</span></div>
-            <div class="stat"><strong>45+</strong><span>SysML and KerML snippets</span></div>
-            <div class="stat"><strong>0</strong><span>telemetry or cloud runtime</span></div>
+            <div class="stat"><strong>9</strong><span>purpose-built visual views</span></div>
+            <div class="stat"><strong>45+</strong><span>SysML and KerML scaffolds</span></div>
+            <div class="stat"><strong>0</strong><span>telemetry, Java, or cloud runtime</span></div>
           </div>
-        </div>
-        <div class="screen-frame" aria-label="Software-defined vehicle diagram screenshot">
-          <div class="screen-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-          <img src="assets/screenshots/feature-editor-diagram-workspace.png" alt="VS Code workspace showing sdv.sysml source and a live SysML diagram side by side">
         </div>
       </div>
     </section>
@@ -185,6 +207,10 @@
           <article class="card"><span class="icon">▣</span><h3>Standard library included</h3><p>The official OMG SysML v2 release library is bundled and pre-indexed, including Systems, Kernel, Quantities and Units, Geometry, Analysis, Metadata, and Requirement Derivation.</p></article>
           <article class="card"><span class="icon">#</span><h3>Agent-ready tooling</h3><p>VS Code language-model tools expose server-backed model context, draft validation, library search, symbol resolution, requirement tracing, and diagnostic explanation.</p></article>
         </div>
+        <figure class="shot wide" style="margin-top:24px">
+          <img src="assets/screenshots/feature-editor-diagram-workspace.png" alt="VS Code workspace with SysML v2 source, Browser View, live diagram canvas, and properties inspector">
+          <figcaption>One workspace, one model: source intelligence, Browser View, editable graphical notation, persistent layout sidecars, and a theme-aware properties inspector.</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -192,7 +218,7 @@
       <div class="wrap">
         <div class="section-head">
           <h2>Live editable diagrams from the same model.</h2>
-          <p>The SDV example (<code>reference/sdv.sysml</code>) exercises structure, behavior, requirements, cases, sequences, and geometry. Diagrams are rendered locally on a React Flow canvas and write edits back through guarded language-server workspace edits.</p>
+          <p>The public <a href="https://github.com/voidaliot/sysml-v2-samples/blob/main/sdv.sysml">SDV sample</a> exercises structure, behavior, requirements, cases, sequences, and geometry. Diagrams render locally on a React Flow canvas and write edits back through guarded language-server workspace edits.</p>
         </div>
         <figure class="shot wide">
           <img src="assets/screenshots/feature-diagram-geometry.png" alt="VS Code Geometry View with SDV source and 2D/3D vehicle layout frames">
@@ -220,15 +246,36 @@
       </div>
     </section>
 
+    <section id="samples">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Learn by opening a real model.</h2>
+          <p>The public sample workspace is ready for the extension: clone it, open any model, run <code>SysML: Which Diagram?</code>, and explore the same system as text, diagrams, and requirement data.</p>
+        </div>
+        <div class="sample-grid">
+          <a class="sample featured" href="https://github.com/voidaliot/sysml-v2-samples/blob/main/e-mountainbike.sysml"><strong>E-mountain bike</strong><span>The broadest tour: structure, actions, states, cases, requirements, and exported diagrams.</span></a>
+          <a class="sample featured" href="https://github.com/voidaliot/sysml-v2-samples/blob/main/sdv.sysml"><strong>Software-defined vehicle</strong><span>A deeper architecture model with ports, interfaces, behavior, verification, and geometry.</span></a>
+          <a class="sample" href="https://github.com/voidaliot/sysml-v2-samples/blob/main/flashlight.sysml"><strong>Flashlight</strong><span>A compact first model for definitions, usages, and relationships.</span></a>
+          <a class="sample" href="https://github.com/voidaliot/sysml-v2-samples/blob/main/drone.sysml"><strong>Drone</strong><span>Explore parts, ports, connections, and behavior.</span></a>
+          <a class="sample" href="https://github.com/voidaliot/sysml-v2-samples/blob/main/cruise-ship.sysml"><strong>Cruise ship</strong><span>Practice navigating and choosing views for a larger system.</span></a>
+          <a class="sample" href="https://github.com/voidaliot/sysml-v2-samples/tree/main/diagrams"><strong>Exported diagrams</strong><span>Preview SVG views and the editable requirements grid as CSV.</span></a>
+        </div>
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/voidaliot/sysml-v2-samples">Browse all sample models</a>
+          <a class="button" href="user-guide.html#showcase">Follow the guided tour</a>
+        </div>
+      </div>
+    </section>
+
     <section id="guide">
       <div class="wrap guide">
         <div>
-          <div class="section-head" style="display:block;margin-bottom:18px"><h2>Start with the SDV example.</h2><p>The guide walks through installation, opening a model, using editor intelligence, selecting diagrams, editing diagrams, and configuring project-level defaults.</p></div>
+          <div class="section-head" style="display:block;margin-bottom:18px"><h2>From first file to traceable model.</h2><p>The guide walks through installation, cloning the sample workspace, using editor intelligence, selecting and editing diagrams, and sharing project-level defaults.</p></div>
           <a class="button primary" href="user-guide.html">Open the full guide</a>
         </div>
         <div class="steps">
-          <article class="step"><h3>Install the VSIX</h3><p>Install the latest package from the VS Code Marketplace.</p></article>
-          <article class="step"><h3>Open <code>sdv.sysml</code></h3><p>Load the workspace and open <code>reference/sdv.sysml</code> to see highlighting, outline, diagnostics, hover, and completion.</p></article>
+          <article class="step"><h3>Install the extension</h3><p>Install the current build from the VS Code Marketplace.</p></article>
+          <article class="step"><h3>Clone the sample workspace</h3><p>Open <code>voidaliot/sysml-v2-samples</code> and start with <code>e-mountainbike.sysml</code> or <code>sdv.sysml</code>.</p></article>
           <article class="step"><h3>Run <code>SysML: Show Diagram</code></h3><p>Switch between General, Interconnection, Action Flow, State Transition, Sequence, Case, Geometry, and Grid views.</p></article>
           <article class="step"><h3>Edit visually or textually</h3><p>Use diagram tools to add, connect, rename, resize, reconnect, or delete elements; the source remains the authoritative SysML text.</p></article>
         </div>
@@ -244,8 +291,8 @@
   </main>
 
   <footer>
-    <div class="wrap">Built with Langium, vscode-languageclient, React Flow, and the OMG SysML v2 standard library.</div>
-    <div class="wrap">Screenshot model: <code>reference/sdv.sysml</code>. The sysml file was AI generated.</div>
+    <div class="wrap">ALIOT · SysML v2 for Visual Studio Code · Built with Langium, vscode-languageclient, React Flow, and the OMG SysML v2 standard library.</div>
+    <div class="wrap"><a href="https://github.com/voidaliot/sysml-v2-samples">Sample models</a> · <a href="user-guide.html">User guide</a> · <a href="https://github.com/voidaliot/sysml-v2-vscext-release/issues">Issues and feedback</a></div>
   </footer>
 </body>
 </html>

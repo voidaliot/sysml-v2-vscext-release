@@ -1,17 +1,29 @@
 <p align="center">
-  <img src="./assets/icons/sysml-v2-icon.png" alt="logo" width="256">
+  <img src="./assets/ALIOT_banner_4K.png" alt="ALIOT SysML v2 — architecture, language, integration, orchestration, traceability" width="100%">
 </p>
 
-# SysML v2 for Visual Studio Code
+<h1 align="center">SysML v2 for Visual Studio Code</h1>
 
-**A complete modeling environment for SysML v2 and KerML — language intelligence and live, editable diagrams, right inside your editor.**
+<p align="center"><strong>Model as code. Understand it as diagrams. Keep both in sync.</strong></p>
 
----
-⚒️ Under Development ⚒️
+<p align="center">
+  <a href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2"><img src="https://img.shields.io/visual-studio-marketplace/v/voidaliot.vscode-sysml-v2?style=flat-square&label=Marketplace" alt="Visual Studio Marketplace version"></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2"><img src="https://img.shields.io/visual-studio-marketplace/i/voidaliot.vscode-sysml-v2?style=flat-square&label=Installs" alt="Visual Studio Marketplace installs"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-see%20LICENSE-7c5cff?style=flat-square" alt="License"></a>
+  <img src="https://img.shields.io/badge/telemetry-none-29c7ac?style=flat-square" alt="No telemetry">
+</p>
 
----
+<p align="center">
+  <a href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2"><strong>Install</strong></a>
+  · <a href="https://voidaliot.github.io/sysml-v2-vscext-release/"><strong>Explore the feature tour</strong></a>
+  · <a href="https://voidaliot.github.io/sysml-v2-vscext-release/user-guide.html"><strong>Read the guide</strong></a>
+  · <a href="https://github.com/voidaliot/sysml-v2-samples"><strong>Open the samples</strong></a>
+</p>
 
-Write SysML v2 and KerML the way you write code — with completion, hover, real diagnostics, refactorings, and go-to-definition — then **see and edit your model as a diagram** in the native SysML v2 graphical notation. The whole OMG standard library is built in, so `import SI::*` just works. No Java runtime, no PlantUML, no extra downloads. Everything runs locally and offline.
+> [!NOTE]
+> The extension is under active development. Feedback and real-world models are welcome.
+
+Write SysML v2 and KerML the way you write code—with completion, hover, deterministic diagnostics, refactorings, navigation, and formatting—then **see and edit the same model as live SysML v2 diagrams**. The OMG standard library is built in, so `import SI::*` works immediately. No Java runtime, PlantUML server, model upload, or cloud account is required.
 
 ## Why you'll like it
 
@@ -25,11 +37,33 @@ Write SysML v2 and KerML the way you write code — with completion, hover, real
 
 ## Quick start
 
-1. **Install** the extension. The **Get Started with SysML v2** walkthrough opens automatically (or run *Welcome: Open Walkthrough…*).
-2. **Open or create** a `.sysml` file. The status bar reads **"SysML: ready"** once the bundled library is indexed.
-3. **Type `sysml-`** and pick a scaffold — `sysml-part-def`, `sysml-requirement`, `sysml-state-machine`, and 40+ more.
-4. **Save** — diagnostics appear in the Problems panel, and unambiguous cross-package imports are added for you.
-5. **Run `SysML: Show Diagram`** (or the graph button in the editor title bar) to open the live, editable diagram. `Ctrl+Alt+D` toggles side / tab mode.
+1. **Install** from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2). The **Get Started with SysML v2** walkthrough opens automatically (or run *Welcome: Open Walkthrough…*).
+2. **Open a model** from the [sample repository](https://github.com/voidaliot/sysml-v2-samples), or create a `.sysml` file. The status bar reads **SysML: ready** once the bundled library is indexed.
+3. **Type `sysml-`** and choose a scaffold such as `sysml-part-def`, `sysml-requirement`, or `sysml-state-machine`—there are 45+ snippets.
+4. **Save** to run diagnostics and add unambiguous cross-package imports automatically.
+5. **Run `SysML: Show Diagram`** (or use the graph button in the editor title bar) to open the live, editable diagram. Press `Ctrl+Alt+D` to switch between side and tab modes.
+
+---
+
+## Learn with real models
+
+Clone the public sample workspace and open it directly in VS Code:
+
+```bash
+git clone https://github.com/voidaliot/sysml-v2-samples.git
+code sysml-v2-samples
+```
+
+| Start here | What to explore |
+| ---------- | --------------- |
+| [E-mountain bike](https://github.com/voidaliot/sysml-v2-samples/blob/main/e-mountainbike.sysml) | The broadest guided tour: structure, actions, states, cases, requirements, and every exported diagram type. |
+| [Software-defined vehicle](https://github.com/voidaliot/sysml-v2-samples/blob/main/sdv.sysml) | A larger architecture model for cross-file-style navigation, ports, interfaces, behavior, requirements, verification, and geometry. |
+| [Drone](https://github.com/voidaliot/sysml-v2-samples/blob/main/drone.sysml) | A compact model for parts, ports, connections, and behavior. |
+| [Flashlight](https://github.com/voidaliot/sysml-v2-samples/blob/main/flashlight.sysml) | A small first model for learning definitions, usages, and simple relationships. |
+| [Vehicle](https://github.com/voidaliot/sysml-v2-samples/blob/main/vehicle.sysml) | A focused vehicle example for types, composition, and reusable definitions. |
+| [Cruise ship](https://github.com/voidaliot/sysml-v2-samples/blob/main/cruise-ship.sysml) and [Robocopter](https://github.com/voidaliot/sysml-v2-samples/blob/main/robocopter.sysml) | Larger examples for experimenting with navigation and diagram selection. |
+
+For a quick visual preview, browse the sample repository’s [exported SVG diagrams and Grid View CSV](https://github.com/voidaliot/sysml-v2-samples/tree/main/diagrams). Then open the matching `.sysml` file, run **SysML: Which Diagram?**, and edit either the source or canvas to see the round trip.
 
 ---
 

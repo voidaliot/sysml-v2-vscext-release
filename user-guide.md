@@ -1,25 +1,35 @@
 # SysML v2 VS Code Extension — User Guide
 
-This guide explains how to install and use the SysML v2 VS Code extension with the included software-defined vehicle example (`sdv.sysml`).
+This guide explains how to install and use the SysML v2 VS Code extension with the public [SysML v2 sample workspace](https://github.com/voidaliot/sysml-v2-samples).
 
 ## 1. Install
 
-1. Download the latest `vscode-sysml-v2-*.vsix` from `releases/`.
-2. In VS Code, run `Extensions: Install from VSIX...`.
+1. Install [SysML v2 from the Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2).
+2. If you downloaded a standalone `.vsix` instead, run `Extensions: Install from VSIX...` in VS Code.
 3. Open a folder that contains `.sysml`, `.kerml`, or `.kpar` files.
 4. Open a `.sysml` file and wait for the status bar to show `SysML: ready`.
 
 The extension runs locally. It does not require Java, PlantUML, a diagram server, telemetry, or a cloud account.
 
-## 2. Open the SDV showcase
+## 2. Open the sample workspace
 
-Use the source repository example as a feature tour:
+Clone the public sample repository and open it as a VS Code workspace:
 
-```text
-reference/fabricated/sdv.sysml
+```bash
+git clone https://github.com/voidaliot/sysml-v2-samples.git
+code sysml-v2-samples
 ```
 
-The model describes a software-defined vehicle with external actors, vehicle subsystems, typed ports, interfaces, actions, states, sequences, requirements, verification cases, variation points, and geometry examples. It is intentionally broad so every diagram view has useful content.
+Start with [`e-mountainbike.sysml`](https://github.com/voidaliot/sysml-v2-samples/blob/main/e-mountainbike.sysml) for the broadest guided tour, or open [`sdv.sysml`](https://github.com/voidaliot/sysml-v2-samples/blob/main/sdv.sysml) for a larger software-defined vehicle architecture. The repository also includes smaller drone, flashlight, vehicle, cruise-ship, and robocopter models, plus [exported SVG diagrams and a Grid View CSV](https://github.com/voidaliot/sysml-v2-samples/tree/main/diagrams).
+
+For the first tour:
+
+1. Open `e-mountainbike.sysml` and wait for **SysML: ready**.
+2. Use hover, go-to-definition, completion, the document outline, and the Problems panel to explore the textual model.
+3. Run **SysML: Which Diagram?** and choose the question you want to answer.
+4. Open General, Interconnection, Action Flow, State Transition, Sequence, Case, or Grid View as content permits.
+5. Move a node or connector waypoint, then inspect `.vscode/sysml/diagrams/` to see the git-friendly layout sidecar.
+6. Rename or add an element from the canvas and confirm that the guarded edit updates the `.sysml` source.
 
 ## 3. Core editor workflow
 
@@ -119,7 +129,8 @@ If a standard-library symbol does not resolve, leave `sysml.standardLibraryPath`
 
 ## 9. Links
 
-- Front page: `index.html`
-- Releases: `releases/`
+- [Feature tour](https://voidaliot.github.io/sysml-v2-vscext-release/)
+- [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2)
+- [Public sample models](https://github.com/voidaliot/sysml-v2-samples)
 - Issues: <https://github.com/voidaliot/sysml-v2-vscext-release/issues>
 - Bundled library attribution: see the extension package `resources/sysml.library/` licenses.
