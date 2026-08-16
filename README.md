@@ -1,14 +1,13 @@
-<h1 align="center">SysML v2 for Visual Studio Code</h1>
-
 <p align="center">
-  <strong>A complete modeling environment for SysML v2 and KerML — language intelligence and live, editable diagrams, right inside your editor.</strong>
+  <img src="./assets/icons/sysml-v2-icon.png" alt="logo" width="256">
 </p>
 
----
+# SysML v2 for Visual Studio Code
 
-<h3 align="center">
+**A complete modeling environment for SysML v2 and KerML — language intelligence and live, editable diagrams, right inside your editor.**
+
+---
 ⚒️ Under Development ⚒️
-</h3>
 
 ---
 
