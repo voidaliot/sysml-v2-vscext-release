@@ -2,6 +2,31 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.15.6] - 2026-08-17
+
+### Added
+
+- **Types that meet in the model are now checked against each other.** Five new diagnostics: a redefinition that re-types its feature to something unrelated (`SSM017`), a `bind` whose two ends carry unrelated types (`SSM018`), a literal value that is not a value of its declared type — `attribute mass : MassValue = "hello"` (`SSM019`), a flow payload neither end can hold (`SSM020`), and a hint for a usage typed only by an abstract definition (`SSM021`).
+- **And six more, completing the check family.** A usage defined by a definition of a disjoint kind — `part p : SomeAttributeDef` (`SSM022`); a transition or succession guard that cannot be true or false (`SSM023`); an assignment whose expression is the wrong shape for its target (`SSM024`); action parameters that do not correspond to the definition's by count or direction (`SSM025`); a redefinition that turns an input into an output (`SSM026`); and an interface usage whose ends do not match the ends its definition declares (`SSM027`).
+- A value's shape is now read from a computed expression too, not only a written literal — `attribute label : Label = 1 < 2` is reported.
+- Each of these is reported only when the whole specialization chain could be read, so an incomplete picture stays silent rather than guessing.
+
+### Fixed
+
+- **Show Diagnostic Reference now lists every shipped code.** Twelve codes the extension emits were missing from the table — the KerML/SysML disjointness checks, specialization and connector syntax, constraint side effects, control-node placement, and the occurrence-portion checks — so looking one up returned nothing.
+
+## [0.15.5] - 2026-08-17
+
+### Added
+
+- **Completion after `.` now offers inherited members.** Members a part gets from a supertype, including one declared in another file, were missing from the list.
+- **`subsets` and `redefines` now offer the inherited features they exist to refine.**
+
+### Fixed
+
+- **Completion after `:` no longer offers usages or dotted paths.** Typing `attribute a :` listed every attribute usage in the workspace instead of the attribute definitions and data types valid there.
+- **`->` now offers the full Kernel Function Library.** `reduce`, `reject`, `selectOne`, `minimize`, `maximize` and the rest were missing, while `at` and `difference` were offered but exist in no OMG library.
+
 ## [0.15.4] - 2026-08-14
 
 ### Fixed
