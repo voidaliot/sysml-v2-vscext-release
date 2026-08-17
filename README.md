@@ -13,12 +13,6 @@
   <img src="https://img.shields.io/badge/telemetry-none-29c7ac?style=flat-square" alt="No telemetry">
 </p>
 
-<p align="center">
-  <a href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2"><strong>Install</strong></a>
-  · <a href="https://voidaliot.github.io/sysml-v2-vscext-release/"><strong>Explore the feature tour</strong></a>
-  · <a href="https://voidaliot.github.io/sysml-v2-vscext-release/user-guide.html"><strong>Read the guide</strong></a>
-  · <a href="https://github.com/voidaliot/sysml-v2-samples"><strong>Open the samples</strong></a>
-</p>
 
 > [!NOTE]
 > The extension is under active development. Feedback and real-world models are welcome.
