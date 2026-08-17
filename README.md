@@ -6,14 +6,6 @@
 
 <p align="center"><strong>Model as code. Understand it as diagrams. Keep both in sync.</strong></p>
 
-<p align="center">
-  <a href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2"><img src="https://img.shields.io/visual-studio-marketplace/v/voidaliot.vscode-sysml-v2?style=flat-square&label=Marketplace" alt="Visual Studio Marketplace version"></a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2"><img src="https://img.shields.io/visual-studio-marketplace/i/voidaliot.vscode-sysml-v2?style=flat-square&label=Installs" alt="Visual Studio Marketplace installs"></a>
-  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-see%20LICENSE-7c5cff?style=flat-square" alt="License"></a>
-  <img src="https://img.shields.io/badge/telemetry-none-29c7ac?style=flat-square" alt="No telemetry">
-</p>
-
-
 > [!NOTE]
 > The extension is under active development. Feedback and real-world models are welcome.
 
