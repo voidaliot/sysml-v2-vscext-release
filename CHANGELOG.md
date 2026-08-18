@@ -2,18 +2,33 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.15.7] - 2026-08-17
+
+### Added
+
+- **Geometry View places parts from their coordinate frames.** A SpatialItem's `coordinateFrame` transformation (translation/rotation sequences, affine matrices) now positions it, composed through nested items.
+- **Shapes and sizes read from the `shape` feature.** `item :>> shape : Cylinder { :>> radius = … }` and `= new Box(l, w, h)` now give the drawn solid its kind and extents.
+
+### Fixed
+
+- **Arithmetic in a placement or dimension is evaluated.** `:>> radius = 22/2*25.4 + 110 [mm]` was read as `22`; a value that cannot be decided is now left unset instead of guessed.
+
+### Changed
+
+- **A placement the tool cannot fully decide is drawn dashed and marked**, with the reason on the object, rather than silently misplaced.
+
 ## [0.15.6] - 2026-08-17
 
 ### Added
 
-- **Types that meet in the model are now checked against each other.** Five new diagnostics: a redefinition that re-types its feature to something unrelated (`SSM017`), a `bind` whose two ends carry unrelated types (`SSM018`), a literal value that is not a value of its declared type — `attribute mass : MassValue = "hello"` (`SSM019`), a flow payload neither end can hold (`SSM020`), and a hint for a usage typed only by an abstract definition (`SSM021`).
-- **And six more, completing the check family.** A usage defined by a definition of a disjoint kind — `part p : SomeAttributeDef` (`SSM022`); a transition or succession guard that cannot be true or false (`SSM023`); an assignment whose expression is the wrong shape for its target (`SSM024`); action parameters that do not correspond to the definition's by count or direction (`SSM025`); a redefinition that turns an input into an output (`SSM026`); and an interface usage whose ends do not match the ends its definition declares (`SSM027`).
-- A value's shape is now read from a computed expression too, not only a written literal — `attribute label : Label = 1 < 2` is reported.
+- **Types that meet in the model are now checked against each other.** Five new diagnostics: a redefinition that re-types its feature to something unrelated (`SSM017`), a `bind` whose two ends carry unrelated types (`SSM018`), a literal value that is not a value of its declared type, `attribute mass : MassValue = "hello"` (`SSM019`), a flow payload neither end can hold (`SSM020`), and a hint for a usage typed only by an abstract definition (`SSM021`).
+- **And six more, completing the check family.** A usage defined by a definition of a disjoint kind, `part p : SomeAttributeDef` (`SSM022`); a transition or succession guard that cannot be true or false (`SSM023`); an assignment whose expression is the wrong shape for its target (`SSM024`); action parameters that do not correspond to the definition's by count or direction (`SSM025`); a redefinition that turns an input into an output (`SSM026`); and an interface usage whose ends do not match the ends its definition declares (`SSM027`).
+- A value's shape is now read from a computed expression too, not only a written literal, `attribute label : Label = 1 < 2` is reported.
 - Each of these is reported only when the whole specialization chain could be read, so an incomplete picture stays silent rather than guessing.
 
 ### Fixed
 
-- **Show Diagnostic Reference now lists every shipped code.** Twelve codes the extension emits were missing from the table — the KerML/SysML disjointness checks, specialization and connector syntax, constraint side effects, control-node placement, and the occurrence-portion checks — so looking one up returned nothing.
+- **Show Diagnostic Reference now lists every shipped code.** Twelve codes the extension emits were missing from the table, the KerML/SysML disjointness checks, specialization and connector syntax, constraint side effects, control-node placement, and the occurrence-portion checks, so looking one up returned nothing.
 
 ## [0.15.5] - 2026-08-17
 
@@ -44,70 +59,70 @@ All notable changes to this extension will be documented in this file.
 
 ### Fixed
 
-- **`exhibit` now accepts a package-qualified state.** `exhibit VehicleStates::operating;` is legal SysML — an exhibit state usage is a kind of perform action usage — but the parser accepted only a dotted path and reported a syntax error.
+- **`exhibit` now accepts a package-qualified state.** `exhibit VehicleStates::operating;` is legal SysML, an exhibit state usage is a kind of perform action usage, but the parser accepted only a dotted path and reported a syntax error.
 - **Diagram edits write the shortest path that resolves.** A reference that needed qualifying was written out in full (`VehicleSystem::Powertrain::Engine`) where `Powertrain::Engine` resolves just as unambiguously and reads better.
 - **A connector drawn to a nested element now points at it.** An endpoint below the container the statement lands in was written as its bare name, which resolved to something else or to nothing; it is now chained from that container (`c.b`).
-- **`::` and `.` are no longer interchangeable in written paths.** A member of a usage is reached with `.` and a member of a definition with `::`, as the language defines it — the diagram used to join every segment with `::`. Endpoints whose first link carries a namespace qualifier (`Pkg::part.port`) are also accepted instead of refused.
+- **`::` and `.` are no longer interchangeable in written paths.** A member of a usage is reached with `.` and a member of a definition with `::`, as the language defines it, the diagram used to join every segment with `::`. Endpoints whose first link carries a namespace qualifier (`Pkg::part.port`) are also accepted instead of refused.
 
 ### Added
 
-- **New diagnostic `RES019`.** A `perform`, `exhibit`, or connector-end path that chains a definition's member with `.` instead of `::` — valid here, refused by the reference implementation — is now flagged as a warning, and configurable like any other code.
+- **New diagnostic `RES019`.** A `perform`, `exhibit`, or connector-end path that chains a definition's member with `.` instead of `::`, valid here, refused by the reference implementation, is now flagged as a warning, and configurable like any other code.
 
 ## [0.15.2]
 
 ### Changed
 
-- **Keyword and operator tooltips now cite the OMG specification.** Hovering `perform` used to end in `Source: info/language/03-keywords-and-operators.md:1` — a file inside the extension, not something a reader could check. Every keyword and operator tooltip now names the clause that specifies it, such as `OMG SysML v2.0 Part 1 §8.2.2.17.2 (Action Usages)` or `OMG KerML v1.0 §8.2.5.8.1 (Operator Expressions)`. Tooltips about your own model still cite the file and line where the element is declared.
+- **Keyword and operator tooltips now cite the OMG specification.** Hovering `perform` used to end in `Source: info/language/03-keywords-and-operators.md:1`, a file inside the extension, not something a reader could check. Every keyword and operator tooltip now names the clause that specifies it, such as `OMG SysML v2.0 Part 1 §8.2.2.17.2 (Action Usages)` or `OMG KerML v1.0 §8.2.5.8.1 (Operator Expressions)`. Tooltips about your own model still cite the file and line where the element is declared.
 
 ## [0.15.1] - 2026-08-12
 
 ### Added
 
-- **A filter that cannot be applied now says so.** An `import P::*[…]` or a view's `expose P::**[…]` whose bracket condition goes beyond a metadata tag test — a classification such as `(as Safety).isMandatory`, a comparison, a plain feature reference — was quietly kept as-is, so the import or view contributed exactly the members the filter was written to exclude. The filter still passes everything through, but the extension now marks the part of the condition it cannot evaluate (`RES018`) instead of leaving a scope that looks filtered and is not. Tag filters — `@Safety`, `@@Safety`, `not @Safety`, `@Safety or @Security`, and several brackets combined — are evaluated as before and stay unmarked. `RES018` is an informational notice by default and configurable like any other code.
+- **A filter that cannot be applied now says so.** An `import P::*[…]` or a view's `expose P::**[…]` whose bracket condition goes beyond a metadata tag test, a classification such as `(as Safety).isMandatory`, a comparison, a plain feature reference, was quietly kept as-is, so the import or view contributed exactly the members the filter was written to exclude. The filter still passes everything through, but the extension now marks the part of the condition it cannot evaluate (`RES018`) instead of leaving a scope that looks filtered and is not. Tag filters, `@Safety`, `@@Safety`, `not @Safety`, `@Safety or @Security`, and several brackets combined, are evaluated as before and stay unmarked. `RES018` is an informational notice by default and configurable like any other code.
 
 ## [0.15.0] - 2026-08-12
 
 ### Added
 
-- **Part, action, and state contents can be controlled independently from their feature lists.** Every Interconnection part, every Action Flow action, and every state now carries two controls in its top-right corner: a compartment control for the textual feature list and a `−`/`+` for the graphical internals. They are there whether or not the element has children or features, so the chrome does not shift as a model grows, and a composite state can finally show its entry/do/exit actions — those used to disappear the moment it had sub-states. Use either control locally or from the toolbar to show internals only, the list only, both, or neither; the choices are remembered and used by SVG/CLI export.
+- **Part, action, and state contents can be controlled independently from their feature lists.** Every Interconnection part, every Action Flow action, and every state now carries two controls in its top-right corner: a compartment control for the textual feature list and a `−`/`+` for the graphical internals. They are there whether or not the element has children or features, so the chrome does not shift as a model grows, and a composite state can finally show its entry/do/exit actions, those used to disappear the moment it had sub-states. Use either control locally or from the toolbar to show internals only, the list only, both, or neither; the choices are remembered and used by SVG/CLI export.
 - **The feature list now reads under the title, with the graphical internals below it.** The list and the title share one surface and the list is closed off by its own rule, so a container reads top-down: what it is, what it declares, then how it is wired. The title keeps that surface and that rule when the list is hidden, so hiding it changes what follows the title, never how the title itself reads.
-- **Compartments no longer end in blank space.** A compartment reserved more height than its rows were drawn at, leaving a strip of empty list under the last one — a whole empty row by the eighth — and the container's surface ran further still, past the rule that closes it. Both end where the last row does now.
-- **A container keeps its whole title when you open it.** An expanded part, action, or state used to shrink its title to one line and drop the definition it is typed by and its multiplicity — so opening `sensors : SensorSuite [2]` left just `sensors`. Every container now shows the same two lines in both states: the SysML term, then `name : Definition` with its multiplicity. Nothing on the diagram moves for it.
-- **An individual's life is now drawn, not just listed.** A `timeslice` or `snapshot` used to appear only as a row inside the box that owned it, so a lifetime broken into slices and instants — the thing 4D modelling exists to express — was invisible past the first level. Each portion is now a box of its own, joined to the occurrence it is a portion of by a temporal-decomposition line, nested as deeply as the model goes. It reads the same whichever way the portion is written: `timeslice t;`, `snapshot part p;`, `timeslice item t : T;`, a `then`-sequenced portion, or the unnamed redefining form `snapshot :>> start` — which is now labelled with the name it redefines instead of being dropped. Group mode still lists them as `timeslices` and `snapshots` rows; Tree mode shows the boxes. Occurrence portions no longer appear twice, once as a portion and once as a plain feature.
-- **`individual def` now appears on a diagram.** A definition written with no usage keyword — `individual def Vehicle_1 :> Vehicle;` — was drawn nowhere at all, which left every individual model without the definition its usages point at. It is now an ordinary definition box banner-ed `«individual def»`, with its specialization line to what it refines.
+- **Compartments no longer end in blank space.** A compartment reserved more height than its rows were drawn at, leaving a strip of empty list under the last one, a whole empty row by the eighth, and the container's surface ran further still, past the rule that closes it. Both end where the last row does now.
+- **A container keeps its whole title when you open it.** An expanded part, action, or state used to shrink its title to one line and drop the definition it is typed by and its multiplicity, so opening `sensors : SensorSuite [2]` left just `sensors`. Every container now shows the same two lines in both states: the SysML term, then `name : Definition` with its multiplicity. Nothing on the diagram moves for it.
+- **An individual's life is now drawn, not just listed.** A `timeslice` or `snapshot` used to appear only as a row inside the box that owned it, so a lifetime broken into slices and instants, the thing 4D modelling exists to express, was invisible past the first level. Each portion is now a box of its own, joined to the occurrence it is a portion of by a temporal-decomposition line, nested as deeply as the model goes. It reads the same whichever way the portion is written: `timeslice t;`, `snapshot part p;`, `timeslice item t : T;`, a `then`-sequenced portion, or the unnamed redefining form `snapshot :>> start`, which is now labelled with the name it redefines instead of being dropped. Group mode still lists them as `timeslices` and `snapshots` rows; Tree mode shows the boxes. Occurrence portions no longer appear twice, once as a portion and once as a plain feature.
+- **`individual def` now appears on a diagram.** A definition written with no usage keyword, `individual def Vehicle_1 :> Vehicle;`, was drawn nowhere at all, which left every individual model without the definition its usages point at. It is now an ordinary definition box banner-ed `«individual def»`, with its specialization line to what it refines.
 - **`event occurrence` members are drawn.** An event occurrence declared on a part is now a box of its own like any other occurrence (a row in the `occurrences` compartment in Group mode), and the reference form `event driver::setSpeedSent;` draws to the occurrence it names.
-- **Two new diagnostics for occurrence portions.** `SSM015` — a `timeslice`/`snapshot` written directly in a package, or inside an attribute or enumeration, is not a portion of anything. `SSM016` — a snapshot has zero duration, so it cannot be divided into timeslices. Both are errors, and configurable like any other code.
+- **Two new diagnostics for occurrence portions.** `SSM015`, a `timeslice`/`snapshot` written directly in a package, or inside an attribute or enumeration, is not a portion of anything. `SSM016`, a snapshot has zero duration, so it cannot be divided into timeslices. Both are errors, and configurable like any other code.
 
 ### Fixed
 
 - **Features no longer repeat across textual compartments or Properties.** Directed action features now have one Parameters row instead of also appearing under Features, and a pin/port is listed once in Properties. Graphical internals and their textual feature list can still be shown together. Compartments use the OMG terms for their context, including Parameters versus Directed Features, Result, Enums, Frames, State Transition, and Occurrences.
 - **Diagram toolbars now use one definition-control style.** Definition visibility uses a violet definition box containing the view's symbol (including the Case View ellipse), and Action Flow has the same show/hide-definitions affordance as the other behavior views.
-- **Both container controls are drawn centred, and inside the shape.** The `−`/`+` and the compartment icon sat slightly high in their buttons — a typed `+` rides above the middle of its line, and the icon's rules were measured from inside its border — and on a rounded action or state the pair straddled the curved outline. Both are symmetric shapes now, pulled in far enough to clear whatever corner their element is drawn with. Each says its state with the mark rather than with a colour or a highlight plate, and each mark shows what pressing it reveals: the compartment box holds its rows while the list is hidden and empties once it is on screen, just as the internals control is a `+` when closed and a `−` when open.
+- **Both container controls are drawn centred, and inside the shape.** The `−`/`+` and the compartment icon sat slightly high in their buttons, a typed `+` rides above the middle of its line, and the icon's rules were measured from inside its border, and on a rounded action or state the pair straddled the curved outline. Both are symmetric shapes now, pulled in far enough to clear whatever corner their element is drawn with. Each says its state with the mark rather than with a colour or a highlight plate, and each mark shows what pressing it reveals: the compartment box holds its rows while the list is hidden and empties once it is on screen, just as the internals control is a `+` when closed and a `−` when open.
 - **Automatic layout leaves room for the feature list.** Resetting the layout of an Interconnection diagram placed each part's internals at a fixed offset from its top edge, so they were drawn over a visible feature list instead of below it.
-- **Opening one part no longer disturbs the others.** Showing a part's internals re-measured its neighbours, so unrelated parts changed size and their connectors moved with them. Only the part you opened — and the containers that have to grow around it — change now.
-- **A part with its internals hidden can be moved again.** Only its two lines of title text could be grabbed, and the pointer showed a hand rather than the move cross. Every Interconnection part now has the same title strip a container frame has, so it drags the same way whether its internals are shown or hidden — and its empty interior still pans the canvas.
-- **Connectors land on their connection points.** When two relations ran between the same pair of elements, both ends of each were pushed sideways to separate them, leaving the line — and its endpoint handle and arrowhead — hanging in the air next to the point it was supposed to meet. They now bow apart in the middle and keep both ends on their dots, and relations that already sit on different connection points are left straight.
+- **Opening one part no longer disturbs the others.** Showing a part's internals re-measured its neighbours, so unrelated parts changed size and their connectors moved with them. Only the part you opened, and the containers that have to grow around it, change now.
+- **A part with its internals hidden can be moved again.** Only its two lines of title text could be grabbed, and the pointer showed a hand rather than the move cross. Every Interconnection part now has the same title strip a container frame has, so it drags the same way whether its internals are shown or hidden, and its empty interior still pans the canvas.
+- **Connectors land on their connection points.** When two relations ran between the same pair of elements, both ends of each were pushed sideways to separate them, leaving the line, and its endpoint handle and arrowhead, hanging in the air next to the point it was supposed to meet. They now bow apart in the middle and keep both ends on their dots, and relations that already sit on different connection points are left straight.
 - **A package no longer has lines drawn to it.** A package is always shown as a container that its members sit inside, so the annotation link a package-level `doc`, comment, or metadata usage still drew made no sense. The note itself stays on the diagram, inside the package it is declared in.
 
 ## [0.14.5] - 2026-08-10
 
 ### Added
 
-- **Nested ports and action pins now open and close on demand.** A port that holds inner ports starts closed — an ordinary-thickness port box, a little longer than a plain one, with a small `+` inside it below the direction arrow. Press it and the port stretches along the part's edge to show what it holds, with a `−` in the same place to close it again; the ports inside carry their own `+`, to any depth. A port never gets thicker for the control — only longer. Action parameters with inner items work the same way. Connections to a hidden inner port are not lost: they move to the port you can see, and come back when you open it. New toolbar buttons open or close them all at once, and your choice is remembered per diagram and used by the exported SVG.
-- **Actions in an Action Flow diagram can be collapsed.** An action drawn as a frame around other actions now carries the same `−`/`+` control: collapse it to a single action box that lists what it contains, and the flow into and out of it keeps running to that box. The parts around them are not collapsible — the Parts button already hides those.
+- **Nested ports and action pins now open and close on demand.** A port that holds inner ports starts closed, an ordinary-thickness port box, a little longer than a plain one, with a small `+` inside it below the direction arrow. Press it and the port stretches along the part's edge to show what it holds, with a `−` in the same place to close it again; the ports inside carry their own `+`, to any depth. A port never gets thicker for the control, only longer. Action parameters with inner items work the same way. Connections to a hidden inner port are not lost: they move to the port you can see, and come back when you open it. New toolbar buttons open or close them all at once, and your choice is remembered per diagram and used by the exported SVG.
+- **Actions in an Action Flow diagram can be collapsed.** An action drawn as a frame around other actions now carries the same `−`/`+` control: collapse it to a single action box that lists what it contains, and the flow into and out of it keeps running to that box. The parts around them are not collapsible, the Parts button already hides those.
 
 - **Interconnection diagrams now offer a Smart layout.** Alongside the existing literal Top→Down and Left→Right choices, Smart restores the compact balanced arrangement from the earlier layout, applies it inside nested parts too, and persists for editor and SVG/CLI export.
-- **New diagnostic: a control node outside an action.** `fork`, `join`, `decide`, and `merge` are only valid in the body of an action definition or usage (OMG SysML v2 Part 1 §7.17.3). Written directly in a part they used to parse silently and then show up as control flow the part cannot own; they are now reported as a warning naming the part. Successions and flows in a part are unaffected — the spec allows those. Severity is configurable like any other code.
+- **New diagnostic: a control node outside an action.** `fork`, `join`, `decide`, and `merge` are only valid in the body of an action definition or usage (OMG SysML v2 Part 1 §7.17.3). Written directly in a part they used to parse silently and then show up as control flow the part cannot own; they are now reported as a warning naming the part. Successions and flows in a part are unaffected, the spec allows those. Severity is configurable like any other code.
 
 ### Fixed
 
-- **Action Flow diagrams no longer draw a box around a box.** A part — or part def — that owns no actions itself was still drawn as a frame around the nested part that does, so `part def Sys { part unit { action a; } }` showed a `Sys` frame owning nothing, and a longer chain of such parts showed one empty frame per level. The part that actually holds the flow is now what the diagram shows, whether you open it on the package or on any of the parts above it. A part that holds actions of its own is unchanged, and so is a part framing two or more parts that do — there it is the shared context the actions and their messages live in.
-- **You can now end an Action Flow at the final node by drawing to it.** The done ring only appeared once something already ended there, so the one gesture that finishes a flow had no target until the flow was already finished. Both the start dot and the done ring are now drawn on any action definition or usage, and connecting them writes real SysML — `first start then a;` for the start, `succession b then done;` for the finish.
-- **The Action Flow canvas no longer offers control nodes where they cannot go.** Right-clicking the canvas of a part-anchored flow offered `fork`, `join`, `decide`, and `merge`, which would have been written into the part — invalid per OMG SysML v2 Part 1 §7.17.3. That canvas now offers what can legitimately start a flow there, and the full set stays on an action.
-- **A parent port's name no longer disappears behind its inner ports.** The name was drawn down the middle of the port, where a nested port could cover it. It now sits along the port's inner side, in the strip its inner ports never reach — so it stays readable at any nesting depth, and parent ports are noticeably thinner because that strip is all the room they need.
-- **The Action Flow toolbar no longer calls every framed part a performer.** A part that simply declares actions is drawn around them as before, but only a part with a `perform` is a performer — the swimlane and the toolbar wording are reserved for it (OMG SysML v2 Part 1 §8.4.13.11).
-- **Action Flow pins now show their direction.** An `in`/`out`/`inout` parameter used to be an 8-pixel square — too small to draw the direction arrow in, so it was left off entirely. A pin is now drawn like a port: same size, rounded corners, and the same `<--` / `-->` / `<->` arrow. It takes the outline of the action it sits on, keeps its own fill, and is correspondingly easier to click.
-- **Ports nested more than two levels deep now render.** A port declared inside a port inside a port — to any depth — is drawn on the port that contains it, each level stacked on the one before and grown to hold what it carries. Previously the third level and everything below it was simply missing. The deeper ports are selectable, connect the same way, move with their parent, and a connector or item flow naming the full path (`part.port.inner.deeper`) docks on the right one. Action parameters with their own `in`/`out` items nest the same way.
+- **Action Flow diagrams no longer draw a box around a box.** A part, or part def, that owns no actions itself was still drawn as a frame around the nested part that does, so `part def Sys { part unit { action a; } }` showed a `Sys` frame owning nothing, and a longer chain of such parts showed one empty frame per level. The part that actually holds the flow is now what the diagram shows, whether you open it on the package or on any of the parts above it. A part that holds actions of its own is unchanged, and so is a part framing two or more parts that do, there it is the shared context the actions and their messages live in.
+- **You can now end an Action Flow at the final node by drawing to it.** The done ring only appeared once something already ended there, so the one gesture that finishes a flow had no target until the flow was already finished. Both the start dot and the done ring are now drawn on any action definition or usage, and connecting them writes real SysML, `first start then a;` for the start, `succession b then done;` for the finish.
+- **The Action Flow canvas no longer offers control nodes where they cannot go.** Right-clicking the canvas of a part-anchored flow offered `fork`, `join`, `decide`, and `merge`, which would have been written into the part, invalid per OMG SysML v2 Part 1 §7.17.3. That canvas now offers what can legitimately start a flow there, and the full set stays on an action.
+- **A parent port's name no longer disappears behind its inner ports.** The name was drawn down the middle of the port, where a nested port could cover it. It now sits along the port's inner side, in the strip its inner ports never reach, so it stays readable at any nesting depth, and parent ports are noticeably thinner because that strip is all the room they need.
+- **The Action Flow toolbar no longer calls every framed part a performer.** A part that simply declares actions is drawn around them as before, but only a part with a `perform` is a performer, the swimlane and the toolbar wording are reserved for it (OMG SysML v2 Part 1 §8.4.13.11).
+- **Action Flow pins now show their direction.** An `in`/`out`/`inout` parameter used to be an 8-pixel square, too small to draw the direction arrow in, so it was left off entirely. A pin is now drawn like a port: same size, rounded corners, and the same `<--` / `-->` / `<->` arrow. It takes the outline of the action it sits on, keeps its own fill, and is correspondingly easier to click.
+- **Ports nested more than two levels deep now render.** A port declared inside a port inside a port, to any depth, is drawn on the port that contains it, each level stacked on the one before and grown to hold what it carries. Previously the third level and everything below it was simply missing. The deeper ports are selectable, connect the same way, move with their parent, and a connector or item flow naming the full path (`part.port.inner.deeper`) docks on the right one. Action parameters with their own `in`/`out` items nest the same way.
 - **Connector lines now remain continuous at crossings.** Crossing gaps, semicircular humps, hooks, overlays, carriers, and background masks have been removed from the canvas and SVG export. Automatic layout and shared lane routing still reduce avoidable crossings; selected connectors and a selected node's outgoing relations use a slim background casing for contrast without cutting either route. Diamonds and arrowheads also keep their normal size when a line is highlighted.
 - **Lines no longer disappear from a diagram while you zoom.** Zooming in on the middle of a long connector could remove it from view entirely, most visibly on a General View tree. Connectors now stay drawn wherever the viewport is.
 - **Panning, zooming, and settled redraws are smoother on large diagrams.** One shared snapshot now builds the obstacle scene once and precomputes connector routes and final continuous paths; moving the viewport redraws nothing, while port moves, reconnects, hierarchy changes, and hidden elements correctly invalidate stale routes.
@@ -116,25 +131,25 @@ All notable changes to this extension will be documented in this file.
 
 ### Fixed
 
-- **Sequence diagrams: you can now say WHEN a message happens.** Drag a message arrow up or down to move it earlier or later — a dashed line shows where it will land, and the source is rewritten to match. New messages are no longer always added at the bottom either: the connection points down a lifeline now sit between the existing messages, and the point you start the drag from is where the new message is written. Where the order comes from the model itself — lifelines sequenced with `then event occurrence` — the drag is declined and tells you which lifeline's chain sets the order, instead of appearing to work and changing nothing.
+- **Sequence diagrams: you can now say WHEN a message happens.** Drag a message arrow up or down to move it earlier or later, a dashed line shows where it will land, and the source is rewritten to match. New messages are no longer always added at the bottom either: the connection points down a lifeline now sit between the existing messages, and the point you start the drag from is where the new message is written. Where the order comes from the model itself, lifelines sequenced with `then event occurrence`, the drag is declined and tells you which lifeline's chain sets the order, instead of appearing to work and changing nothing.
 
 ## [0.14.3] - 2026-08-06
 
 ### Fixed
 
-- **The language server no longer hangs while you type a not-yet-finished declaration.** Typing a member that is briefly invalid — `in` before its name, a misplaced modifier — could wedge the server permanently: completion never finished, everything after it stopped responding, and correcting the text did not help; only restarting the server did. Deeply nested bodies made it likelier. Completion now stays responsive throughout, and still offers suggestions while the line is incomplete.
-- **Nested ports now show on Interconnection and Action Flow diagrams.** A port that declares its own ports — written inside the port's body or in its port definition — is drawn the way the OMG notation shows it: the port stretches along the part's edge to hold its inner ports and names itself along its own length, while the inner ports keep the normal port size and sit on it like ports on a part. The part grows to make room. Inner ports move with their parent, are selectable, and a connector or item flow that reaches one (`part.port.inner`) docks on it. Action parameters with their own `in`/`out` items work the same way. Single-level ports are unchanged.
-- **Action Flow diagrams no longer draw a part that performs nothing.** A part that merely declares an `action def` inside it was drawn as a performer frame around a definition it never performs. The definition now shows on its own — the same way whether you open the diagram on the package or on the part itself. A part that also performs an action keeps its flow, with the definition beside it rather than inside it. Parts that perform an action, or own an action usage, are otherwise unaffected.
-- **Port direction now reads as an arrow.** `in`, `out`, and `inout` ports show a proper arrow across the glyph — `<--`, `-->`, `<->` — as the OMG notation draws them, instead of a bare chevron (and, for `inout`, two separate marks).
+- **The language server no longer hangs while you type a not-yet-finished declaration.** Typing a member that is briefly invalid, `in` before its name, a misplaced modifier, could wedge the server permanently: completion never finished, everything after it stopped responding, and correcting the text did not help; only restarting the server did. Deeply nested bodies made it likelier. Completion now stays responsive throughout, and still offers suggestions while the line is incomplete.
+- **Nested ports now show on Interconnection and Action Flow diagrams.** A port that declares its own ports, written inside the port's body or in its port definition, is drawn the way the OMG notation shows it: the port stretches along the part's edge to hold its inner ports and names itself along its own length, while the inner ports keep the normal port size and sit on it like ports on a part. The part grows to make room. Inner ports move with their parent, are selectable, and a connector or item flow that reaches one (`part.port.inner`) docks on it. Action parameters with their own `in`/`out` items work the same way. Single-level ports are unchanged.
+- **Action Flow diagrams no longer draw a part that performs nothing.** A part that merely declares an `action def` inside it was drawn as a performer frame around a definition it never performs. The definition now shows on its own, the same way whether you open the diagram on the package or on the part itself. A part that also performs an action keeps its flow, with the definition beside it rather than inside it. Parts that perform an action, or own an action usage, are otherwise unaffected.
+- **Port direction now reads as an arrow.** `in`, `out`, and `inout` ports show a proper arrow across the glyph, `<--`, `-->`, `<->`, as the OMG notation draws them, instead of a bare chevron (and, for `inout`, two separate marks).
 - **A port's direction now reflects items declared inside it.** `port p { in item x; }` shows an `in` chevron, matching what a port definition with the same body has always shown.
-- **Properties now inspects a port like a part** — its nested ports, attributes, items, and parameters each get their own section.
-- **Ports are much easier to click.** The clickable area now covers the whole port glyph, stopping only where the connect dot begins. Previously most of a port was covered by that dot, so clicks fell through and selected the part behind it — worst on long and nested ports, which were effectively unselectable.
+- **Properties now inspects a port like a part**, its nested ports, attributes, items, and parameters each get their own section.
+- **Ports are much easier to click.** The clickable area now covers the whole port glyph, stopping only where the connect dot begins. Previously most of a port was covered by that dot, so clicks fell through and selected the part behind it, worst on long and nested ports, which were effectively unselectable.
 
 ## [0.14.2] - 2026-08-05
 
 ### Fixed
 
-- **Dragged positions on a package diagram stay with the right element.** On a package overview a node's saved position was keyed by its place in the list, so inserting an earlier member — or filling in one that had been empty — shifted every later element's saved geometry onto its neighbour. Positions now follow the element itself. Package-overview positions saved by an older version are re-laid-out once on upgrade.
+- **Dragged positions on a package diagram stay with the right element.** On a package overview a node's saved position was keyed by its place in the list, so inserting an earlier member, or filling in one that had been empty, shifted every later element's saved geometry onto its neighbour. Positions now follow the element itself. Package-overview positions saved by an older version are re-laid-out once on upgrade.
 
 ### Added
 
@@ -144,38 +159,38 @@ All notable changes to this extension will be documented in this file.
 
 ### Fixed
 
-- **Conjugated ports point the right way on Interconnection diagrams.** A port whose type is conjugated — written `port p : ~PowerOutPort`, or typed by a conjugate port definition such as `port def PowerInPort :> ~PowerOutPort` — now shows its direction flipped (an `out` feature reads as `in`), matching the text and the hover. Before, such a port drew the unflipped direction or none at all.
+- **Conjugated ports point the right way on Interconnection diagrams.** A port whose type is conjugated, written `port p : ~PowerOutPort`, or typed by a conjugate port definition such as `port def PowerInPort :> ~PowerOutPort`, now shows its direction flipped (an `out` feature reads as `in`), matching the text and the hover. Before, such a port drew the unflipped direction or none at all.
 
 ## [0.14.0] - 2026-08-03
 
 ### Added
 
-- **Action Flow diagrams draw performer swimlanes.** A part that performs an action — `part ctrl { perform run.sense; }` — is now drawn as a «performer» lane inside that action, matching the SysML v2 specification. Right-click an action and choose **Add performer part** to name an existing part (a plain name or a qualified path such as `Pkg::car.engine`); create an action inside a lane, or drag one into it, and the part's `perform` is written for you. Opening the diagram on a part that performs an action shows the whole flow with its lanes.
+- **Action Flow diagrams draw performer swimlanes.** A part that performs an action, `part ctrl { perform run.sense; }`, is now drawn as a «performer» lane inside that action, matching the SysML v2 specification. Right-click an action and choose **Add performer part** to name an existing part (a plain name or a qualified path such as `Pkg::car.engine`); create an action inside a lane, or drag one into it, and the part's `perform` is written for you. Opening the diagram on a part that performs an action shows the whole flow with its lanes.
 - **Actions can be modelled directly inside a part.** `part camera { perform action takePicture { … } }` needs no separate declaration: the action is drawn as a frame inside the part, and the part now shows its ports, so an accept or send action reads against the boundary it crosses.
-- **Show/hide filters on the Action Flow toolbar.** Three toggles control the performing parts (with their swimlanes), the ports on those parts, and the action definitions. All start on, and each is remembered per diagram. Hiding the parts keeps the flow — only the "who performs it" layer goes. With parts shown, parts that hold no actions appear too, so one connected only by ports is visible.
-- **State diagrams show who exhibits a state.** A part that exhibits a state — `part vehicle { exhibit vehicleStates; }` — is drawn with an «exhibit» arrow to it, matching the SysML v2 specification. Right-click a state and choose **Add exhibiting part** to name an existing part. Two toolbar toggles control the exhibiting parts (off to start) and the state definitions.
+- **Show/hide filters on the Action Flow toolbar.** Three toggles control the performing parts (with their swimlanes), the ports on those parts, and the action definitions. All start on, and each is remembered per diagram. Hiding the parts keeps the flow, only the "who performs it" layer goes. With parts shown, parts that hold no actions appear too, so one connected only by ports is visible.
+- **State diagrams show who exhibits a state.** A part that exhibits a state, `part vehicle { exhibit vehicleStates; }`, is drawn with an «exhibit» arrow to it, matching the SysML v2 specification. Right-click a state and choose **Add exhibiting part** to name an existing part. Two toolbar toggles control the exhibiting parts (off to start) and the state definitions.
 - **Both behaviour diagrams name the definition a usage comes from.** An action or state usage is linked to its definition by a «defined by» arrow, under the same definitions toggle.
 - **Interconnection diagrams show the actions a part performs.** Each is drawn inside its part with its parameter pins, so a flow can be modelled from a pin to the port it leaves through. Right-click a part and choose **Add perform action** to create one; a toolbar toggle hides them.
 - **A usage shows what its definition contains.** `action run : Startup;` draws Startup's flow and `state modes : Modes;` draws Modes' machine, instead of an empty box. Members declared on the usage itself win, as they do in the text.
 
 ### Fixed
 
-- **Editing an element on a package diagram works.** Rename, delete, add a child, add an exhibiting or performing part all reported "not found" for any element whose tile is labelled with a qualified name, such as a state declared inside a part — while the element sat plainly on the canvas.
+- **Editing an element on a package diagram works.** Rename, delete, add a child, add an exhibiting or performing part all reported "not found" for any element whose tile is labelled with a qualified name, such as a state declared inside a part, while the element sat plainly on the canvas.
 - **An `exhibit` names the state precisely.** Adding an exhibiting part to a state owned by another element writes the feature chain that reaches it (`exhibit fsf.hvjhv;`) instead of a bare name that could match something else.
-- **Definitions are rectangles, usages are rounded — everywhere.** The corner rule now holds for action and state boxes and for the frames around them, not just for parts. A case definition is a rectangle too; the case usage keeps its familiar oval.
+- **Definitions are rectangles, usages are rounded, everywhere.** The corner rule now holds for action and state boxes and for the frames around them, not just for parts. A case definition is a rectangle too; the case usage keeps its familiar oval.
 - **Action diagrams show only actions and the parts that run them.** A part with no actions is no longer drawn, so the canvas is not crowded with empty boxes.
 - **The «defined by» and «exhibit» arrows appear on package diagrams.** They were being dropped: the box was absorbed into the tile it pointed at, and the arrow crossed between tiles. A definition already drawn as its own tile is now the endpoint, instead of a second copy inside the usage.
 - **A performed action is drawn once.** A part that claimed an action with `perform` appeared a second time, as its own box holding that action, beside the swimlane it had already become. `perform a.b` also read as `a` instead of naming the action it performs.
-- **Performers and exhibiting parts attach to usages, not definitions.** A definition has no occurrence to claim, so **Add performer part** and **Add exhibiting part** are no longer offered on one. They offer **Add action usage** / **Add state usage** instead, which declare `action <name> : <Def>;` or `state <name> : <Def>;` beside the definition — that usage is what takes performers and exhibitors.
+- **Performers and exhibiting parts attach to usages, not definitions.** A definition has no occurrence to claim, so **Add performer part** and **Add exhibiting part** are no longer offered on one. They offer **Add action usage** / **Add state usage** instead, which declare `action <name> : <Def>;` or `state <name> : <Def>;` beside the definition, that usage is what takes performers and exhibitors.
 - **State diagrams model states, not parts.** A part is no longer a state-machine tile: the diagram tiles the state definitions and states, and opening it on a part shows the machine that part exhibits. A package canvas offers `state def` and `state`.
-- **An empty Action Flow diagram is empty.** Opening one on a part or package with no actions used to draw an empty part box with a start marker in it. Nothing is drawn now, and the blank canvas offers both `action def` and `action` so a flow can be started either way. A start or done marker only ever appears inside an action — or, in State diagrams, inside a state machine.
+- **An empty Action Flow diagram is empty.** Opening one on a part or package with no actions used to draw an empty part box with a start marker in it. Nothing is drawn now, and the blank canvas offers both `action def` and `action` so a flow can be started either way. A start or done marker only ever appears inside an action, or, in State diagrams, inside a state machine.
 - **One start arrow per flow.** An action that already says `first start then …` no longer grows an extra arrow from the start marker for every following `first … then …` line.
 - **One box per subject in Case diagrams, and cases can be dragged between boundaries.** Cases that share a subject now share its boundary instead of each drawing an identical copy, and a nested case no longer borrows its container's subject and actors. Drag a case into a subject boundary to give it that subject, out of one to remove it, or straight into another to change it.
 - **New sequence messages appear immediately.** A message drawn between two lifelines stayed invisible until you dragged a part; it is now drawn as soon as it is created.
 - **Transitions and successions can be drawn again.** Dragging from a state or an action only started a connector on the points that already carried one, so State Transition and Action Flow connectors could be drawn "only sometimes". Every connect point now works, and a container frame reveals its points when you hover its border.
-- **Parts connect to parts in the Interconnection View.** A part with ports could only be connected through those ports; its own body is a connector endpoint again, and a pinned action can start a succession. Connecting a part to someone else's port — which the notation cannot read — is refused instead, with a message that says so.
+- **Parts connect to parts in the Interconnection View.** A part with ports could only be connected through those ports; its own body is a connector endpoint again, and a pinned action can start a succession. Connecting a part to someone else's port, which the notation cannot read, is refused instead, with a message that says so.
 
-- **The language server stays responsive on real models.** A file of a few hundred references took 15–25 seconds to produce diagnostics after every edit — long enough to look like the server had stopped and a restart had not helped. It is now well under a second, and a file with errors is no longer slower than one without.
+- **The language server stays responsive on real models.** A file of a few hundred references took 15 to 25 seconds to produce diagnostics after every edit, long enough to look like the server had stopped and a restart had not helped. It is now well under a second, and a file with errors is no longer slower than one without.
 - **Type completion after `:` is immediate.** Offering the standard library's types blocked the server for about ten seconds per keystroke; it now returns the same suggestions in a fraction of a second.
 - **Restarting the language server always starts one.** If the running server was too busy to acknowledge the shutdown, the restart stopped there and left nothing running. It now discards the unresponsive server and starts a fresh one.
 
@@ -227,7 +242,7 @@ New Icon
 - **Action flows can be branched and signalled on the canvas.** Fork, join, decide, merge, send, accept, and terminate are creation choices on the Action Flow View and inside a composite action. Drag from the start marker to give a flow its first step, and "then done" ends it at the final node in one click.
 - **State machines can be started and finished on the canvas.** A state offers its entry, do, and exit actions; the initial marker designates the state entered first (choosing another moves the designation rather than adding a second, and the diagram now shows the state your model actually designates instead of the first one declared); "then done" ends the machine at the final state. A state's `parallel` regions marker is set and cleared from Properties.
 - **Interfaces, succession flows, and imports are creatable.** The Interconnection View creates a port-to-port `interface` usage (with an optional name) and a `succession flow`; the General View creates a package `import` by dragging one package onto another.
-- **`SysML: New Model…`** creates a model file with a package skeleton and opens its diagram in one step — including in a workspace that has no model file yet, and in VS Code for the Web. It asks before replacing a file that already has content.
+- **`SysML: New Model…`** creates a model file with a package skeleton and opens its diagram in one step, including in a workspace that has no model file yet, and in VS Code for the Web. It asks before replacing a file that already has content.
 
 ## [0.12.0] - 2026-07-31
 
@@ -251,11 +266,11 @@ New Icon
 
 - **Collapsing or expanding an Interconnection View part no longer rearranges the rest of the diagram.** Visible parts keep their positions and docks, newly revealed internals get only their local layout, and the viewport stays put.
 - **General View trees follow the model instead of producing a grid.** Elements retain declaration order, direct feature members sit beneath their parent in compact families, and acyclic typing continues downward to the referenced definition, through clear lanes instead of across intermediate elements. Default top-down levels are farther apart, so connector shafts and arrowheads stay clear.
-- **Every General View relationship stays individually editable.** Compatible structural relationships may share an automatic tree/bus corridor, but each source-to-target line remains its own selectable, reconnectable connector with real snap points and movable waypoints — including in exported SVG, which now contains every complete route.
+- **Every General View relationship stays individually editable.** Compatible structural relationships may share an automatic tree/bus corridor, but each source-to-target line remains its own selectable, reconnectable connector with real snap points and movable waypoints, including in exported SVG, which now contains every complete route.
 - **Reconnecting a connector to another snap point no longer makes it disappear**, across all graph diagrams.
 - **Panning, zooming, and dragging no longer trade fidelity for speed.** Text and geometry stay present and crisp throughout every gesture; dragging a leaf or a high-degree definition stretches only the incident connectors instead of recomputing its whole relationship fan.
 - **Stacked parallel relationships fan apart again**, so each line between the same two elements can be hovered and selected on its own.
-- **Panning no longer writes to the diagram file.** Only genuine changes — moving elements, rerouting connectors, changing style, or an actual zoom change — are saved.
+- **Panning no longer writes to the diagram file.** Only genuine changes, moving elements, rerouting connectors, changing style, or an actual zoom change, are saved.
 - **Diagram arrangements of whole-file overviews are no longer lost.** A diagram opened at file level for a file with several top-level packages (or none) now saves under its own file-overview entry and restores like any other view, including its side/tab mode. A file with a single top-level package continues to share its state with that package's own diagram.
 - **Dragging an empty package interior pans the canvas** while the folder header still moves the package. Tree shows occurrence usages as real usage nodes, and definition-to-existing-part creates a separately named, value-bound `ref part` pointing at that exact usage.
 - **Highlighted connections are no longer hidden behind parts**, and their highlight no longer flashes: the soft glow is replaced by a clearly visible coloured, heavier stroke.
@@ -305,9 +320,9 @@ New Icon
 
 ### Added
 
-- **Headless diagram export for CI/CD — `npx sysml-diagram`.** Render any diagram view to a standalone SVG from a terminal or a build pipeline, with no VS Code, browser, or display server involved: `npx sysml-diagram export --file model.sysml --view iv --out docs/diagrams/iv.svg`. `--all` renders every view that has content in one run, `--anchor` picks the element to diagram, `--theme light` switches palette, and the Grid View exports as CSV just like the editor's table. The command exits non-zero when the model has errors, so a pipeline can gate on it, the OMG standard library ships with the package, and it honours your `.vscode/sysml/project.json` diagram settings and the committed per-view layout in `.vscode/sysml/diagrams/`, so CI renders the diagram your team arranged. The renderer ships both on npm and inside the extension itself — **SysML: Copy Headless CLI Command** copies the ready-to-run command, so no separate install is needed. ([release repo #2](https://github.com/voidaliot/sysml-v2-vscext-release/issues/2))
+- **Headless diagram export for CI/CD, `npx sysml-diagram`.** Render any diagram view to a standalone SVG from a terminal or a build pipeline, with no VS Code, browser, or display server involved: `npx sysml-diagram export --file model.sysml --view iv --out docs/diagrams/iv.svg`. `--all` renders every view that has content in one run, `--anchor` picks the element to diagram, `--theme light` switches palette, and the Grid View exports as CSV just like the editor's table. The command exits non-zero when the model has errors, so a pipeline can gate on it, the OMG standard library ships with the package, and it honours your `.vscode/sysml/project.json` diagram settings and the committed per-view layout in `.vscode/sysml/diagrams/`, so CI renders the diagram your team arranged. The renderer ships both on npm and inside the extension itself, **SysML: Copy Headless CLI Command** copies the ready-to-run command, so no separate install is needed. ([release repo #2](https://github.com/voidaliot/sysml-v2-vscext-release/issues/2))
 
-- **Headless model validation — `npx sysml-validate`.** Check `.sysml`/`.kerml` files from a terminal or a pipeline with the same parser, linker, and diagnostics the Problems panel uses: `npx sysml-validate models/ --strict`. Point it at files or whole directories and read a grouped, aligned report in the terminal — or switch to **compact** (one line per problem, for grep and coding agents), **JSON**, **SARIF** (for GitHub code scanning), or **GitHub Actions annotations** — and gate the build on errors or a warning budget. It reads the lint profile and severity overrides your project already commits in `.vscode/settings.json` / `.vscode/sysml/project.json`, and ships both on npm and inside the extension.
+- **Headless model validation, `npx sysml-validate`.** Check `.sysml`/`.kerml` files from a terminal or a pipeline with the same parser, linker, and diagnostics the Problems panel uses: `npx sysml-validate models/ --strict`. Point it at files or whole directories and read a grouped, aligned report in the terminal, or switch to **compact** (one line per problem, for grep and coding agents), **JSON**, **SARIF** (for GitHub code scanning), or **GitHub Actions annotations**, and gate the build on errors or a warning budget. It reads the lint profile and severity overrides your project already commits in `.vscode/settings.json` / `.vscode/sysml/project.json`, and ships both on npm and inside the extension.
 
 ### Fixed
 
@@ -324,7 +339,7 @@ New Icon
 
 ### Fixed
 
-- **Named `disjoining` declarations now parse.** KerML/SysML source can name a disjoining relationship (`disjoining birdMammalDisjoining disjoint Bird from Mammal;`) — and give it a body — just like the other named relationship forms (`specialization`, `subtype`, …); the anonymous `disjoint … from …` form is unchanged. A named disjoining shows its name on the General View `{disjoint}` edge.
+- **Named `disjoining` declarations now parse.** KerML/SysML source can name a disjoining relationship (`disjoining birdMammalDisjoining disjoint Bird from Mammal;`), and give it a body, just like the other named relationship forms (`specialization`, `subtype`, …); the anonymous `disjoint … from …` form is unchanged. A named disjoining shows its name on the General View `{disjoint}` edge.
 
 ## [0.10.11] - 2026-07-21
 
@@ -338,11 +353,11 @@ New Icon
 
 ### Added
 
-- **`sysml.lint.profile` setting (`default` / `quiet` / `strict`).** Style and formatting notices no longer flood the Problems panel when you open canonical SysML v2 models. On the shipped **default** profile, formatting notices become hints (still visible as squiggles with quick-fixes, but out of the Problems panel) and the two that fire on the spec's own formatting — mixed tab/space indentation and redundant explicit `[1]` multiplicity — are suppressed; **quiet** hides all style notices; **strict** keeps the previous behaviour. Every diagnostic stays individually overridable via `sysml.validation.severities`, which always wins over the profile.
+- **`sysml.lint.profile` setting (`default` / `quiet` / `strict`).** Style and formatting notices no longer flood the Problems panel when you open canonical SysML v2 models. On the shipped **default** profile, formatting notices become hints (still visible as squiggles with quick-fixes, but out of the Problems panel) and the two that fire on the spec's own formatting, mixed tab/space indentation and redundant explicit `[1]` multiplicity, are suppressed; **quiet** hides all style notices; **strict** keeps the previous behaviour. Every diagnostic stays individually overridable via `sysml.validation.severities`, which always wins over the profile.
 
 ### Fixed
 
-- **No more false "ambiguous import" warnings on standard models.** The ambiguous-name warning is now reported where a name is actually used ambiguously, not on every import that could introduce it — so opening the spec's own vehicle models no longer produces a wall of warnings for names the file never even references.
+- **No more false "ambiguous import" warnings on standard models.** The ambiguous-name warning is now reported where a name is actually used ambiguously, not on every import that could introduce it, so opening the spec's own vehicle models no longer produces a wall of warnings for names the file never even references.
 - **Fewer spurious warnings on spec-canonical constructs.** Import cycles, library-name shadowing (declaring a local `attribute mass`), requirements without an explicit `subject`, CamelCase usage names, `const end` association features, and excluded-variant `[0]` members are no longer flagged as warnings on valid SysML v2 content.
 - **Portability import hints no longer fire within one model.** A reference into a nested sibling package under the same top-level package no longer suggests adding an explicit import.
 
@@ -350,9 +365,9 @@ New Icon
 
 ### Changed
 
-- **The «defined by» link now reads as a solid `———:>` arrow.** A usage-to-definition typing link (the graphical form of `x : Def`) is drawn as a solid line ending in a filled arrowhead preceded by a colon, matching the textual `:` syntax, instead of the previous dashed line with a hollow triangle. Applies wherever the link appears — General View tree and Case View. The hollow-triangle notation still marks specialization, redefinition, and reference subsetting.
-- **Feature membership no longer draws a target arrowhead.** A feature-membership link (composite or `ref`) now shows only the diamond at the owner end — filled for composite, open for `ref` — with no arrow at the other end; the diamond already conveys ownership and direction.
-- **Connectors fill a side from the middle outward.** A single relation on an element's side docks at the midpoint, and each additional relation fans out around it, so several relations on the same side no longer stack on one point — one lands in the middle and the rest spread. Applies across the General View, Action Flow, State Transition, Case, and Interconnection views. Drag a connector onto any snap point to place it precisely.
+- **The «defined by» link now reads as a solid `———:>` arrow.** A usage-to-definition typing link (the graphical form of `x : Def`) is drawn as a solid line ending in a filled arrowhead preceded by a colon, matching the textual `:` syntax, instead of the previous dashed line with a hollow triangle. Applies wherever the link appears, General View tree and Case View. The hollow-triangle notation still marks specialization, redefinition, and reference subsetting.
+- **Feature membership no longer draws a target arrowhead.** A feature-membership link (composite or `ref`) now shows only the diamond at the owner end, filled for composite, open for `ref`, with no arrow at the other end; the diamond already conveys ownership and direction.
+- **Connectors fill a side from the middle outward.** A single relation on an element's side docks at the midpoint, and each additional relation fans out around it, so several relations on the same side no longer stack on one point, one lands in the middle and the rest spread. Applies across the General View, Action Flow, State Transition, Case, and Interconnection views. Drag a connector onto any snap point to place it precisely.
 
 ## [0.10.8] - 2026-07-18
 
@@ -363,7 +378,7 @@ New Icon
 
 ### Fixed
 
-- **Dropping a connector on an Interconnection View port is now reliable.** The moment a port's square lights up as the drop target, that is registered as your connection intent — letting go of the connector line then always makes the connection, even if the release lands a few pixels off the port's handle. Moving off the port before releasing still cancels.
+- **Dropping a connector on an Interconnection View port is now reliable.** The moment a port's square lights up as the drop target, that is registered as your connection intent, letting go of the connector line then always makes the connection, even if the release lands a few pixels off the port's handle. Moving off the port before releasing still cancels.
 
 ## [0.10.7] - 2026-07-18
 
@@ -376,7 +391,7 @@ New Icon
 
 ### Fixed
 
-- **Accept actions render as a single node.** An `action trigger accept scene : Scene;` now shows in the Action Flow View as one accept action named `trigger`, with the accepted event `scene : Scene` as an input pin — instead of a duplicate plain action plus a stray node labelled by its accepted event. The pin a reference like `trigger.scene` needs is now present.
+- **Accept actions render as a single node.** An `action trigger accept scene : Scene;` now shows in the Action Flow View as one accept action named `trigger`, with the accepted event `scene : Scene` as an input pin, instead of a duplicate plain action plus a stray node labelled by its accepted event. The pin a reference like `trigger.scene` needs is now present.
 - **Action pins connect with flows.** In the Action Flow View, dragging between two action pins now creates an item flow rather than a succession. Successions between actions stay available from the right-click menu.
 
 ### Changed
@@ -387,14 +402,14 @@ New Icon
 
 ### Fixed
 
-- **Diagram links to a definition stay correct across files too.** Extending 0.10.4's fix: when a definition with the same name lives in **another file** of the workspace (or the standard library), drawing a feature-membership or defined-by link — or a relationship link written by name such as `satisfy`, `verify`, specialization, or dependency — now writes a qualified reference so it binds to the definition you clicked, not a same-named one elsewhere. Connector links (`connect`, `bind`, item flows, messages, transitions) keep their local part/port paths.
+- **Diagram links to a definition stay correct across files too.** Extending 0.10.4's fix: when a definition with the same name lives in **another file** of the workspace (or the standard library), drawing a feature-membership or defined-by link, or a relationship link written by name such as `satisfy`, `verify`, specialization, or dependency, now writes a qualified reference so it binds to the definition you clicked, not a same-named one elsewhere. Connector links (`connect`, `bind`, item flows, messages, transitions) keep their local part/port paths.
 
 ## [0.10.4] - 2026-07-15
 
 ### Changed
 
-- **The General View's Group mode is clutter-free again.** Group no longer draws the package ownership links added in 0.10.2 — the type bands already show which package owns what. Group is the plain element inventory; switch to Tree to see ownership and every other relationship.
-- **Dragging a link on the General View now reads both ends.** Drag from one definition to another to give the first a **feature membership** — a usage of the second (`part def Vehicle` → `part def Engine` adds `part engine : Engine;`). Drag from a usage to a definition for the **defined by** link, setting the usage's type — this previously refused with "that connection dot cannot target this element". Dragging between two usages still creates a redefinition, and specialization moved to the right-click menu. Both are offered in the right-click menu under the same names the diagram uses for those links.
+- **The General View's Group mode is clutter-free again.** Group no longer draws the package ownership links added in 0.10.2, the type bands already show which package owns what. Group is the plain element inventory; switch to Tree to see ownership and every other relationship.
+- **Dragging a link on the General View now reads both ends.** Drag from one definition to another to give the first a **feature membership**, a usage of the second (`part def Vehicle` → `part def Engine` adds `part engine : Engine;`). Drag from a usage to a definition for the **defined by** link, setting the usage's type, this previously refused with "that connection dot cannot target this element". Dragging between two usages still creates a redefinition, and specialization moved to the right-click menu. Both are offered in the right-click menu under the same names the diagram uses for those links.
 - **A «defined by» link now reads "defined by" in Properties.** It previously showed the internal name (`definedBy`, badged `DEFINEDBY`).
 - **Connector presentation is simpler and more predictable.** The three-way toolbar selector is gone. One bottom-canvas button switches ordinary relations between curved and each view's native presentation: rectilinear in Interconnection, Action Flow, and State Transition Views; direct straight lines in General and Case Views. Structural General View feature-membership/usage/«defined by» fans remain buses in both modes, with curved rounding only their two outside corners. The bus has its own grab area and persisted position, while its short selectable branches stay docked to element edges.
 
@@ -410,13 +425,13 @@ New Icon
 
 ### Added
 
-- **"Show all diagrams" on the first line of every model file.** Opens the whole-file overview — every top-level package included — without having to reach for the editor title bar or the command palette. The per-element "Show diagram" lenses are unchanged and still open focused on their element.
+- **"Show all diagrams" on the first line of every model file.** Opens the whole-file overview, every top-level package included, without having to reach for the editor title bar or the command palette. The per-element "Show diagram" lenses are unchanged and still open focused on their element.
 
 ## [0.10.3] - 2026-07-15
 
 ### Added
 
-- **The requirements table shows an Id column.** Each requirement's declared identifier — its `reqId` attribute value, or its short name (`requirement <'REG-01'> …`) — now appears in an Id column right after the row number.
+- **The requirements table shows an Id column.** Each requirement's declared identifier, its `reqId` attribute value, or its short name (`requirement <'REG-01'> …`), now appears in an Id column right after the row number.
 - **The requirements table nests sub-requirements.** A requirement declared inside another appears indented beneath it, and a parent row carries a chevron next to its name to collapse or expand its sub-requirements (to any depth).
 
 ## [0.10.2] - 2026-07-15
@@ -434,7 +449,7 @@ New Icon
 ### Changed
 
 - **Diagram creation has moved from the toolbar to focused right-click menus.** Right-click a blank surface to add an element to that diagram's exact model anchor, or right-click an element/port to choose a relationship valid from that source and then select a compatible target. Menus show the canonical icon and text, omit generic clipboard actions, and coexist with hover-visible drag-to-create connection dots; Interconnection View retains its specialized port handles. ([issue #81](https://github.com/voidaliot/sysml-v2-vsc-ext/issues/81))
-- **Right-click add menus now match what each view and element can actually hold.** The blank-surface menu offers every element kind the view depicts at diagram level — Interconnection adds constraints/actions/states/calcs/occurrences alongside parts/ports/attributes/items, Action Flow and State Transition add their frame compartment rows, and the Grid View's choices follow the active preset (Requirements, Elements, Data, Matrix). Element menus offer only children that are semantically valid inside that element: an `enum def` offers enumeration values — never the view's generic list — and a Sequence View lifeline can add the `event occurrence` marks the view renders. Grid View table rows now open their own element context menu (rename, delete, add valid children) instead of the whole-table menu.
+- **Right-click add menus now match what each view and element can actually hold.** The blank-surface menu offers every element kind the view depicts at diagram level, Interconnection adds constraints/actions/states/calcs/occurrences alongside parts/ports/attributes/items, Action Flow and State Transition add their frame compartment rows, and the Grid View's choices follow the active preset (Requirements, Elements, Data, Matrix). Element menus offer only children that are semantically valid inside that element: an `enum def` offers enumeration values, never the view's generic list, and a Sequence View lifeline can add the `event occurrence` marks the view renders. Grid View table rows now open their own element context menu (rename, delete, add valid children) instead of the whole-table menu.
 - **Context-menu relationships are drawn like port connectors.** Choosing a nameable relationship (transition, message) asks for the name first; then a live rubber-band line follows the pointer from the right-clicked element until you click the target to place the link (`Esc` cancels). No more name popup after the fact.
 
 ### Fixed
@@ -451,7 +466,7 @@ New Icon
 
 ### Added
 
-- **Grid matrices are separated by relationship type and table settings are isolated.** Matrix mode now requires a toolbar choice of Allocation, Dependency, Satisfy, Flow, or Connection; Interface and the unreadable combined matrix are not offered. Requirements, Elements, Data, and every Matrix family remember independent column order/width settings (legacy single-table settings migrate only to their former active view). Qualified model identities keep same-named elements in different namespaces distinct, and GRV is offered when any preset—not only Requirements—has content.
+- **Grid matrices are separated by relationship type and table settings are isolated.** Matrix mode now requires a toolbar choice of Allocation, Dependency, Satisfy, Flow, or Connection; Interface and the unreadable combined matrix are not offered. Requirements, Elements, Data, and every Matrix family remember independent column order/width settings (legacy single-table settings migrate only to their former active view). Qualified model identities keep same-named elements in different namespaces distinct, and GRV is offered when any preset, not only Requirements, has content.
 - **Elements and Data tables edit the model.** Elements supports Name, applicable Type/Multiplicity, and Doc edits while Kind stays read-only. Data supports Name, Type, and Value edits while Owner stays read-only. Double-click edits add, replace, or clear textual notation through the language server's syntax guard.
 
 ### Fixed
@@ -459,7 +474,7 @@ New Icon
 - **Imported definitions now contribute their structure to diagrams.** A typed part in one file now expands the parts, ports, connectors, pins, case structure, and geometry declared by its definition in another imported workspace or library file. In the OMG training Interface Example, `tankAssy` now shows its inherited `fuelTankPort`, `eng` shows its `engineFuelPort`, and the `FuelInterface` usage now draws the interface edge between those ports by following each `role ::> concrete.port` mapping, with navigation back to the Port Example definitions.
 - **Case View no longer shows elements from another view.** Rapid view switches and live edits now discard older asynchronous diagram responses, so a late General View model cannot repaint a selected Case View with part/item/state definitions. Case View admits only case-family elements and subjects; its definitions toggle now includes standalone case definitions, uses an icon instead of a `defs` text button, and unnamed bound subjects no longer collide with their case node IDs.
 - **Auto-import on save is now safe, scoped, and off by default.** Opting in no longer lets an import in one package suppress or redirect imports in a sibling, never adds a second same-named candidate when one is already imported, inserts the same needed import into every relevant namespace, preserves CRLF files, and persists ambiguity choices without racing the original save. `sysml.editor.autoImportOnSave` now defaults to `false`.
-- **Empty diagrams are now editable — build a model from scratch on the canvas.** A view anchored on an element with no content for that kind (e.g. State Transition on a bare `part def`) now keeps that element as its anchor instead of reporting "No anchor element found": toolbox adds nest inside the anchored element and appear on the next render, so a valid SysML file can be grown entirely from an (initially empty) diagram. The view-kind selector still greys out contentless kinds, and an `occurrence def` still never anchors an Interconnection View. (issue #203)
+- **Empty diagrams are now editable, build a model from scratch on the canvas.** A view anchored on an element with no content for that kind (e.g. State Transition on a bare `part def`) now keeps that element as its anchor instead of reporting "No anchor element found": toolbox adds nest inside the anchored element and appear on the next render, so a valid SysML file can be grown entirely from an (initially empty) diagram. The view-kind selector still greys out contentless kinds, and an `occurrence def` still never anchors an Interconnection View. (issue #203)
 - **`occurrence def` / `occurrence` offer the "Show diagram" CodeLens.** Occurrences are the OMG interaction containers, so they now carry the lens like parts/states/actions; an occurrence usage opens its natural Sequence View. (issue #204)
 - **A part-anchored General View no longer includes unrelated package siblings.** A package-level relationship statement (`dependency from A to C;`) used to pull the whole package into the focused view; it now relates only its endpoints. A package-level `satisfy R by part;` now correctly relates the requirement to its satisfying part. (issue #205)
 - **`ref` part membership uses the Release open diamond.** General View Tree now depicts a `ref part` as non-composite feature membership with an open owner diamond and a separate «defined by» edge, distinct from `::>` reference subsetting. Group mode keeps the single compartment row; Tree avoids duplication and does not recurse into elsewhere-owned ref contents. (issue #69)
@@ -488,15 +503,15 @@ New Icon
 
 ### Added
 
-- **Grid View has four table presets.** A toolbar selector switches the Grid View between the requirements table (the default), a plain element table (every named definition/usage with its kind, type, multiplicity and doc), a data-value table (attributes and value-carrying usages with their type, value and owner), and a relationship matrix (allocate / dependency / satisfy / flow / connect / interface links as a rows×columns matrix — an allocation matrix or interface control document). The presets are never mixed; the chosen one is remembered per view. (issue #122)
-- **Every renderable relationship can be drawn from the canvas.** The link tools now cover the whole relationship family the views depict — specialization, redefinition, dependency, allocate, item flow, exhibit, perform, frame, verify and derive — in addition to connect/bind/succession/transition/message/satisfy/include. Each gesture inserts the matching textual statement (parser-guarded) and round-trips to the rendered edge. (issue #124)
+- **Grid View has four table presets.** A toolbar selector switches the Grid View between the requirements table (the default), a plain element table (every named definition/usage with its kind, type, multiplicity and doc), a data-value table (attributes and value-carrying usages with their type, value and owner), and a relationship matrix (allocate / dependency / satisfy / flow / connect / interface links as a rows×columns matrix, an allocation matrix or interface control document). The presets are never mixed; the chosen one is remembered per view. (issue #122)
+- **Every renderable relationship can be drawn from the canvas.** The link tools now cover the whole relationship family the views depict, specialization, redefinition, dependency, allocate, item flow, exhibit, perform, frame, verify and derive, in addition to connect/bind/succession/transition/message/satisfy/include. Each gesture inserts the matching textual statement (parser-guarded) and round-trips to the rendered edge. (issue #124)
 - **Structured loops draw as frames.** A `while` / `loop until` / `for … in …` action renders in the Action Flow View as a labelled loop frame («while cond» / «loop» / «for x in …») containing its body actions, instead of a single node with the body flattened into the surrounding flow. (issue #123)
 - **Sequence View combined fragments.** `if`/`alt`, `opt` and loop control structures inside an interaction render as labelled combined-fragment boxes (a corner tag plus guard/iteration condition) spanning the lifelines and temporal slots of the messages they contain. (issue #123)
 - **Broader KerML kernel syntax parses.** The full OMG `kerml/src/examples` corpus (all 58 files, including the KerML Spec Annex A models) now parses. Newly accepted kernel constructs include short-name/`all` declaration headers (`class <'1'> A`, `type all x`), the named and bare relationship statements (`specialization Gen subtype A specializes B`, `inverse B::g of A::f`, `featuring F of y by C`), feature conjugation (`feature g ~ B::f`), n-ary and value connectors, the `$::` root-namespace qualifier, `member`-prefixed features, `all T` and `x.{ … }` expressions, prefix metadata before a member, and `inv` invariants with `rep` bodies. (issue #182)
-- **Duplicate member names are diagnosed.** Two members of the same namespace that share a name or short name (or an `alias` that clashes with an owned member) are flagged with `RES017` — the confusing case that otherwise only surfaced later as arbitrary name resolution. Configurable via `sysml.validation.severities`. (issue #183)
+- **Duplicate member names are diagnosed.** Two members of the same namespace that share a name or short name (or an `alias` that clashes with an owned member) are flagged with `RES017`, the confusing case that otherwise only surfaced later as arbitrary name resolution. Configurable via `sysml.validation.severities`. (issue #183)
 - **Case View shows the typing case definitions.** Each rendered case usage's definition appears as its own oval («… def» banner, heavier outline) linked by dashed «defined by» lines; a toolbar `defs` toggle hides or shows them, remembered per view. (issue #197)
-- **Case View adds usages from the toolbar.** The add tools now offer both the definition and the usage form of all four case families — use case, analysis, verification, and case. (issue #196)
-- **Action Flow View action pins.** Named `in`/`out`/`inout` parameters—including parameters inherited by typed action usages—render as compact pins, and qualified item flows now dock on those pins instead of action centers. (issue #151)
+- **Case View adds usages from the toolbar.** The add tools now offer both the definition and the usage form of all four case families, use case, analysis, verification, and case. (issue #196)
+- **Action Flow View action pins.** Named `in`/`out`/`inout` parameters, including parameters inherited by typed action usages, render as compact pins, and qualified item flows now dock on those pins instead of action centers. (issue #151)
 - **Properties edits textual notation.** Rename sourced elements and named relationships, edit or clear a usage's Type and Multiplicity through visible keyboard-accessible controls, and choose or clear a port direction; every change is parser-guarded, written to the source, and reflected back into the diagram. (issue #142)
 - **Browser View can focus on the current diagram.** A toggle beside the Browser filter hides model elements that are not available on the open view while retaining the ancestor branches needed to understand each visible element's containment path. (issue #137)
 
@@ -504,11 +519,11 @@ New Icon
 
 - **Licence metadata is consistent.** The repository, extension manifest, packaged licence, and agent guidance now all identify the extension's custom Freeware License; the separately licensed OMG standard library retains its upstream terms. (issue #169)
 - **General View Full mode lays out as an organic balloon tree.** Every element with feature members becomes the hub of its own small radial cloud: plain leaves sit right beside their owner while members that have their own descendants orbit farther out with their whole satellite cloud, growing the graph organically from the centre. Feature-membership relations drive the structure, boxes never overlap, and no membership line crosses an unrelated box. Loads instantly on large models. (issue #162)
-- **General View Tree & Full modes show real def-usage-def structure.** Every named *composed* feature usage — parts, ports, attributes, items, states, actions, calcs, constraints, requirements, cases, views, connections, including nested ones — now draws as its own rounded usage box, linked from its owner by a feature-membership arrow (filled diamond) and to its definition by a dashed «defined by» line. The membership line never carries the usage name (it reads inside the box), and Tree/Full no longer render compartments — the Group mode keeps today's compartment inventory. (user direction 2026-07-10, with issue #154)
+- **General View Tree & Full modes show real def-usage-def structure.** Every named *composed* feature usage, parts, ports, attributes, items, states, actions, calcs, constraints, requirements, cases, views, connections, including nested ones, now draws as its own rounded usage box, linked from its owner by a feature-membership arrow (filled diamond) and to its definition by a dashed «defined by» line. The membership line never carries the usage name (it reads inside the box), and Tree/Full no longer render compartments, the Group mode keeps today's compartment inventory. (user direction 2026-07-10, with issue #154)
 - **The "usage" relation is now called "feature membership".** Properties, the outline groups, and the footer use the OMG term for owner→feature links (renames the issue-#148 wording).
 - **`ref` features are no longer drawn as usage boxes on the General View.** A `ref` references an element owned elsewhere rather than composing it, so the Tree/Full modes no longer depict it as an owned usage box (the earlier open-diamond «reference» box, its «defined by» edge, and the recursion into the ref's features are all dropped); only composed features shape the Tree. Group mode still lists the `ref` in its owner's compartment inventory. The Tree layout also gets a little more vertical spacing between levels.
-- **The General View's Full mode is gone; Tree now carries every relation.** The General View has two display modes — Group and Tree. Tree renders *all* relations (feature membership, specialization/subsetting, satisfy, verify, import, …) while keeping its clean top-down layout, which is still shaped only by the part-composition hierarchy so the other relations overlay it without distorting the tree. A saved Full view opens as Tree.
-- **Feature-membership boxes are shown for parts only.** In Tree mode only `part` usages draw as their own boxes (the def→usage→def reading); every other feature — ports, attributes, items, actions, states, calcs, constraints — reads the OMG-standard way as a compartment row on its owning box. A part box is kept lean: it omits the redundant `: Def` typing label (the «defined by» edge already shows the definition) and lists only its **local** attributes, since inherited attributes already appear on the definition box.
+- **The General View's Full mode is gone; Tree now carries every relation.** The General View has two display modes, Group and Tree. Tree renders *all* relations (feature membership, specialization/subsetting, satisfy, verify, import, …) while keeping its clean top-down layout, which is still shaped only by the part-composition hierarchy so the other relations overlay it without distorting the tree. A saved Full view opens as Tree.
+- **Feature-membership boxes are shown for parts only.** In Tree mode only `part` usages draw as their own boxes (the def→usage→def reading); every other feature, ports, attributes, items, actions, states, calcs, constraints, reads the OMG-standard way as a compartment row on its owning box. A part box is kept lean: it omits the redundant `: Def` typing label (the «defined by» edge already shows the definition) and lists only its **local** attributes, since inherited attributes already appear on the definition box.
 
 ### Fixed
 
@@ -517,27 +532,27 @@ New Icon
 - **Interconnection View layout directions now describe the top level.** Top→Down stacks top-level parts vertically and Left→Right places them horizontally; the contents inside every part retain the established left-to-right flow in both modes. (user direction 2026-07-11)
 - **Multiline notes (`//* … */`) are recognized.** The KerML `//* … */` note is now lexed as hidden trivia and highlighted as a foldable block comment, instead of the opening `//` swallowing the line and leaving the closing `*/` as stray code. Five OMG release examples that use this note form now parse. (issue #180)
 - **Unrestricted names accept backslash escapes.** A single-quoted name may contain the KerML escapes `\'`, `\"`, `\t`, `\n`, `\\`, etc. (`part def 'A\'B';`), and names are compared by their decoded value, so references resolve regardless of how the escapes are written; renaming to a name with spaces or quotes writes a correctly-escaped token. (issue #181)
-- **Properties no longer repeats feature memberships.** The Connections group omits feature-membership and «defined by» rows — the parts/attributes/… declarations and the Type property already show them; real connectors, flows, and specializations still list. (issue #154)
-- **State Transition View transitions are created where you draw them.** The two-click transition tool (and the Action Flow "then" tool) now writes the statement into the element that owns both endpoints — the state machine or owning action — instead of the diagram anchor, where a package anchor used to strand it invisibly at package level. Transition and succession ends can also be reconnected by dragging, like connectors. (issues #199, #200)
+- **Properties no longer repeats feature memberships.** The Connections group omits feature-membership and «defined by» rows, the parts/attributes/… declarations and the Type property already show them; real connectors, flows, and specializations still list. (issue #154)
+- **State Transition View transitions are created where you draw them.** The two-click transition tool (and the Action Flow "then" tool) now writes the statement into the element that owns both endpoints, the state machine or owning action, instead of the diagram anchor, where a package anchor used to strand it invisibly at package level. Transition and succession ends can also be reconnected by dragging, like connectors. (issues #199, #200)
 - **Action Flow parallel arrows are individually selectable.** A succession and an item flow between the same two actions (or several guarded successions) used to render as exactly stacked lines where only the topmost was clickable; parallels now fan apart so each line can be hovered and selected on its own. (issue #200)
-- **Fork and join bars follow the flow direction and resize freely.** Left→Right flows draw them as vertical bars, and the resize minimum no longer forces a 48×24 box — bars shrink down to a thin bar in either orientation. (issue #201)
-- **State Transition View no longer draws the exhibiting part.** The redundant part-def box and its wrongly attached «exhibit» edge are gone — the state machine already names its owner, and exhibit/perform edges remain on the General View. (issue #198)
+- **Fork and join bars follow the flow direction and resize freely.** Left→Right flows draw them as vertical bars, and the resize minimum no longer forces a 48×24 box, bars shrink down to a thin bar in either orientation. (issue #201)
+- **State Transition View no longer draws the exhibiting part.** The redundant part-def box and its wrongly attached «exhibit» edge are gone, the state machine already names its owner, and exhibit/perform edges remain on the General View. (issue #198)
 - **General View Tree line styles no longer move nodes.** Switching among orthogonal, straight, and curved redraws only the connectors and preserves the current layout; use the dedicated Reset control to explicitly re-run automatic layout. (issue #153)
 
-- **Orthogonal connector crossings are unambiguous.** Interconnection and General View connectors show a small semicircular jump where one route crosses another; joins, bends, overlaps, and near-misses remain unmarked. The jump is drawn as a real gap-and-arc in the connector's own line — no background patch is painted, so the crossed connector and the canvas grid stay fully visible at every crossing. (issue #141)
+- **Orthogonal connector crossings are unambiguous.** Interconnection and General View connectors show a small semicircular jump where one route crosses another; joins, bends, overlaps, and near-misses remain unmarked. The jump is drawn as a real gap-and-arc in the connector's own line, no background patch is painted, so the crossed connector and the canvas grid stay fully visible at every crossing. (issue #141)
 - **Interconnection View port labels stay readable.** Port names now sit outside the owning part, beside rather than on the connector axis, and use an opaque theme-aware mask so connectors and part titles cannot obscure top, bottom, left, or right port labels. (issue #140)
 - **Interconnection View edits stay local by default.** `sysml.preview.diagrams.syncUsageToDef` now defaults to `false`, as documented by REQ-364, so editing a typed usage no longer writes into an often-empty type definition unless synchronization is explicitly enabled. (issue #132)
 
 ### Removed
 
-- **Dead performer-swimlane machinery.** The flat swimlane layout was superseded by nested performer frames in an earlier release and no longer produced any output; its unreachable code (the swimlane layout pass, the `lane`-metadata plumbing, and the profile flag) has been removed. The Action Flow and State Transition Views are unchanged — performers still render as nested frames. (issue #125)
+- **Dead performer-swimlane machinery.** The flat swimlane layout was superseded by nested performer frames in an earlier release and no longer produced any output; its unreachable code (the swimlane layout pass, the `lane`-metadata plumbing, and the profile flag) has been removed. The Action Flow and State Transition Views are unchanged, performers still render as nested frames. (issue #125)
 
 ## [0.9.35] - 2026-07-09
 
 ### Fixed
 
 - **Delegation connectors now always show.** A connector from an internal part's port to a boundary port of the enclosing part (e.g. `connect wheels.spin to roadContact;`) could be missing from the Interconnection View even though it was correctly written in the model. Such a connector docks on the port's *inner* side, but the port only drew a handle on its outer side, so React Flow couldn't resolve the endpoint and silently dropped the whole edge. Every port now renders a connect handle on both its outer and inner sides, so the connector is always drawn. (issue #195)
-- **Dropping a connector onto a port is reliable anywhere on it, and the line snaps to the connection point.** While you drag a connector, moving it over a port highlights the port and the preview line visibly snaps to the port's connection dot, so you can see exactly where it will land; releasing lands it anywhere on the port — inside the square or on any edge — with no pixel-perfect sweetspot, and a nearby part edge can no longer steal the drop. Ports stay fully selectable and movable (grab cursor on hover), and you still draw a connector by dragging from the port's connect dot, exactly as before. Where the connector docks is chosen automatically by whether it comes from inside or outside the part. (issue #195)
+- **Dropping a connector onto a port is reliable anywhere on it, and the line snaps to the connection point.** While you drag a connector, moving it over a port highlights the port and the preview line visibly snaps to the port's connection dot, so you can see exactly where it will land; releasing lands it anywhere on the port, inside the square or on any edge, with no pixel-perfect sweetspot, and a nearby part edge can no longer steal the drop. Ports stay fully selectable and movable (grab cursor on hover), and you still draw a connector by dragging from the port's connect dot, exactly as before. Where the connector docks is chosen automatically by whether it comes from inside or outside the part. (issue #195)
 
 ## [0.9.34] - 2026-07-09
 
@@ -548,15 +563,15 @@ New Icon
 
 ### Fixed
 
-- **Ports connect reliably in the Interconnection View, and land on the connection point.** Starting a connector from a port used to fail intermittently — the port-move grab area covered the connect dots, so a drag often slid the port instead of drawing a line; the move handle is now a thin strip that leaves the connect dot targetable. And a port now shows a single connect dot on its outer edge instead of two, so a dropped connector lands on that point on the part boundary rather than snapping to an "imaginary" point inside the port. (issue #187)
-- **Right-click ▸ Rename works on Interconnection View parts.** A container part is drawn as a frame, and Rename/Delete previously only recognised leaf nodes, so the menu items did nothing on any part with internals. The frame's title is now editable in place — right-click ▸ Rename (or F2), type, Enter. (issue #189)
+- **Ports connect reliably in the Interconnection View, and land on the connection point.** Starting a connector from a port used to fail intermittently, the port-move grab area covered the connect dots, so a drag often slid the port instead of drawing a line; the move handle is now a thin strip that leaves the connect dot targetable. And a port now shows a single connect dot on its outer edge instead of two, so a dropped connector lands on that point on the part boundary rather than snapping to an "imaginary" point inside the port. (issue #187)
+- **Right-click ▸ Rename works on Interconnection View parts.** A container part is drawn as a frame, and Rename/Delete previously only recognised leaf nodes, so the menu items did nothing on any part with internals. The frame's title is now editable in place, right-click ▸ Rename (or F2), type, Enter. (issue #189)
 - **Ports are much easier to connect.** Dropping (or starting) a connector no longer needs a pixel-perfect sweetspot: the port's connect handle has a larger invisible hit area and a more forgiving snap radius, and in the Interconnection View a ported part connects only through its ports (its body no longer competes for the drop), so a drop anywhere near the port lands on it and the port highlights as the drop target. (issue #190)
 - **Sequence View `send` events are labelled.** A `send DoorStatus() to …` message arrow now carries its payload/signal label (`DoorStatus`), like `message` arrows; previously send arrows were blank. (issue #191)
-- **Metadata annotations show their attribute values.** A named metadata usage (`metadata m : SafetyLevel { level = 3; }`) or a `@`-annotation (`@SafetyLevel { level = 3; }`) now displays its attribute value assignments — e.g. `SafetyLevel { level = 3 }` — on its diagram annotation node/badge, not just the bare metadata type name. (issue #121)
+- **Metadata annotations show their attribute values.** A named metadata usage (`metadata m : SafetyLevel { level = 3; }`) or a `@`-annotation (`@SafetyLevel { level = 3; }`) now displays its attribute value assignments, e.g. `SafetyLevel { level = 3 }`, on its diagram annotation node/badge, not just the bare metadata type name. (issue #121)
 
 ### Changed
 
-- **Sequences are `occurrence def` interactions, shown in the Sequence View and kept out of the Interconnection View.** The Sequence View now anchors on an `occurrence def` — the canonical OMG interaction container — whose participants are `ref part` references, and such an interaction (and the parts it references) no longer appears as blocks in the Interconnection View. The bundled Software-Defined-Vehicle showcase's five sequences were re-modelled from standalone `part def`s accordingly. (issue #113)
+- **Sequences are `occurrence def` interactions, shown in the Sequence View and kept out of the Interconnection View.** The Sequence View now anchors on an `occurrence def`, the canonical OMG interaction container, whose participants are `ref part` references, and such an interaction (and the parts it references) no longer appears as blocks in the Interconnection View. The bundled Software-Defined-Vehicle showcase's five sequences were re-modelled from standalone `part def`s accordingly. (issue #113)
 
 ## [0.9.33] - 2026-07-08
 
@@ -570,13 +585,13 @@ New Icon
 
 - **Grid View CSV export no longer executes model-controlled formulas.** A requirement name, doc body, or attribute value beginning with `=`, `+`, `-`, `@`, TAB, or CR is now prefixed with `'` and force-quoted before export, so opening the exported `.csv` in Excel/LibreOffice/Sheets can no longer run an embedded formula or DDE payload from an untrusted model file. (issue #166)
 - **`.kpar` extraction can no longer be used as a decompression bomb.** Archive entries are now checked against a per-entry and per-archive decompressed-size cap read from the zip central directory, and the actual `zlib` inflate call is capped independently (`maxOutputLength`) so a header that understates its own size still can't exhaust memory. (issue #167)
-- **The extension now declares limited support for untrusted and virtual workspaces.** Previously the undeclared capability meant VS Code disabled the extension entirely in Restricted Mode; only the `sysml.standardLibraryPath` setting — a workspace-settable filesystem path — is now trust-restricted, while highlighting, parsing, diagrams, and library hover work normally on untrusted content. (issue #168)
+- **The extension now declares limited support for untrusted and virtual workspaces.** Previously the undeclared capability meant VS Code disabled the extension entirely in Restricted Mode; only the `sysml.standardLibraryPath` setting, a workspace-settable filesystem path, is now trust-restricted, while highlighting, parsing, diagrams, and library hover work normally on untrusted content. (issue #168)
 
 ## [0.9.31] - 2026-07-07
 
 ### Changed
 
-- **Diagram previews rebuild far less.** The language server now caches the computed diagram model per parse and view kind, and live-typing re-renders only fetch the current view's model instead of re-detecting all eight view kinds — a live re-render costs 2 model builds instead of up to 18 on large models. (issue #179)
+- **Diagram previews rebuild far less.** The language server now caches the computed diagram model per parse and view kind, and live-typing re-renders only fetch the current view's model instead of re-detecting all eight view kinds, a live re-render costs 2 model builds instead of up to 18 on large models. (issue #179)
 
 ### Fixed
 
@@ -594,7 +609,7 @@ New Icon
 
 ### Added
 
-- **Geometry View is back — on the interactive canvas.** GEV returned to the view selector, rebuilt on the same React Flow canvas as the other views: parts typed by Geometry-library shapes (Box/Sphere/Cylinder/Cone/Wedge/Pyramid) draw as isometric solids placed by their `x`/`y`/`z` attributes, flat x/y layouts draw as a 2D top-view plan, and the coordinate axes always render — an empty Geometry View is a labelled frame to place parts on, and shape-typed parts without positions stack in a strip below it. Pan/zoom/fit, minimap, click-to-reveal, Properties, and SVG export work like every other view. Positions come from the model's attributes, so geometry objects are deliberately not movable by drag; package overviews stack each part's spatial frame as its own tile.
+- **Geometry View is back, on the interactive canvas.** GEV returned to the view selector, rebuilt on the same React Flow canvas as the other views: parts typed by Geometry-library shapes (Box/Sphere/Cylinder/Cone/Wedge/Pyramid) draw as isometric solids placed by their `x`/`y`/`z` attributes, flat x/y layouts draw as a 2D top-view plan, and the coordinate axes always render, an empty Geometry View is a labelled frame to place parts on, and shape-typed parts without positions stack in a strip below it. Pan/zoom/fit, minimap, click-to-reveal, Properties, and SVG export work like every other view. Positions come from the model's attributes, so geometry objects are deliberately not movable by drag; package overviews stack each part's spatial frame as its own tile.
 
 ## [0.9.28] - 2026-07-05
 
@@ -602,17 +617,17 @@ New Icon
 
 - **Connector highlights contrast harder.** Selected connectors and the child-connection highlights use a brighter highlight colour derived from your theme's foreground, so they step away from both the other lines and the canvas on any theme. (issue #164)
 
-- **One toolbar in both modes.** The docked side panel now shows the same single-row toolbar as the full tab — including the General View quick-filter chips (previously a second row) and all editing tools — and the "Diagram" header text is gone. Only the last button differs: it opens the full tab instead of docking. (issue #165)
+- **One toolbar in both modes.** The docked side panel now shows the same single-row toolbar as the full tab, including the General View quick-filter chips (previously a second row) and all editing tools, and the "Diagram" header text is gone. Only the last button differs: it opens the full tab instead of docking. (issue #165)
 
 ### Fixed
 
-- **Interconnection View — clicking a port selects the port.** Previously the owning part stayed selected and the code highlight jumped to the part; now the port itself is selected like any other element: its square highlights, Properties shows the port, and its declaration is highlighted in the source. (issue #163)
+- **Interconnection View, clicking a port selects the port.** Previously the owning part stayed selected and the code highlight jumped to the part; now the port itself is selected like any other element: its square highlights, Properties shows the port, and its declaration is highlighted in the source. (issue #163)
 
 ## [0.9.27] - 2026-07-05
 
 ### Added
 
-- **Editing tools live directly on the toolbar.** The ＋Tools toggle and its floating menu are gone — every view shows the add/link tools inside the same top toolbar row in both tab and side mode. If the pane is too narrow, the toolbar uses a custom transparent overlay thumb that appears on hover without changing toolbar height or icon alignment. The strip now offers the **full element vocabulary** a view can depict: the General View gets package + every definition kind (interfaces, connections, calcs, views, viewpoints, renderings, enums, allocations, metadata, occurrences, …). Elements that only make sense inside another element (like an actor in a use case) stay in the right-click menu. (issue #143)
+- **Editing tools live directly on the toolbar.** The ＋Tools toggle and its floating menu are gone, every view shows the add/link tools inside the same top toolbar row in both tab and side mode. If the pane is too narrow, the toolbar uses a custom transparent overlay thumb that appears on hover without changing toolbar height or icon alignment. The strip now offers the **full element vocabulary** a view can depict: the General View gets package + every definition kind (interfaces, connections, calcs, views, viewpoints, renderings, enums, allocations, metadata, occurrences, …). Elements that only make sense inside another element (like an actor in a use case) stay in the right-click menu. (issue #143)
 
 - **General View: a quick-filter chip for parts.** Parts can now be hidden like every other category (the "parts always show" rule is gone). (issue #158)
 
@@ -620,7 +635,7 @@ New Icon
 
 ### Changed
 
-- **General View — Full mode is more compact.** Rings sit closer together, boxes closer along each ring, and unrelated clusters pack tighter — with a corrected no-overlap guarantee at every density. (issue #159)
+- **General View, Full mode is more compact.** Rings sit closer together, boxes closer along each ring, and unrelated clusters pack tighter, with a corrected no-overlap guarantee at every density. (issue #159)
 
 - **Big diagrams are much snappier to drag and pan.** Dragging one element no longer re-renders every connector on the canvas each frame, and very large graphs (300+ elements) only render what is visible in the viewport while panning. (issue #161)
 
@@ -628,17 +643,17 @@ New Icon
 
 ### Added
 
-- **General View: quick filters on the toolbar.** One icon chip per element category in the model (use cases, requirements, interfaces, ports, …) shows or hides that whole category — **parts always show**. Hidden categories take their relations with them, so the graph re-lays-out cleaner; the choice is remembered per view. (issue #156)
+- **General View: quick filters on the toolbar.** One icon chip per element category in the model (use cases, requirements, interfaces, ports, …) shows or hides that whole category, **parts always show**. Hidden categories take their relations with them, so the graph re-lays-out cleaner; the choice is remembered per view. (issue #156)
 
-- **Grid View: Doc (specification) column.** The requirements table now shows each requirement's `doc` text right after its name, and the cell is editable in place — a multi-line editor (Shift+Enter for a newline) writes the `doc /* … */` member back to the source: edit to replace, fill an empty cell to add, clear to remove. (issue #144)
+- **Grid View: Doc (specification) column.** The requirements table now shows each requirement's `doc` text right after its name, and the cell is editable in place, a multi-line editor (Shift+Enter for a newline) writes the `doc /* … */` member back to the source: edit to replace, fill an empty cell to add, clear to remove. (issue #144)
 
 - **Grid View: Export produces CSV.** The toolbar's Export on the Grid View saves the table as CSV (Excel-compatible, in your displayed column order, satisfy/verify links and status included) instead of an SVG picture. The graphical views keep the SVG export. (issue #157)
 
 ### Changed
 
-- **General View — Full mode is now a hub-centred radial graph.** The top-level part def sits in the middle and its related elements span outward in all directions on concentric rings shaped by the composition/usage structure, with every other relation overlaid; unrelated elements form their own clusters and unconnected singletons pack into a compact grid. The layout is computed instantly (no worker round-trip), so large models (e.g. sdv.sysml) load fast. Full mode draws **straight or curved** connectors only — a saved orthogonal style shows as curved there, and stays orthogonal on the other views/modes. (issue #155)
+- **General View, Full mode is now a hub-centred radial graph.** The top-level part def sits in the middle and its related elements span outward in all directions on concentric rings shaped by the composition/usage structure, with every other relation overlaid; unrelated elements form their own clusters and unconnected singletons pack into a compact grid. The layout is computed instantly (no worker round-trip), so large models (e.g. sdv.sysml) load fast. Full mode draws **straight or curved** connectors only, a saved orthogonal style shows as curved there, and stays orthogonal on the other views/modes. (issue #155)
 
-- **Grid View columns behave like a spreadsheet.** Every column keeps its own width — resizing one no longer squeezes the others — and a horizontal scrollbar appears when the columns outgrow the pane, like Excel. Rows carry a sticky row-number gutter, and the table gained column grid lines and zebra striping. Also fixes a bug that could flood the header with phantom empty columns. (issue #145)
+- **Grid View columns behave like a spreadsheet.** Every column keeps its own width, resizing one no longer squeezes the others, and a horizontal scrollbar appears when the columns outgrow the pane, like Excel. Rows carry a sticky row-number gutter, and the table gained column grid lines and zebra striping. Also fixes a bug that could flood the header with phantom empty columns. (issue #145)
 
 
 ## [0.9.25] - 2026-07-04
@@ -646,7 +661,7 @@ New Icon
 ### Changed
 
 
-- **General View — Tree mode is now a clean top-down tree.** Every relation is drawn from the **owner's bottom** edge down to the **owned element's top** edge (no more side connections), for every line style — the orthogonal style reads as an elbow-bus org-chart, straight/curved radiate downward. The Tree is **top-down only** now (the left-right layout option was removed, and the layout-direction buttons no longer appear in Tree mode). (issue #152)
+- **General View, Tree mode is now a clean top-down tree.** Every relation is drawn from the **owner's bottom** edge down to the **owned element's top** edge (no more side connections), for every line style, the orthogonal style reads as an elbow-bus org-chart, straight/curved radiate downward. The Tree is **top-down only** now (the left-right layout option was removed, and the layout-direction buttons no longer appear in Tree mode). (issue #152)
 
 - **Grid View has no grid/dots background.** The requirements table is a table, not a canvas, so the notebook-grid dot pattern behind it is gone. (issue #147)
 
@@ -656,7 +671,7 @@ New Icon
 
 ### Added
 
-- **General View: composed parts now render as their own boxes** (Tree & Full modes). A part usage is drawn as a rounded box, its owner links to it with a **usage** arrow (filled diamond at the owner; open for a `ref` part), and the box links to its part **definition** with a dashed **«defined by»** edge — the standard SysML v2 definition/usage depiction. Group mode still shows definitions grouped by kind (the parts stay listed inside each definition). (issue #149)
+- **General View: composed parts now render as their own boxes** (Tree & Full modes). A part usage is drawn as a rounded box, its owner links to it with a **usage** arrow (filled diamond at the owner; open for a `ref` part), and the box links to its part **definition** with a dashed **«defined by»** edge, the standard SysML v2 definition/usage depiction. Group mode still shows definitions grouped by kind (the parts stay listed inside each definition). (issue #149)
 
 ### Changed
 
@@ -668,9 +683,9 @@ New Icon
 
 ### Added
 
-- **General View: three display modes** on the toolbar (icon selector). **Group** — definitions grouped by kind into labelled containers, with no relations (the pure inventory). **Tree** — a container-less tree of the definitions wired by their **usage/composition** links, each owner centred over its parts (main definition on top, branching down or to the side). **Full** — a container-less graph/"cloud" showing **all** relations (usage/composition, the specialization family — subsetting/redefinition/reference-subsetting — satisfy, import, …), laid out organically so related definitions cluster.
+- **General View: three display modes** on the toolbar (icon selector). **Group**, definitions grouped by kind into labelled containers, with no relations (the pure inventory). **Tree**, a container-less tree of the definitions wired by their **usage/composition** links, each owner centred over its parts (main definition on top, branching down or to the side). **Full**, a container-less graph/"cloud" showing **all** relations (usage/composition, the specialization family, subsetting/redefinition/reference-subsetting, satisfy, import, …), laid out organically so related definitions cluster.
 
-- **Connector line-style selector on the toolbar** (orthogonal / straight / curved), next to the layout icons, on every graph view — a live, per-view override of the `sysml.preview.diagrams.lineStyle` setting. On the General View tree it also shapes the layout: **orthogonal** reads as a classic org-chart with an elbow bus, **straight/curved** as a radiating tree.
+- **Connector line-style selector on the toolbar** (orthogonal / straight / curved), next to the layout icons, on every graph view, a live, per-view override of the `sysml.preview.diagrams.lineStyle` setting. On the General View tree it also shapes the layout: **orthogonal** reads as a classic org-chart with an elbow bus, **straight/curved** as a radiating tree.
 
 ### Changed
 
@@ -683,13 +698,13 @@ New Icon
 
 - **General View** now lays each type-band out as a **tree**: connected definitions (specialization / typing / composition families) flow along the layout direction, and relationship lines route **around** definition boxes instead of behind them, so a dense model is far less congested.
 
-- General View **type-bands are now resizable, auto-expanding containers** (like the Interconnection View's part frames): drag a band's edge to resize it, and it grows to fit definitions dragged into it — the definitions move with the band. Relationship lines that run inside a band are now **selectable and movable** (they were click-blocked before).
+- General View **type-bands are now resizable, auto-expanding containers** (like the Interconnection View's part frames): drag a band's edge to resize it, and it grows to fit definitions dragged into it, the definitions move with the band. Relationship lines that run inside a band are now **selectable and movable** (they were click-blocked before).
 
 - General View now draws a view/viewpoint's **`expose`** members as dashed «expose» arrows to the elements the view renders, and **import** arrows point at the deepest element named on the canvas (`import A::B::C` links to `C`, not just package `A`).
 
 - **Grid View columns can be resized and reordered**: drag a column header's right edge to resize it, or drag a header onto another to reorder; the chosen widths and order are remembered per view.
 
-- The **Browser View / Properties toggles moved into the panels themselves** — an open panel has an in-header collapse button and a closed panel leaves a slim rail to reopen it, so the toggles no longer float over (or overlap) the diagram.
+- The **Browser View / Properties toggles moved into the panels themselves**, an open panel has an in-header collapse button and a closed panel leaves a slim rail to reopen it, so the toggles no longer float over (or overlap) the diagram.
 
 Changed
 
@@ -699,7 +714,7 @@ Changed
 
 - Connector lines are now **movable**: select a connector and drag the hollow dot on any segment to bend the line through a new waypoint; drag a waypoint to move it, double-click it to remove it (removing the last one restores the automatic route). Waypoints follow the active line style (orthogonal/straight/curved), keep both ends glued to their ports/parts, persist in the diagram side-car (never in the `.sysml` text), and are cleared by endpoint reconnects and the ⟲ Reset-layout button.
 
-- General View now draws **usage membership as composition arrows**: a nested usage typed by a definition on the canvas renders as `[B]<>--a-->[A]` — filled diamond at the owner, arrow at the typing definition, labelled with the usage name (`ref` usages take an open diamond). Parameters and subject/actor/stakeholder members stay compartment-only. (Documented deviation from OMG 8.2.3.6, which keeps composition in compartments — the compartment rows remain too.)
+- General View now draws **usage membership as composition arrows**: a nested usage typed by a definition on the canvas renders as `[B]<>--a-->[A]`, filled diamond at the owner, arrow at the typing definition, labelled with the usage name (`ref` usages take an open diamond). Parameters and subject/actor/stakeholder members stay compartment-only. (Documented deviation from OMG 8.2.3.6, which keeps composition in compartments, the compartment rows remain too.)
 
 - The full specialization family is now distinctly drawn: usage subsetting carries a `{subsets}` annotation, redefinition (`:>>`/`redefines`) draws its own edge annotated `{redefines}`, and reference subsetting (`::>`/`references`) draws as a dashed hollow-triangle edge.
 
@@ -709,7 +724,7 @@ Changed
 
 ### Added
 
-- The requirements table now has **one column per attribute** (collected across every requirement in the file — a requirement without the attribute shows an empty, editable cell that adds it when filled), and **Constraint, Satisfy, and Verify are separate columns**; Satisfy/Verify list their link pills and accept a part / verification case name to create a new link.
+- The requirements table now has **one column per attribute** (collected across every requirement in the file, a requirement without the attribute shows an empty, editable cell that adds it when filled), and **Constraint, Satisfy, and Verify are separate columns**; Satisfy/Verify list their link pills and accept a part / verification case name to create a new link.
 
 - General View now draws dependency relationships (`dependency from A to B`) as dashed «dependency» arrows from each client to each supplier.
 
@@ -723,36 +738,36 @@ Changed
 
 - `doc`, `comment`, and `rep` body text now appears in hover cards, the outline detail, and General-View notes (previously only the locale/language was shown).
 
-- Sequence View: event occurrences declared with `then event occurrence …` chains are now supported — messages dock on their `part.event` endpoints and are ordered top-to-bottom by the lifelines' event timelines (not by declaration order); free-standing events render as labelled marks at their temporal position.
+- Sequence View: event occurrences declared with `then event occurrence …` chains are now supported, messages dock on their `part.event` endpoints and are ordered top-to-bottom by the lifelines' event timelines (not by declaration order); free-standing events render as labelled marks at their temporal position.
 
 - Sequence View: `occurrence def`/`occurrence` interactions (the canonical OMG sequence-modeling form) now anchor a Sequence View.
 
-- Elements now list nested `items`, `occurrences`, `calcs`, and named `constraints` in their own compartments, and package-level constraint/calc/occurrence/item/attribute usages — which have no dedicated view — now render in the General View as usage boxes with a «definedBy» link to their definition.
+- Elements now list nested `items`, `occurrences`, `calcs`, and named `constraints` in their own compartments, and package-level constraint/calc/occurrence/item/attribute usages, which have no dedicated view, now render in the General View as usage boxes with a «definedBy» link to their definition.
 
-- General View boxes now list **every feature inside the box**: ports and nested parts appear as `ports` / `parts` compartments alongside `attributes` (no port glyphs on General View boxes — glyph/label overlap is gone; the Interconnection View keeps drawing real boundary ports). A defs-only library still shows its full interface structure.
+- General View boxes now list **every feature inside the box**: ports and nested parts appear as `ports` / `parts` compartments alongside `attributes` (no port glyphs on General View boxes, glyph/label overlap is gone; the Interconnection View keeps drawing real boundary ports). A defs-only library still shows its full interface structure.
 
 ### Changed
 
 - Diagram toolbar redesigned: consistent theme-colored icons (no more mixed emoji glyphs), a visible 3-way layout-direction control, compact icon buttons for rename/delete/reset with tooltips, and clearer active/disabled states.
 - The Layout control is now **specific to each diagram**: the General View offers its two real options (type-bands as rows or as side-by-side columns), the flow views keep Top→Down / Left→Right / Bottom→Up, and the Sequence and Grid views show no direction buttons at all (they have no direction). On package overviews the control now also packs the behavior tiles (Left→Right = rows, Top→Down = stacked).
 - The canvas grid adapts to the zoom level: when the small squares would shrink below legibility the grid steps up to the next coarser cell size (and fades the fine lines back in as you zoom in), so a zoomed-out diagram no longer sits on a dense mesh.
-- The Browser View and Properties panel toggles now live as arrow icons on the canvas itself — upper-left and upper-right corner — instead of toolbar buttons, in both side and tab modes.
+- The Browser View and Properties panel toggles now live as arrow icons on the canvas itself, upper-left and upper-right corner, instead of toolbar buttons, in both side and tab modes.
 
 ### Fixed
 
 - Action Flow View package overviews load in a fraction of the time: the per-behavior tiles are now laid out concurrently instead of one after another (an 11-tile overview no longer stalls for many seconds), the diagram webview ships React's production build in a bundle a third of the size, and the diagram host fetches its language-server data in parallel.
 - `doc` documentation now renders as a `doc` compartment inside its owning element (with the actual documentation text), instead of a detached comment note; only package-level docs remain notes. Requirement text is now readable inside the requirement box.
-- Sequence View: messages no longer render as dashed "reply" arrows just because they run opposite to the previous message — only explicitly reply-named messages are dashed.
-- Grid View now lists requirement **usages**, not only definitions — a requirements model captured as usages (e.g. the HSUV requirements) renders a full requirements table instead of an empty view.
+- Sequence View: messages no longer render as dashed "reply" arrows just because they run opposite to the previous message, only explicitly reply-named messages are dashed.
+- Grid View now lists requirement **usages**, not only definitions, a requirements model captured as usages (e.g. the HSUV requirements) renders a full requirements table instead of an empty view.
 - Enumeration values now all appear in the `enumerations` compartment: values written with a body (`enum red { … }`) and value-restriction values (`= 60.0`) were previously dropped or shown as blank rows.
 - Interconnection View: a connector now stays glued to its port while the port is dragged along a part's edge (previously the line stayed behind and only snapped across on release).
-- Interconnection View: dragging a port to a different side of its part no longer makes the connector vanish or cut straight through (behind) the part — the line follows the port around the corner and routes around its own part box.
+- Interconnection View: dragging a port to a different side of its part no longer makes the connector vanish or cut straight through (behind) the part, the line follows the port around the corner and routes around its own part box.
 - String literals now accept backslash escapes (`\"`, `\\`, `\n`, `\t`, …), so a quote can appear inside a string (`"she said \"hi\""`) without breaking the rest of the line.
 - `#Tag`-prefixed parts/items/etc. were silently omitted from the Interconnection/Case views and compartments; they are now drawn.
 - Exponentiation (`**`, `^`) is now right-associative, so `2 ** 3 ** 2` is `2 ** (3 ** 2)`.
 - SEM008 self-containment no longer flags a cycle that only closes through an `abstract` feature/definition (filled in by a concrete subtype) or an `individual` composite feature (a reflexive occurrence-identity view, not a new nested instance); the remaining direct mandatory self-typed cases (which the OMG corpus itself authors to demonstrate legal recursive-type syntax) are now a warning instead of an error.
-- RES007 no longer rejects a recursive import (`X::**`) whose root `X` is a part/item/… usage instead of a package — a usage that owns nested usages is a namespace too (e.g. `import vehicle::**;` where `part vehicle { part interior { … } }`).
-- Qualified references through a `public import Ns::*;` re-export aggregator (`ISQ::TorqueValue`, `SysML::Usage`, …) now resolve — the precomputed library index only ever recorded a symbol under its *declaring* namespace, never the aggregator's; the index build now synthesizes those aliases, including transitively through a chain of aggregators. Fixed a related RES002 false-ambiguity: two qualified names reaching the *same* underlying declaration (one direct, one via an aggregator) no longer count as a conflict.
+- RES007 no longer rejects a recursive import (`X::**`) whose root `X` is a part/item/… usage instead of a package, a usage that owns nested usages is a namespace too (e.g. `import vehicle::**;` where `part vehicle { part interior { … } }`).
+- Qualified references through a `public import Ns::*;` re-export aggregator (`ISQ::TorqueValue`, `SysML::Usage`, …) now resolve, the precomputed library index only ever recorded a symbol under its *declaring* namespace, never the aggregator's; the index build now synthesizes those aliases, including transitively through a chain of aggregators. Fixed a related RES002 false-ambiguity: two qualified names reaching the *same* underlying declaration (one direct, one via an aggregator) no longer count as a conflict.
 
 ## 
 
@@ -778,12 +793,12 @@ Changed
 
 ### Changed
 
-- New default views: the diagram preview now opens on the **General View**, the Case View draws the subject as a **system boundary box**, and Interconnection View structural edits **synchronize to the typed definition** — all three previously off by default (`sysml.preview.diagrams.defaultKind` / `showSubjectAsBoundaryBox` / `syncUsageToDef`).
+- New default views: the diagram preview now opens on the **General View**, the Case View draws the subject as a **system boundary box**, and Interconnection View structural edits **synchronize to the typed definition**, all three previously off by default (`sysml.preview.diagrams.defaultKind` / `showSubjectAsBoundaryBox` / `syncUsageToDef`).
 - The toolbar **Layout** control now re-arranges every flow view (Top→Down / Left→Right / Bottom→Up); it previously had no effect on the Interconnection, Action Flow, and State Transition views (their direction was hard-coded). The Interconnection View now lays out **top-to-bottom by default**, like every other view, instead of left-to-right.
 - Diagram layout and redraw are noticeably faster on large models (e.g. a big Action Flow View): the layered-layout effort is capped without visibly worse routing, and each connector reuses one shared node lookup per frame instead of rebuilding its own.
 - Diagram connectors now draw **below** the parts (smart-routed around them) instead of on top; container part frames are lightly translucent so the wiring routed beneath them stays visible, while leaf parts keep an opaque, readable body.
-- All diagram connection and selection dots — port handles, node side handles, lifeline dots, and connector endpoint reconnect dots — now share one consistent, smaller size; the port keeps its thicker highlighted square contour as the "this is a port" cue.
-- A port now exposes exactly **two** connection/selection dots — one on its outer side (external connections) and one on its inner side (delegation into the part) — instead of four, so a connector always meets a port perpendicular to the part boundary.
+- All diagram connection and selection dots, port handles, node side handles, lifeline dots, and connector endpoint reconnect dots, now share one consistent, smaller size; the port keeps its thicker highlighted square contour as the "this is a port" cue.
+- A port now exposes exactly **two** connection/selection dots, one on its outer side (external connections) and one on its inner side (delegation into the part), instead of four, so a connector always meets a port perpendicular to the part boundary.
 - Action Flow View rebuilt on the same nested-frame model as the Interconnection View (performers nest as frames instead of flat swimlanes); fixes mis-rendering and lag on succession-less models.
 - State Transition View: composite/parallel states now nest their sub-states as real, individually-drawn frames instead of a flat flagged node.
 - Diagram canvas rebuilt on React Flow + elk.js, fixing two long-standing bugs: elements not always addable, and the canvas freezing under certain gestures.
@@ -793,7 +808,7 @@ Changed
 - Browser View is now a dedicated panel (not a primary canvas kind), toggleable alongside Properties in both side and tab mode.
 - Auto-import on save no longer imports standard-library names (they're already implicitly in scope).
 - The package-overview showcase model was rewritten as a technically correct, well-typed composition.
-- `pnpm build` is dramatically faster on a warm checkout — unchanged build steps now skip automatically.
+- `pnpm build` is dramatically faster on a warm checkout, unchanged build steps now skip automatically.
 
 ### Fixed
 
@@ -829,7 +844,7 @@ Changed
 - Diagram rename can no longer produce invalid syntax; brace-less inline action bodies now render in the Action Flow View.
 - The language server no longer freezes for several minutes on a misplaced declaration modifier (e.g. `part abstract def X;`).
 
-## [0.9.1 – 0.9.11] - 2026-06-16 – 2026-06-20
+## [0.9.1 to 0.9.11] - 2026-06-16 to 2026-06-20
 
 Rapid interim Marketplace builds during active development of the diagram-preview subsystem (Geometry View, Interconnection View compartment/boundary presentations, usage-to-definition sync setting). Superseded in full by the [0.9.20] rebuild above - changes are not itemized separately here.
 
@@ -847,10 +862,10 @@ Rapid interim Marketplace builds during active development of the diagram-previe
 - `.kpar` archive support for the bundled/external standard library path.
 - A single source of truth for the element-category taxonomy, used consistently by completion, symbol search, and the outline.
 - SysML v1 → v2 migration guardrail: v1 keywords and stereotypes are flagged with a one-click v2 rewrite.
-- A server-backed AI agent tool surface (context, draft validation, library/unit search, symbol resolution, requirement traceability, diagnostic explanations) for use by VS Code AI agents — no bundled chat assistant or telemetry.
+- A server-backed AI agent tool surface (context, draft validation, library/unit search, symbol resolution, requirement traceability, diagnostic explanations) for use by VS Code AI agents, no bundled chat assistant or telemetry.
 - Signature help for calc/constraint/function/action/predicate invocations.
 - Inline completion (ghost text) for skeletal bodies, missing requirement subjects, package imports, and state-transition targets.
-- Complete KerML well-formedness diagnostic family (KSM001–011), guarded by a semantic corpus gate.
+- Complete KerML well-formedness diagnostic family (KSM001 to 011), guarded by a semantic corpus gate.
 - Full parser and semantic diagnostic catalogues for lexical, syntax, name-resolution, and KerML well-formedness checks, with matching quick-fixes.
 - Filtered imports (`import Pkg::*[@Meta];`) and an import-cycle diagnostic.
 - A whole-corpus formatter round-trip test guarding against silent model corruption on format.
@@ -862,7 +877,7 @@ Rapid interim Marketplace builds during active development of the diagram-previe
 ### Changed
 
 - Diagram view-state now persists in the repository (per-source-file side-car JSON under `.vscode/sysml/diagrams/`) instead of VS Code's opaque workspace storage.
-- The bundled standard library is now served from a precomputed symbol index — completion/hover/go-to-definition into the library work immediately on a cold open, with no startup parsing.
+- The bundled standard library is now served from a precomputed symbol index, completion/hover/go-to-definition into the library work immediately on a cold open, with no startup parsing.
 - Large workspaces stay responsive: the editor-visible file is indexed first so hover/go-to-definition don't wait on the whole project.
 - The language server now runs its parser in production mode, cutting startup from ~9 s to under a second.
 - Converged the grammar onto the official OMG KerML/SysML textual BNF; the entire bundled standard library now parses.
@@ -882,30 +897,30 @@ Rapid interim Marketplace builds during active development of the diagram-previe
 - A canonical audit reconciled every requirement against the official OMG release, with spec citations.
 - Stated explicitly that the extension collects no telemetry.
 
-## [0.3.0] — 2026-05-10
+## [0.3.0], 2026-05-10
 
 ### Added
 
-- T-110/T-111: Rename (`prepareRename` + `rename`) — renames a named element and all in-file textual occurrences; cross-file deferred to T-072.
-- T-112–T-116: Quick-fix code actions — add missing `;`, wrap unresolved name in `'…'`, convert `part def` ↔ `part`, add missing `subject` to requirement.
-- T-120–T-122: AST-based formatter — 4-space indentation, one element per line, spaces around `:`, `:>`, `:>>`, `=`.
-- T-124–T-125: Semantic token provider — distinguishes definition (class/interface/function) vs usage (variable/property/method) coloring.
-- T-126–T-127: Inlay hint provider — shows `[1]` on usages without explicit multiplicity.
-- T-128–T-129: CodeLens provider — "View references" on requirement defs; "Run verification" on verification case defs.
-- T-130: Document highlight provider — highlights all textual occurrences of the name under the cursor.
+- T-110/T-111: Rename (`prepareRename` + `rename`), renames a named element and all in-file textual occurrences; cross-file deferred to T-072.
+- T-112 to T-116: Quick-fix code actions, add missing `;`, wrap unresolved name in `'…'`, convert `part def` ↔ `part`, add missing `subject` to requirement.
+- T-120 to T-122: AST-based formatter, 4-space indentation, one element per line, spaces around `:`, `:>`, `:>>`, `=`.
+- T-124 to T-125: Semantic token provider, distinguishes definition (class/interface/function) vs usage (variable/property/method) coloring.
+- T-126 to T-127: Inlay hint provider, shows `[1]` on usages without explicit multiplicity.
+- T-128 to T-129: CodeLens provider, "View references" on requirement defs; "Run verification" on verification case defs.
+- T-130: Document highlight provider, highlights all textual occurrences of the name under the cursor.
 
-## [0.2.0] — 2026-05-10
+## [0.2.0], 2026-05-10
 
 ### Added
 
 - T-070: Custom SysML name provider (extension point for `::` qualified-name resolution).
-- T-071/T-080: Workspace symbol provider — powers Ctrl+T Go to Symbol in Workspace.
-- T-091: Hover provider — shows element kind, name, typing, multiplicity, and doc comment in a markdown card.
-- T-092–T-097: Completion provider — merges Langium defaults with SysML keyword and snippet completions.
-- T-098: Snippet pack — `sysml-package`, `sysml-part-def`, `sysml-port-def`, `sysml-requirement`, `sysml-verification`, `sysml-state-machine`, `sysml-analysis-case`, `sysml-use-case`, `sysml-concern`.
-- T-081/T-086/T-089: Semantic diagnostics — `SEM001` definition/usage name heuristic, `SEM005` constraint without body, `SEM006` requirement without subject, `SEM007` empty verification case hint.
+- T-071/T-080: Workspace symbol provider, powers Ctrl+T Go to Symbol in Workspace.
+- T-091: Hover provider, shows element kind, name, typing, multiplicity, and doc comment in a markdown card.
+- T-092 to T-097: Completion provider, merges Langium defaults with SysML keyword and snippet completions.
+- T-098: Snippet pack, `sysml-package`, `sysml-part-def`, `sysml-port-def`, `sysml-requirement`, `sysml-verification`, `sysml-state-machine`, `sysml-analysis-case`, `sysml-use-case`, `sysml-concern`.
+- T-081/T-086/T-089: Semantic diagnostics, `SEM001` definition/usage name heuristic, `SEM005` constraint without body, `SEM006` requirement without subject, `SEM007` empty verification case hint.
 
-## [0.1.0] — 2026-05-10
+## [0.1.0], 2026-05-10
 
 ### Added
 
