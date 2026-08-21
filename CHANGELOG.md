@@ -2,6 +2,26 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.15.8] - 2026-08-21
+
+### Added
+
+- **The diagram canvas has a select tool and a hand tool**, toggled beside the grid button. The hand pans and zooms and cannot move anything by accident, the arrow edits. Hold Space for a quick hand.
+- **The mouse wheel now scrolls the diagram** (sideways with a tilt wheel or Shift), and Ctrl+wheel (Cmd on macOS) zooms.
+- **Scrollbars along the bottom and right edges**, which you can drag to pan.
+- **The zoom percentage is a button** that resets the zoom to 100%.
+
+### Fixed
+
+- **A sequence message no longer reports a false payload error.** `SSM020` judged a message like a flow, but a message connects two occurrences, not two payload-carrying features.
+
+### Changed
+
+- **Time and change triggers now appear on transition labels** in the State Transition View, so `accept after 30 [s]`, `accept at deadline` and `accept when overheated` read on the arrow.
+- **Diagrams open at 100% zoom** instead of a fitted scale. Fit to view is still one click away.
+- **Thin scrollbars everywhere.** The Browser View, Grid View, Properties panel and Diagnostic Reference now use the same quiet 10px bar as the diagram canvas, instead of the fat platform one with arrow buttons.
+- **Dragging the empty canvas with the arrow tool no longer pans**, so navigating and editing cannot be confused. Use the hand tool, Space, the middle mouse button, or the scrollbars.
+
 ## [0.15.7] - 2026-08-17
 
 ### Added
