@@ -2,6 +2,15 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.17.0] - 2026-08-22
+
+### Added
+
+- **A `rep` body written in SysML is now checked.** Give a textual representation the language `sysml` or `kerml` (any capitalization) and its body is parsed, with syntax errors marked inside the body itself.
+- **A representation that describes the wrong element is flagged.** The body of a `rep` should describe the element it sits on, so a mismatched kind or name is reported as a warning.
+- **Names in the body are resolved against the rest of your model**, so a type the body refers to that no longer exists is reported, in the body, where it is written.
+- Bodies in any other language (HTML, Markdown, Alf, OCL, YAML) are left alone exactly as before, and every `rep` body still round-trips unchanged through formatting.
+
 ## [0.16.0] - 2026-08-22
 
 ### Added
