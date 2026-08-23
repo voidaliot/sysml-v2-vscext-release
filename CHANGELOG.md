@@ -2,6 +2,21 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.18.0] - 2026-08-22
+
+### Added
+
+- **`import all` now does what it says.** It brings in members of any visibility, including ones the imported package itself imported privately.
+- **A filter package now filters.** A `filter @Safety;` written in a package applies to every import in that package, together with any bracket filter on the import.
+- **Filters are evaluated as model predicates.** Metadata written inside the element, metadata that specializes the filtered type, implicit metaclasses (`@SysML::PartUsage`), attribute values from the annotation or the definition default, and `null` are all decided now.
+
+### Fixed
+
+- **A recursive import brings in the package itself.** `Pkg::**` imports `Pkg` and everything below it, while `Pkg::*::**` imports only the members.
+- **Recursion stays inside the package.** Names that are only re-exported or inherited no longer arrive through a recursive import.
+- **New: an import in a file's root namespace must be `private`** (`RES021`), with a one click fix that rewrites the keyword.
+- **New: a `filter` outside a package or a view is reported** (`KSM012`), because nothing applies it there.
+
 ## [0.17.0] - 2026-08-22
 
 ### Added
