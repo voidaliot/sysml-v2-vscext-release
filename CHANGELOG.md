@@ -2,6 +2,14 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.19.0] - 2026-08-23
+
+### Fixed
+
+- **A part def that specializes another now draws what it inherits.** `part def Custom :> Base` shows Base's parts, ports, connections and performed actions. ([release repo #4](https://github.com/voidaliot/sysml-v2-vscext-release/issues/4))
+- **A member you redeclare is not duplicated.** A `:>> housing` inside the specializing definition replaces the inherited part instead of drawing a second one next to it, whether or not you give the redeclaration a name of its own.
+- **The whole chain counts.** A definition anywhere down the `:>` chain collects the internals of every definition above it, including ones declared in an imported file or the standard library, and a part typed by it gets the same picture.
+
 ## [0.18.0] - 2026-08-22
 
 ### Added
