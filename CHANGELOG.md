@@ -2,6 +2,15 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.20.1] - 2026-08-25
+
+### Fixed
+
+- **Nested ports refresh immediately.** Opening ports or action pins, and adding nested ports, updates spacing in the current diagram.
+- **Geometry View axes stay correct.** Refreshes retain the frame, 2D axes cross at zero, and the 3D triad shares one origin.
+- **Every view follows text edits live by default.** Graphical and text changes appear after the matching server rebuild, without automatic relayout.
+- **GV and SV edits settle in place.** Memberships route correctly; Sequence message moves, complete snap ladders, and frame growth refresh without relayout.
+
 ## [0.20.0] - 2026-08-23
 
 ### Added
