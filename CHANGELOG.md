@@ -2,6 +2,16 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.20.2] - 2026-08-25
+
+### Fixed
+
+- **Moving elements is reliable again.** A part moves from anywhere on its body, not only from its title strip.
+- **Port, pin, waypoint and message drags always end.** A drag the browser cancels reverts cleanly instead of following the pointer afterwards.
+- **A drag follows only the pointer that started it.** A second pointer can no longer drop an element somewhere else.
+- **Connection targets are clear.** Body points are hollow. Ports and pins use full solid-square targets. Reconnects work in every view without duplicates.
+- **Ports and pins stay opaque.** They hide covered body snap points at rest, on hover, and during connection gestures.
+
 ## [0.20.1] - 2026-08-25
 
 ### Fixed
