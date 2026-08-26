@@ -2,6 +2,13 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.21.0] - 2026-08-26
+
+### Added
+
+- **Comments follow their targets.** Modeled comments appear on graph elements and ports in every graph view, including inherited members. Comments stay read-only.
+- **Documentation notes are editable.** Add, edit, or clear modeled `doc` text on writable graph elements and ports from Properties or the context menu.
+
 ## [0.20.3] - 2026-08-26
 
 ### Fixed
