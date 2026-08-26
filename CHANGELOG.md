@@ -2,6 +2,14 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.20.3] - 2026-08-26
+
+### Fixed
+
+- **Ports and pins use both faces.** A connection keeps the inner or outer snap point you choose. Fresh diagrams infer each end independently.
+- **Nested connection ownership is correct.** Wiring drawn inside a nested part or action is written inside that element, not the diagram root.
+- **Nested ports and pins collapse again.** Their `+` and `-` controls remain clickable above movement and connection targets.
+
 ## [0.20.2] - 2026-08-25
 
 ### Fixed
