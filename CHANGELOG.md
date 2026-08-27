@@ -2,6 +2,19 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [0.21.1] - 2026-08-27
+
+### Fixed
+
+- **Collapsed parts keep connections.** Hidden descendant ports use labelled boundary proxies and reconnect directly when expanded.
+- **Redefined IV parts keep inherited contents.** Local redefinitions retain inherited parts, ports, attributes, relationships, and nested ports.
+- **IV editing follows its sync setting.** Edits stay usage-local by default or update definitions when enabled. Cross-file changes refresh open diagrams.
+- **IV parts reopen at the correct size.** Collapsed cards stay compact. Reopening restores expanded size and stable internal placement.
+- **Nested port connections refresh immediately.** Opening or closing a host updates its connector dock and path without switching views.
+- **Diagram direction changes apply immediately.** Saved positions no longer overwrite a newly selected layout direction.
+- **SVG title colors match VS Code.** Exported title and feature compartments retain their semantic element fill.
+- **Grid visibility is remembered.** Each diagram view restores its saved grid choice.
+
 ## [0.21.0] - 2026-08-26
 
 ### Added
