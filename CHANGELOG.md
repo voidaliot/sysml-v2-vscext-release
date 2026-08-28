@@ -1,6 +1,22 @@
 # Changelog
 
-All notable changes to this extension will be documented in this file.
+## [0.22.0] - 2026-08-28
+
+### Added
+
+- **Interface ends are listed.** An interface or connection definition shows each declared end as a row in a new `ends` compartment.
+- **Interfaces stay visible.** An element lists its interface usages in a new `interfaces` compartment, with the connected ends.
+- **Interfaces are never dropped.** An interface whose ends are not on the canvas is drawn as an `interface` box instead of disappearing.
+
+### Fixed
+
+- **Parenthesized interfaces connect again.** An `interface i connect (a, b)` now draws its edge, like the `connect a to b` form.
+
+## [0.21.2] - 2026-08-27
+
+### Fixed
+
+- **Large package diagrams open again.** Fix overflow in action redefinitions.
 
 ## [0.21.1] - 2026-08-27
 
