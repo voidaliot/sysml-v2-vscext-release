@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.25.0] - 2026-08-29
+
+### Added
+
+- **An import shows the other name it brings in.** When an element has a short name and a regular name, the hint names the one the path does not write. Covers `expose` too.
+- **Call arguments are named.** `Add(1, 2)` reads `Add(x = 1, y = 2)`, with a click through to the parameter. `new Box(1, 2)` names the features it fills.
+- **Implicit `constant` is shown.** A feature that subsets a constant feature is marked constant, and a double click writes the modifier. Works in KerML as well as SysML.
+
+### Fixed
+
+- **Inlay hints stay fast while scrolling.** Name resolution is looked up once per index build instead of rescanning on every request.
+
 ## [0.24.0] - 2026-08-29
 
 ### Added
