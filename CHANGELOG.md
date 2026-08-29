@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.24.0] - 2026-08-29
+
+### Added
+
+- **Flows are drawn between the ports that carry them.** A flow written to a feature inside a port now docks on that port instead of disappearing.
+- **A flow over a connection decorates that connection.** One line carries a direction chevron and payload label per transfer, instead of a second line beside it.
+- **Named flows with off-canvas ends keep a node.** The node shows its payload and its declared ends.
+- **Owners list their flows.** Flow and message usages read as a `flows` compartment row, so none is silently dropped.
+- **Connections and interfaces carry their definition's flows.** The transfers show on the relationship that connects them, with concrete ends.
+
 ## [0.23.0] - 2026-08-28
 
 ### Added
