@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.26.0] - 2026-08-31
+
+### Added
+
+- **State diagrams draw fork and join.** A machine that splits into concurrent branches and gathers them again now shows those bars, wired by successions.
+- **Fork and join bars turn in state diagrams.** Right click one and turn it vertical or horizontal, as in the Action Flow View.
+
+### Fixed
+
+- **`succession a then b;` is drawn in a state machine.** The keyworded form rendered nothing at all before.
+- **Transitions written without a source are drawn.** `state off; accept Signal then starting;` now links the state it follows, so most OMG state models stop rendering as unconnected states.
+- **`first start then off;` picks the first state.** The start succession beats declaration order, and no longer draws a second arrow beside the initial marker.
+- **A state no longer lists what it already draws.** Sub-states and successions are on the canvas, so they are not repeated as compartment rows.
+- **Entry, during, and exit have their own compartments.** They replace the single `state actions` list, so each row says what runs, not when.
+- **A transition shows only the effect it declares.** Entry and exit actions read in the state's compartments, where they are modelled.
+- **Compartments follow their own control again.** Collapsing a state no longer forces its compartments open.
+- **Control nodes in a state machine can be connected.** Fork, join, and action nodes now offer connect points, joined by a succession.
+- **A state can be joined to a fork or a join.** The drag was refused before, so that succession could only be typed. A drag between two states is still a transition.
+- **Reopening a collapsed state keeps its contents inside it.** With a state and its definition both on the canvas, reopening threw the sub-states outside the boundary until a re-layout.
+
 ## [0.25.0] - 2026-08-29
 
 ### Added
