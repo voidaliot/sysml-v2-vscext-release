@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.27.1] - 2026-09-01
+
+### Fixed
+
+- **Two state usages of one definition keep two layouts.** Each usage draws its own boxes, so moving a state in one no longer moves it in the other.
+- **A nested state usage draws its whole machine.** A state usage inside another machine now shows the transitions and the start state its definition declares, not only the boxes.
+
 ## [0.27.0] - 2026-08-31
 
 ### Added
