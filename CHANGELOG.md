@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.28.0] - 2026-09-02
+
+### Added
+
+- **Rename an attribute column from the grid header.** Double click a per attribute column title in the Grid View to rename that attribute on every requirement the table lists, in one edit.
+
 ## [0.27.1] - 2026-09-01
 
 ### Fixed
