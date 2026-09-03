@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.28.1] - 2026-09-02
+
+### Fixed
+
+- **Diagrams no longer list their lines as text.** Connections, interfaces, flows, transitions and successions are drawn as lines only. Their compartments are gone from GV, IV, STV and AFV, and stay in Properties.
+- **Rename carries every reference.** Renaming a feature now also updates the names written inside expressions and the redefinition or subsetting targets that follow it.
+- **A name that does not exist is reported.** An unresolvable name in an expression, or in a redefinition or subsetting target, now raises RES001 on the exact word instead of passing silently.
+
 ## [0.28.0] - 2026-09-02
 
 ### Added
