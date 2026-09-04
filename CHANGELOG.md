@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.29.0] - 2026-09-04
+
+### Added
+
+- **A redeclaration is known by the name it redefines.** A usage written without a name (`attribute :>> mass;`) is now indexed, resolved, outlined, hovered, drawn and exported under that name, including when the target is written by its short name.
+- **RES022 reports a name that cannot be derived.** A redefinition chain that loops back, or one whose target is answered by elements with different names, is reported instead of being given a guessed name.
+
 ## [0.28.1] - 2026-09-02
 
 ### Fixed
