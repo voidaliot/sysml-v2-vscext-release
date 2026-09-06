@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.34.2]
+
+### Improved
+
+- Undo and Redo share source and diagram history while keeping the diagram active.
+- Diagram JSON updates live. Use VS Code Save All or Auto Save for source and layout changes.
+
 ## [0.34.1]
 
 ### Fixed
