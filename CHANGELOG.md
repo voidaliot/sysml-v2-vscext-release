@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.31.0] - 2026-09-06
+
+### Fixed
+
+- Feature chains resolve public members consistently in navigation, rename, completion, and relationship diagnostics.
+- Variations and variants now enforce ownership and compatible kinds, including qualified external variant choices.
+- Multiplicity, ordering, and uniqueness now follow explicit, inherited, and SysML default rules consistently across editor features.
+- Reference and composition semantics now follow usage kind, direction, featuring type, attributes, ports, events, and variants consistently.
+- Enumerations now enforce legal bases and values, infer value types, and report duplicate bound values across known unit conversions.
+- Enumeration checks avoid extra errors for unresolved constants and cyclic or incomplete value bindings.
+- Enum JSON imports keep owned values valid and preserve their implicit reference semantics.
+- Large General Views reuse unchanged feature names and path syntax to keep semantic model generation responsive.
+
 ## [0.30.0] - 2026-09-06
 
 ### Changed
