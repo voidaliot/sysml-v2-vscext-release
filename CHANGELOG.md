@@ -1,5 +1,35 @@
 # Changelog
 
+## [0.30.0] - 2026-09-06
+
+### Changed
+
+- Group is now Compartments. Each GV mode keeps its own layout, expansion, grid, filters and connector style.
+- Compartments opens every explicit child as a node. Packages can close too, and relations start hidden.
+- Tree opens package members and part usages from a top control shown on hover or selection. Both modes start with the root's immediate children closed.
+- Edit each bundled usage's name and multiplicity in framed Properties fields, even while the usage is collapsed.
+- Edit attribute expressions and units in node textboxes or Properties. Empty attributes offer a Value field too.
+- Packages use clear title padding and compact aligned child canvases. Open containers no longer repeat their contents as text.
+- IV, AFV and STV omit defined-by lines and their toggle. Owned definitions keep a visibility control, and elements keep their type names.
+
+### Fixed
+
+- Closed GV packages list their direct members, including nested packages, in both modes.
+- Diagram renames preserve saved geometry in every affected file. Tree filters hide an owner's complete branch.
+- Default reference values no longer trigger an unbound-reference warning.
+- Orthogonal lines no longer freeze large IV diagrams such as SDV. Connectors share one routing pass per canvas.
+- Closed GV cards list their hidden children. Tree packages open at every depth, and +/- controls appear on hover or selection.
+- Diagram requests time out cleanly. Large saved diagrams restore placement without waiting for global layout.
+- Connector style and routing reset apply consistently in both GV modes without moving nodes.
+- Typed parts keep their type in Properties. Documentation edits target the selected note.
+- Nested dragging refits affected ancestors once per frame and saves once per gesture. Pan and scroll remain transient.
+- Hidden children retain position and open/closed sizes. Saved mode settings stay separate across fast switches.
+- The grid, scrollbars and minimap follow wheel navigation without retaining a blurred canvas after the gesture ends.
+- Closing a part hides its internal typing links instead of moving those claims onto the closed part.
+- Connection definitions without distinct visible end types retain their cards instead of drawing self-loops.
+- Unbound references warn only where the target is not already selected by another SysML construct.
+- Shorthand redefinitions keep their inherited names and editable values in GV.
+
 ## [0.29.0] - 2026-09-04
 
 ### Added
