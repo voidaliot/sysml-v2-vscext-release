@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.32.0] - 2026-09-06
+
+### Added
+
+- Hover, type checks and JSON export include implicit standard library specializations. A refactoring can write them into source.
+
+### Removed
+
+- Removed the specialization inlay hint and its setting. Hover still explains the implicit base when requested.
+
 ## [0.31.2] - 2026-09-06
 
 ### Fixed
