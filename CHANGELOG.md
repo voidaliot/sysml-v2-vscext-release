@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.31.1] - 2026-09-06
+
+### Fixed
+
+- Large General Views skip repeated inheritance checks for scopes without inherited members.
+
 ## [0.31.0] - 2026-09-06
 
 ### Fixed
