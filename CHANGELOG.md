@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.31.2] - 2026-09-06
+
+### Fixed
+
+- Show diagram lenses and reference counts appear again on large models. A lens pass scans the workspace once, not once per definition.
+- Large models open faster in the editor. Inheritance lookups are reused for as long as the workspace index is unchanged.
+- Validation reuses the workspace name index across files to avoid heap exhaustion in large workspaces.
+
 ## [0.31.1] - 2026-09-06
 
 ### Fixed
