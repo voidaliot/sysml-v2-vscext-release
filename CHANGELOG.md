@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.34.1]
+
+### Fixed
+
+- Ports and action pins are no longer all dashed. The dashed outline marks a written `ref` again, so it distinguishes the ports that carry one.
+- Port and pin outlines are thinner, matching the rule between compartments, so a row of ports reads as part of its card.
+
 ## [0.34.0] - 2026-09-06
 
 ### Added
