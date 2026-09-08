@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.36.0] - 2026-09-08
+
+### Improved
+
+- Requirement evaluation now reads the whole requirement: the constraints it inherits from its definition, the ones its subrequirements state, and the ones a framed concern brings.
+- A requirement with no `subject` of its own uses the one its definition or its parent requirement declares, and constrains anything when neither does.
+- `satisfy R;` without a `by` is now evaluated against the part that contains it, and `not satisfy R;` reads the opposite claim.
+
+### Added
+
+- New diagnostic SSM044 when a satisfying element cannot be the subject a requirement constrains.
+- SSM022 now covers `actor` and `stakeholder` members, which are part usages.
+
 ## [0.35.0]
 
 ### Added
