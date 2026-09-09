@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.37.0] - 2026-09-08
+
+### Added
+
+- The `assert`, `require` and `assume` shorthands navigate to the constraint they name. Go to definition, find references, rename and completion all work there.
+- New checks on those shorthands: `RES001` for a name that resolves to nothing, `SSM043` for a target that is not a constraint, `SEM014` for an assertion that is false.
+- Opening a constraint usage in the diagram shows the members it inherits from its definition, each with its value. Editing one binds it in that usage and leaves the definition alone.
+- A constraint definition shows its expression in an editable field below its parameters. A usage shows one only when it declares its own expression, because a usage inherits the definition's.
+- A calculation definition shows its expression in the same editable field. It reads and writes the `return` value where the calculation has a return, and the trailing expression otherwise.
+- Right-click an element to assert a constraint, or a requirement to assume or require one. Click the constraint and the statement is written.
+- Assert, assume and require now draw a line to the constraint they name, so a claim is visible on the diagram and not only in a compartment.
+- A constraint or calculation parameter no longer offers a value on the definition, where a parameter is not a value slot. It offers one on a usage, which is where a parameter is bound.
+- Right-click a constraint or a calculation to add an input. Its card now reads "in parameter" instead of the generic "feature".
+- Four new checks: `SEM015` for a constraint body that is not a Boolean expression, `STYL012` for a usage that replaces its definition's expression, `STYL013` for a parameter given a value on a definition, and `STYL014` for an `out` or `inout` parameter on a constraint or calculation, which only take inputs.
+
+### Fixed
+
+- Local IV parts can move into another part with definition sync off. Inherited declaration moves still require sync.
+
+- Childless elements show no + in GV, IV, AFV and STV. Adding children enables opening. Empty IV parts still accept dropped parts.
+
+- Assertion checks no longer report false violations for quantities or replace unknown local bindings with constraint defaults.
+- Adding an attribute or any other member to a constraint that has an expression failed with an invalid-syntax message. The member is now written before the expression, which has to stay last.
+- An `assert` inside a requirement was left out of the verdict in 0.36.0, and `assert not` came out inconclusive. Both are read now.
+- Requirement evaluation now reads a referenced constraint such as `require massLimit;` instead of ignoring it, and honours `assert not`.
+- `assert massOk;` no longer registers `massOk` as a declaration, so two statements naming one constraint both resolve to that constraint.
+- A constraint member bound the way OMG writes it (`in massLimit = 2500 [kg];`) now shows its value on the card. It showed none before.
+
 ## [0.36.0] - 2026-09-08
 
 ### Improved
