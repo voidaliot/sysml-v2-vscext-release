@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.39.0] - 2026-09-09
+
+### Added
+
+- Calculations appear in Action Flow with inherited input pins, bound arguments, and result information.
+- Constraint claims retain their identity, editable expressions and inherited parameter bindings in General and Interconnection Views.
+
+### Fixed
+
+- Panning fully expanded General Views stays smooth on large models.
+
 ## [0.38.0] - 2026-09-09
 
 ### Added
