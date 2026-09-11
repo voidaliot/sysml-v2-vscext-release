@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.40.0] - 2026-09-11
+
+### Added
+
+- A metadata usage now names its type. `metadata Rationale;` and `@ : Rationale;` are anonymous usages typed by Rationale, so the name jumps to the metadata definition, finds references, renames and completes.
+- Completion after the `metadata` keyword offers the metadata definitions and metaclasses in scope, and nothing else.
+
+### Fixed
+
+- The lone name after `metadata` no longer declares a symbol of its own, so a later reference resolves to the metadata definition.
+- A General View shows the type of an anonymous metadata usage, and a verification case lists a `metadata VerificationMethod` in its verification methods.
+- An import or `filter` condition now matches `metadata Safety;` exactly as it matches `@Safety;`.
+- A relationship drawn on a diagram writes its ends from the body the statement lands in. A Sequence View message wrote `from P.Seq.a to P.Seq.b` and now writes `from a to b`; connections, flows, transitions and successions had the same fault.
+- A `flow`, `message` or `interface` end accepts a namespace-qualified path in both spellings (`flow from P::a.o to P::b.i`, `flow P::a.o to P::b.i`), as a `connect` or `transition` end already did.
+
 ## [0.39.0] - 2026-09-09
 
 ### Added
@@ -68,7 +83,7 @@
 - New diagnostic SSM044 when a satisfying element cannot be the subject a requirement constrains.
 - SSM022 now covers `actor` and `stakeholder` members, which are part usages.
 
-## [0.35.0]
+## [0.35.0] - 2026-09-06
 
 ### Added
 
@@ -83,14 +98,14 @@
 
 - The diagram JSON no longer opens a tab in front of the diagram. It gets a tab only while it holds unsaved layout, which is what File > Save All needs, and it opens in the background so the first move no longer makes the diagram flicker.
 
-## [0.34.2]
+## [0.34.2] - 2026-09-06
 
 ### Improved
 
 - Undo and Redo share source and diagram history while keeping the diagram active.
 - Diagram JSON updates live. Use VS Code Save All or Auto Save for source and layout changes.
 
-## [0.34.1]
+## [0.34.1] - 2026-09-06
 
 ### Fixed
 
