@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.41.0] - 2026-09-13
+
+### Added
+
+- Action Flow: add a performer for several actions at once. Select them, right-click one, and the chosen part claims them all in one step.
+
+### Fixed
+
+- Action Flow: a closed action no longer shows the items of the actions inside it. It keeps its own pins, and a flow into a hidden pin arrives on its body.
+- Action Flow: a closed action no longer draws a self loop for a flow between its own pin and something it hides. A flow between two pins it still shows is kept.
+
 ## [0.40.0] - 2026-09-11
 
 ### Added
