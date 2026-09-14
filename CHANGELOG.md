@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.42.0] - 2026-09-14
+
+### Added
+
+- Metadata annotations are now checked. A body that leaves a required feature unset, binds one twice, or names a feature the metadata definition does not have is reported, with the features it does have listed.
+- A metadata value that needs a running model, or that is of the wrong kind for its feature, is reported.
+- An annotation attached to an element its definition does not accept is reported. The `annotatedElement` restrictions are read as alternatives, so a definition may accept several kinds.
+- A metadata usage that names two types is reported. A usage applies one metadata definition or metaclass.
+
 ## [0.41.0] - 2026-09-13
 
 ### Added
