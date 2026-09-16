@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.43.1] - 2026-09-16
+
+### Fixed
+
+- Large General View diagrams pan and zoom more smoothly. A fully expanded view also opens faster (about 2 seconds sooner on a 1500 card diagram).
+
 ## [0.43.0] - 2026-09-15
 
 ### Added
