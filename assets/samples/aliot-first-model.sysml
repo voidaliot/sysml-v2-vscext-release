@@ -2,7 +2,7 @@
 // In Preferences: Color Theme, choose Aliot Dark.
 // Existing settings keep the stable identifier:
 // { "workbench.colorTheme": "SysML v2 Default" }
-// Choose SysML v2 Gray to compare the light presentation.
+// Choose Aliot Light to compare the light presentation.
 // Open General View on AliotFirstModel. Rover lists its three owned parts.
 // Names, types and attributes should remain readable in either theme.
 // This model needs no special lint settings and should show no diagnostics.

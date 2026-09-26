@@ -50,7 +50,7 @@ AI tools need a separately configured compatible agent. Aliot does not include a
 
 Language services and editable diagrams work in desktop VS Code, vscode.dev and github.dev. Archive and abstract-syntax interchange operations, and the companion CLIs, need a desktop environment. See the [guide](user-guide.md) for details.
 
-Choose **Aliot Dark** or **SysML v2 Gray** in **Preferences: Color Theme**. The dark theme retains its old settings identifier, `SysML v2 Default`, so existing selections remain valid. The website has its own light/dark toggle.
+Choose **Aliot Dark** or **Aliot Light** in **Preferences: Color Theme**. The themes retain their old settings identifiers, `SysML v2 Default` (dark) and `SysML v2 Gray` (light), so existing selections remain valid. The website has its own light/dark toggle.
 
 ## Feedback and releases
 

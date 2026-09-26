@@ -40,7 +40,7 @@ For example: `workspace-light.png`, `workspace-dark.png`, `editing-light.gif`, `
 Recommended capture sequence:
 
 1. Open the same validated public model for every capture. Start with `reference/fabricated/aliot-first-model.sysml` and use the drone sample for ports.
-2. Use **Aliot Dark** for dark captures and **SysML v2 Gray** for light captures. Hide unrelated panels, private file paths and notifications. Make code and labels readable at the final display size.
+2. Use **Aliot Dark** for dark captures and **Aliot Light** for light captures. Hide unrelated panels, private file paths and notifications. Make code and labels readable at the final display size.
 3. Record 12 to 18 seconds: hold the initial view, rename a part through Properties, pause on the changed source, then edit a source value and pause on the changed diagram. Avoid fast pointer motion.
 4. Export PNG stills, preferably 1200 by 680 pixels or a similar aspect ratio. Export GIFs around 1000 to 1200 pixels wide and 10 to 12 frames per second. Aim below 5 MB per GIF. These are practical targets, not store limits.
 5. Replace the placeholder files. In `index.html`, update each affected `alt` and `figcaption`. In `script.js`, update the two workflow caption strings. Remove placeholder wording only for media that has actually been replaced. Update the captions in both READMEs too.
@@ -72,7 +72,7 @@ Use PNG or GIF in the Marketplace README. Keep SVG masters for the website and b
 
 The name expansion belongs in the footer: Architecture, Language, Integration, Orchestration, Traceability. It should support the product name rather than replace the product introduction.
 
-**Aliot Dark** is the new visible name of the former **SysML v2 Default** theme. Its contributed ID remains `SysML v2 Default` for settings compatibility. The theme palette and `SysML v2 Gray` remain unchanged.
+**Aliot Dark** and **Aliot Light** replace the visible names **SysML v2 Default** and **SysML v2 Gray**. Their contributed IDs remain `SysML v2 Default` and `SysML v2 Gray` for settings compatibility. Both palettes remain unchanged.
 
 The placeholder generator is an authoring tool:
 
