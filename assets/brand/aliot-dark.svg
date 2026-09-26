@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <title>Aliot</title>
+  <desc>A blue four-point star with an open center on an ink blue rounded square.</desc>
+  <rect width="512" height="512" rx="112" fill="#080c13"/>
+  <path d="M256 64 300 212 448 256 300 300 256 448 212 300 64 256 212 212Z" fill="#84baff"/>
+  <circle cx="256" cy="256" r="35" fill="#080c13"/>
+</svg>
