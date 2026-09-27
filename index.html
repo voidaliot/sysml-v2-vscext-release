@@ -804,65 +804,24 @@
             <div class="tour-heading">
               <h3>Grid View: requirements</h3>
               <p>
-                The CLI exports this table as CSV. PAY-01 and OPS-01 retain their constraints,
-                satisfying drone, verification case and verified status. This website table displays
-                the exported CSV, not a screenshot of Grid View.
+                Inspect requirements in VS Code and use Export CSV to share the table. The
+                screenshot shows the software-defined vehicle sample; the CSV download uses the
+                all-view drone model.
               </p>
               <a
                 class="text-link"
                 href="assets/product/all-views/requirements.csv"
                 target="_blank"
                 rel="noopener"
-                >Download requirements CSV ↗</a
+                >Download showcase CSV ↗</a
               >
             </div>
-            <div
-              class="requirements-export"
-              tabindex="0"
-              role="region"
-              aria-label="Requirements exported as CSV"
-            >
-              <table>
-                <caption>
-                  sysml-diagram Requirements CSV
-                </caption>
-                <thead>
-                  <tr>
-                    <th scope="col">﻿Id</th>
-                    <th scope="col">Requirement</th>
-                    <th scope="col">Doc</th>
-                    <th scope="col">Subject</th>
-                    <th scope="col">Constraint</th>
-                    <th scope="col">Satisfy</th>
-                    <th scope="col">Verify</th>
-                    <th scope="col">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>OPS-01</td>
-                    <td>flightTime</td>
-                    <td>
-                      Endurance shall be at least 30 minutes. The value is expressed in minutes.
-                    </td>
-                    <td>Architecture::Drone</td>
-                    <td>vehicle.endurance &gt;= 30.0</td>
-                    <td>drone</td>
-                    <td>checkEndurance</td>
-                    <td>verified</td>
-                  </tr>
-                  <tr>
-                    <td>PAY-01</td>
-                    <td>payloadLimit</td>
-                    <td>Payload shall not exceed 3 kg. The value is expressed in kg.</td>
-                    <td>Architecture::Drone</td>
-                    <td>vehicle.payload &lt;= 3.0</td>
-                    <td>drone</td>
-                    <td>checkPayload</td>
-                    <td>verified</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="gallery-art">
+              <img
+                src="assets/product/grid-vscode.png"
+                alt="VS Code Grid View showing requirements for the software-defined vehicle sample, with Export CSV in the toolbar."
+                loading="lazy"
+              />
             </div>
           </div>
           <div class="gallery-footer">

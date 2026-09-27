@@ -443,7 +443,7 @@ Put them in `.vscode/settings.json` and commit the file. The language server, th
 <!-- ALL_VIEWS_START -->
 ### All-view model tour
 
-Download [aliot-all-views.sysml](assets/samples/aliot-all-views.sysml). One model supplies every view below. The pictures are unmodified SVG exports from the built `sysml-diagram` CLI, in Aliot Light and Aliot Dark. Grid View exports CSV.
+Download [aliot-all-views.sysml](assets/samples/aliot-all-views.sysml). One model supplies the CLI exports below. The diagram pictures are unmodified SVG exports from the built `sysml-diagram` CLI, in Aliot Light and Aliot Dark. Grid View is shown in a VS Code screenshot and supports CSV export.
 
 Use **SysML: Show Diagram** on the named anchor. In General View, switch between structure (compartments) and tree. Browser remains available beside every view; it is a navigation panel and has no separate CLI image export.
 
@@ -565,16 +565,13 @@ node packages/cli/out/main.js export --file aliot-all-views.sysml --view gev --a
 
 #### Grid View: requirements
 
-The CLI exports this table as CSV. PAY-01 and OPS-01 retain their constraints, satisfying drone, verification case and verified status. This website table displays the exported CSV, not a screenshot of Grid View.
+Inspect requirements in VS Code and use Export CSV to share the table. The screenshot shows the software-defined vehicle sample; the CSV download uses the all-view drone model.
 
 Anchor: `AliotShowcase`.
 
-| ﻿Id | Requirement | Doc | Subject | Constraint | Satisfy | Verify | Status |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| OPS-01 | flightTime | Endurance shall be at least 30 minutes. The value is expressed in minutes. | Architecture::Drone | vehicle.endurance >= 30.0 | drone | checkEndurance | verified |
-| PAY-01 | payloadLimit | Payload shall not exceed 3 kg. The value is expressed in kg. | Architecture::Drone | vehicle.payload <= 3.0 | drone | checkPayload | verified |
+![VS Code Grid View showing requirements for the software-defined vehicle sample.](assets/product/grid-vscode.png)
 
-[Download the exact CSV](assets/product/all-views/requirements.csv).
+Use **Export CSV** in the Grid View toolbar, or run the command below. [Download the all-view model requirements CSV](assets/product/all-views/requirements.csv).
 
 ```sh
 node packages/cli/out/main.js export --file aliot-all-views.sysml --view grv --anchor AliotShowcase --theme light --auto-layout --out requirements.csv

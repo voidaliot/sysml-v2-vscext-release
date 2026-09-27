@@ -85,7 +85,7 @@ The hierarchy buttons compare still captures. Its GIF links provide the two-stat
 
 ### Rebuild the all-view tour
 
-The source is `reference/fabricated/aliot-all-views.sysml`. It covers GV structure and tree, IV, AFV, STV, SV, CV, GEV and the requirements grid. The gallery uses the actual CLI SVG files. Its requirements table is generated from the actual CSV export.
+The source is `reference/fabricated/aliot-all-views.sysml`. It covers GV structure and tree, IV, AFV, STV, SV, CV, GEV and the requirements grid. The gallery uses the actual CLI SVG files. Its Requirements tab shows a genuine VS Code Grid View screenshot and links to the actual CLI CSV export.
 
 ```powershell
 pnpm build
@@ -98,6 +98,8 @@ The generator stages its workspace under `.temp/aliot-view-export/`. Public mode
 The 0.45.0 audit found and fixed three shared renderer issues: actor name/type captions used the wrong width measurement, sequence loop conditions could overlap activation bars or message captions, and IV spacing did not reserve enough room for ordinary port and connection pills. All expected labels in this showcase now pass the visible-text audit in both themes. This checks the showcase, not every possible model. Long closed compartment rows can still abbreviate by design. Inspect the SVGs visually after regeneration because text presence alone cannot detect overlap.
 
 Edit the descriptions in `assemble-all-views-tour.mjs`. It owns the marked gallery and user-guide tour blocks. Keep both generators together when refreshing the model. Sequence condition placement and full actor captions must remain readable, in addition to passing the text audit. Grid View is CSV, and Browser is a navigation panel with no standalone CLI export.
+
+The Grid View image is `assets/product/grid-vscode.png`, reused unchanged from the public vehicle-model capture. It keeps its original light theme on both website themes. Replace that PNG with a new VS Code capture to refresh it, then rerun assembly and sync. Record its model, version and date in `assets/product/CAPTURES.md`. The linked CSV comes from the all-view drone model, independently of the screenshot.
 
 ### Copy to the release repository
 

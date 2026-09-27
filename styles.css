@@ -1001,30 +1001,6 @@ pre {
 .tour-heading .text-link {
   font-size: 13px;
 }
-.requirements-export {
-  overflow: auto;
-  padding: 20px;
-}
-.requirements-export table {
-  border-collapse: collapse;
-  font-size: 13px;
-  min-width: 940px;
-  width: 100%;
-}
-.requirements-export caption {
-  text-align: left;
-  color: var(--muted);
-  padding-bottom: 12px;
-}
-.requirements-export th,
-.requirements-export td {
-  border: 1px solid var(--line);
-  padding: 12px;
-  text-align: left;
-}
-.requirements-export th {
-  background: var(--surface-2);
-}
 .explore-section {
   padding-top: 66px;
 }

@@ -28,3 +28,9 @@ The GIFs are still-image sequences. Properties holds before/edit/applied for 2.2
 Rebuild GIFs with `node media/aliot-site/assemble-capture-gifs.mjs` from the development repository. This leaves all still captures unchanged. The SVG generator uses separate filenames and cannot overwrite these captures.
 
 See `MEDIA-GUIDE.md` in the release repository, or `docs/release-media-guide.md` in the development repository, for replacement and recording instructions.
+
+## Existing Grid View capture
+
+`grid-vscode.png` is an unchanged copy of the release repository image `assets/screenshots/feature-diagram-grid.png`. It shows the software-defined vehicle sample in VS Code, including the Requirements preset and Export CSV toolbar control. Its original capture date and extension version were not recorded here. The 0.45.0 provenance above does not apply to this image.
+
+The same light capture is used in both website themes. The linked requirements CSV is separately generated from `aliot-all-views.sysml`; it is not the table shown in this screenshot.

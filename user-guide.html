@@ -544,7 +544,7 @@ attribute mass : ISQ::MassValue;
 <li><code>// sysml-format ignore</code> outranks all of them: nothing inside the element it protects is rewritten.</li>
 </ul>
 <h3 id="all-view-model-tour">All-view model tour</h3>
-<p>Download <a href="assets/samples/aliot-all-views.sysml">aliot-all-views.sysml</a>. One model supplies every view below. The pictures are unmodified SVG exports from the built <code>sysml-diagram</code> CLI, in Aliot Light and Aliot Dark. Grid View exports CSV.</p>
+<p>Download <a href="assets/samples/aliot-all-views.sysml">aliot-all-views.sysml</a>. One model supplies the CLI exports below. The diagram pictures are unmodified SVG exports from the built <code>sysml-diagram</code> CLI, in Aliot Light and Aliot Dark. Grid View is shown in a VS Code screenshot and supports CSV export.</p>
 <p>Use <strong>SysML: Show Diagram</strong> on the named anchor. In General View, switch between structure (compartments) and tree. Browser remains available beside every view; it is a navigation panel and has no separate CLI image export.</p>
 <p>To reproduce the presentation, save <a href="assets/samples/all-views-project.json">project settings</a> as <code>.vscode/sysml/project.json</code> and <a href="assets/samples/all-views-layout.json">view settings</a> as <code>.vscode/sysml/diagrams/aliot-all-views.sysml.json</code> beside the downloaded model. Port labels are enabled. Connections use orthogonal lines; GV tree uses curved lines.</p>
 <p>The examples below use the repository build. Replace <code>node packages/cli/out/main.js</code> with <code>sysml-diagram</code> when using the installed CLI. Run each command from the model's workspace. Add <code>--theme dark</code> for the dark export.</p>
@@ -605,45 +605,10 @@ attribute mass : ISQ::MassValue;
 <pre><code class="language-sh">node packages/cli/out/main.js export --file aliot-all-views.sysml --view gev --anchor AliotShowcase::Architecture::drone --theme light --auto-layout --out gev-light.svg
 </code></pre>
 <h4 id="grid-view-requirements">Grid View: requirements</h4>
-<p>The CLI exports this table as CSV. PAY-01 and OPS-01 retain their constraints, satisfying drone, verification case and verified status. This website table displays the exported CSV, not a screenshot of Grid View.</p>
+<p>Inspect requirements in VS Code and use Export CSV to share the table. The screenshot shows the software-defined vehicle sample; the CSV download uses the all-view drone model.</p>
 <p>Anchor: <code>AliotShowcase</code>.</p>
-<table>
-<thead>
-<tr>
-<th>Id</th>
-<th>Requirement</th>
-<th>Doc</th>
-<th>Subject</th>
-<th>Constraint</th>
-<th>Satisfy</th>
-<th>Verify</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>OPS-01</td>
-<td>flightTime</td>
-<td>Endurance shall be at least 30 minutes. The value is expressed in minutes.</td>
-<td>Architecture::Drone</td>
-<td>vehicle.endurance &gt;= 30.0</td>
-<td>drone</td>
-<td>checkEndurance</td>
-<td>verified</td>
-</tr>
-<tr>
-<td>PAY-01</td>
-<td>payloadLimit</td>
-<td>Payload shall not exceed 3 kg. The value is expressed in kg.</td>
-<td>Architecture::Drone</td>
-<td>vehicle.payload &lt;= 3.0</td>
-<td>drone</td>
-<td>checkPayload</td>
-<td>verified</td>
-</tr>
-</tbody>
-</table>
-<p><a href="assets/product/all-views/requirements.csv">Download the exact CSV</a>.</p>
+<p><img src="assets/product/grid-vscode.png" alt="VS Code Grid View showing requirements for the software-defined vehicle sample." loading="lazy"></p>
+<p>Use <strong>Export CSV</strong> in the Grid View toolbar, or run the command below. <a href="assets/product/all-views/requirements.csv">Download the all-view model requirements CSV</a>.</p>
 <pre><code class="language-sh">node packages/cli/out/main.js export --file aliot-all-views.sysml --view grv --anchor AliotShowcase --theme light --auto-layout --out requirements.csv
 </code></pre>
 <p>The export audit checks visible text, excluding tooltip-only titles. It covers port and connection names, state guards, performer lanes, loop conditions, messages and payloads, use-case actors, geometry labels and CSV fields. Sequence condition placement, actor sizing and IV caption spacing use the same fixes in the extension and CLI. Very long compartment rows may still use the extension's intentional ellipsis.</p>
