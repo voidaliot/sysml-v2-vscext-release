@@ -1,154 +1,27 @@
-/* Aliot website illustration. This demo changes page data only; it runs no SysML parser. */
+/* Aliot website. Diagram previews use actual precomputed extension SVG exports. */
 (() => {
   "use strict";
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
-  const escapeHTML = (value) =>
-    String(value).replace(
-      /[&<>"']/g,
-      (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char],
+  // Both images are unmodified CLI exports of the downloadable source states.
+  function setExportStep(step) {
+    const after = step === "1";
+    const stem = after ? "structure-renamed" : "structure";
+    const diagram = $("#hero-diagram");
+    diagram.dataset.light = `assets/product/${stem}-light.svg`;
+    diagram.dataset.dark = `assets/product/${stem}-dark.svg`;
+    diagram.src = diagram.dataset[document.documentElement.dataset.theme];
+    $("#source-before").hidden = after;
+    $("#source-after").hidden = !after;
+    $("#selection-label").textContent = after ? "After: flightComputer" : "Before: controller";
+    $("#source-download").href = `assets/samples/workflow-${after ? "after" : "before"}.sysml`;
+    $$("[data-export-step]").forEach((button) =>
+      button.setAttribute("aria-pressed", String(button.dataset.exportStep === step)),
     );
-  const defaults = {
-    battery: { name: "battery", type: "Battery", suggestion: "mainBattery" },
-    controller: { name: "controller", type: "FlightController", suggestion: "flightComputer" },
-    propulsion: { name: "propulsion", type: "Propulsion", suggestion: "rotorSystem" },
-    navigation: { name: "navigation", type: "Navigation", suggestion: "navigationUnit" },
-  };
-  let parts = structuredClone(defaults);
-  let selected = "controller";
-  const input = $("#part-name");
-  const message = $("#rename-message");
-
-  function showDemoMessage(text, isError = false) {
-    message.textContent = text;
-    message.classList.toggle("error", isError);
-    input.setAttribute("aria-invalid", String(isError));
   }
-  function line(markup, partKey) {
-    const active = partKey === selected;
-    return `<span class="source-line${active ? " current" : ""}"${partKey ? ` data-source-part="${partKey}"` : ""}>${markup}</span>`;
-  }
-  function renderModel(suggest = false) {
-    const lines = [
-      line('<span class="kw">package</span> <span class="type">DeliveryDrone</span> {'),
-    ];
-    for (const part of Object.values(defaults)) {
-      lines.push(
-        line(`  <span class="kw">part def</span> <span class="type">${part.type}</span>;`),
-      );
-    }
-    lines.push(line(" "));
-    lines.push(line('  <span class="kw">part def</span> <span class="type">Drone</span> {'));
-    for (const [key, part] of Object.entries(parts)) {
-      lines.push(
-        line(
-          `    <span class="kw">part</span> <span class="name">${escapeHTML(part.name)}</span> : <span class="type">${part.type}</span>;`,
-          key,
-        ),
-      );
-    }
-    lines.push(line("  }"));
-    lines.push(line('  <span class="kw">part</span> drone : <span class="type">Drone</span>;'));
-    lines.push(line("}"));
-    $("#source-code code").innerHTML = lines.join("");
-    for (const node of $$(".part-node")) {
-      const key = node.dataset.part;
-      node.setAttribute("aria-pressed", String(key === selected));
-      node.setAttribute("aria-label", `Select ${parts[key].name} : ${parts[key].type}`);
-      $("[data-name]", node).textContent = parts[key].name;
-    }
-    $("#selection-label").textContent = `${parts[selected].name} selected`;
-    input.value =
-      suggest && parts[selected].name === defaults[selected].name
-        ? defaults[selected].suggestion
-        : parts[selected].name;
-  }
-  for (const node of $$(".part-node")) {
-    node.addEventListener("click", () => {
-      selected = node.dataset.part;
-      renderModel(true);
-      showDemoMessage(
-        `${parts[selected].name} is highlighted in the source. Apply a new name to see both representations change.`,
-      );
-    });
-  }
-  $("#rename-form").addEventListener("submit", (event) => {
-    event.preventDefault();
-    const name = input.value.trim();
-    if (!/^[A-Za-z_][A-Za-z0-9_]{0,21}$/.test(name)) {
-      showDemoMessage(
-        "For this illustration, use 1 to 22 letters, digits, or underscores, starting with a letter or underscore.",
-        true,
-      );
-      input.focus();
-      return;
-    }
-    const reserved = new Set([
-      "package",
-      "part",
-      "def",
-      "port",
-      "item",
-      "action",
-      "state",
-      "attribute",
-      "connection",
-      "interface",
-      "import",
-      "private",
-      "public",
-      "protected",
-      "ref",
-      "in",
-      "out",
-      "inout",
-      "then",
-      "first",
-      "if",
-      "else",
-      "while",
-      "for",
-      "loop",
-      "true",
-      "false",
-      "null",
-      "return",
-      "requirement",
-      "constraint",
-      "view",
-      "comment",
-      "doc",
-      "Drone",
-      "DeliveryDrone",
-      ...Object.values(parts).map((part) => part.type),
-    ]);
-    if (
-      reserved.has(name) ||
-      Object.entries(parts).some(([key, part]) => key !== selected && part.name === name)
-    ) {
-      showDemoMessage(
-        "Choose a distinct part name, not a keyword, type, or the name of another part.",
-        true,
-      );
-      input.focus();
-      return;
-    }
-    const previous = parts[selected].name;
-    if (previous === name) {
-      showDemoMessage("Enter a different name, then apply it to update the illustration.");
-      return;
-    }
-    parts[selected].name = name;
-    renderModel();
-    showDemoMessage(`${previous} → ${name}. Source and diagram updated in this illustration.`);
-  });
-  $("#reset-demo").addEventListener("click", () => {
-    parts = structuredClone(defaults);
-    selected = "controller";
-    renderModel(true);
-    showDemoMessage("Illustration reset. Try renaming controller to flightComputer.");
-  });
-  renderModel(true);
+  $$("[data-export-step]").forEach((button) =>
+    button.addEventListener("click", () => setExportStep(button.dataset.exportStep)),
+  );
 
   // Keyboard-accessible tablist. All panel content is present in the HTML.
   const tabs = $$(".view-tab");
@@ -197,8 +70,8 @@
     play.textContent = playing ? "Stop sample animation" : "Play sample animation";
     play.setAttribute("aria-pressed", String(playing));
     caption.textContent = playing
-      ? "Illustration placeholder, not a product recording. Press Stop to return to the still image."
-      : "Illustration placeholder, not a product recording. Animation starts only when you press Play.";
+      ? "Actual SVG export sequence, not a screen recording. Press Stop to return to the still image."
+      : "Actual SVG export sequence, not a screen recording. Animation starts only when you press Play.";
   }
 
   function applyTheme(theme) {

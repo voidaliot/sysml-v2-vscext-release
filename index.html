@@ -240,17 +240,14 @@
             </div>
           </div>
           <div class="product-wrap" id="workflow-demo">
-            <div
-              class="workbench"
-              aria-label="Interactive workflow illustration, not a running instance of Aliot"
-            >
+            <div class="workbench" aria-label="Actual extension SVG exports in a website frame">
               <div class="window-bar">
                 <div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
                 <div class="window-label">
                   <svg class="icon" aria-hidden="true"><use href="#i-boxes"></use></svg>ALIOT /
                   DELIVERY DRONE
                 </div>
-                <span class="window-note">Interactive illustration · not a live editor</span>
+                <span class="window-note">Actual SVG export · website frame</span>
               </div>
               <div class="workbench-body">
                 <div class="activity-bar" aria-hidden="true">
@@ -271,21 +268,15 @@
                   <div class="editor-breadcrumb">DeliveryDrone &nbsp;›&nbsp; Drone</div>
                   <pre
                     class="source-code"
-                    id="source-code"
-                    aria-label="Illustrative SysML source"
-                  ><code>package DeliveryDrone {
-  part def Battery;
-  part def FlightController;
-  part def Navigation;
-  part def Propulsion;
-  part def Drone {
-    part battery : Battery;
-    part controller : FlightController;
-    part navigation : Navigation;
-    part propulsion : Propulsion;
-  }
-  part drone : Drone;
-}</code></pre>
+                    id="source-before"
+                    aria-label="Exported model source"
+                  ><code><span class="source-line">package DeliveryDrone {</span><span class="source-line">    part def Battery;</span><span class="source-line">    part def FlightController;</span><span class="source-line">    part def Propulsion;</span><span class="source-line">    part def Navigation;</span><span class="source-line"></span><span class="source-line">    part def Drone {</span><span class="source-line">        part battery : Battery;</span><span class="source-line current">        part controller : FlightController;</span><span class="source-line">        part propulsion : Propulsion;</span><span class="source-line">        part navigation : Navigation;</span><span class="source-line">    }</span><span class="source-line">    part drone : Drone;</span><span class="source-line">}</span></code></pre>
+                  <pre
+                    class="source-code"
+                    id="source-after"
+                    aria-label="Exported model source"
+                    hidden
+                  ><code><span class="source-line">package DeliveryDrone {</span><span class="source-line">    part def Battery;</span><span class="source-line">    part def FlightController;</span><span class="source-line">    part def Propulsion;</span><span class="source-line">    part def Navigation;</span><span class="source-line"></span><span class="source-line">    part def Drone {</span><span class="source-line">        part battery : Battery;</span><span class="source-line current">        part flightComputer : FlightController;</span><span class="source-line">        part propulsion : Propulsion;</span><span class="source-line">        part navigation : Navigation;</span><span class="source-line">    }</span><span class="source-line">    part drone : Drone;</span><span class="source-line">}</span></code></pre>
                 </div>
                 <div class="canvas-pane">
                   <div class="canvas-toolbar">
@@ -293,74 +284,48 @@
                     ><span class="view-select">General View</span
                     ><svg class="icon" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
                     <div class="toolbar-right">
-                      <span>Structure</span><span aria-hidden="true">│</span
+                      <span>DeliveryDrone</span><span aria-hidden="true">│</span
                       ><svg class="icon" aria-hidden="true"><use href="#i-fit"></use></svg>
                     </div>
                   </div>
                   <div class="canvas-area">
-                    <div class="drone-boundary">
-                      <div class="boundary-head">
-                        <div><span class="stereo">«part def»</span><strong>Drone</strong></div>
-                        <span class="minus" aria-hidden="true">−</span>
-                      </div>
-                      <div class="part-grid" id="part-grid">
-                        <button class="part-node" data-part="battery" aria-pressed="false">
-                          <span class="stereo">«part»</span
-                          ><span class="node-name mono" data-name="battery">battery</span
-                          ><small>: Battery</small>
-                        </button>
-                        <button class="part-node" data-part="controller" aria-pressed="true">
-                          <span class="stereo">«part»</span
-                          ><span class="node-name mono" data-name="controller">controller</span
-                          ><small>: FlightController</small>
-                        </button>
-                        <button class="part-node" data-part="navigation" aria-pressed="false">
-                          <span class="stereo">«part»</span
-                          ><span class="node-name mono" data-name="navigation">navigation</span
-                          ><small>: Navigation</small>
-                        </button>
-                        <button class="part-node" data-part="propulsion" aria-pressed="false">
-                          <span class="stereo">«part»</span
-                          ><span class="node-name mono" data-name="propulsion">propulsion</span
-                          ><small>: Propulsion</small>
-                        </button>
-                      </div>
-                    </div>
-                    <span class="canvas-caption">Select a part to find it in the source.</span
-                    ><span class="canvas-zoom">100%</span>
+                    <img
+                      id="hero-diagram"
+                      src="assets/product/structure-light.svg"
+                      data-light="assets/product/structure-light.svg"
+                      data-dark="assets/product/structure-dark.svg"
+                      alt="General View exported by the extension from the DeliveryDrone model."
+                    />
                   </div>
                 </div>
               </div>
               <div class="workbench-footer">
                 <svg class="icon" aria-hidden="true"><use href="#i-branch"></use></svg
                 ><span>main</span><span style="color: var(--mint)">◆</span
-                ><span id="selection-label">controller selected</span
-                ><span class="right">Source ⇄ Diagram &nbsp;·&nbsp; Website illustration</span>
+                ><span id="selection-label">Before: controller</span
+                ><span class="right">Source + exported diagram</span>
               </div>
             </div>
             <div class="demo-controls">
-              <span class="demo-hint"
-                ><svg class="icon" aria-hidden="true"><use href="#i-mouse"></use></svg>Try it:
-                select a part, then change its name.</span
-              >
-              <form class="rename-form" id="rename-form">
-                <label for="part-name">Rename to</label
-                ><input
-                  class="mono"
-                  id="part-name"
-                  name="partName"
-                  value="controller"
-                  maxlength="22"
-                  autocomplete="off"
-                  spellcheck="false"
-                  aria-describedby="rename-message"
-                /><button class="button small" type="submit">
-                  Apply <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+              <span class="demo-hint">Compare the source and its exported diagram.</span>
+              <div class="export-steps" role="group" aria-label="Compare model exports">
+                <button class="button small" data-export-step="0" aria-pressed="true">
+                  Before rename</button
+                ><button class="button small" data-export-step="1" aria-pressed="false">
+                  After rename
                 </button>
-              </form>
-              <button class="reset-button" id="reset-demo" type="button">Reset</button>
+              </div>
             </div>
-            <p class="demo-live" id="rename-message" role="status" aria-live="polite"></p>
+            <p class="demo-live" id="rename-message" role="status" aria-live="polite">
+              Both states are generated by the extension exporter.
+              <a
+                class="text-link"
+                id="source-download"
+                href="assets/samples/workflow-before.sysml"
+                download
+                >Download this model</a
+              >
+            </p>
           </div>
           <div class="hero-divider">
             <span>YOUR MODEL. YOUR WORKFLOW.</span
@@ -426,10 +391,13 @@
               </p>
               <div class="feature-visual">
                 <div class="mini-filebar">Source and diagram, together</div>
-                <div class="mini-graph" aria-hidden="true">
-                  <div class="node">Model</div>
-                  <div class="edge"></div>
-                  <div class="node">Views</div>
+                <div class="mini-graph">
+                  <img
+                    src="assets/product/structure-light.svg"
+                    data-light="assets/product/structure-light.svg"
+                    data-dark="assets/product/structure-dark.svg"
+                    alt="General View generated by the extension."
+                  />
                 </div>
               </div>
             </article>
@@ -557,45 +525,16 @@
             </div>
             <div class="gallery-visual">
               <div class="gallery-topline">
-                <span>General View · Structure</span><span>Illustrative preview</span>
+                <span>General View · Structure</span><span>Actual SVG export</span>
               </div>
               <div class="gallery-art">
-                <svg
-                  class="diagram-svg"
-                  viewBox="0 0 670 300"
-                  role="img"
-                  aria-label="Illustrative composition of a drone into battery, controller, navigation, and propulsion parts."
-                >
-                  <path
-                    class="wire"
-                    d="M335 83V121H88V164M335 121H253V164M335 121H418V164M335 121H583V164"
-                  />
-                  <path d="m335 75 4 6-4 6-4-6Z" fill="var(--muted)" />
-                  <rect class="highlight-box" x="254" y="23" width="162" height="51" rx="5" />
-                  <text class="stereo" x="335" y="42" text-anchor="middle">«part def»</text>
-                  <text class="label" x="335" y="59" text-anchor="middle">Drone</text>
-                  <rect class="box" x="25" y="164" width="126" height="66" rx="5" />
-                  <text class="stereo" x="88.0" y="181" text-anchor="middle">«part»</text>
-                  <text class="label" x="88.0" y="199" text-anchor="middle">battery</text>
-                  <text class="stereo" x="88.0" y="215" text-anchor="middle">: Battery</text>
-                  <rect class="highlight-box" x="190" y="164" width="126" height="66" rx="5" />
-                  <text class="stereo" x="253.0" y="181" text-anchor="middle">«part»</text>
-                  <text class="label" x="253.0" y="199" text-anchor="middle">controller</text>
-                  <text class="stereo" x="253.0" y="215" text-anchor="middle">
-                    : FlightController
-                  </text>
-                  <rect class="box" x="355" y="164" width="126" height="66" rx="5" />
-                  <text class="stereo" x="418.0" y="181" text-anchor="middle">«part»</text>
-                  <text class="label" x="418.0" y="199" text-anchor="middle">navigation</text>
-                  <text class="stereo" x="418.0" y="215" text-anchor="middle">: Navigation</text>
-                  <rect class="box" x="520" y="164" width="126" height="66" rx="5" />
-                  <text class="stereo" x="583.0" y="181" text-anchor="middle">«part»</text>
-                  <text class="label" x="583.0" y="199" text-anchor="middle">propulsion</text>
-                  <text class="stereo" x="583.0" y="215" text-anchor="middle">: Propulsion</text>
-                  <text class="tiny" x="335" y="265" text-anchor="middle">
-                    One system. Explicit parts. Reusable definitions.
-                  </text>
-                </svg>
+                <img
+                  loading="lazy"
+                  src="assets/product/structure-light.svg"
+                  data-light="assets/product/structure-light.svg"
+                  data-dark="assets/product/structure-dark.svg"
+                  alt="Actual General View SVG export."
+                />
               </div>
             </div>
           </div>
@@ -640,50 +579,16 @@
             </div>
             <div class="gallery-visual">
               <div class="gallery-topline">
-                <span>Interconnection View</span><span>Illustrative preview</span>
+                <span>Interconnection View</span><span>Actual SVG export</span>
               </div>
               <div class="gallery-art">
-                <svg
-                  class="diagram-svg"
-                  viewBox="0 0 670 300"
-                  role="img"
-                  aria-label="Illustrative internal drone interfaces: battery power, navigation data, and propulsion control."
-                >
-                  <rect class="box" x="14" y="12" width="642" height="276" rx="7" />
-                  <text class="stereo" x="30" y="32">«part» drone : Drone</text>
-                  <path class="accent-wire" d="M178 185H271M407 185H505M339 119V163" />
-                  <path class="wire" d="M107 228V258H571V228" />
-                  <text class="tiny" x="224" y="175" text-anchor="middle">power</text>
-                  <text class="tiny" x="455" y="175" text-anchor="middle">command</text>
-                  <text class="tiny" x="355" y="145">position</text>
-                  <text class="tiny" x="340" y="252" text-anchor="middle">power distribution</text>
-                  <rect class="box" x="40" y="163" width="138" height="66" rx="5" />
-                  <text class="stereo" x="109.0" y="180" text-anchor="middle">«part»</text>
-                  <text class="label" x="109.0" y="198" text-anchor="middle">battery</text>
-                  <text class="stereo" x="109.0" y="214" text-anchor="middle">: Battery</text>
-                  <rect class="highlight-box" x="270" y="163" width="138" height="66" rx="5" />
-                  <text class="stereo" x="339.0" y="180" text-anchor="middle">«part»</text>
-                  <text class="label" x="339.0" y="198" text-anchor="middle">controller</text>
-                  <text class="stereo" x="339.0" y="214" text-anchor="middle">
-                    : FlightController
-                  </text>
-                  <rect class="box" x="504" y="163" width="132" height="66" rx="5" />
-                  <text class="stereo" x="570.0" y="180" text-anchor="middle">«part»</text>
-                  <text class="label" x="570.0" y="198" text-anchor="middle">propulsion</text>
-                  <text class="stereo" x="570.0" y="214" text-anchor="middle">: Propulsion</text>
-                  <rect class="box" x="270" y="53" width="138" height="66" rx="5" />
-                  <text class="stereo" x="339.0" y="70" text-anchor="middle">«part»</text>
-                  <text class="label" x="339.0" y="88" text-anchor="middle">navigation</text>
-                  <text class="stereo" x="339.0" y="104" text-anchor="middle">: Navigation</text>
-                  <rect class="port" x="175" y="181" width="7" height="7" />
-                  <rect class="port" x="267" y="181" width="7" height="7" />
-                  <rect class="port" x="405" y="181" width="7" height="7" />
-                  <rect class="port" x="501" y="181" width="7" height="7" />
-                  <rect class="port" x="335" y="115" width="7" height="7" />
-                  <rect class="port" x="335" y="159" width="7" height="7" />
-                  <rect class="port" x="103" y="225" width="7" height="7" />
-                  <rect class="port" x="566" y="225" width="7" height="7" />
-                </svg>
+                <img
+                  loading="lazy"
+                  src="assets/product/interconnection-light.svg"
+                  data-light="assets/product/interconnection-light.svg"
+                  data-dark="assets/product/interconnection-dark.svg"
+                  alt="Actual Interconnection View SVG export with ports and connections."
+                />
               </div>
             </div>
           </div>
@@ -728,57 +633,16 @@
             </div>
             <div class="gallery-visual">
               <div class="gallery-topline">
-                <span>Action Flow · Mission</span><span>Illustrative preview</span>
+                <span>Action Flow · LandingViews::Mission</span><span>Actual SVG export</span>
               </div>
               <div class="gallery-art">
-                <svg
-                  class="diagram-svg"
-                  viewBox="0 0 670 300"
-                  role="img"
-                  aria-label="Illustrative mission action flow from planning through takeoff and delivery."
-                >
-                  <defs>
-                    <marker
-                      id="arrowhead-gallery"
-                      viewBox="0 0 10 10"
-                      refX="9"
-                      refY="5"
-                      markerWidth="5"
-                      markerHeight="5"
-                      orient="auto-start-reverse"
-                    >
-                      <path
-                        d="m1 1 8 4-8 4"
-                        fill="none"
-                        stroke="var(--accent)"
-                        stroke-width="1.3"
-                      />
-                    </marker>
-                  </defs>
-                  <rect class="box" x="17" y="32" width="637" height="226" rx="8" />
-                  <text class="stereo" x="35" y="55">«action» executeMission</text>
-                  <path class="accent-wire" marker-end="url(#arrowhead-gallery)" d="M53 149H90" />
-                  <path class="accent-wire" marker-end="url(#arrowhead-gallery)" d="M225 149H268" />
-                  <path class="accent-wire" marker-end="url(#arrowhead-gallery)" d="M403 149H446" />
-                  <path class="accent-wire" marker-end="url(#arrowhead-gallery)" d="M581 149H621" />
-                  <circle cx="47" cy="149" r="6" fill="var(--accent)" />
-                  <circle cx="629" cy="149" r="9" fill="none" stroke="var(--accent)" />
-                  <circle cx="629" cy="149" r="5" fill="var(--accent)" />
-                  <rect class="box" x="90" y="119" width="135" height="61" rx="10" />
-                  <text class="stereo" x="157.5" y="140" text-anchor="middle">«action»</text>
-                  <text class="label" x="157.5" y="160" text-anchor="middle">Plan mission</text>
-                  <rect class="highlight-box" x="268" y="119" width="135" height="61" rx="10" />
-                  <text class="stereo" x="335.5" y="140" text-anchor="middle">«action»</text>
-                  <text class="label" x="335.5" y="160" text-anchor="middle">
-                    Arm &amp; take off
-                  </text>
-                  <rect class="box" x="446" y="119" width="135" height="61" rx="10" />
-                  <text class="stereo" x="513.5" y="140" text-anchor="middle">«action»</text>
-                  <text class="label" x="513.5" y="160" text-anchor="middle">Deliver payload</text>
-                  <text class="tiny" x="335" y="227" text-anchor="middle">
-                    Control flow keeps the sequence of work visible.
-                  </text>
-                </svg>
+                <img
+                  loading="lazy"
+                  src="assets/product/behavior-light.svg"
+                  data-light="assets/product/behavior-light.svg"
+                  data-dark="assets/product/behavior-dark.svg"
+                  alt="Actual Action Flow SVG export of the Mission action."
+                />
               </div>
             </div>
           </div>
@@ -823,50 +687,14 @@
             </div>
             <div class="gallery-visual">
               <div class="gallery-topline">
-                <span>Grid View · Requirements</span><span>Illustrative preview</span>
+                <span>Grid View · Requirements</span><span>Existing product capture</span>
               </div>
               <div class="gallery-art">
-                <div class="grid-preview">
-                  <table>
-                    <caption>
-                      Illustrative model relationships, not executed verification results.
-                    </caption>
-                    <thead>
-                      <tr>
-                        <th style="width: 15%">ID</th>
-                        <th style="width: 38%">Requirement</th>
-                        <th style="width: 24%">Satisfied by</th>
-                        <th style="width: 23%">Verified by</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="req-id">REQ-01</td>
-                        <td>Carry a 1 kg payload</td>
-                        <td>drone</td>
-                        <td>payloadTest</td>
-                      </tr>
-                      <tr>
-                        <td class="req-id">REQ-02</td>
-                        <td>Return on low battery</td>
-                        <td>controller</td>
-                        <td>returnTest</td>
-                      </tr>
-                      <tr>
-                        <td class="req-id">REQ-03</td>
-                        <td>Report navigation status</td>
-                        <td>navigation</td>
-                        <td>Not linked</td>
-                      </tr>
-                      <tr>
-                        <td class="req-id">REQ-04</td>
-                        <td>Protect the payload</td>
-                        <td>Not linked</td>
-                        <td>Not linked</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <img
+                  src="https://raw.githubusercontent.com/voidaliot/sysml-v2-vscext-release/main/assets/screenshots/feature-diagram-grid.png"
+                  loading="lazy"
+                  alt="Actual Grid View capture from the public release repository. Grid exports as CSV, not SVG."
+                />
               </div>
             </div>
           </div>
@@ -886,12 +714,12 @@
           <details class="recording-panel">
             <summary id="editing-title">
               <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>See diagram
-              editing in motion<span class="recording-note">Sample animation</span>
+              editing in motion<span class="recording-note">Exported model sequence</span>
             </summary>
             <div class="recording-body">
               <p>
-                Rename a part, follow the source update, then change a value. This replaceable
-                preview is an illustration of the workflow.
+                Compare the same model before and after a rename. Every diagram frame comes from the
+                extension SVG exporter.
               </p>
               <button
                 id="demo-toggle"
@@ -911,10 +739,10 @@
                   width="1200"
                   height="680"
                   loading="lazy"
-                  alt="Illustration placeholder for diagram editing. This is not a recording of the extension."
+                  alt="Actual exported diagrams before and after a source rename. This is not a screen recording."
                 />
                 <figcaption id="demo-caption" aria-live="polite">
-                  Illustration placeholder, not a product recording. Animation starts only when you
+                  Actual SVG export sequence, not a screen recording. Animation starts only when you
                   press Play.
                 </figcaption>
               </figure>

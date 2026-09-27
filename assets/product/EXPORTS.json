@@ -1,0 +1,78 @@
+{
+  "version": "0.45.0",
+  "renderer": "sysml-diagram CLI, shared extension SVG serializer",
+  "exports": [
+    {
+      "file": "structure-light.svg",
+      "source": "../samples/workflow-before.sysml",
+      "view": "gv",
+      "anchor": "DeliveryDrone",
+      "theme": "light",
+      "lineStyle": "curved",
+      "sha256": "1ad1f35c9a183935ff921eea176439061f98c3a06114fc1130ae9ea67b363476"
+    },
+    {
+      "file": "structure-renamed-light.svg",
+      "source": "../samples/workflow-after.sysml",
+      "view": "gv",
+      "anchor": "DeliveryDrone",
+      "theme": "light",
+      "lineStyle": "curved",
+      "sha256": "2a8e9918be8a8ba93d00c5138c0e77fabb1dd99ad7ecd6171ca93ba286ead744"
+    },
+    {
+      "file": "interconnection-light.svg",
+      "source": "../samples/orthogonal/landing-views.sysml",
+      "view": "iv",
+      "anchor": "LandingViews::drone",
+      "theme": "light",
+      "lineStyle": "orthogonal",
+      "sha256": "7d7607b7e31868ccafb0ea925491431a1ef446fe8c0c18571bf0904a5c785e1f"
+    },
+    {
+      "file": "behavior-light.svg",
+      "source": "../samples/orthogonal/landing-views.sysml",
+      "view": "afv",
+      "anchor": "LandingViews::Mission",
+      "theme": "light",
+      "lineStyle": "orthogonal",
+      "sha256": "4592615ce83096871f9717f8d0269dcd900f3dfaffb34decce60529d2711c0b4"
+    },
+    {
+      "file": "structure-dark.svg",
+      "source": "../samples/workflow-before.sysml",
+      "view": "gv",
+      "anchor": "DeliveryDrone",
+      "theme": "dark",
+      "lineStyle": "curved",
+      "sha256": "ed1ad4c027d0b42588019a2c03f50bbfde7e6cf8c2f859ea561ad80dbc723171"
+    },
+    {
+      "file": "structure-renamed-dark.svg",
+      "source": "../samples/workflow-after.sysml",
+      "view": "gv",
+      "anchor": "DeliveryDrone",
+      "theme": "dark",
+      "lineStyle": "curved",
+      "sha256": "76f26dc46f1864843a947a170654a00803f5c52720dbdce272604e46a860c88d"
+    },
+    {
+      "file": "interconnection-dark.svg",
+      "source": "../samples/orthogonal/landing-views.sysml",
+      "view": "iv",
+      "anchor": "LandingViews::drone",
+      "theme": "dark",
+      "lineStyle": "orthogonal",
+      "sha256": "e391f48a7b715d7c968d4688e5b102406a11207b4f939e52cbb4775a6b6d95b1"
+    },
+    {
+      "file": "behavior-dark.svg",
+      "source": "../samples/orthogonal/landing-views.sysml",
+      "view": "afv",
+      "anchor": "LandingViews::Mission",
+      "theme": "dark",
+      "lineStyle": "orthogonal",
+      "sha256": "fd49c52d518b139bb1430dbeebb3f45d9e3b81fbb7bc78ebd323dc18ac2e2306"
+    }
+  ]
+}

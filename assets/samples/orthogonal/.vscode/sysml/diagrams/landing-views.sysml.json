@@ -1,0 +1,17 @@
+{
+  "version": 9,
+  "anchors": {
+    "LandingViews::drone": {
+      "iv": {
+        "direction": "LR",
+        "lineStyle": "orthogonal"
+      }
+    },
+    "LandingViews::Mission": {
+      "afv": {
+        "direction": "LR",
+        "lineStyle": "orthogonal"
+      }
+    }
+  }
+}

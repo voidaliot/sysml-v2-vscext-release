@@ -1,105 +1,79 @@
 # Aliot pages and media
 
-The release page retains the draft layout, inline SVG wireframe sample cards, icon set, interactive rename illustration and view tabs. The page and README use clearly labeled illustrative media. They are not screenshots of the released extension. Replace them with real captures before presenting them as product evidence.
+The page keeps the preferred draft layout and editorial wireframe sample icons. Product diagrams use actual extension SVG exports. Website frames and source panels are composed around them. The animation compares exported model states; it is not a screen recording.
 
-## Files and ownership
+## Generate product media
 
-The development repository owns the page source under `media/aliot-site/`. The public release repository receives `index.html`, `styles.css`, `script.js`, `README.md`, `MEDIA-GUIDE.md` and the owned asset folders. Existing user guides, changelog, old screenshots and release artifacts are preserved.
+Models live in `reference/fabricated/aliot-workflow-demo.sysml` and `aliot-landing-views.sysml`. The generator copies their source states to `media/aliot-site/assets/samples/` and exports with the built CLI. The CLI shares the extension's node components and SVG serializer. Generated SVGs are not restyled or hand-edited.
 
-| Source in development repository | Public release repository |
+| Output in `assets/product/` | View and source | Lines |
+| --- | --- | --- |
+| `structure-{light,dark}.svg` | General View on `DeliveryDrone` | Curved |
+| `structure-renamed-{light,dark}.svg` | Same model after renaming `controller` to `flightComputer` | Curved |
+| `interconnection-{light,dark}.svg` | IV on `LandingViews::drone` | Orthogonal |
+| `behavior-{light,dark}.svg` | AFV on `LandingViews::Mission` | Orthogonal |
+
+`assets/product/EXPORTS.json` records the extension version, source, anchor, view, line style, theme and SVG checksum. Project settings are saved under `assets/samples/{curved,orthogonal}/.vscode/sysml/project.json` so the exports can be reproduced. The orthogonal examples use the extension's left-to-right layout and hide port labels for a compact overview. The saved view settings are beside the sample under `.vscode/sysml/diagrams/`.
+
+```powershell
+pnpm build
+node media/aliot-site/generate-product-media.mjs --serve
+```
+
+Open `http://127.0.0.1:8767/_render` in Chromium. Click **Generate PNGs and GIFs** and wait for **Done**. Stop the server with Ctrl+C. This overwrites generated product media. Without `--serve`, the command regenerates only SVGs and provenance.
+
+Chromium rasterizes the unchanged SVGs so CSS variables, fonts and shadows work as they do in the VS Code webview. The page composes the source panels around these renders. Sharp joins the before/after PNGs into a five-second GIF loop. No diagram shapes are redrawn. Regenerate both stages whenever a model or the renderer changes.
+
+To reproduce a single export:
+
+```powershell
+node packages/cli/out/main.js export --file media/aliot-site/assets/samples/workflow-before.sysml --view gv --anchor DeliveryDrone --gv-mode tree --theme light --workspace media/aliot-site/assets/samples/curved --auto-layout --out .temp/structure.svg
+```
+
+Both themes are exported independently. The website switches its hero, mini-preview, gallery and animation assets with the theme. Grid exports CSV, not SVG, so the Requirements tab uses an existing public Grid View screenshot. It retains its original theme instead of being recolored.
+
+The hero compares precomputed before/after exports and offers each source for download. It runs no parser. SVG export omits editor-only controls. A real screenshot is needed to match the surrounding VS Code UI exactly.
+
+## Replace images and recordings later
+
+Keep replacement files in `media/aliot-site/assets/product/` before syncing. Use the existing light/dark filenames:
+
+| Files | Suggested capture |
 | --- | --- |
-| `media/aliot-site/index.html`, `styles.css`, `script.js` | Same names at root |
-| `media/aliot-site/release-README.md` | `README.md` |
-| `media/aliot-site/assets/brand/` | `assets/brand/` |
-| `media/aliot-site/assets/product/` | `assets/product/` |
-| `media/aliot-site/assets/samples/` | `assets/samples/` |
-| `docs/release-media-guide.md` | `MEDIA-GUIDE.md` |
+| `workspace-{light,dark}.png` | Source editor beside readable General View |
+| `structure-{light,dark}.png` | Focused General View |
+| `interconnection-{light,dark}.png` | Ports, connections and Properties |
+| `editing-poster-{light,dark}.png` | First useful recording frame |
+| `editing-{light,dark}.gif` | Rename through Properties, pause on source update, then change a value |
 
-From the development repository, copy the reviewed files to the release checkout:
+Use Aliot Light and Aliot Dark. Hide unrelated panels, private paths and notifications. Prefer 1200 by 680 stills and a 12 to 18 second recording. Aim for GIFs below 5 MB. These are practical targets, not store limits.
+
+Update affected alt text, captions, README descriptions and the two playback caption strings in `script.js`. Record the extension version, model revision, view, theme and date in `assets/product/CAPTURES.md`. Do not rerun generation over real captures unless you intend to replace them with export sequences.
+
+Replacing PNGs does not change the SVG gallery. Change its image paths in `index.html` if you want screenshots there. The `#editing` panel loads its GIF only after Play. Stop, closing the panel, or hiding the page stops playback.
+
+## Sync and publish
 
 ```powershell
 node scripts/sync-release-page.mjs E:/GitHub/sysml-v2-vscext-release
 ```
 
-This copies files locally. It does not commit, push, publish an extension or deploy a site. It overwrites the owned destination files, so keep replacement media in the development source as well. Review the release-repository diff before committing.
+This copies the website, release README, this guide and assets locally. It does not push or publish. Existing historical screenshots, guides, changelog and release artifacts are preserved. Review and push the release repository before publishing an extension README that uses new public image URLs.
 
-## Replace the images and GIFs
+The Marketplace reads `packages/extension/README.md`. It uses PNG and GIF HTTPS URLs under `https://raw.githubusercontent.com/voidaliot/sysml-v2-vscext-release/main/assets/product/`. Local edits do not make those URLs available. Use versioned filenames or commit-pinned URLs when replacing cached media. SVG masters are used on the website. See [Microsoft publishing guidance](https://code.visualstudio.com/api/working-with-extensions/publishing-extension).
 
-Replace the following files in `media/aliot-site/assets/product/` without changing their names. Each comes in `-light` and `-dark` versions. The recording panel selects its poster and GIF with the website theme toggle. The READMEs use the light versions. The hero and view tabs use inline vector illustrations; replacing PNGs does not replace those illustrations.
+## Design and branding
 
-| Filename stem | Capture to provide |
-| --- | --- |
-| `workspace` (`.png`) | Source on the left and a readable General View on the right, with 6 to 8 visible elements |
-| `structure` (`.png`) | A focused General View showing definitions or nested parts |
-| `interconnection` (`.png`) | Ports and connections, with Properties open and no context menu hiding the model |
-| `editing-poster` (`.png`) | The first useful frame of the editing recording |
-| `editing` (`.gif`) | Rename in the diagram, observe the source update, then edit a value in the source and observe the diagram |
+Maintain `media/aliot-site/`. The draft reference is `media/aliot-landing/`; do not overwrite production files with that raw draft. Keep the flashlight, drone and vehicle SVG drawings in `.sample-visual` and the shared line-icon sprite. Those are editorial icons, not product screenshots. Install buttons use **Install in VS Code**.
 
-For example: `workspace-light.png`, `workspace-dark.png`, `editing-light.gif`, `editing-dark.gif`. An interim release may use the same real capture in both theme files if only one theme has been recorded. Keep the capture's actual appearance; do not label a light screenshot as a dark-theme demonstration.
+The selected store icon is `resources/aliot-light.png`, with a light `#F5F7FB` gallery banner. Brand masters live in `assets/brand/`. The quiet footer expands Aliot as Architecture, Language, Integration, Orchestration, Traceability.
 
-Recommended capture sequence:
+Aliot Light and Aliot Dark retain settings IDs `SysML v2 Gray` and `SysML v2 Default`. The old placeholder generator is retired for product media and refuses to overwrite real exports.
 
-1. Open the same validated public model for every capture. Start with `reference/fabricated/aliot-first-model.sysml` and use the drone sample for ports.
-2. Use **Aliot Dark** for dark captures and **Aliot Light** for light captures. Hide unrelated panels, private file paths and notifications. Make code and labels readable at the final display size.
-3. Record 12 to 18 seconds: hold the initial view, rename a part through Properties, pause on the changed source, then edit a source value and pause on the changed diagram. Avoid fast pointer motion.
-4. Export PNG stills, preferably 1200 by 680 pixels or a similar aspect ratio. Export GIFs around 1000 to 1200 pixels wide and 10 to 12 frames per second. Aim below 5 MB per GIF. These are practical targets, not store limits.
-5. Replace the placeholder files. In `index.html`, update each affected `alt` and `figcaption`. In `script.js`, update the two workflow caption strings. Remove placeholder wording only for media that has actually been replaced. Update the captions in both READMEs too.
-6. Record extension version, model revision, theme, view and capture date in a small `assets/product/CAPTURES.md` file. These fields help keep claims aligned with the release.
-7. Run the sync command above. Commit and push the release repository when ready to publish the site and make the image URLs public. Then package and publish the extension through the normal release flow.
-
-The website recording panel at `#editing` starts on a static poster. Open the panel to see the playback control. The interactive hero at `#workflow-demo` is a separate website illustration that runs no SysML parser. Play explicitly loads the GIF. Stop restores the poster, and switching away from the page stops playback. The GIF in a Markdown README animates as a normal image. Link longer videos from a static thumbnail to the website instead of depending on embedded video or JavaScript in Marketplace Markdown.
-
-## Keep the draft design
-
-The approved visual base is `media/aliot-landing/`. The maintained release page is `media/aliot-site/`. Edit the release page, then run the sync command. Do not overwrite it with the raw draft, which still contains design-only metadata and notes.
-
-The flashlight, drone and vehicle drawings are inline SVGs inside `.sample-visual`. The shared line icons live in the SVG sprite at the top of `index.html`. Their colors follow CSS theme variables. Keep these illustrations when replacing product recordings. They are editorial drawings, not screenshots that need recapturing.
-
-The hero supports selecting and renaming a part. The four view tabs are illustrative previews. The capture buttons open existing public product screenshots on demand. Install buttons use **Install in VS Code**.
-
-The hero's source model is also saved in `reference/fabricated/aliot-workflow-demo.sysml`. It validates without diagnostics. The website renders a simplified illustration, not a live extension view.
-
-## Marketplace wiring
-
-`packages/extension/package.json` owns the title, description, icon and gallery banner. The selected store icon is `resources/aliot-light.png`. The pale banner is `#F5F7FB`, with light-theme text treatment. The icon also appears on search cards; the gallery banner and README media appear on the detail page.
-
-`packages/extension/README.md` uses explicit public HTTPS image URLs, for example:
-
-```markdown
-![Source beside a diagram](https://raw.githubusercontent.com/voidaliot/sysml-v2-vscext-release/main/assets/product/workspace-light.png)
-![Diagram editing demonstration](https://raw.githubusercontent.com/voidaliot/sysml-v2-vscext-release/main/assets/product/editing-light.gif)
-```
-
-Publish those files to the public repository before publishing the updated extension README. Local edits alone do not make the HTTPS URLs available. To avoid stale caches after future replacements, use new versioned filenames and update the links, or pin the URL to a reviewed public commit.
-
-The Marketplace reads the packaged extension README, not the root development README. Changing its text requires publishing an updated extension package. The website is the public repository's GitHub Pages site; verify Pages still serves the configured root after pushing.
-
-Use PNG or GIF in the Marketplace README. Keep SVG masters for the website and brand editing. [Microsoft publishing guidance](https://code.visualstudio.com/api/working-with-extensions/publishing-extension) covers HTTPS image links and SVG restrictions.
-
-## Brand and theme
-
-`assets/brand/aliot-light.svg` and `aliot-dark.svg` are the editable icon masters. PNGs are 512 by 512 pixels. `aliot.png` and `aliot.svg` are the selected light mark. The 1200 by 630 `aliot-social.png` is the social preview.
-
-The name expansion belongs in the footer: Architecture, Language, Integration, Orchestration, Traceability. It should support the product name rather than replace the product introduction.
-
-**Aliot Dark** and **Aliot Light** replace the visible names **SysML v2 Default** and **SysML v2 Gray**. Their contributed IDs remain `SysML v2 Default` and `SysML v2 Gray` for settings compatibility. Both palettes remain unchanged.
-
-The placeholder generator is an authoring tool:
-
-```powershell
-node media/aliot-site/generate-placeholders.mjs
-```
-
-It refuses to overwrite existing output. `--replace` regenerates all placeholder media and icon PNGs. Do not use it after adding real captures unless intentionally restoring the placeholders.
-
-## Preview and check
-
-Serve the release repository with a local static server and open its root. Check light/dark toggle persistence, selecting and renaming parts, keyboard navigation through view tabs, the mobile menu, capture dialogs, the play/stop button, image loading, keyboard focus and mobile wrapping. Without JavaScript, the light page and static posters remain readable.
-
-For example, from the development repository:
+## Preview
 
 ```powershell
 .venv/Scripts/python.exe -m http.server 8765 --bind 127.0.0.1 --directory E:/GitHub/sysml-v2-vscext-release
 ```
 
-Then open `http://127.0.0.1:8765/`. Stop the server with Ctrl+C when finished.
+Open `http://127.0.0.1:8765/`. Check both themes, before/after source matching, SVG loading, view tabs, mobile navigation and playback. Stop the server with Ctrl+C when finished.

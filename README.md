@@ -8,9 +8,9 @@ Edit SysML v2 as text and diagrams. Built-in validation and AI tools.
 
 [Install in VS Code](https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2) · [Explore Aliot](https://voidaliot.github.io/sysml-v2-vscext-release/) · [User guide](https://voidaliot.github.io/sysml-v2-vscext-release/user-guide.html) · [Samples](https://github.com/voidaliot/sysml-v2-samples)
 
-![Illustration placeholder: source and diagram side by side](assets/product/workspace-light.png)
+![Actual SVG export: source and diagram side by side](assets/product/workspace-light.png)
 
-*The images and animation below are labeled illustrations. They will be replaced with captures of the extension.*
+*The diagrams below use the extension SVG exporter. The surrounding source panel is composed for the page. The animation compares exported model states; it is not a screen recording.*
 
 ## Get started
 
@@ -23,9 +23,9 @@ Prefer a local installer? Find the VSIX packages in [releases](releases/). In VS
 
 ## See the editing workflow
 
-![Illustration placeholder: a part rename and attribute edit shown in source and diagram](assets/product/editing-light.gif)
+![Actual SVG export: a part rename shown in source and exported diagram](assets/product/editing-light.gif)
 
-This sample animation is an illustration, not a recording. The [website](https://voidaliot.github.io/sysml-v2-vscext-release/#editing) provides a still image and a play/stop control.
+This animation compares actual SVG exports before and after a rename. It is not a screen recording. The [website](https://voidaliot.github.io/sysml-v2-vscext-release/#editing) provides a still image and a play/stop control.
 
 ## What you can do
 
