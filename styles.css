@@ -864,7 +864,7 @@ pre {
 }
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
 }
 .feature-card {
@@ -3060,6 +3060,41 @@ dialog::backdrop {
   width: 100%;
   height: 90px;
   object-fit: contain;
+}
+/* Give the model and its diff the full card, including on narrow screens. */
+.feature-card .feature-visual {
+  display: flex;
+  align-items: center;
+  height: 420px;
+  margin-top: 0;
+  padding: 14px;
+}
+.feature-card .mini-code {
+  width: 100%;
+  font-size: 15px;
+  line-height: 2;
+  overflow-wrap: anywhere;
+}
+.feature-card .diff-minus,
+.feature-card .diff-plus {
+  padding: 6px 8px;
+}
+:root[data-theme="light"] .feature-card .diff-minus {
+  color: #a42d40;
+}
+.feature-card .feature-diagram {
+  background: var(--surface);
+  border: 0;
+  padding: 0;
+}
+.feature-card .mini-graph {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+.feature-card .mini-graph > img {
+  display: block;
+  height: 100%;
 }
 .export-steps {
   display: flex;

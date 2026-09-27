@@ -370,37 +370,10 @@
           <div class="feature-grid">
             <article class="feature-card">
               <div class="feature-num">
-                <span>01 / AUTHOR</span
-                ><svg class="icon" aria-hidden="true"><use href="#i-code"></use></svg>
-              </div>
-              <h3>Write with context.</h3>
-              <p>
-                Navigate definitions, discover library types, and catch issues with completion,
-                diagnostics, and quick fixes.
-              </p>
-              <div class="feature-visual">
-                <div class="mini-code">
-                  <span class="kw">part def</span> <span class="type">Drone</span> {<br />
-                  <span class="kw">part</span> battery : <span class="type">Battery</span>;<br />
-                  <span class="comment">// Your architecture, in text.</span><br />}<span
-                    class="caret"
-                    aria-hidden="true"
-                  ></span>
-                </div>
-              </div>
-            </article>
-            <article class="feature-card">
-              <div class="feature-num">
-                <span>02 / UNDERSTAND</span
+                <span>DIAGRAM</span
                 ><svg class="icon" aria-hidden="true"><use href="#i-boxes"></use></svg>
               </div>
-              <h3>Work visually.</h3>
-              <p>
-                Explore structure, interfaces, and behavior. Make supported edits in the diagram and
-                keep the source in sync.
-              </p>
-              <div class="feature-visual">
-                <div class="mini-filebar">Source and diagram, together</div>
+              <div class="feature-visual feature-diagram">
                 <div class="mini-graph">
                   <img
                     src="assets/product/structure-light.svg"
@@ -413,21 +386,21 @@
             </article>
             <article class="feature-card">
               <div class="feature-num">
-                <span>03 / REVIEW</span
+                <span>DIFF</span
                 ><svg class="icon" aria-hidden="true"><use href="#i-branch"></use></svg>
               </div>
-              <h3>Keep the change clear.</h3>
-              <p>
-                Review model text in Git. Commit your diagram layouts alongside it, without mixing
-                presentation into your source.
-              </p>
               <div class="feature-visual">
-                <div class="mini-filebar">
-                  drone.sysml <span style="float: right">Illustrative diff</span>
-                </div>
-                <div class="mini-code">
-                  <div class="diff-minus">− part controller : FlightController;</div>
+                <div
+                  class="mini-code"
+                  role="img"
+                  aria-label="Model text diff. Rename controller to flightComputer, keeping its FlightController type."
+                >
+                  <div>part def Drone {</div>
+                  <div>&nbsp; part battery : Battery;</div>
+                  <div class="diff-minus">- part controller : FlightController;</div>
                   <div class="diff-plus">+ part flightComputer : FlightController;</div>
+                  <div>&nbsp; part propulsion : Propulsion;</div>
+                  <div>}</div>
                 </div>
               </div>
             </article>

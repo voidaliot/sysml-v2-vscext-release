@@ -87,7 +87,9 @@ The hierarchy buttons compare still captures. Its GIF links provide the two-stat
 node scripts/sync-release-page.mjs E:/GitHub/sysml-v2-vscext-release
 ```
 
-This copies the website, release README, this guide and assets locally. It does not push or publish. Existing historical screenshots, guides, changelog and release artifacts are preserved. Review and push the release repository before publishing an extension README that uses new public image URLs.
+This copies the website, release README, this media guide and assets locally. It also regenerates `user-guide.html` and `user-guide.md` from `docs/user-guide.md`, with matching light and dark captures. Edit the Markdown source, not the generated release guide. Its page shell lives in `media/aliot-site/user-guide.template.html`.
+
+The sync does not push or publish. Existing historical screenshots, changelog and release artifacts are preserved. Review and push the release repository before publishing an extension README that uses new public image URLs.
 
 The Marketplace reads `packages/extension/README.md`. It uses PNG and GIF HTTPS URLs under `https://raw.githubusercontent.com/voidaliot/sysml-v2-vscext-release/main/assets/product/`. Local edits do not make those URLs available. Use versioned filenames or commit-pinned URLs when replacing cached media. SVG masters are used on the website. See [Microsoft publishing guidance](https://code.visualstudio.com/api/working-with-extensions/publishing-extension).
 
