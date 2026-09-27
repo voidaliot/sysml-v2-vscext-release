@@ -1,0 +1,30 @@
+# Aliot release captures
+
+- Captured: 2026-09-27.
+- Extension: 0.45.0, running in the VS Code Extension Development Host.
+- Source head: `db332ce8aa24a12625156f5d1356e0ed2e670417`, branch `feat/interactive-properties`.
+- Themes: Aliot Light and Aliot Dark, captured independently through the theme picker.
+- Model: `reference/fabricated/aliot-release-demo.sysml`. Downloadable source snapshots and saved layout are in `../samples/release-demo-*`.
+- View: Interconnection View, top-down layout, orthogonal connectors. The drone overview hides propulsion internals. The propulsion diagram shows the four motors and command connections.
+
+These are genuine window captures. The only image processing is rectangular cropping and GIF encoding. No controls, labels, values or diagram geometry were drawn over the captures. The saved stills retain the capture tool's pointer highlight where visible.
+
+Wide captures crop the extension webview at x=60, y=109, width=1810, height=865 from a 1873 by 1043 window capture. Properties crops use x=1337, y=151, width=530, height=823. This removes unrelated editor tabs, desktop and workspace status indicators. The port detail crop excludes a theme picker that was outside the Properties pane.
+
+## Demonstrated behavior
+
+- `v045-workspace-*`: Browser, drone diagram and battery Properties after a local override.
+- `v045-properties-before-*`: capacity 80 inherited from Battery.
+- `v045-properties-edit-*`: capacity 95 entered into the inherited field.
+- `v045-properties-after-*`: applied local capacity override 95. nominalVoltage and mass stay inherited.
+- `v045-properties-port-*`: powerOutput inspection, calculated direction, Conjugated control and directed voltage/current members.
+- `v045-hierarchy-overview-*`: drone diagram with propulsion collapsed, with its Diagram pill visible in Browser.
+- `v045-hierarchy-subsystem-*`: propulsion opened from that pill, with four connected motors and the Browser rooted at propulsion.
+
+The property edit was made through Properties and verified in source as `attribute :>> capacity = 95;`. Battery's default stays 80 and spareBattery has no override. Both source snapshots validate without diagnostics. The fabricated source returns to the before state for repeatable demonstrations.
+
+The GIFs are still-image sequences. Properties holds before/edit/applied for 2.2/2.2/3.6 seconds. Hierarchy holds overview/subsystem for 3/4 seconds. They do not record cursor movement or show every intermediate UI operation. Up navigation was exercised and returns to the parent's General View; the looping hierarchy comparison shows the two IV states only.
+
+Rebuild GIFs with `node media/aliot-site/assemble-capture-gifs.mjs` from the development repository. This leaves all still captures unchanged. The SVG generator uses separate filenames and cannot overwrite these captures.
+
+See `MEDIA-GUIDE.md` in the release repository, or `docs/release-media-guide.md` in the development repository, for replacement and recording instructions.

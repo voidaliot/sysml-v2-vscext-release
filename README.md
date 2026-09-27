@@ -8,9 +8,12 @@ Edit SysML v2 as text and diagrams. Built-in validation and AI tools.
 
 [Install in VS Code](https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2) · [Explore Aliot](https://voidaliot.github.io/sysml-v2-vscext-release/) · [User guide](https://voidaliot.github.io/sysml-v2-vscext-release/user-guide.html) · [Samples](https://github.com/voidaliot/sysml-v2-samples)
 
-![Actual SVG export: source and diagram side by side](assets/product/workspace-light.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/product/v045-workspace-dark.png">
+  <img src="assets/product/v045-workspace-light.png" alt="Aliot in VS Code: Browser, diagram and editable Properties">
+</picture>
 
-*The diagrams below use the extension SVG exporter. The surrounding source panel is composed for the page. The animation compares exported model states; it is not a screen recording.*
+_Actual VS Code capture. Images follow your GitHub light or dark preference._
 
 ## Get started
 
@@ -23,19 +26,39 @@ Prefer a local installer? Find the VSIX packages in [releases](releases/). In VS
 
 ## See the editing workflow
 
-![Actual SVG export: a part rename shown in source and exported diagram](assets/product/editing-light.gif)
+Edit inherited values in Properties to create local overrides. The battery capacity changes from 80 to 95. Its definition and spare battery stay at 80. Port inspection exposes conjugation, direction and inherited directed members.
 
-This animation compares actual SVG exports before and after a rename. It is not a screen recording. The [website](https://voidaliot.github.io/sysml-v2-vscext-release/#editing) provides a still image and a play/stop control.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/product/v045-properties-after-dark.png">
+  <img src="assets/product/v045-properties-after-light.png" alt="Properties after creating a local capacity override" width="400">
+</picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/product/v045-properties-port-dark.png">
+  <img src="assets/product/v045-properties-port-light.png" alt="Port Properties with directed features and conjugation" width="400">
+</picture>
+
+[Play the real screenshot sequence](https://voidaliot.github.io/sysml-v2-vscext-release/#editing). The page provides stills and a Play/Stop control. These are captured states, not a continuous recording.
+
+## Navigate the hierarchy
+
+Choose the **Diagram** pill beside propulsion in the Browser to open its subsystem. Use **Up** beside the filter to return to the parent's General View.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/product/v045-hierarchy-subsystem-dark.png">
+  <img src="assets/product/v045-hierarchy-subsystem-light.png" alt="Actual VS Code capture: Browser and propulsion subsystem with four motors">
+</picture>
+
+Try the [capture model](assets/samples/release-demo-before.sysml). Compare the [light navigation GIF](assets/product/v045-hierarchy-light.gif) or [dark navigation GIF](assets/product/v045-hierarchy-dark.gif).
 
 ## What you can do
 
-| Workflow | Included support |
-| --- | --- |
-| Write models | Completion, hover, navigation, rename, formatting and diagnostics for SysML v2 and KerML |
-| Edit diagrams | General, Interconnection, Action Flow, State Transition, Sequence, Case, Geometry and Grid views, with Browser navigation |
-| Reuse the library | Bundled OMG SysML v2 and KerML standard library, including quantities and units |
-| Work with agents | Optional model context, validation, library search and requirement-trace tools for compatible VS Code AI agents |
-| Automate checks | `sysml-validate` for validation and `sysml-diagram` for diagram export in desktop and CI workflows |
+| Workflow          | Included support                                                                                                          |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Write models      | Completion, hover, navigation, rename, formatting and diagnostics for SysML v2 and KerML                                  |
+| Edit diagrams     | General, Interconnection, Action Flow, State Transition, Sequence, Case, Geometry and Grid views, with Browser navigation |
+| Reuse the library | Bundled OMG SysML v2 and KerML standard library, including quantities and units                                           |
+| Work with agents  | Optional model context, validation, library search and requirement-trace tools for compatible VS Code AI agents           |
+| Automate checks   | `sysml-validate` for validation and `sysml-diagram` for diagram export in desktop and CI workflows                        |
 
 AI tools need a separately configured compatible agent. Aliot does not include an AI model or credentials. Core modeling works without an AI account, Java or PlantUML.
 

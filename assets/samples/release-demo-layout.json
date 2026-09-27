@@ -1,0 +1,382 @@
+{
+  "version": 9,
+  "anchors": {
+    "DeliveryDrone::drone": {
+      "iv": {
+        "layout": {
+          "DeliveryDrone::drone": {
+            "x": 16,
+            "y": 16,
+            "parentKey": null,
+            "w": 364,
+            "h": 488
+          },
+          "DeliveryDrone::drone::propulsion": {
+            "x": 22,
+            "y": 394,
+            "parentKey": "DeliveryDrone::drone",
+            "collapsedW": 320,
+            "collapsedH": 72
+          },
+          "DeliveryDrone::drone::battery": {
+            "x": 94,
+            "y": 48,
+            "parentKey": "DeliveryDrone::drone",
+            "collapsedW": 177,
+            "collapsedH": 100
+          },
+          "DeliveryDrone::drone::flightController": {
+            "x": 53,
+            "y": 228,
+            "parentKey": "DeliveryDrone::drone",
+            "collapsedW": 259,
+            "collapsedH": 86
+          }
+        },
+        "ports": {
+          "DeliveryDrone::drone::propulsion.command": {
+            "side": "top",
+            "offset": 0.62
+          },
+          "DeliveryDrone::drone::battery.powerOutput": {
+            "side": "bottom",
+            "offset": 0.62
+          },
+          "DeliveryDrone::drone::flightController.powerInput": {
+            "side": "top",
+            "offset": 0.62
+          },
+          "DeliveryDrone::drone::flightController.motorCommand": {
+            "side": "bottom",
+            "offset": 0.62
+          }
+        },
+        "edgeRoutes": {},
+        "edgeAnchors": {},
+        "edgeGeometry": {
+          "connect:DeliveryDrone::drone::battery.powerOutput->DeliveryDrone::drone::flightController.powerInput:Real": {
+            "sourceHandle": "sysml-port-anchor:bottom:DeliveryDrone%3A%3Adrone%3A%3Abattery.powerOutput",
+            "targetHandle": "sysml-port-anchor:top:DeliveryDrone%3A%3Adrone%3A%3AflightController.powerInput",
+            "path": "M 219.74,174 L 219.74,211.08 Q 219.74,216 224.66,216 L 224.66,216 Q 229.58,216 229.58,220.92 L 229.58,234",
+            "lineStyle": "orthogonal",
+            "sourcePoint": {
+              "x": 219.74,
+              "y": 174
+            },
+            "targetPoint": {
+              "x": 229.58,
+              "y": 234
+            },
+            "label": {
+              "x": 219.74,
+              "y": 208.92000000000002
+            },
+            "points": [
+              {
+                "x": 219.74,
+                "y": 174
+              },
+              {
+                "x": 219.74,
+                "y": 216
+              },
+              {
+                "x": 229.58,
+                "y": 216
+              },
+              {
+                "x": 229.58,
+                "y": 234
+              }
+            ],
+            "corner": 8
+          },
+          "connect:DeliveryDrone::drone::flightController.motorCommand->DeliveryDrone::drone::propulsion.command:Real": {
+            "sourceHandle": "sysml-port-anchor:bottom:DeliveryDrone%3A%3Adrone%3A%3AflightController.motorCommand",
+            "targetHandle": "sysml-port-anchor:top:DeliveryDrone%3A%3Adrone%3A%3Apropulsion.command",
+            "path": "M 229.58,340 L 229.58,378.59 Q 229.58,382 232.99,382 L 232.99,382 Q 236.4,382 236.4,385.41 L 236.4,400",
+            "lineStyle": "orthogonal",
+            "sourcePoint": {
+              "x": 229.58,
+              "y": 340
+            },
+            "targetPoint": {
+              "x": 236.4,
+              "y": 400
+            },
+            "label": {
+              "x": 229.58,
+              "y": 373.40999999999997
+            },
+            "points": [
+              {
+                "x": 229.58,
+                "y": 340
+              },
+              {
+                "x": 229.58,
+                "y": 382
+              },
+              {
+                "x": 236.4,
+                "y": 382
+              },
+              {
+                "x": 236.4,
+                "y": 400
+              }
+            ],
+            "corner": 8
+          }
+        },
+        "direction": "TB",
+        "lineStyle": "orthogonal",
+        "showGrid": false,
+        "hiddenInternals": {
+          "DeliveryDrone::drone::propulsion": true
+        }
+      }
+    },
+    "DeliveryDrone::drone::propulsion": {
+      "iv": {
+        "layout": {
+          "DeliveryDrone::drone::propulsion": {
+            "x": 16,
+            "y": 16,
+            "parentKey": null,
+            "w": 412,
+            "h": 274
+          },
+          "DeliveryDrone::drone::propulsion::frontLeft": {
+            "x": 22,
+            "y": 48,
+            "parentKey": "DeliveryDrone::drone::propulsion",
+            "collapsedW": 168,
+            "collapsedH": 86
+          },
+          "DeliveryDrone::drone::propulsion::frontRight": {
+            "x": 222,
+            "y": 48,
+            "parentKey": "DeliveryDrone::drone::propulsion",
+            "collapsedW": 168,
+            "collapsedH": 86
+          },
+          "DeliveryDrone::drone::propulsion::rearLeft": {
+            "x": 22,
+            "y": 166,
+            "parentKey": "DeliveryDrone::drone::propulsion",
+            "collapsedW": 168,
+            "collapsedH": 86
+          },
+          "DeliveryDrone::drone::propulsion::rearRight": {
+            "x": 222,
+            "y": 166,
+            "parentKey": "DeliveryDrone::drone::propulsion",
+            "collapsedW": 168,
+            "collapsedH": 86
+          }
+        },
+        "ports": {
+          "DeliveryDrone::drone::propulsion.command": {
+            "side": "top",
+            "offset": 0.62
+          },
+          "DeliveryDrone::drone::propulsion::frontLeft.command": {
+            "side": "top",
+            "offset": 0.62
+          },
+          "DeliveryDrone::drone::propulsion::frontRight.command": {
+            "side": "top",
+            "offset": 0.62
+          },
+          "DeliveryDrone::drone::propulsion::rearLeft.command": {
+            "side": "top",
+            "offset": 0.62
+          },
+          "DeliveryDrone::drone::propulsion::rearRight.command": {
+            "side": "top",
+            "offset": 0.62
+          }
+        },
+        "edgeRoutes": {},
+        "edgeAnchors": {},
+        "edgeGeometry": {
+          "connect:DeliveryDrone::drone::propulsion.command->DeliveryDrone::drone::propulsion::frontLeft.command": {
+            "sourceHandle": "sysml-port-anchor:bottom:DeliveryDrone%3A%3Adrone%3A%3Apropulsion.command",
+            "targetHandle": "sysml-port-anchor:top:DeliveryDrone%3A%3Adrone%3A%3Apropulsion%3A%3AfrontLeft.command",
+            "path": "M 271.44,26 L 271.44,44 L 271.44,40 Q 271.44,36 267.44,36 L 150.16,36 Q 142.16,36 142.16,44 L 142.16,54",
+            "lineStyle": "orthogonal",
+            "sourcePoint": {
+              "x": 271.44,
+              "y": 26
+            },
+            "targetPoint": {
+              "x": 142.16,
+              "y": 54
+            },
+            "label": {
+              "x": 210.8,
+              "y": 36
+            },
+            "points": [
+              {
+                "x": 271.44,
+                "y": 26
+              },
+              {
+                "x": 271.44,
+                "y": 44
+              },
+              {
+                "x": 271.44,
+                "y": 36
+              },
+              {
+                "x": 142.16,
+                "y": 36
+              },
+              {
+                "x": 142.16,
+                "y": 54
+              }
+            ],
+            "corner": 8
+          },
+          "connect:DeliveryDrone::drone::propulsion.command->DeliveryDrone::drone::propulsion::frontRight.command": {
+            "sourceHandle": "sysml-port-anchor:bottom:DeliveryDrone%3A%3Adrone%3A%3Apropulsion.command",
+            "targetHandle": "sysml-port-anchor:top:DeliveryDrone%3A%3Adrone%3A%3Apropulsion%3A%3AfrontRight.command",
+            "path": "M 271.44,26 L 271.44,36 Q 271.44,44 279.44,44 L 338.16,44 Q 342.16,44 342.16,40 L 342.16,36 L 342.16,54",
+            "lineStyle": "orthogonal",
+            "sourcePoint": {
+              "x": 271.44,
+              "y": 26
+            },
+            "targetPoint": {
+              "x": 342.15999999999997,
+              "y": 54
+            },
+            "label": {
+              "x": 310.79999999999995,
+              "y": 44
+            },
+            "points": [
+              {
+                "x": 271.44,
+                "y": 26
+              },
+              {
+                "x": 271.44,
+                "y": 44
+              },
+              {
+                "x": 342.15999999999997,
+                "y": 44
+              },
+              {
+                "x": 342.15999999999997,
+                "y": 36
+              },
+              {
+                "x": 342.15999999999997,
+                "y": 54
+              }
+            ],
+            "corner": 8
+          },
+          "connect:DeliveryDrone::drone::propulsion.command->DeliveryDrone::drone::propulsion::rearLeft.command": {
+            "sourceHandle": "sysml-port-anchor:bottom:DeliveryDrone%3A%3Adrone%3A%3Apropulsion.command",
+            "targetHandle": "sysml-port-anchor:top:DeliveryDrone%3A%3Adrone%3A%3Apropulsion%3A%3ArearLeft.command",
+            "path": "M 271.44,26 L 271.44,36 Q 271.44,44 263.44,44 L 228,44 Q 220,44 220,52 L 220,159.5 Q 220,167.5 212,167.5 L 144.41,167.5 Q 142.16,167.5 142.16,169.75 L 142.16,172",
+            "lineStyle": "orthogonal",
+            "sourcePoint": {
+              "x": 271.44,
+              "y": 26
+            },
+            "targetPoint": {
+              "x": 142.16,
+              "y": 172
+            },
+            "label": {
+              "x": 220,
+              "y": 112.19999999999999
+            },
+            "points": [
+              {
+                "x": 271.44,
+                "y": 26
+              },
+              {
+                "x": 271.44,
+                "y": 44
+              },
+              {
+                "x": 220,
+                "y": 44
+              },
+              {
+                "x": 220,
+                "y": 167.5
+              },
+              {
+                "x": 142.16,
+                "y": 167.5
+              },
+              {
+                "x": 142.16,
+                "y": 172
+              }
+            ],
+            "corner": 8
+          },
+          "connect:DeliveryDrone::drone::propulsion.command->DeliveryDrone::drone::propulsion::rearRight.command": {
+            "sourceHandle": "sysml-port-anchor:bottom:DeliveryDrone%3A%3Adrone%3A%3Apropulsion.command",
+            "targetHandle": "sysml-port-anchor:top:DeliveryDrone%3A%3Adrone%3A%3Apropulsion%3A%3ArearRight.command",
+            "path": "M 271.44,26 L 271.44,36 Q 271.44,44 263.44,44 L 232,44 Q 224,44 224,52 L 224,159.5 Q 224,167.5 232,167.5 L 339.91,167.5 Q 342.16,167.5 342.16,169.75 L 342.16,172",
+            "lineStyle": "orthogonal",
+            "sourcePoint": {
+              "x": 271.44,
+              "y": 26
+            },
+            "targetPoint": {
+              "x": 342.15999999999997,
+              "y": 172
+            },
+            "label": {
+              "x": 224,
+              "y": 134.35999999999999
+            },
+            "points": [
+              {
+                "x": 271.44,
+                "y": 26
+              },
+              {
+                "x": 271.44,
+                "y": 44
+              },
+              {
+                "x": 224,
+                "y": 44
+              },
+              {
+                "x": 224,
+                "y": 167.5
+              },
+              {
+                "x": 342.15999999999997,
+                "y": 167.5
+              },
+              {
+                "x": 342.15999999999997,
+                "y": 172
+              }
+            ],
+            "corner": 8
+          }
+        },
+        "lineStyle": "orthogonal",
+        "showGrid": false
+      }
+    }
+  }
+}

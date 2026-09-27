@@ -2877,6 +2877,56 @@ dialog::backdrop {
 .recording-section {
   padding: 0 0 50px;
 }
+.capture-intro,
+.capture-hierarchy > p {
+  max-width: 850px;
+  color: var(--muted);
+  margin: 20px 0;
+}
+.capture-wide {
+  margin: 28px 0;
+}
+.capture-wide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.capture-wide figcaption {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.capture-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 530px));
+  gap: 28px;
+  justify-content: center;
+  align-items: start;
+}
+.capture-hierarchy {
+  margin-top: 48px;
+}
+.capture-hierarchy h3 {
+  font-size: 28px;
+}
+.capture-steps,
+.capture-downloads {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.capture-steps [aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+@media (max-width: 680px) {
+  .capture-pair {
+    grid-template-columns: minmax(0, 530px);
+  }
+}
 .recording-panel {
   border: 1px solid var(--line);
   border-radius: 10px;

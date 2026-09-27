@@ -1,4 +1,4 @@
-/* Aliot website. Diagram previews use actual precomputed extension SVG exports. */
+/* Aliot website. SVG previews and real VS Code captures are precomputed assets. */
 (() => {
   "use strict";
   const $ = (selector, root = document) => root.querySelector(selector);
@@ -55,7 +55,8 @@
       $("output", controls).textContent = `${Math.round(zoom * 100)}%`;
       $('[data-zoom="out"]', controls).disabled = zoom <= 1;
       $('[data-zoom="in"]', controls).disabled = zoom >= 4;
-      $(".diagram-help", controls).textContent = zoom > 1 ? "Drag or use arrow keys to pan" : "Zoom to explore";
+      $(".diagram-help", controls).textContent =
+        zoom > 1 ? "Drag or use arrow keys to pan" : "Zoom to explore";
     }
     function fit() {
       zoom = 1;
@@ -83,7 +84,10 @@
         if (event.key === "+" || event.key === "=") changeZoom(1.25);
         else if (event.key === "-") changeZoom(0.8);
         else fit();
-      } else if (zoom > 1 && ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
+      } else if (
+        zoom > 1 &&
+        ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)
+      ) {
         event.preventDefault();
         if (event.key === "ArrowLeft") x += 40;
         if (event.key === "ArrowRight") x -= 40;
@@ -180,13 +184,37 @@
 
   function updateDemo() {
     const theme = root.dataset.theme;
-    demo.src = playing ? `assets/product/editing-${theme}.gif` : demo.dataset[theme];
+    demo.src = playing ? `assets/product/v045-properties-${theme}.gif` : demo.dataset[theme];
+    demo.alt = playing
+      ? "Actual VS Code screenshots: inherited capacity 80, pending edit 95, and the applied local override"
+      : "Properties shows capacity 95 as a local attribute, with voltage and mass still inherited from Battery";
     play.textContent = playing ? "Stop sample animation" : "Play sample animation";
     play.setAttribute("aria-pressed", String(playing));
     caption.textContent = playing
-      ? "Actual SVG export sequence, not a screen recording. Press Stop to return to the still image."
-      : "Actual SVG export sequence, not a screen recording. Animation starts only when you press Play.";
+      ? "A sequence of actual VS Code screenshots, not a continuous recording. Press Stop for the applied state."
+      : "Actual VS Code screenshots. Press Play for the before, edit and applied states.";
   }
+
+  $$("[data-hierarchy-state]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const state = button.dataset.hierarchyState;
+      const image = $("#hierarchy-image");
+      image.dataset.light = `assets/product/v045-hierarchy-${state}-light.png`;
+      image.dataset.dark = `assets/product/v045-hierarchy-${state}-dark.png`;
+      image.src = image.dataset[root.dataset.theme];
+      image.alt =
+        state === "overview"
+          ? "Actual VS Code capture: Browser and drone Interconnection View with propulsion collapsed"
+          : "Actual VS Code capture: Browser and Interconnection View focused on the propulsion subsystem and four motors";
+      $("#hierarchy-caption").textContent =
+        state === "overview"
+          ? "System overview. The propulsion Diagram pill opens the subsystem."
+          : "Inside propulsion. Up beside the Browser filter returns to the parent's General View.";
+      $$("[data-hierarchy-state]").forEach((item) => {
+        item.setAttribute("aria-pressed", String(item === button));
+      });
+    });
+  });
 
   function applyTheme(theme) {
     root.dataset.theme = theme;

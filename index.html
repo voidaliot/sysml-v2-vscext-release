@@ -285,11 +285,16 @@
                     <svg class="icon" aria-hidden="true"><use href="#i-boxes"></use></svg
                     ><span class="view-select">General View</span
                     ><svg class="icon" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
-                      <div class="toolbar-right">
-                        <span>DeliveryDrone</span>
-                        <button type="button" class="canvas-fit" aria-label="Fit diagram" title="Fit diagram">
-                          <svg class="icon" aria-hidden="true"><use href="#i-fit"></use></svg>
-                        </button>
+                    <div class="toolbar-right">
+                      <span>DeliveryDrone</span>
+                      <button
+                        type="button"
+                        class="canvas-fit"
+                        aria-label="Fit diagram"
+                        title="Fit diagram"
+                      >
+                        <svg class="icon" aria-hidden="true"><use href="#i-fit"></use></svg>
+                      </button>
                     </div>
                   </div>
                   <div class="canvas-area">
@@ -298,12 +303,16 @@
                       src="assets/product/structure-light.svg"
                       data-light="assets/product/structure-light.svg"
                       data-dark="assets/product/structure-dark.svg"
-                        alt="General View exported by the extension from the DeliveryDrone model."
-                      />
-                      <div class="export-steps" role="group" aria-label="Compare model exports">
-                        <button type="button" data-export-step="0" aria-pressed="true">Before rename</button>
-                        <button type="button" data-export-step="1" aria-pressed="false">After rename</button>
-                      </div>
+                      alt="General View exported by the extension from the DeliveryDrone model."
+                    />
+                    <div class="export-steps" role="group" aria-label="Compare model exports">
+                      <button type="button" data-export-step="0" aria-pressed="true">
+                        Before rename
+                      </button>
+                      <button type="button" data-export-step="1" aria-pressed="false">
+                        After rename
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -712,15 +721,37 @@
       </section>
       <section class="section recording-section" id="editing" aria-labelledby="editing-title">
         <div class="wrap">
+          <div class="eyebrow">CAPTURED IN VS CODE</div>
+          <h2 class="section-title" id="editing-title">Edit the details. Keep the model.</h2>
+          <p class="capture-intro">
+            Browse the hierarchy, inspect inherited features and change values in Properties. These
+            are actual captures from Aliot 0.45.0 in VS Code.
+          </p>
+          <figure class="capture-wide">
+            <img
+              src="assets/product/v045-workspace-light.png"
+              data-light="assets/product/v045-workspace-light.png"
+              data-dark="assets/product/v045-workspace-dark.png"
+              width="1810"
+              height="865"
+              loading="lazy"
+              alt="Aliot in VS Code: model Browser, drone interconnection diagram and editable battery Properties"
+            />
+            <figcaption>
+              One model, with its Browser, diagram and Properties together. Captured in Aliot Light
+              and Aliot Dark.
+            </figcaption>
+          </figure>
           <details class="recording-panel">
-            <summary id="editing-title">
-              <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>See diagram
-              editing in motion<span class="recording-note">Exported model sequence</span>
+            <summary>
+              <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>Explore
+              Properties editing
+              <span class="recording-note">Real VS Code captures</span>
             </summary>
             <div class="recording-body">
               <p>
-                Compare the same model before and after a rename. Every diagram frame comes from the
-                extension SVG exporter.
+                Change the battery capacity from 80 to 95. Applying the inherited value creates a
+                local override. The Battery definition and spare battery keep their original value.
               </p>
               <button
                 id="demo-toggle"
@@ -731,24 +762,89 @@
               >
                 Play sample animation
               </button>
-              <figure>
-                <img
-                  id="workflow-image"
-                  src="assets/product/editing-poster-light.png"
-                  data-light="assets/product/editing-poster-light.png"
-                  data-dark="assets/product/editing-poster-dark.png"
-                  width="1200"
-                  height="680"
-                  loading="lazy"
-                  alt="Actual exported diagrams before and after a source rename. This is not a screen recording."
-                />
-                <figcaption id="demo-caption" aria-live="polite">
-                  Actual SVG export sequence, not a screen recording. Animation starts only when you
-                  press Play.
-                </figcaption>
-              </figure>
+              <div class="capture-pair">
+                <figure>
+                  <img
+                    id="workflow-image"
+                    src="assets/product/v045-properties-after-light.png"
+                    data-light="assets/product/v045-properties-after-light.png"
+                    data-dark="assets/product/v045-properties-after-dark.png"
+                    width="530"
+                    height="823"
+                    loading="lazy"
+                    alt="Properties shows capacity 95 as a local attribute, with voltage and mass still inherited from Battery"
+                  />
+                  <figcaption id="demo-caption" aria-live="polite">
+                    Actual VS Code screenshots. Press Play for the before, edit and applied states.
+                  </figcaption>
+                </figure>
+                <figure>
+                  <img
+                    src="assets/product/v045-properties-port-light.png"
+                    data-light="assets/product/v045-properties-port-light.png"
+                    data-dark="assets/product/v045-properties-port-dark.png"
+                    width="530"
+                    height="823"
+                    loading="lazy"
+                    alt="Port Properties with calculated direction, Conjugated control and inherited voltage and current members"
+                  />
+                  <figcaption>
+                    Inspect a port without leaving the diagram. Edit its type, conjugation and
+                    directed features, then return with Back.
+                  </figcaption>
+                </figure>
+              </div>
             </div>
           </details>
+          <div class="capture-hierarchy" id="hierarchy">
+            <h3>Go from system to subsystem.</h3>
+            <p>
+              Choose the Diagram pill beside propulsion in the Browser. Its four motors become the
+              focus. Use Up beside the filter to return to the parent's General View.
+            </p>
+            <div class="capture-steps" role="group" aria-label="Hierarchy screenshot selection">
+              <button
+                class="button small"
+                type="button"
+                data-hierarchy-state="overview"
+                aria-pressed="false"
+                aria-controls="hierarchy-image"
+              >
+                System overview
+              </button>
+              <button
+                class="button small"
+                type="button"
+                data-hierarchy-state="subsystem"
+                aria-pressed="true"
+                aria-controls="hierarchy-image"
+              >
+                Inside propulsion
+              </button>
+            </div>
+            <figure class="capture-wide">
+              <img
+                id="hierarchy-image"
+                src="assets/product/v045-hierarchy-subsystem-light.png"
+                data-light="assets/product/v045-hierarchy-subsystem-light.png"
+                data-dark="assets/product/v045-hierarchy-subsystem-dark.png"
+                width="1810"
+                height="865"
+                loading="lazy"
+                alt="Actual VS Code capture: Browser and Interconnection View focused on the propulsion subsystem and four motors"
+              />
+              <figcaption id="hierarchy-caption" aria-live="polite">
+                Inside propulsion. Compare captured hierarchy levels with the buttons above.
+              </figcaption>
+            </figure>
+            <p class="capture-downloads">
+              <a href="assets/samples/release-demo-before.sysml" download
+                >Download the capture model</a
+              >
+              <a href="assets/product/v045-hierarchy-light.gif">Light navigation GIF</a>
+              <a href="assets/product/v045-hierarchy-dark.gif">Dark navigation GIF</a>
+            </p>
+          </div>
         </div>
       </section>
       <section class="section section-muted" id="workflow" aria-labelledby="workflow-title">

@@ -1,17 +1,44 @@
 # Aliot pages and media
 
-The page keeps the preferred draft layout and editorial wireframe sample icons. Product diagrams use actual extension SVG exports. Website frames and source panels are composed around them. The animation compares exported model states; it is not a screen recording.
+The page keeps the preferred draft layout and editorial wireframe sample icons. The hero and view gallery use actual extension SVG exports. The editing section and README lead images now use real VS Code captures. The GIFs join captured states; they are not continuous recordings.
+
+## Real VS Code captures
+
+The `v045-` assets were captured from the running Extension Development Host on 2026-09-27. They use Aliot Light and Aliot Dark. No UI or diagram shapes were redrawn. Crops exclude unrelated editor tabs and the surrounding desktop. See `assets/product/CAPTURES.md` for provenance.
+
+| Files in `assets/product/`                             | Content                                                        |
+| ------------------------------------------------------ | -------------------------------------------------------------- |
+| `v045-workspace-{light,dark}.png`                      | Browser, drone Interconnection View and Properties together    |
+| `v045-properties-{before,edit,after}-{light,dark}.png` | Inherited capacity 80, pending value 95, then a local override |
+| `v045-properties-port-{light,dark}.png`                | Port conjugation, calculated direction and directed members    |
+| `v045-hierarchy-{overview,subsystem}-{light,dark}.png` | Drone overview and the propulsion diagram opened from Browser  |
+| `v045-properties-{light,dark}.gif`                     | Eight-second sequence of the three Properties states           |
+| `v045-hierarchy-{light,dark}.gif`                      | Seven-second comparison of the two hierarchy levels            |
+
+The capture model is `reference/fabricated/aliot-release-demo.sysml`. It starts at capacity 80 and validates without diagnostics. Downloadable before and after snapshots are in `assets/samples/release-demo-{before,after}.sysml`. The after state contains the local redefinition produced by Properties. Its Battery definition and spareBattery still use 80.
+
+To reproduce the view, copy `assets/samples/release-demo-layout.json` to the workspace's `.vscode/sysml/diagrams/<relative-model-path>.json`. For the repository's reference workspace, this is `.vscode/sysml/diagrams/fabricated/aliot-release-demo.sysml.json`. Use IV with top-down layout and orthogonal connectors. The overview has propulsion internals collapsed. Its own diagram shows all four motors. Toggle the grid off, fit the diagram, then zoom out if an outside port label needs more padding.
+
+In Browser, select battery and expand Inherited. Change capacity from 80 to 95 and apply with the check mark or Enter. Inspect powerOutput with its row arrow. In Browser, use the propulsion Diagram pill to drill down. Up beside the filter returns to the parent's General View. Choose IV to restore the interconnection overview.
+
+Rebuild the small GIFs from the saved stills:
+
+```powershell
+node media/aliot-site/assemble-capture-gifs.mjs
+```
+
+The CLI export generator does not touch these versioned capture files. It remains the source of the SVG hero and gallery.
 
 ## Generate product media
 
 Models live in `reference/fabricated/aliot-workflow-demo.sysml` and `aliot-landing-views.sysml`. The generator copies their source states to `media/aliot-site/assets/samples/` and exports with the built CLI. The CLI shares the extension's node components and SVG serializer. Generated SVGs are not restyled or hand-edited.
 
-| Output in `assets/product/` | View and source | Lines |
-| --- | --- | --- |
-| `structure-{light,dark}.svg` | General View on `DeliveryDrone` | Curved |
-| `structure-renamed-{light,dark}.svg` | Same model after renaming `controller` to `flightComputer` | Curved |
-| `interconnection-{light,dark}.svg` | IV on `LandingViews::drone` | Orthogonal |
-| `behavior-{light,dark}.svg` | AFV on `LandingViews::Mission` | Orthogonal |
+| Output in `assets/product/`          | View and source                                            | Lines      |
+| ------------------------------------ | ---------------------------------------------------------- | ---------- |
+| `structure-{light,dark}.svg`         | General View on `DeliveryDrone`                            | Curved     |
+| `structure-renamed-{light,dark}.svg` | Same model after renaming `controller` to `flightComputer` | Curved     |
+| `interconnection-{light,dark}.svg`   | IV on `LandingViews::drone`                                | Orthogonal |
+| `behavior-{light,dark}.svg`          | AFV on `LandingViews::Mission`                             | Orthogonal |
 
 `assets/product/EXPORTS.json` records the extension version, source, anchor, view, line style, theme and SVG checksum. Project settings are saved under `assets/samples/{curved,orthogonal}/.vscode/sysml/project.json` so the exports can be reproduced. The orthogonal examples use the extension's left-to-right layout and hide port labels for a compact overview. The saved view settings are beside the sample under `.vscode/sysml/diagrams/`.
 
@@ -30,7 +57,7 @@ To reproduce a single export:
 node packages/cli/out/main.js export --file media/aliot-site/assets/samples/workflow-before.sysml --view gv --anchor DeliveryDrone --gv-mode tree --theme light --workspace media/aliot-site/assets/samples/curved --auto-layout --out .temp/structure.svg
 ```
 
-Both themes are exported independently. The website switches its hero, mini-preview, gallery and animation assets with the theme. Grid exports CSV, not SVG, so the Requirements tab uses an existing public Grid View screenshot. It retains its original theme instead of being recolored.
+Both themes are exported independently. The website switches its hero, mini-preview, gallery and capture assets with the theme. Grid exports CSV, not SVG, so the Requirements tab uses an existing public Grid View screenshot. It retains its original theme instead of being recolored.
 
 The hero compares precomputed before/after exports and offers each source for download. It runs no parser. SVG export omits editor-only controls. A real screenshot is needed to match the surrounding VS Code UI exactly.
 
@@ -44,21 +71,15 @@ These controls run entirely in browser JavaScript and work on GitHub Pages. Arbi
 
 ## Replace images and recordings later
 
-Keep replacement files in `media/aliot-site/assets/product/` before syncing. Use the existing light/dark filenames:
+Keep replacements in `media/aliot-site/assets/product/` before syncing. Replace the matching `v045-` PNG or GIF from the table above to retain existing links. For a future release, use a new version prefix and update the paths in `index.html`, `script.js`, both README sources and `assemble-capture-gifs.mjs`. New filenames avoid stale Marketplace image caches.
 
-| Files | Suggested capture |
-| --- | --- |
-| `workspace-{light,dark}.png` | Source editor beside readable General View |
-| `structure-{light,dark}.png` | Focused General View |
-| `interconnection-{light,dark}.png` | Ports, connections and Properties |
-| `editing-poster-{light,dark}.png` | First useful recording frame |
-| `editing-{light,dark}.gif` | Rename through Properties, pause on source update, then change a value |
+Use Aliot Light and Aliot Dark. Hide unrelated panels, private paths and notifications. Keep the complete diagram and all relevant fields inside the frame. The current wide stills are 1810 by 865 pixels; Properties crops are 530 by 823. Do not stretch a portrait crop into a wide frame.
 
-Use Aliot Light and Aliot Dark. Hide unrelated panels, private paths and notifications. Prefer 1200 by 680 stills and a 12 to 18 second recording. Aim for GIFs below 5 MB. These are practical targets, not store limits.
+For a continuous recording, capture a 12 to 18 second sequence: select battery, expand Inherited, enter 95, apply, pause on the local override, open propulsion from Browser, then use Up. A second useful clip can inspect a port and change a directed feature. Keep the recording unhurried and capture each theme separately. Export a GIF for Marketplace and GitHub README use. An MP4 can be added to the website with a poster and playback controls. The current capture tooling produced GIF sequences, so no continuous movie is included yet.
 
-Update affected alt text, captions, README descriptions and the two playback caption strings in `script.js`. Record the extension version, model revision, view, theme and date in `assets/product/CAPTURES.md`. Do not rerun generation over real captures unless you intend to replace them with export sequences.
+When replacing the Properties GIF with a recording, keep `v045-properties-{light,dark}.gif`, replace its poster `v045-properties-after-{light,dark}.png`, and update the captions and alt text in `index.html`, `script.js` and the README sources. Update `CAPTURES.md` with version, model revision, view, theme and date. The Play button loads the GIF only on request. Stop, closing the panel, or hiding the page stops playback.
 
-Replacing PNGs does not change the SVG gallery. Change its image paths in `index.html` if you want screenshots there. The `#editing` panel loads its GIF only after Play. Stop, closing the panel, or hiding the page stops playback.
+The hierarchy buttons compare still captures. Its GIF links provide the two-state sequence. Replacing these PNGs does not change the SVG hero or gallery.
 
 ## Sync and publish
 
