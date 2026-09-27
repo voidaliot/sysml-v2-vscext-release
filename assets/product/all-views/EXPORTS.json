@@ -1,0 +1,265 @@
+{
+  "version": "0.45.0",
+  "renderer": "sysml-diagram CLI, shared extension SVG serializer",
+  "model": "../../samples/aliot-all-views.sysml",
+  "exports": [
+    {
+      "file": "gv-structure-light.svg",
+      "view": "gv",
+      "anchor": "AliotShowcase::Architecture",
+      "mode": "group",
+      "theme": "light",
+      "expectedLabels": [
+        "Drone",
+        "Battery",
+        "Controller"
+      ],
+      "missingLabels": [],
+      "sha256": "7c4b389cc9f46c1d3b3c76d22550c85e0c16e8ab6854b5ae7b1f009b4fe689f7"
+    },
+    {
+      "file": "gv-structure-dark.svg",
+      "view": "gv",
+      "anchor": "AliotShowcase::Architecture",
+      "mode": "group",
+      "theme": "dark",
+      "expectedLabels": [
+        "Drone",
+        "Battery",
+        "Controller"
+      ],
+      "missingLabels": [],
+      "sha256": "6a7a634d3cd672ed69e2d5c06b2af6452aced5d6bbbd409f7249da069d196369"
+    },
+    {
+      "file": "gv-tree-light.svg",
+      "view": "gv",
+      "anchor": "AliotShowcase::Architecture",
+      "mode": "tree",
+      "theme": "light",
+      "expectedLabels": [
+        "Drone",
+        "Battery",
+        "Controller"
+      ],
+      "missingLabels": [],
+      "sha256": "1b7f93fc69e3bfdee0abcbf6f609523af21029692f1eb434741613bcc9f91b4e"
+    },
+    {
+      "file": "gv-tree-dark.svg",
+      "view": "gv",
+      "anchor": "AliotShowcase::Architecture",
+      "mode": "tree",
+      "theme": "dark",
+      "expectedLabels": [
+        "Drone",
+        "Battery",
+        "Controller"
+      ],
+      "missingLabels": [],
+      "sha256": "6d15bbe333f4a8afdf973bb2251167bf6f71727a075a32a85b042d1f4ff61c2c"
+    },
+    {
+      "file": "iv-light.svg",
+      "view": "iv",
+      "anchor": "AliotShowcase::Architecture::drone",
+      "theme": "light",
+      "expectedLabels": [
+        "powerOut",
+        "powerIn",
+        "commands",
+        "commandIn",
+        "powerFeed",
+        "commandBus"
+      ],
+      "missingLabels": [],
+      "sha256": "56d48c25f8779890c6d95ecb4b4bb048565bf6ec860ffa825d6dd3d1d6d0e1cd"
+    },
+    {
+      "file": "iv-dark.svg",
+      "view": "iv",
+      "anchor": "AliotShowcase::Architecture::drone",
+      "theme": "dark",
+      "expectedLabels": [
+        "powerOut",
+        "powerIn",
+        "commands",
+        "commandIn",
+        "powerFeed",
+        "commandBus"
+      ],
+      "missingLabels": [],
+      "sha256": "641fa62c34dc7b5a2bd1245a206ea9e08212c6e40bc60134d4069a70fc67574b"
+    },
+    {
+      "file": "afv-light.svg",
+      "view": "afv",
+      "anchor": "AliotShowcase::Mission",
+      "theme": "light",
+      "expectedLabels": [
+        "checkPower",
+        "checkRoute",
+        "retryLink",
+        "linkReady",
+        "controller",
+        "battery",
+        "poll"
+      ],
+      "missingLabels": [],
+      "sha256": "7b60cc70f221b64144d67784168c64b1aabdd6abf0ae378b1fc5c4d026ed8156"
+    },
+    {
+      "file": "afv-dark.svg",
+      "view": "afv",
+      "anchor": "AliotShowcase::Mission",
+      "theme": "dark",
+      "expectedLabels": [
+        "checkPower",
+        "checkRoute",
+        "retryLink",
+        "linkReady",
+        "controller",
+        "battery",
+        "poll"
+      ],
+      "missingLabels": [],
+      "sha256": "b35af2b6b19eef2654b4152654e827733a386bebe2df7d547384b1e78a4842db"
+    },
+    {
+      "file": "stv-light.svg",
+      "view": "stv",
+      "anchor": "AliotShowcase::FlightMode",
+      "theme": "light",
+      "expectedLabels": [
+        "navigation",
+        "monitoring",
+        "cruising",
+        "healthy",
+        "routeClear",
+        "lowBattery"
+      ],
+      "missingLabels": [],
+      "sha256": "ee3d557da487e201b5b060b22f06abfcfecf2e6237a71092b2ba79808ae72a8d"
+    },
+    {
+      "file": "stv-dark.svg",
+      "view": "stv",
+      "anchor": "AliotShowcase::FlightMode",
+      "theme": "dark",
+      "expectedLabels": [
+        "navigation",
+        "monitoring",
+        "cruising",
+        "healthy",
+        "routeClear",
+        "lowBattery"
+      ],
+      "missingLabels": [],
+      "sha256": "27c43028c9eaf7a5066ecd85c8fa3d5d72e21f829ff01d6756c47757eebabadf"
+    },
+    {
+      "file": "sv-light.svg",
+      "view": "sv",
+      "anchor": "AliotShowcase::DeliverySequence",
+      "theme": "light",
+      "expectedLabels": [
+        "pilot",
+        "controller",
+        "propulsion",
+        "requestMission",
+        "requestStatus",
+        "reportStatus",
+        "monitoring"
+      ],
+      "missingLabels": [],
+      "sha256": "8d0f2500c5f993575afa6c356d13501f7168400aae72d5110b4679cc11869bc9"
+    },
+    {
+      "file": "sv-dark.svg",
+      "view": "sv",
+      "anchor": "AliotShowcase::DeliverySequence",
+      "theme": "dark",
+      "expectedLabels": [
+        "pilot",
+        "controller",
+        "propulsion",
+        "requestMission",
+        "requestStatus",
+        "reportStatus",
+        "monitoring"
+      ],
+      "missingLabels": [],
+      "sha256": "3d22dc2780112292f50b1682994384cb8f360c58255b9e9610436a8aff07f311"
+    },
+    {
+      "file": "cv-light.svg",
+      "view": "cv",
+      "anchor": "AliotShowcase::Operations",
+      "theme": "light",
+      "expectedLabels": [
+        "deliver",
+        "pilot : Operator",
+        "ready",
+        "include"
+      ],
+      "missingLabels": [],
+      "sha256": "6f6bb87312c241c66f9ca99ab0f878f55dd53856c5ecd9b61aae10a3d1158110"
+    },
+    {
+      "file": "cv-dark.svg",
+      "view": "cv",
+      "anchor": "AliotShowcase::Operations",
+      "theme": "dark",
+      "expectedLabels": [
+        "deliver",
+        "pilot : Operator",
+        "ready",
+        "include"
+      ],
+      "missingLabels": [],
+      "sha256": "f0294b0e584d751c2f6f137e3c1f9b6d0e68cd054dc2c2565cb51044869b972c"
+    },
+    {
+      "file": "gev-light.svg",
+      "view": "gev",
+      "anchor": "AliotShowcase::Architecture::drone",
+      "theme": "light",
+      "expectedLabels": [
+        "airframe",
+        "payloadBay",
+        "leftRotor",
+        "rightRotor"
+      ],
+      "missingLabels": [],
+      "sha256": "cb5225bce978a6b2d8859189fcfafb1de0ae122c9fd0955746108ab98f03f5c8"
+    },
+    {
+      "file": "gev-dark.svg",
+      "view": "gev",
+      "anchor": "AliotShowcase::Architecture::drone",
+      "theme": "dark",
+      "expectedLabels": [
+        "airframe",
+        "payloadBay",
+        "leftRotor",
+        "rightRotor"
+      ],
+      "missingLabels": [],
+      "sha256": "260848e6a0a2766e8f1f232dd1756c9a02ba598f03d30b04a8718066bdb22c0b"
+    },
+    {
+      "file": "requirements.csv",
+      "view": "grv",
+      "anchor": "AliotShowcase",
+      "theme": "table",
+      "expectedLabels": [
+        "payloadLimit",
+        "flightTime",
+        "PAY-01",
+        "OPS-01"
+      ],
+      "missingLabels": [],
+      "sha256": "7883b963f44433e3bae2c5698047bcdce2fccf319caed8cb459f3e25c4ef56d4"
+    }
+  ]
+}

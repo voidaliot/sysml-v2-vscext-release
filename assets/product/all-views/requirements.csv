@@ -1,0 +1,3 @@
+﻿Id,Requirement,Doc,Subject,Constraint,Satisfy,Verify,Status
+OPS-01,flightTime,Endurance shall be at least 30 minutes. The value is expressed in minutes.,Architecture::Drone,vehicle.endurance >= 30.0,drone,checkEndurance,verified
+PAY-01,payloadLimit,Payload shall not exceed 3 kg. The value is expressed in kg.,Architecture::Drone,vehicle.payload <= 3.0,drone,checkPayload,verified

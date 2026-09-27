@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "settings": {
+    "preview": {
+      "diagrams": {
+        "lineStyle": "orthogonal",
+        "showPortLabels": true,
+        "showMultiplicities": true,
+        "showSubjectAsBoundaryBox": true
+      }
+    }
+  }
+}

@@ -1,0 +1,1898 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1733" height="538" viewBox="-21 -21 1733 538"><style><![CDATA[
+
+:root {
+  --bg-0: var(--vscode-editor-background, #0e1218);
+  --bg-1: var(--vscode-editor-background, #141a23);
+  --bg-2: var(--vscode-editorWidget-background, #1a2230);
+  --bg-3: var(--vscode-input-background, #222c3d);
+  --bg-hover: var(--vscode-list-hoverBackground, #283449);
+  --bg-active: var(--vscode-list-activeSelectionBackground, #2f3d56);
+  --grv-selection-bg: color-mix(in srgb, var(--vscode-editor-background, var(--bg-1)) 76%, var(--vscode-list-activeSelectionBackground, var(--accent)) 24%);
+  --line: var(--vscode-panel-border, var(--vscode-editorWidget-border, #243047));
+  --line-soft: var(--vscode-editorGroup-border, #1c2536);
+  --fg-0: var(--vscode-editor-foreground, #e6ecf5);
+  --fg-1: var(--vscode-foreground, #b9c4d6);
+  --fg-2: var(--vscode-descriptionForeground, #7e8aa1);
+  --fg-3: var(--vscode-descriptionForeground, #54607a);
+  --accent: var(--vscode-charts-orange, #f0a55a);
+  --cyan: var(--vscode-charts-blue, #6cd1d9);
+  --violet: var(--vscode-charts-purple, #a890e0);
+  --green: var(--vscode-charts-green, #88c47a);
+  --red: var(--vscode-charts-red, #e06b6b);
+  --yellow: var(--vscode-charts-yellow, #e6c267);
+  --blue: var(--vscode-charts-blue, #7aa9e6);
+  --on-accent: var(--vscode-button-foreground, #1a1208);
+  /* Toolbar selections use one VS Code foreground/background PAIR. Chart
+   * colours are semantic diagram hues, not control-state colours: combining a
+   * chart-orange icon with an unrelated selection-blue fill made pressed
+   * controls illegible in otherwise valid themes. */
+  --toolbar-selection-bg: var(--vscode-inputOption-activeBackground, var(--vscode-button-background, #0e639c));
+  --toolbar-selection-fg: var(--vscode-inputOption-activeForeground, var(--vscode-button-foreground, #ffffff));
+  --toolbar-selection-border: var(--vscode-inputOption-activeBorder, var(--vscode-focusBorder, #007fd4));
+  /* issue 164 — connector highlight colour. The plain accent (a chart colour)
+   * can sit close to the muted edge grey on some themes; mixing it toward the
+   * editor FOREGROUND guarantees a contrast step against the canvas on dark,
+   * light, and high-contrast themes alike (the foreground contrasts with the
+   * background by definition) while keeping the accent's hue recognisable. */
+  --hl: color-mix(in srgb, var(--accent) 55%, var(--fg-0) 45%);
+  /* Outgoing-link highlight uses the otherwise-unused connector hue family so
+   * it contrasts with neutral, cyan, orange, violet, and yellow relations. */
+  --kin-hl: color-mix(in srgb, var(--red) 82%, var(--fg-0) 18%);
+  --font-ui: 'Inter', var(--vscode-font-family, system-ui), sans-serif;
+  --font-mono: 'JetBrains Mono', var(--vscode-editor-font-family, monospace);
+}
+
+:root {
+  --diagram-canvas: var(--vscode-editor-background, var(--bg-1));
+  --element-closed-opacity: 1;
+  --element-open-opacity: 0.3;
+  --element-default-outline: #a1a1a1;
+  --element-package-outline: #b8b8b8;
+  --element-part-outline: #bec7d3;
+  --element-action-outline: #b8b8b8;
+  --element-state-outline: #b8b8b8;
+  --element-requirement-outline: #c6b2dd;
+  --element-usecase-outline: #dfa064;
+  --element-subject-outline: #c6b2dd;
+  --element-actor-outline: #dfa064;
+  --element-decision-outline: #b8b8b8;
+  --element-annotation-outline: #bac4cb;
+  --element-port-outline: #bec7d3;
+  --element-initial-outline: #b8b8b8;
+  --element-final-outline: #b8b8b8;
+  --element-terminate-outline: #b8b8b8;
+  --element-forkjoin-outline: #b8b8b8;
+  --element-performer-outline: #bac4cb;
+  --element-exhibitor-outline: #c6b2dd;
+  --element-structured-outline: #a8c7cc;
+  --element-parallel-outline: #b8b8b8;
+  --element-geometry-part-outline: #72b5e8;
+  --element-activation-outline: #a8c7cc;
+  --element-default-fill: #3c3c3c;
+  --element-package-fill: #544b43;
+  --element-part-fill: #2e3452;
+  --element-action-fill: #2d2d2d;
+  --element-state-fill: #2d2d2d;
+  --element-requirement-fill: #30273b;
+  --element-usecase-fill: #3a2c21;
+  --element-subject-fill: #322a3d;
+  --element-actor-fill: #3a2c21;
+  --element-decision-fill: #2d2d2d;
+  --element-annotation-fill: #2b3137;
+  --element-port-fill: #2e3452;
+  --element-initial-fill: #2d2d2d;
+  --element-final-fill: #2d2d2d;
+  --element-terminate-fill: #2d2d2d;
+  --element-forkjoin-fill: #2d2d2d;
+  --element-performer-fill: #2b3137;
+  --element-exhibitor-fill: #322a3d;
+  --element-structured-fill: #27353a;
+  --element-parallel-fill: #2b3137;
+  --element-geometry-part-fill: #1c3348;
+  --element-activation-fill: #27353a;
+  --diagram-line-structural: #d4d7e0;
+  --diagram-line-connection: #5BA8FF;
+  --diagram-line-transition: #b8b8b8;
+  --diagram-line-dependency: #b08cf0;
+  --diagram-line-binding: #e6c267;
+  --diagram-line-annotation: #54607a;
+}
+body.vscode-light {
+  --element-default-outline: #3a3a3a;
+  --element-package-outline: #000000;
+  --element-part-outline: #2e3452;
+  --element-action-outline: #000000;
+  --element-state-outline: #000000;
+  --element-requirement-outline: #aca0bd;
+  --element-usecase-outline: #3a2c21;
+  --element-subject-outline: #765a9e;
+  --element-actor-outline: #3a2c21;
+  --element-decision-outline: #000000;
+  --element-annotation-outline: #697580;
+  --element-port-outline: #2e3452;
+  --element-initial-outline: #000000;
+  --element-final-outline: #000000;
+  --element-terminate-outline: #000000;
+  --element-forkjoin-outline: #000000;
+  --element-performer-outline: #2b3137;
+  --element-exhibitor-outline: #9c7dc7;
+  --element-structured-outline: #567a82;
+  --element-parallel-outline: #000000;
+  --element-geometry-part-outline: #0069cc;
+  --element-activation-outline: #567a82;
+  --element-default-fill: #d2d2d2;
+  --element-package-fill: #eae6e1;
+  --element-part-fill: #bec7d3;
+  --element-action-fill: #f1f1f1;
+  --element-state-fill: #f1f1f1;
+  --element-requirement-fill: #e8e8e8;
+  --element-usecase-fill: #f7e9dc;
+  --element-subject-fill: #f0eaf7;
+  --element-actor-fill: #f7e9dc;
+  --element-decision-fill: #f1f1f1;
+  --element-annotation-fill: #edf0f2;
+  --element-port-fill: #bec7d3;
+  --element-initial-fill: #f1f1f1;
+  --element-final-fill: #f1f1f1;
+  --element-terminate-fill: #f1f1f1;
+  --element-forkjoin-fill: #f1f1f1;
+  --element-performer-fill: #bac4cb;
+  --element-exhibitor-fill: #c6b2dd;
+  --element-structured-fill: #e8f0f1;
+  --element-parallel-fill: #bac4cb;
+  --element-geometry-part-fill: #e2f1ff;
+  --element-activation-fill: #e8f0f1;
+  --diagram-line-structural: #5b6678;
+  --diagram-line-connection: #1A5CFF;
+  --diagram-line-transition: #000000;
+  --diagram-line-dependency: #6b46c1;
+  --diagram-line-binding: #8a6400;
+  --diagram-line-annotation: #8b95a6;
+}
+body.vscode-high-contrast, body.vscode-high-contrast-light {
+  --element-default-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-package-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-part-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-action-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-state-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-requirement-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-usecase-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-subject-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-actor-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-decision-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-annotation-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-port-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-initial-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-final-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-terminate-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-forkjoin-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-performer-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-exhibitor-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-structured-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-parallel-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-geometry-part-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-activation-outline: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --element-default-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-package-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-part-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-action-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-state-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-requirement-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-usecase-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-subject-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-actor-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-decision-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-annotation-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-port-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-initial-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-final-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-terminate-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-forkjoin-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-performer-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-exhibitor-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-structured-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-parallel-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-geometry-part-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --element-activation-fill: var(--vscode-editor-background, var(--diagram-canvas));
+  --diagram-line-structural: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --diagram-line-connection: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --diagram-line-transition: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --diagram-line-dependency: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --diagram-line-binding: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+  --diagram-line-annotation: var(--vscode-contrastActiveBorder, var(--vscode-foreground));
+}
+.delement-color-default { --element-outline: var(--element-default-outline); --element-fill: var(--element-default-fill); }
+.delement-color-package { --element-outline: var(--element-package-outline); --element-fill: var(--element-package-fill); }
+.delement-color-part { --element-outline: var(--element-part-outline); --element-fill: var(--element-part-fill); }
+.delement-color-action { --element-outline: var(--element-action-outline); --element-fill: var(--element-action-fill); }
+.delement-color-state { --element-outline: var(--element-state-outline); --element-fill: var(--element-state-fill); }
+.delement-color-requirement { --element-outline: var(--element-requirement-outline); --element-fill: var(--element-requirement-fill); }
+.delement-color-usecase { --element-outline: var(--element-usecase-outline); --element-fill: var(--element-usecase-fill); }
+.delement-color-subject { --element-outline: var(--element-subject-outline); --element-fill: var(--element-subject-fill); }
+.delement-color-actor { --element-outline: var(--element-actor-outline); --element-fill: var(--element-actor-fill); }
+.delement-color-decision { --element-outline: var(--element-decision-outline); --element-fill: var(--element-decision-fill); }
+.delement-color-annotation { --element-outline: var(--element-annotation-outline); --element-fill: var(--element-annotation-fill); }
+.delement-color-port { --element-outline: var(--element-port-outline); --element-fill: var(--element-port-fill); }
+.delement-color-initial { --element-outline: var(--element-initial-outline); --element-fill: var(--element-initial-fill); }
+.delement-color-final { --element-outline: var(--element-final-outline); --element-fill: var(--element-final-fill); }
+.delement-color-terminate { --element-outline: var(--element-terminate-outline); --element-fill: var(--element-terminate-fill); }
+.delement-color-forkjoin { --element-outline: var(--element-forkjoin-outline); --element-fill: var(--element-forkjoin-fill); }
+.delement-color-performer { --element-outline: var(--element-performer-outline); --element-fill: var(--element-performer-fill); }
+.delement-color-exhibitor { --element-outline: var(--element-exhibitor-outline); --element-fill: var(--element-exhibitor-fill); }
+.delement-color-structured { --element-outline: var(--element-structured-outline); --element-fill: var(--element-structured-fill); }
+.delement-color-parallel { --element-outline: var(--element-parallel-outline); --element-fill: var(--element-parallel-fill); }
+.delement-color-geometry-part { --element-outline: var(--element-geometry-part-outline); --element-fill: var(--element-geometry-part-fill); }
+.delement-color-activation { --element-outline: var(--element-activation-outline); --element-fill: var(--element-activation-fill); }
+.dnode-rect.package, .dframe-rect.package { --element-outline: var(--element-package-outline); --element-fill: var(--element-package-fill); }
+.dnode-rect.part, .dframe-rect.part { --element-outline: var(--element-part-outline); --element-fill: var(--element-part-fill); }
+.dnode-rect.action, .dframe-rect.action, .dnode-shape.sendaccept, .dnode-port.pin { --element-outline: var(--element-action-outline); --element-fill: var(--element-action-fill); }
+.dnode-rect.state, .dframe-rect.state { --element-outline: var(--element-state-outline); --element-fill: var(--element-state-fill); }
+.dnode-rect.req { --element-outline: var(--element-requirement-outline); --element-fill: var(--element-requirement-fill); }
+.dnode-shape.usecase { --element-outline: var(--element-usecase-outline); --element-fill: var(--element-usecase-fill); }
+.dnode-rect.boundary, .dframe-rect.boundary { --element-outline: var(--element-subject-outline); --element-fill: var(--element-subject-fill); }
+.dnode-rect.actor-fill { --element-outline: var(--element-actor-outline); --element-fill: var(--element-actor-fill); }
+.dnode-shape.decision { --element-outline: var(--element-decision-outline); --element-fill: var(--element-decision-fill); }
+.dnode-rect.annotation { --element-outline: var(--element-annotation-outline); --element-fill: var(--element-annotation-fill); }
+.dnode-port:not(.pin) { --element-outline: var(--element-port-outline); --element-fill: var(--element-port-fill); }
+.dnode-shape.forkjoin { --element-outline: var(--element-forkjoin-outline); --element-fill: var(--element-forkjoin-fill); }
+.dframe-rect.performer { --element-outline: var(--element-performer-outline); --element-fill: var(--element-performer-fill); }
+.dframe-rect.exhibitor { --element-outline: var(--element-exhibitor-outline); --element-fill: var(--element-exhibitor-fill); }
+.dframe-rect.loop:not(.action), .dframe-rect.structured-control:not(.action) { --element-outline: var(--element-structured-outline); --element-fill: var(--element-structured-fill); }
+.dgeo3d-face, .dgeo3d-edge { --element-outline: var(--element-geometry-part-outline); --element-fill: var(--element-geometry-part-fill); }
+.dactivation { --element-outline: var(--element-activation-outline); --element-fill: var(--element-activation-fill); }
+.dlink.owningMembership, .dlink.composition, .dlink.portion, .dlink.reference, .dlink.definedBy, .dlink.specialization, .dlink.redefinition, .dlink.referenceSubsetting, .dlink.disjoint, .dlink.association { stroke: var(--diagram-line-structural); }
+.dlink.connect, .dlink.flow, .dlink.successionFlow, .dlink.message, .dlink.interface { stroke: var(--diagram-line-connection); }
+.dlink.succession, .dlink.transition, .dlink.exhibit, .dlink.perform { stroke: var(--diagram-line-transition); }
+.dlink.satisfy, .dlink.verify, .dlink.include, .dlink.dependency, .dlink.allocate, .dlink.frame, .dlink.derive, .dlink.causation, .dlink.import, .dlink.expose, .dlink.assert, .dlink.assume, .dlink.require { stroke: var(--diagram-line-dependency); }
+.dlink.binding { stroke: var(--diagram-line-binding); }
+.dlink.annotation { stroke: var(--diagram-line-annotation); }
+.elabel.owningMembership, .elabel.composition, .elabel.portion, .elabel.reference, .elabel.definedBy, .elabel.specialization, .elabel.redefinition, .elabel.referenceSubsetting, .elabel.disjoint, .elabel.association { fill: var(--diagram-line-structural); }
+.elabel.connect, .elabel.flow, .elabel.successionFlow, .elabel.message, .elabel.interface { fill: var(--diagram-line-connection); }
+.elabel.succession, .elabel.transition, .elabel.exhibit, .elabel.perform { fill: var(--diagram-line-transition); }
+.elabel.satisfy, .elabel.verify, .elabel.include, .elabel.dependency, .elabel.allocate, .elabel.frame, .elabel.derive, .elabel.causation, .elabel.import, .elabel.expose, .elabel.assert, .elabel.assume, .elabel.require { fill: var(--diagram-line-dependency); }
+.elabel.binding { fill: var(--diagram-line-binding); }
+.dpill.owningMembership, .dpill.composition, .dpill.portion, .dpill.reference, .dpill.definedBy, .dpill.specialization, .dpill.redefinition, .dpill.referenceSubsetting, .dpill.disjoint, .dpill.association { --pill-line: var(--diagram-line-structural); }
+.dpill.connect, .dpill.flow, .dpill.successionFlow, .dpill.message, .dpill.interface { --pill-line: var(--diagram-line-connection); }
+.dpill.succession, .dpill.transition, .dpill.exhibit, .dpill.perform { --pill-line: var(--diagram-line-transition); }
+.dpill.satisfy, .dpill.verify, .dpill.include, .dpill.dependency, .dpill.allocate, .dpill.frame, .dpill.derive, .dpill.causation, .dpill.import, .dpill.expose, .dpill.assert, .dpill.assume, .dpill.require { --pill-line: var(--diagram-line-dependency); }
+.dpill.binding { --pill-line: var(--diagram-line-binding); }
+.dpill.annotation { --pill-line: var(--diagram-line-annotation); }
+
+
+:root { --shape-shadow:drop-shadow(0px 2px 2px rgba(0,0,0,0.25));--shape-small-shadow:drop-shadow(0px 1px 1px rgba(0,0,0,0.25));--shape-box-shadow:0px 2px 4px rgba(0,0,0,0.25);--shape-shadow-opacity:0.25;--shape-outline-weight:65% }
+body.vscode-light { --shape-shadow:drop-shadow(0px 2px 2px rgba(0,0,0,0.12));--shape-small-shadow:drop-shadow(0px 1px 1px rgba(0,0,0,0.12));--shape-box-shadow:0px 2px 4px rgba(0,0,0,0.12);--shape-shadow-opacity:0.12;--shape-outline-weight:65% }
+body.vscode-high-contrast, body.vscode-high-contrast-light { --shape-shadow:none;--shape-small-shadow:none;--shape-box-shadow:none;--shape-shadow-opacity:0;--shape-outline-weight:100% }
+.dshape-surface { filter: var(--shape-shadow); }
+.dshape-surface.dshape-small { filter: var(--shape-small-shadow); }
+.dshape-surface.dshape-rectangle { filter: none; }
+.dshape-box-shadow { position: absolute; left: 0; top: 0; pointer-events: none; box-shadow: var(--shape-box-shadow); }
+.dshape-export-shadow { fill: black; stroke: none; opacity: var(--shape-shadow-opacity); pointer-events: none; }
+.dnode-rect, .dframe-rect, .dnode-shape, .dnode-port, .dcompartment-rule, .dgeo3d-face, .dshape-actor, .dnode-control.final, .dnode-control.terminate {
+  --shape-outline: color-mix(in srgb, var(--element-outline, var(--fg-0)) var(--shape-outline-weight), var(--element-fill, var(--diagram-canvas)));
+}
+.dshape-actor, .dnode-control.final, .dnode-control.terminate { stroke: var(--shape-outline); }
+body.vscode-high-contrast .dshape-surface, body.vscode-high-contrast .dshape-surface *,
+body.vscode-high-contrast-light .dshape-surface, body.vscode-high-contrast-light .dshape-surface *,
+.dexport-high-contrast .dshape-surface, .dexport-high-contrast .dshape-surface * { filter: none !important; }
+@media (forced-colors: active) {
+  :root { --shape-shadow:none;--shape-small-shadow:none;--shape-box-shadow:none;--shape-shadow-opacity:0;--shape-outline-weight:100% }
+  .dshape-surface, .dshape-surface * { filter: none !important; }
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; padding: 0; }
+body {
+  background: var(--vscode-editor-background, var(--bg-1));
+  color: var(--fg-0);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  display: flex; flex-direction: column;
+}
+#root { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+
+/* issue 225 — ONE scrollbar in the whole webview. The canvas draws its own bars
+ * (.rf-scrollbar) because it scrolls a transform rather than a box; every other
+ * surface scrolls natively - the Browser View tree, the Grid View table, the
+ * Properties panel, a long context menu - and the host's default bar is a fat
+ * one with arrow buttons, which reads as a second, heavier design beside them.
+ *
+ * These MUST be the standard properties, not the WebKit pseudo-elements. The VS
+ * Code webview host injects an @layer vscode-default block that sets
+ * scrollbar-color on html; scrollbar-color INHERITS, and Chromium ignores the
+ * ::-webkit-scrollbar pseudo-elements for any element that has it - so a WebKit
+ * rule here is dead on arrival on every surface (which is also why the host's
+ * own ::-webkit-scrollbar block in that same style element does nothing). What
+ * beats it is the cascade: an UNLAYERED declaration outranks any layered one
+ * whatever its specificity, so one rule on the root re-colours and thins every
+ * scrolling box in the document, and 'thin' is what drops the arrow buttons.
+ *
+ * Nothing here is a scroll BEHAVIOUR: an element scrolls exactly as much as its
+ * own overflow says. The toolbar is the one deliberate exception - it hides its
+ * bar and overlays .dbar-track, because a laid-out bar there pushes the icons
+ * upward - and an element's own scrollbar-width beats this inherited one. */
+:root { scrollbar-color: color-mix(in srgb, var(--fg-3) 40%, transparent) transparent; }
+/* The two halves are split because only ONE of them inherits. scrollbar-color
+ * does, so the root carries it for the whole document; scrollbar-width does NOT,
+ * so a rule on the root would thin the page's own bar and leave every inner
+ * scrolling box - which is all of them here - at the host default. Hence the
+ * universal selector, still at zero specificity so .dtoolbar keeps winning. */
+* { scrollbar-width: thin; }
+/* Quiet at rest, readable under the pointer - the same pair the canvas bars use. */
+.doutline-tree:hover, .grv-wrap:hover, .rp-body:hover, .dctx-menu:hover {
+  scrollbar-color: color-mix(in srgb, var(--fg-3) 65%, transparent) transparent;
+}
+
+/* issue 165 — the docked (side) mode renders the same .dtoolbar as tab mode;
+ * the old dedicated .rp-header row (with its "Diagram <view>" text) is gone. */
+.dtoolbar-shell {
+  position: relative; height: 36px; min-width: 0; flex: none; display: flex;
+}
+.seg { display: flex; flex: none; background: var(--bg-2); border: 1px solid var(--line); border-radius: 5px; padding: 2px; gap: 1px; }
+.seg button {
+  background: transparent; border: 0; color: var(--fg-2); font-size: 10px; padding: 3px 8px;
+  font-family: var(--font-ui); font-weight: 600; cursor: pointer; border-radius: 3px; letter-spacing: 0.05em;
+  white-space: nowrap; transition: background 0.1s ease, color 0.1s ease;
+}
+.seg button:hover:not(.on) { background: var(--bg-hover); color: var(--fg-0); }
+.seg button.on {
+  background: var(--toolbar-selection-bg); color: var(--toolbar-selection-fg);
+  box-shadow: inset 0 0 0 1px var(--toolbar-selection-border);
+}
+.seg button:disabled { opacity: 0.4; cursor: not-allowed; }
+/* (4) empty views are greyed but still selectable (start-from-scratch). */
+.seg button.empty { opacity: 0.42; }
+.seg button.empty.on { opacity: 1; }
+.seg button.empty:hover { opacity: 0.75; }
+.icon-btn { color: var(--fg-3); cursor: pointer; padding: 2px 4px; display: inline-flex; flex: none; background: none; border: 0; border-radius: 3px; }
+.icon-btn:hover { background: var(--bg-hover); color: var(--fg-0); }
+.icon-btn.on {
+  background: var(--toolbar-selection-bg); color: var(--toolbar-selection-fg);
+  outline: 1px solid var(--toolbar-selection-border);
+}
+.folder-tree-icon {
+  position: relative; display: inline-block; width: 16px; height: 14px; flex: none;
+}
+.folder-tree-icon::before {
+  content: ""; position: absolute; left: 2px; top: 2px; bottom: 2px;
+  border-left: 1px solid currentColor;
+}
+.folder-tree-icon span {
+  position: absolute; left: 8px; width: 7px; height: 4px;
+  border: 1px solid currentColor; border-top-left-radius: 2px; opacity: 0.95;
+}
+.folder-tree-icon span::before {
+  content: ""; position: absolute; left: -7px; top: 1px; width: 6px;
+  border-top: 1px solid currentColor;
+}
+.folder-tree-icon span:nth-child(1) { top: 0; }
+.folder-tree-icon span:nth-child(2) { top: 5px; }
+.folder-tree-icon span:nth-child(3) { top: 10px; }
+
+.sysml-frame-banner {
+  display: flex; align-items: center; gap: 4px;
+  background: var(--bg-2); border-bottom: 1px solid var(--accent);
+  padding: 5px 28px 5px 12px; font-family: var(--font-mono); font-size: 11px;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 100%, 0 100%);
+}
+.rp-body {
+  flex: 1; overflow: auto; padding: 14px; min-height: 0;
+  background:
+    radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 1px) 0 0/20px 20px,
+    var(--vscode-editor-background, var(--bg-1));
+}
+/* issues.md 147 — the Grid View is a TABLE, not a canvas: no notebook grid / dot
+   pattern behind it, just the plain editor surface. (No '#NNN' in this file — the
+   theme guard reads a '#' + hex digits as a colour, so issue ids are bare here.) */
+.rp-body--plain { background: var(--vscode-editor-background, var(--bg-1)); }
+.diagram-canvas { transform-origin: top left; }
+
+/* nodes (REQ-174 corners are set via the rx attribute in the renderer).
+ * element-colors.ts owns every type→outline mapping and derives each fill from
+ * that outline plus the active canvas. */
+.dnode-rect {
+  --element-outline: var(--element-default-outline); --element-fill: var(--element-default-fill);
+  fill: var(--element-fill); fill-opacity: var(--element-closed-opacity); stroke: var(--shape-outline); stroke-width: 1;
+}
+.dnode-rect.container { opacity: var(--element-closed-opacity); }
+/* REQ-360/363 — a closed element is fully opaque; an open frame uses the
+ * configured translucent body so its boundary groups the internals without
+ * becoming another solid card. Connectors remain elevated above it. Open and
+ * closed forms keep the same semantic outline colour. */
+.dframe-rect {
+  --element-outline: var(--element-default-outline); --element-fill: var(--element-default-fill);
+  fill: var(--element-fill); fill-opacity: var(--element-open-opacity); stroke: var(--shape-outline); stroke-width: 1;
+}
+/* REQ-366/386, user direction 2026-09-05 — an OPEN container is translucent all
+ * the way through, its closed compartments included. This band used to be a
+ * solid card over a translucent body, so an element that had been opened read as
+ * two different materials stacked on each other: a grey slab of rows sitting on
+ * the transparent canvas its members are drawn on. A reader asked for the one
+ * material, in every view that draws a container. Only a FRAME paints this band,
+ * and a frame is the opened form, so a collapsed card keeps its solid fill. */
+.dfeature-band-bg { fill: var(--element-fill); fill-opacity: var(--element-open-opacity); }
+.dframe-rect.package.library { stroke-dasharray: 5 3; }
+.dframe-rect.selected { stroke: var(--accent); stroke-width: 2; }
+/* RULE (diagram-rules — Frame): parallel composite-state region — dashed border. */
+.dframe-rect.parallel { stroke-dasharray: 6 4; }
+/* REQ-196 — only an anonymous inline structured control is dashed. A named
+ * action-with-if/while/loop/for keeps the ordinary solid action outline. */
+.dframe-rect.structured-anonymous { stroke-dasharray: 4 3; }
+/* REQ-196 — a «performer» swimlane inside an action (OMG SysML v2 Part 1
+ * §8.2.3.17, "Perform Actions Swimlanes"): the spec draws the lane with a DASHED
+ * boundary and no fill of its own, so the action frame around it stays readable
+ * as the one flow the lanes divide. */
+.dframe-rect.performer { fill: none; stroke: var(--shape-outline); stroke-dasharray: 4 3; }
+.dframe-rect.performer.performer-conflict {
+  stroke: var(--red, #e07a7a); stroke-width: 2.4;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--red, #e07a7a) 55%, transparent));
+}
+.dloop-until-rule { stroke: var(--element-outline); }
+.rf-loop-until-hit { position: absolute; pointer-events: auto; cursor: text; }
+.rf-loop-until-hit:hover { background: color-mix(in srgb, var(--cyan) 10%, transparent); }
+.rf-structured-condition-hit { position: absolute; pointer-events: auto; cursor: text; }
+.rf-structured-condition-hit:hover { background: color-mix(in srgb, var(--cyan) 10%, transparent); }
+.dstructured-else-rule { stroke: var(--element-outline); stroke-width: 1.2; stroke-dasharray: 4 3; }
+.dstructured-else-label { fill: var(--fg-2); }
+.dframe-rect.exhibitor { fill: none; stroke: var(--shape-outline); stroke-dasharray: 4 3; }
+.dnode-label.performer-extra { fill: var(--red, #e07a7a); font-weight: 600; }
+/* issue 123 — Sequence View combined fragment (alt / opt / loop): a labelled box
+ * behind the messages, with an operator tag in the corner. Non-interactive. */
+.rf-seqfrag { pointer-events: none; }
+.dseqfrag-rect { fill: var(--accent); fill-opacity: 0.05; stroke: color-mix(in srgb, var(--fg-3) var(--shape-outline-weight), var(--bg-2)); stroke-width: 1; }
+.dseqfrag-tag { fill: var(--bg-2); stroke: color-mix(in srgb, var(--fg-3) var(--shape-outline-weight), var(--bg-2)); stroke-width: 1; }
+.dseqfrag-tagtext { fill: var(--fg-1); font-size: 10px; font-weight: 600; text-transform: uppercase; }
+.dseqfrag-label { fill: var(--fg-2); font-size: 11px; font-style: italic; }
+.dframe-rect.drop-target,
+.dnode-hit.drop-target .dnode-rect,
+.dnode-hit.drop-target .dnode-shape {
+  stroke: var(--accent); stroke-width: 3; filter: drop-shadow(0 0 5px var(--accent));
+}
+.dnode-hit:hover > .dframe-rect { stroke: var(--accent); }
+/* REQ-360 — the frame label header is a move handle for the whole frame. */
+.dframe-drag { fill: transparent; cursor: move; }
+.dframe-drag:hover { fill: var(--cyan); fill-opacity: 0.12; }
+.dnode-rect.selected { stroke: var(--accent); stroke-width: 2; }
+.dnode-hit { cursor: grab; } /* REQ-006 — nodes are draggable (drop persists layout) */
+.dnode-hit:active { cursor: grabbing; }
+.dnode-hit:hover .dnode-rect, .dnode-hit:hover .dnode-shape { stroke: var(--accent); }
+.dnode-label { fill: var(--fg-0); font-family: var(--font-mono); font-size: 11px; }
+.dnode-label.abstract { font-style: italic; }
+.dnode-type { fill: var(--cyan); }
+.dnode-detail { fill: var(--fg-2); font-family: var(--font-mono); font-size: 9px; }
+.dnode-kind { fill: var(--fg-3); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; }
+/* REQ-194 - a port outline is a boundary marker, not a frame. It carries the
+ * same weight as the compartment rule .dcompartment-rule, so a row of ports
+ * reads as part of the card it sits on. */
+.dnode-port {
+  --element-outline: var(--element-port-outline); --element-fill: var(--element-port-fill);
+  fill: var(--element-fill); stroke: var(--shape-outline); stroke-width: 0.65;
+}
+.dnode-shape {
+  --element-outline: var(--element-default-outline); --element-fill: var(--element-default-fill);
+  fill: var(--element-fill); fill-opacity: var(--element-closed-opacity); stroke: var(--shape-outline); stroke-width: 1;
+}
+/* REQ-200 — case-oval colour comes from element-colors.ts. */
+.dnode-shape.usecase.def { stroke-width: 1.9; } /* REQ-200 — case DEFINITION ovals (issue 197) */
+.dnode-shape.decision { stroke-width: 1.2; } /* REQ-422 - Preserve control-symbol strokes. */
+.dnode-rect.boundary { fill: transparent; stroke: var(--shape-outline); stroke-width: 1; } /* REQ-201, REQ-422 */
+/* REQ-006 — selected-node resize grip */
+.dresize-grip { fill: var(--accent); stroke: var(--bg-1); stroke-width: 1; cursor: nwse-resize; }
+/* edges (REQ-186) */
+.dlink { stroke: var(--diagram-line-structural); stroke-width: 1.2; fill: none; }
+.dlink.successionFlow { stroke-width: 2; }
+.dsuccession-flow-mark { pointer-events: none; stroke-linecap: butt; }
+/* REQ-401 — OMG 8.2.3.16 flow-on-connection: the payload chevron rides the
+   connector that transports it, in the item-flow hue, and never takes pointer
+   events away from the connector it decorates. */
+.dflow-decoration {
+  pointer-events: none; stroke: none;
+  fill: var(--diagram-line-connection, #6cd1d9);
+}
+/* REQ-196: AFV control transitions (IR succession) use a dotted route so
+   they remain visually distinct from continuous item and succession flows. */
+.dlink.succession { stroke-dasharray: 1 3; stroke-linecap: round; }
+.dlink.satisfy, .dlink.verify, .dlink.include, .dlink.dependency { stroke-dasharray: 4 3; }
+/* REQ-186/188/189/199/206/210 — the dashed labelled families */
+.dlink.allocate, .dlink.frame, .dlink.derive, .dlink.causation, .dlink.import, .dlink.expose { stroke-dasharray: 4 3; }
+/* REQ-131/REQ-415 — the three constraint claims */
+.dlink.assert, .dlink.assume, .dlink.require { stroke-dasharray: 4 3; }
+.dlink.annotation { stroke-dasharray: 2 3; }
+.dlink.elaboration { stroke-dasharray: 2 3; pointer-events: none; }
+.dlink.reply { stroke-dasharray: 4 3; } /* REQ-202 — sequence reply arrows */
+/* issue #84 — REQ-202: a message is dragged up/down to change WHEN it happens.
+   The grip is the invisible hit band over the arrow (a row-resize cursor is the
+   affordance); the arrow follows the pointer at reduced opacity while the drop
+   line marks the temporal slot the release will commit it to. */
+.message-reorder-grip { cursor: row-resize; pointer-events: stroke; }
+.dlink.message.reordering { opacity: 0.55; }
+.message-reorder-drop {
+  stroke: var(--accent); stroke-width: 1.4; stroke-dasharray: 5 4; pointer-events: none;
+}
+.dlink.binding { stroke-width: 2.6; } /* REQ-195 — "=" binding (double-weight line) */
+/* REQ-160 — temporal decomposition uses the central solid structural-line role. */
+/* REQ-094/190 — custom bound-reference overlay. A dotted directed line is
+   deliberately distinct from solid feature membership and its owner diamond. */
+.dlink.reference { stroke-dasharray: 1 3; stroke-linecap: round; }
+/* REQ-186, issue 119 — redefinition is solid; reference subsetting (::>) is dashed. */
+.dlink.referenceSubsetting { stroke-dasharray: 4 3; }
+/* issue #80 — disjointness is symmetric: neutral dashed line, no arrowhead. */
+.dlink.disjoint { stroke-dasharray: 2 3; }
+/* issue #74 — «defined by» uses the structural color and a filled :> marker. */
+/* Base edge-label fill is theme-aware so kinds without a colour rule
+ * (association / «subject» / dependency / annotation …) never fall back to the
+ * SVG default of black-on-dark (issue: not all text was theme aware). */
+.elabel { fill: var(--fg-1, #d4dbe8); font-family: var(--font-mono); font-size: 9px; }
+.elabel.mult { fill: var(--fg-2); }
+
+/* REQ-194 — port variants: dashed reference ports, direction chevrons */
+.dnode-port.ref { stroke-dasharray: 2 2; }
+/* REQ-400 — a PROXY stands in for a port inside collapsed contents (user
+ * direction 2026-09-24): an ordinary port box with a DASHED outline, so it reads
+ * as a port of something hidden rather than one of the part's own ports. It keeps
+ * the port fill, because hollow means conjugated. */
+.dnode-port.proxy { stroke-dasharray: 3 2; stroke-width: 1.3; }
+/* User direction 2026-09-24 - a conjugated port (~) is HOLLOW: the canvas colour
+ * fills it, so it reads as an open ring. The outline and the arrow keep the port
+ * colours, in either theme, with no new colour. */
+.dnode-port.conjugated { fill: var(--diagram-canvas); }
+/* User direction 2026-09-24 - a port that owns nested ports reads its name on a
+ * pill, the line pill's shape in the port outline colour, and the pill carries
+ * its + / - (the .dport-toggle.dport-pill-control button). */
+/* User direction 2026-09-25 - a pill's outline is as thin as a port's. */
+.dport-pill-box { fill: var(--diagram-canvas); stroke: color-mix(in srgb, var(--element-port-outline) var(--shape-outline-weight), var(--element-port-fill)); stroke-width: 0.65; }
+.dport-pill .dport-label-text { font-size: 10px; fill: var(--fg-0); }
+.dport-pill.item .dport-label-text { font-size: 8px; }
+/* REQ-376 — an action pin takes the OUTLINE and explicit fill of the action it sits
+ * on rather than the flow colour (user direction 2026-08-09). Its rounded corners and its
+ * direction arrow come from the shared port path in nodes.tsx. */
+.dnode-port.pin { fill: var(--element-fill); stroke: var(--shape-outline); stroke-width: 0.65; }
+/* REQ-192 - explicit connection ends are outline-coloured endpoint dots, not
+ * action-pin boxes. The dot itself is the persistent snap affordance. */
+.dconnection-end-dot { fill: var(--element-outline); stroke: var(--element-outline); stroke-width: 1.2; }
+.dconnection-end-dot.selected { fill: var(--accent); stroke: var(--accent); }
+.rf-node.selected .dnode-control.dot { fill: var(--accent); stroke: var(--accent); }
+.dconnection-end-dot.hovered, .dconnection-end-dot.connect-target {
+  fill: var(--cyan); stroke: var(--cyan); filter: drop-shadow(0 0 3px var(--cyan));
+}
+.dconnection-end-dot.moving { fill: var(--accent); stroke: var(--accent); filter: drop-shadow(0 0 4px var(--accent)); }
+/* REQ-194 — the port direction ARROW: a shaft across the glyph with a solid head
+ * at each directed end (--> out, <-- in, <-> inout), per OMG 8.2.3.12.
+ * NOTE: no backticks in this file's CSS — STYLE is a template literal. */
+.dport-dir { fill: none; stroke: var(--element-port-outline); stroke-width: 1.5; stroke-linecap: butt; }
+.dport-dir.head { fill: var(--element-port-outline); stroke: none; }
+/* REQ-399: port labels retain the model's spelling and paint no mask. The
+ * dedicated class avoids the node-kind label's intentional uppercase transform. */
+.dport-label { pointer-events: none; }
+/* User direction 2026-09-25 - a port pill is dragged to move it, and the grip
+ * at the trailing end of an open port drags its length. */
+.dport-pill.movable { pointer-events: auto; cursor: grab; }
+.dport-pill.movable:active { cursor: grabbing; }
+.dport-resize { pointer-events: auto; transform: translate(-50%, -50%); border-radius: 2px;
+  background: var(--element-port-outline); opacity: 0; }
+.dport-resize.shown { opacity: .6; }
+.dport-resize.vertical { width: 12px; height: 5px; cursor: ns-resize; }
+.dport-resize.horizontal { width: 5px; height: 12px; cursor: ew-resize; }
+.dport-resize:hover { opacity: 1; background: var(--accent); }
+.react-flow.sysml-connecting .dport-resize, .react-flow.sysml-connecting .dport-pill.movable { pointer-events: none; }
+/* User direction 2026-09-21 - a port name, and the inner path a proxy carries,
+ * stay plain text and read one step smaller than the line pills (10px). */
+.dport-label-text { fill: var(--fg-1); font-family: var(--font-mono); font-size: 8px; }
+/* Issue #6 — selectable ports: transparent hit area + selected highlight */
+.dport-hit { cursor: pointer; }
+.dport-hitarea { fill: transparent; stroke: none; }
+.dnode-port.selected { stroke: var(--accent); stroke-width: 2.5; fill: var(--accent); }
+.dnode-port.hovered:not(.selected) { stroke: var(--cyan); stroke-width: 2.5; filter: drop-shadow(0 0 3px var(--cyan)); }
+/* RULE (diagram-rules — Port). selected -> accent fill; an IV selected port also
+ * gets the retained plus connect glyph (.dport-plus). moving -> accent glow.
+ * connect-target -> the whole port square lights up as the ready-to-land cue, with
+ * the dotted anchor point (.dport-anchor) naming the dock edge. */
+.dnode-port.moving { stroke: var(--accent); stroke-width: 2.6; filter: drop-shadow(0 0 4px var(--accent)); }
+.dnode-port.connect-target { stroke: var(--cyan); stroke-width: 2.8; fill: var(--element-fill); fill-opacity: 1; filter: drop-shadow(0 0 5px var(--cyan)); }
+/* The  connect affordance shown in front of a SELECTED port (drag it to wire). */
+.dport-plus { stroke: var(--accent); stroke-width: 1.6; stroke-linecap: round; pointer-events: none; }
+/* The four dotted anchor points a connector docks onto, shown while a connection
+ * is dragged onto the port. */
+.dport-anchor { fill: var(--bg-1); stroke: var(--cyan); stroke-width: 1.3; stroke-dasharray: 1.6 1.4; pointer-events: none; }
+.dport-endpoint-handle { stroke: var(--cyan); cursor: grab; }
+.dport-endpoint-handle:hover, .dport-endpoint-handle.active { fill: var(--cyan); cursor: grabbing; }
+.dport-connect-preview { stroke-dasharray: 5 4; stroke-width: 2; pointer-events: none; opacity: .9; }
+/* Issue #24(b) — the "+" marks a port connection handle/target, distinct from
+ * a plain connector endpoint dot (.dedge-handle alone has no plus). Flips to
+ * the background color when its circle fills solid on hover/drag so the plus
+ * stays visible cut into the fill instead of disappearing cyan-on-cyan. */
+.dport-handle-plus { stroke: var(--cyan); stroke-width: 1.3; pointer-events: none; }
+.dport-endpoint-handle:hover ~ .dport-handle-plus, .dport-endpoint-handle.active ~ .dport-handle-plus { stroke: var(--bg-1); }
+
+/* REQ-006 — edge selection + endpoint reconnect. Every relationship owns a
+ * wide transparent stroke along its complete individually editable route. */
+.dedge-hit { cursor: pointer; }
+.dlink-hit { stroke: transparent; stroke-width: 12; fill: none; pointer-events: stroke; }
+.dedge-hit:hover .dlink { stroke-width: 2.2; }
+/* issues 160/164 — highlighted connectors must CONTRAST with the canvas on any
+ * theme: a tight halo in the editor background separates the stroke from
+ * same-hue clutter beneath it, then the glow lifts it; the stroke itself
+ * thickens. issue 164 — the stroke uses --hl (accent pushed toward the editor
+ * foreground), not the raw accent, so the highlight visibly steps away from
+ * both the muted edge grey and the canvas on every theme.
+ * "kin" = a connection from the SELECTED element to one of its immediate
+ * children (applied by the edge component on node selection). */
+/* User direction 2026-07-20 — highlights are COLOUR + WEIGHT only, no glow:
+ * the drop-shadow halo rasterized a filter region that scaled with on-screen
+ * size (expensive on spanning lines), and the adaptive perf mode dropping it
+ * under load read as flashing. The stepped-up stroke in the dedicated hue is
+ * clearly visible on every theme without either cost. */
+.dlink.selected { stroke: var(--hl); stroke-width: 3; }
+.dlink.kin { stroke: var(--kin-hl); stroke-width: 2.8; opacity: 1; }
+/* REQ-361 — keep geometry and labels on the vector rendering path at every
+   zoom level. Compositor promotion and load-triggered text/shape LOD produced
+   stale tiles, flicker, and temporarily unreadable labels. */
+.react-flow text { text-rendering: geometricPrecision; }
+.dedge-handle { fill: var(--bg-1); stroke: var(--hl); stroke-width: 1.6; cursor: grab; }
+.dedge-handle:hover, .dedge-handle.active { fill: var(--hl); cursor: grabbing; }
+.dedge-reconnect-preview { stroke: var(--hl); stroke-dasharray: 5 4; stroke-width: 2; pointer-events: none; opacity: .9; }
+/* REQ-006 — 4 connection anchor points per node, shown while dragging a connector
+ * endpoint so it can be dropped on any side of any element. */
+.danchor-pt { fill: var(--bg-1); stroke: var(--cyan); stroke-width: 1.4; opacity: 0.85; cursor: crosshair; }
+.danchor-pt:hover { fill: var(--cyan); opacity: 1; r: 7.5; }
+/* Issue #24 — a target circle on every port while dragging a connector (new
+ * from a port, or reconnecting an existing one), matching the anchor dots
+ * above so a drop can land precisely on a port, not only somewhere on its
+ * part. Decorative only: the real drop hit-test is the port's own hit area. */
+.dport-drop-targets { pointer-events: none; }
+.dport-drop-target { fill: var(--bg-1); stroke: var(--cyan); stroke-width: 1.4; opacity: 0.85; }
+/* The port under the cursor is the live drop target: its circle fills solid and
+ * grows, the "+" flips to the background colour (cut into the fill), and a ring
+ * around the port glyph makes the "release here" target unmistakable. */
+.dport-drop-target.active { fill: var(--cyan); stroke: var(--cyan); opacity: 1; r: 7; }
+.dport-drop-target.active ~ .dport-handle-plus { stroke: var(--bg-1); stroke-width: 1.8; }
+.dport-target-ring { fill: none; stroke: var(--cyan); stroke-width: 2; opacity: 0.9; }
+
+/* Issue (inline edit): on-canvas name editor (in an SVG foreignObject) */
+.dinline-edit {
+  width: 100%; box-sizing: border-box; height: 20px; padding: 1px 4px;
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--vscode-input-foreground, var(--fg-0));
+  background: var(--vscode-input-background, var(--bg-0));
+  border: 1px solid var(--accent); border-radius: 2px; outline: none;
+}
+/* issues.md (#8) — the same editor, floated under the pointer (add / edge rename). */
+.dinline-edit.dinline-float { width: 180px; box-shadow: 0 4px 14px rgba(0,0,0,0.45); }
+
+/* REQ-196 — performer references are chosen inside the diagram, with a
+ * searchable ownership hierarchy instead of a host/address-bar QuickPick. */
+.dperformer-picker {
+  width: min(360px, calc(100vw - 24px)); max-height: min(420px, calc(100vh - 24px));
+  display: flex; flex-direction: column; gap: 6px; padding: 8px;
+  color: var(--fg-0); background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: 6px; box-shadow: 0 8px 28px color-mix(in srgb, black 42%, transparent);
+  font-family: var(--font-mono); font-size: 11px;
+}
+.dperformer-picker-title { display: flex; align-items: center; justify-content: space-between; font-weight: 600; }
+.dperformer-picker-title button { border: 0; color: var(--fg-1); background: transparent; cursor: pointer; font-size: 16px; }
+.dperformer-picker > input {
+  width: 100%; box-sizing: border-box; padding: 6px 8px; color: var(--fg-0);
+  background: var(--bg-1); border: 1px solid var(--line); border-radius: 3px;
+  font: inherit; outline: none;
+}
+.dperformer-picker > input:focus { border-color: var(--accent); }
+.dperformer-picker-list { min-height: 40px; overflow: auto; display: flex; flex-direction: column; }
+.dperformer-picker-list > button {
+  display: grid; grid-template-columns: minmax(70px, 0.8fr) minmax(100px, 1.2fr);
+  gap: 8px; align-items: baseline; padding: 5px 8px; border: 0; text-align: left;
+  color: var(--fg-0); background: transparent; font: inherit; cursor: pointer;
+}
+.dperformer-picker-list > button:hover, .dperformer-picker-list > button:focus { background: var(--grv-selection-bg); outline: none; }
+.dperformer-picker-list small { overflow: hidden; color: var(--fg-3); text-overflow: ellipsis; white-space: nowrap; }
+.dperformer-picker-empty { padding: 10px; color: var(--fg-3); }
+
+/* Issue (right-click): node context menu */
+.dctx-backdrop { position: fixed; inset: 0; z-index: 40; }
+.dctx-menu {
+  position: fixed; min-width: 168px; padding: 4px;
+  max-height: calc(100vh - 8px); overflow-y: auto;
+  background: var(--vscode-menu-background, var(--bg-1));
+  color: var(--vscode-menu-foreground, var(--fg-1));
+  border: 1px solid var(--vscode-menu-border, var(--line));
+  border-radius: 5px; box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+}
+.dctx-title {
+  font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--fg-3); padding: 3px 8px 5px; max-width: 220px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.dctx-sep { height: 1px; background: var(--line-soft); margin: 4px 2px; }
+.dctx-section {
+  padding: 4px 8px 2px; color: var(--fg-3); font-size: 9px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.dctx-item {
+  display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 4px 8px;
+  background: transparent; border: 0; border-radius: 3px; cursor: pointer;
+  color: inherit; font-family: var(--font-ui); font-size: 12px;
+}
+.dctx-icon { flex: none; }
+.dctx-item:hover { background: var(--vscode-menu-selectionBackground, var(--bg-active)); color: var(--vscode-menu-selectionForeground, var(--fg-0)); }
+.dctx-item.danger:hover { background: var(--vscode-inputValidation-errorBackground, var(--red, #b5483a)); }
+
+/* REQ-196/206/210 — action-flow, package, and annotation node accents */
+.dnode-shape.forkjoin { fill: var(--element-outline); stroke: none; }
+/* User direction 2026-09-22 - the bus is a pill in the connection colour with
+ * the canvas fill, so it never reads as an Action Flow fork; its label reads
+ * inside it, and its plus badge shows while the bus is hovered or selected.
+ * The end pins of an opened usage are the action-pin square in that colour. */
+.dnode-shape.dconnection-bus { fill: var(--bg-1); stroke: var(--diagram-line-connection); stroke-width: 1.2; }
+.dnode-port.pin.dconnection-end-pin { fill: var(--bg-1); stroke: var(--diagram-line-connection); stroke-width: 1; }
+.dnode-port.pin.dconnection-end-pin.selected { fill: var(--accent); stroke: var(--accent); stroke-width: 2.5; }
+/* User direction 2026-09-24 - an interface end is a PORT: the same glyph, the
+ * same outline weight, corners and arrow as any port, in the connection colour.
+ * REQ-386 - a directed item pops out of its port as a smaller port glyph
+ * (.dnode-port.item), coloured the same way on an interface end. */
+.dnode-port.connection {
+  fill: color-mix(in srgb, var(--diagram-line-connection) 16%, var(--diagram-canvas));
+  stroke: var(--diagram-line-connection);
+}
+.dnode-port.connection.conjugated { fill: var(--diagram-canvas); }
+.dport-dir.connection { stroke: var(--diagram-line-connection); }
+.dport-dir.head.connection { fill: var(--diagram-line-connection); stroke: none; }
+.dport-pill.connection .dport-pill-box { stroke: var(--diagram-line-connection); }
+.dport-pill.selected .dport-pill-box { stroke: var(--accent); stroke-width: 2.5; fill: var(--accent); }
+.dport-pill.hovered:not(.selected) .dport-pill-box { stroke: var(--cyan); stroke-width: 2.5; }
+.dnode-port.connection.selected { stroke: var(--accent); stroke-width: 2.5; fill: var(--accent); }
+.dnode-port.connection.hovered:not(.selected), .dnode-port.pin.dconnection-end-pin.hovered:not(.selected) { stroke: var(--cyan); stroke-width: 2.5; }
+.dnode-shape.dconnection-bus.dpill-shape.selected, .rf-node.selected .dnode-shape.dconnection-bus.dpill-shape { stroke: var(--accent); }
+/* An opened usage stands in the same colour as the line it came from. */
+.dframe-rect.dconnection-open { fill: var(--bg-1); stroke: var(--diagram-line-connection); }
+.rf-node.selected .dframe-rect.dconnection-open { stroke: var(--accent); }
+.dbus-body .dpill-text { fill: var(--fg-0); }
+.dbus-body .dpill-control { cursor: pointer; opacity: 0; transition: opacity 120ms; }
+.rf-node:hover .dbus-body .dpill-control, .rf-node.selected .dbus-body .dpill-control { opacity: 1; }
+.dbus-body .dpill-control circle { fill: var(--bg-1); stroke: var(--diagram-line-connection); stroke-width: 1; }
+.dbus-body .dpill-control path { fill: none; stroke: var(--fg-0); stroke-width: 1.4; stroke-linecap: round; }
+.dbus-body .dpill-control:hover circle { stroke: var(--accent); }
+/* The minus in an opened usage's corner, beside the container controls. */
+.dcontainer-controls :is(.dconnection-fold, .dtransition-fold) { width: 14px; height: 14px; padding: 0; border-radius: 50%; display: inline-flex;
+  align-items: center; justify-content: center; border: 1px solid var(--diagram-line-connection); background: var(--bg-1); color: var(--fg-0); cursor: pointer; }
+.dcontainer-controls :is(.dconnection-fold, .dtransition-fold) svg { stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; fill: none; }
+.dcontainer-controls :is(.dconnection-fold, .dtransition-fold):hover { border-color: var(--accent); color: var(--accent); }
+.dnode-rect.package.library { stroke-dasharray: 4 3; }
+.dnode-rect.annotation { stroke-dasharray: 3 2; }
+.dnode-rect.composite { stroke-width: 2.2; } /* REQ-198 — composite state */
+.dlane-line { stroke: var(--line); stroke-dasharray: 6 4; }
+/* REQ-190 — General View type-band separators + labels */
+.dband-line { stroke: var(--line); stroke-width: 1; }
+.dband-label { fill: var(--fg-2); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+.dband-count { fill: var(--fg-3); }
+.dlane-label { fill: var(--fg-3); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+.dactivation { fill: var(--element-fill); stroke: var(--element-outline); stroke-width: 1; } /* REQ-202 */
+/* REQ-205 — Geometry View frame gridlines + value ticks */
+.dgeo-grid { stroke-width: 1; opacity: 0.5; stroke-dasharray: 2 4; }
+.dgeo-tick { fill: var(--fg-3); font-family: var(--font-mono); font-size: 8.5px; }
+/* REQ-205 — Geometry View 3D (isometric) shapes + ground frame */
+.dgeo3d-grid { stroke-width: 1; opacity: 0.35; }
+.dgeo3d-face { stroke: var(--shape-outline); stroke-width: 1; stroke-linejoin: round; }
+.dgeo3d-face.top { fill: var(--element-fill); fill-opacity: 0.42; }
+.dgeo3d-face.side { fill: var(--element-fill); fill-opacity: 0.28; }
+.dgeo3d-face.side2 { fill: var(--element-fill); fill-opacity: 0.18; }
+.dgeo3d-edge { stroke: var(--element-outline); stroke-width: 1; opacity: 0.7; }
+.dgeo3d-node { cursor: pointer; }
+.dgeo3d-node:hover .dgeo3d-face { fill-opacity: 0.42; }
+.dgeo3d-node.selected .dgeo3d-face { stroke: var(--accent); }
+.dgeo3d-node.selected .dgeo3d-face.top { fill: var(--accent); fill-opacity: 0.34; }
+.dgeo3d-name {
+  fill: var(--fg-0); stroke: var(--diagram-canvas); stroke-width: 3px;
+  paint-order: stroke fill; stroke-linejoin: round;
+  font-family: var(--font-mono); font-size: 10px;
+}
+/* REQ-205 — an object whose coordinate-frame transformation could not be fully
+   decided is DRAWN and MARKED, never silently misplaced: its outline goes dashed
+   and it carries a warning glyph whose tooltip names the reason. (The issue
+   number is left out of this comment on purpose — the theme gate reads a hash
+   followed by hex digits as a hardcoded colour.) */
+.dgeo-approx .dgeo3d-face, .dgeo-approx .dgeo3d-edge { stroke-dasharray: 4 3; }
+.dgeo-approx .dnode-rect { stroke-dasharray: 4 3; }
+.dgeo-approx-mark { fill: var(--yellow); font-family: var(--font-mono); font-size: 11px; cursor: help; }
+/* REQ-205 — React Flow Geometry View: the synthetic coordinate-frame node is
+   background chrome — never a pointer target (pane clicks/box-select pass
+   through); the placed shape nodes are click-to-reveal targets. */
+.rf-geoframe { pointer-events: none; }
+.rf-geo { cursor: pointer; }
+.rf-geo .dnode-rect.selected { stroke: var(--accent); stroke-width: 1.6; }
+
+/* REQ-006 — diagram canvas and one-shot relationship interaction */
+.dcanvas-wrap { position: relative; flex: 1; display: flex; min-height: 0; min-width: 0; }
+/* REQ-361 — do not permanently promote the complete large SVG viewport to a
+ * composited raster layer. At small zoom Chromium can otherwise retain stale
+ * tiles while live bus paths move, leaving connector shadows behind. React Flow
+ * still transforms the vector viewport directly for pan/zoom. */
+.dtab .dcanvas-wrap { grid-area: cv; }
+.dcanvas-wrap > .dcanvas, .dcanvas-wrap > .rp-body { flex: 1; min-width: 0; }
+.dcanvas-wrap.linking .dnode-hit { cursor: crosshair; }
+.dcanvas-wrap.linking .dport-hit { cursor: crosshair; }
+.drelation-hint {
+  position: absolute; left: 50%; top: 8px; z-index: 12; transform: translateX(-50%);
+  max-width: calc(100% - 32px); padding: 4px 9px; border: 1px solid var(--line);
+  border-radius: 4px; background: var(--vscode-menu-background, var(--bg-1));
+  color: var(--yellow); box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  font: 10px var(--font-ui); white-space: nowrap; pointer-events: none;
+}
+/* user direction 2026-07-14 — the armed relation's live rubber-band line from
+ * the source element to the pointer (the port-connector drag look). */
+.drelation-band line { stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 6 4; }
+.drelation-band circle { fill: var(--accent); }
+.dcanvas-wrap.linking { cursor: crosshair; }
+/* issue 127 (supersedes 116) — the Browser View / Properties toggles moved off
+ * the canvas: an open panel carries an in-header collapse button, a collapsed
+ * panel keeps a slim rail whose button re-opens it. Nothing floats over the
+ * canvas or over panel text in either state. */
+.dpanel-slot.rail { background: var(--bg-1); overflow: hidden; }
+.dbrowser-slot.rail { border-right: 1px solid var(--line); }
+.dinspector-slot.rail { border-left: 1px solid var(--line); }
+.dpanel-rail-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  width: 100%; padding: 8px 0; background: transparent; border: 0;
+  color: var(--fg-2); cursor: pointer;
+}
+.dpanel-rail-btn:hover { color: var(--accent); background: var(--bg-hover); }
+.dpanel-collapse {
+  display: inline-flex; align-items: center; gap: 3px; padding: 2px 4px;
+  background: transparent; border: 0; border-radius: 3px;
+  color: var(--fg-3); cursor: pointer;
+}
+.dpanel-collapse:hover { color: var(--accent); background: var(--bg-hover); }
+.dpanel-collapse .kindname { text-transform: none; letter-spacing: normal; font-weight: 400; }
+/* the Properties panel's collapse button floats in ITS OWN panel corner (the
+ * inspector header is content-driven, and the button must also show on the
+ * empty "select an element" state). */
+.dins-collapse { position: absolute; top: 8px; right: 8px; z-index: 9; }
+
+/* Canonical element-type icons (icons.tsx) — ONE icon + colour per item type,
+ * shared by the Browser View tree, creation context menus, and the outline so a
+ * part reads identically wherever it appears. The SVG draws with currentColor;
+ * the per-type class sets the colour from the active theme palette. */
+.ditype-icon { flex: none; vertical-align: middle; display: inline-block; }
+/* structure → cyan */
+.ditype-part, .ditype-port, .ditype-item, .ditype-interface, .ditype-connection,
+.ditype-occurrence, .ditype-connect, .ditype-flow, .ditype-message { color: var(--cyan); }
+/* behaviour → accent */
+.ditype-action, .ditype-state, .ditype-send, .ditype-accept, .ditype-fork, .ditype-join,
+.ditype-merge, .ditype-decide, .ditype-terminate, .ditype-start, .ditype-done,
+.ditype-succession, .ditype-transition { color: var(--accent); }
+/* requirements, cases, views → violet */
+.ditype-requirement, .ditype-usecase, .ditype-analysis, .ditype-verification, .ditype-case,
+.ditype-concern, .ditype-view, .ditype-viewpoint, .ditype-rendering,
+.ditype-satisfy, .ditype-verify, .ditype-include, .ditype-derive, .ditype-allocation { color: var(--violet); }
+/* constraints, calculations, value sets → yellow */
+.ditype-constraint, .ditype-calc, .ditype-enum, .ditype-attribute, .ditype-bind { color: var(--yellow); }
+/* people → green */
+.ditype-actor, .ditype-subject, .ditype-stakeholder { color: var(--green); }
+/* containers, annotations, neutral → muted */
+.ditype-package, .ditype-metadata, .ditype-comment, .ditype-rep, .ditype-annotation,
+.ditype-dot, .ditype-generic { color: var(--fg-2); }
+
+/* REQ-204 - Browser View membership tree, hover types and curved ownership guides. */
+.bv-tree { font-family: var(--font-ui); font-size: 12px; padding: 8px 10px; }
+.bv-actions { display: flex; gap: 4px; padding: 0 4px 6px 4px; }
+.bv-action-btn { flex: 1 1 0; min-width: 0; height: 22px; border: 1px solid var(--line); border-radius: 3px;
+  background: var(--bg-1); color: var(--fg-2); font: 10px var(--font-ui); cursor: pointer; }
+.bv-action-btn:hover:not(:disabled) { background: var(--bg-hover); color: var(--fg-0); }
+.bv-action-btn:disabled { opacity: 0.45; cursor: default; }
+.bv-item { position: relative; }
+/* Each item continues its parent's guide past its expanded descendants. The
+ * last visible sibling ends at its own elbow, also after filtering. */
+.bv-item::before, .bv-item::after { content: ''; position: absolute; pointer-events: none; z-index: 1;
+  left: calc(14px + (var(--bv-depth) - 1) * 20px);
+  border-color: var(--vscode-tree-indentGuidesStroke, var(--fg-3)); border-style: solid; border-width: 0; }
+.bv-item:not(:last-child)::before { top: 0; bottom: 0; border-left-width: 1px; }
+.bv-item::after { top: 0; height: 12px; width: 10px; border-left-width: 1px; border-bottom-width: 1px;
+  border-bottom-left-radius: 6px; }
+.bv-row { display: flex; align-items: center; gap: 6px; min-height: 22px; padding: 2px 6px; cursor: pointer; border-radius: 3px; }
+.bv-row:hover { background: var(--bg-hover); }
+/* REQ-372 - Keep native foregrounds on present rows and mute absent ones in
+ * either theme. A subtle selection fill preserves this presence distinction. */
+.bv-row.off-diagram .bv-name, .bv-row.off-diagram .bv-kw, .bv-row.off-diagram .bv-icon {
+  color: var(--vscode-descriptionForeground, var(--fg-2)); }
+.bv-row.selected { background: var(--grv-selection-bg); outline: 1px solid var(--vscode-focusBorder, var(--accent)); outline-offset: -1px; }
+.bv-disclosure, .bv-disclosure-spacer { flex: none; width: 16px; height: 18px; }
+.bv-disclosure { display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 0; border-radius: 3px;
+  background: transparent; color: var(--fg-3); font: 12px var(--font-ui); line-height: 1; cursor: pointer; }
+.bv-disclosure:hover { background: var(--bg-hover); color: var(--fg-0); }
+.bv-icon { flex: none; }
+.bv-kw { color: var(--fg-3); font-size: 10px; }
+.bv-name { color: var(--fg-0); }
+/* REQ-204 - Compact diagram entry points follow each compatible row label. */
+.bv-diagram-pill { flex: none; border: 1px solid var(--line); border-radius: 9px; padding: 0 5px;
+  background: var(--bg-2); color: var(--fg-2); font: 9px/15px var(--font-ui); cursor: pointer; }
+.bv-diagram-pill:hover { color: var(--fg-0); border-color: var(--accent); }
+.bv-diagram-pill:focus-visible, .bv-up:focus-visible { outline: 1px solid var(--accent); outline-offset: 1px; }
+.bv-empty { color: var(--fg-3); font-family: var(--font-ui); font-size: 11px; padding: 12px; }
+
+/* ── Tab mode (rich UI) ─────────────────────────────────────────────────── */
+/* The workspace and its side docks start directly below the toolbar. */
+.dtab { --diagram-title-height: 24px; display: grid; grid-template-rows: 36px minmax(0, 1fr) 24px; grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "tb" "cv" "ft"; height: 100%; min-height: 0; }
+/* REQ-421 - Outer buttons remain reachable when the middle toolbar scrolls. */
+.dtoolbar-row { grid-area: tb; display: flex; align-items: center; min-width: 0; gap: 2px;
+  padding: 0 2px; background: var(--bg-1); border-bottom: 1px solid var(--line); }
+.dtoolbar-row > .dtoolbar-shell { flex: 1; min-width: 0; }
+/* REQ-421 - Children stop above the shared underline instead of painting over it. */
+.dtoolbar-row .dtoolbar-shell, .dtoolbar-row .dtoolbar-scroll-shell, .dtoolbar-row .dtoolbar { height: 100%; }
+.dpanel-toggle { flex: 0 0 26px; }
+.dpanel-toggle svg { width: 16px; height: 16px; }
+.dtoolbar-row .dtoolbar { padding: 0 2px; border-bottom: 0; }
+/* REQ-421 - Overlay the canvas, leaving its drawing and pointer surface intact. */
+.dtab .dtab-head { grid-area: cv; align-self: start; min-width: 0; z-index: 3; pointer-events: none; }
+.dtab--grid .dtab-head { grid-area: title; pointer-events: auto; }
+.dtab-head .sysml-frame-banner { position: relative; isolation: isolate; height: var(--diagram-title-height);
+  padding-top: 0; padding-bottom: 0; border: 0; background: var(--line); }
+/* REQ-421 - An inset surface outlines the whole tab, including its diagonal cut. */
+.dtab-head .sysml-frame-banner::before { content: ''; position: absolute; inset: 1px;
+  z-index: -1; background: var(--bg-2); }
+/* REQ-421 - Only the title tab paints a surface below the toolbar. */
+.dtab:not(.dtab--grid) .sysml-frame-banner { width: fit-content; max-width: 100%;
+  padding: 0 18px 0 8px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%); }
+.dtab:not(.dtab--grid) .sysml-frame-banner::before {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8.5px), calc(100% - 8.5px) 100%, 0 100%); }
+.sysml-frame-banner > span:last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sysml-frame-banner > span:not(:last-child) { flex-shrink: 0; }
+.dtab--grid .sysml-frame-banner { clip-path: none; }
+.dtab-hint { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  padding: 4px 12px 6px; font-family: var(--font-mono); font-size: 10.5px;
+  border-bottom: 1px solid var(--line-soft); }
+.dtab-hint-full { color: var(--fg-1); font-weight: 600; }
+.dtab-hint-sub { color: var(--fg-3); }
+.dtab-hint-v1 { color: var(--fg-2); }
+.dtab-note { padding: 4px 12px; font-size: 11px; color: var(--yellow); font-style: italic; }
+.dtab .dcanvas { grid-area: cv; }
+.dtab .dfooter { grid-area: ft; }
+
+/* issue 108 — toolbar visual pass: one consistent stroke-icon set (no mixed
+   emoji), real button metrics (26px targets on a 36px bar), grouped segments,
+   an accent-tinted active state, and clearly-muted disabled actions. All
+   colours stay theme-derived. */
+.dtoolbar-scroll-shell { position: relative; height: 36px; min-width: 0; flex: 1 1 auto; }
+.dtoolbar { display: flex; align-items: center; gap: 4px; padding: 0 8px; height: 36px;
+  background: var(--bg-1); border-bottom: 1px solid var(--line);
+  overflow-x: auto; overflow-y: hidden; white-space: nowrap;
+  scrollbar-width: none; -ms-overflow-style: none; }
+.dtoolbar::-webkit-scrollbar { width: 0; height: 0; display: none; }
+.dtoolbar .spacer { flex: 1 0 8px; min-width: 8px; }
+/* Single-row toolbar overflow: native scrollbars are hidden because Windows
+ * lays them out and pushes icons upward. This custom thumb is absolutely
+ * overlaid at the bottom of the fixed row, transparent at rest and visible only
+ * on hover/focus/drag, so controls never move when overflow appears. */
+.dbar-track {
+  position: absolute; left: 6px; right: 6px; bottom: 2px; height: 3px; z-index: 20;
+  border-radius: 999px; opacity: 0; pointer-events: none;
+  background: color-mix(in srgb, var(--fg-2) 12%, transparent);
+  transition: opacity 0.12s ease;
+}
+.dbar-shell:hover .dbar-track,
+.dbar-shell:focus-within .dbar-track,
+.dbar-track.dragging {
+  opacity: 1; pointer-events: auto;
+}
+.dbar-thumb {
+  display: block; height: 100%; border-radius: 999px;
+  background: color-mix(in srgb, var(--fg-2) 54%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--bg-0) 35%, transparent);
+}
+.tbtn { display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 9px;
+  background: transparent; border: 0; color: var(--fg-1); font-family: var(--font-ui);
+  font-size: 11px; border-radius: 4px; cursor: pointer; white-space: nowrap;
+  flex: none; transition: background 0.1s ease, color 0.1s ease; }
+.tbtn:hover { background: var(--bg-hover); color: var(--fg-0); }
+.tbtn:active { background: var(--bg-active); }
+/* REQ-421 - Open panels share the toolbar selected-state color pair. */
+.tbtn.on, .dpanel-toggle[aria-expanded='true'] {
+  background: var(--toolbar-selection-bg); color: var(--toolbar-selection-fg);
+  box-shadow: inset 0 0 0 1px var(--toolbar-selection-border);
+}
+.tbtn:disabled { opacity: 0.35; cursor: default; background: transparent; color: var(--fg-1); }
+.tbtn.icon-only { width: 26px; padding: 0; justify-content: center; }
+.tbtn-icon { display: block; flex: none; }
+.tbtn .badge { color: var(--accent); font-weight: 600; }
+.seg button svg { display: block; }
+/* REQ-190 — the direction, General-View mode, and line-style segs are icon-only:
+   tighter padding (see issue 146). */
+.seg.seg-dir button, .seg.seg-gvmode button, .seg.seg-line-style button, .seg.seg-gridpreset button,
+.seg.seg-visibility button, .seg.seg-presentation button { padding: 2px 6px; }
+/* REQ-196/200/366/386 — every visibility/presentation segment shares one
+   treatment: visible uses the theme's selected-control pair; hidden keeps its
+   semantic hue but is dimmed and slashed. */
+.seg.seg-visibility button.on, .seg.seg-presentation button.on {
+  background: var(--toolbar-selection-bg); color: var(--toolbar-selection-fg);
+  box-shadow: inset 0 0 0 1px var(--toolbar-selection-border); }
+.seg.seg-visibility button:not(.on), .seg.seg-presentation button:not(.on) { opacity: 0.38; }
+.seg.seg-visibility button:not(.on)::after, .seg.seg-presentation button:not(.on)::after {
+    content: ''; position: absolute; left: 4px; right: 4px; top: 50%;
+    border-top: 1.2px solid var(--red, #e07a7a); transform: rotate(-20deg);
+}
+.seg.seg-visibility button, .seg.seg-presentation button { position: relative; }
+.visibility-icon.tone-structure, .presentation-icon.tone-structure { color: var(--cyan); }
+.visibility-icon.tone-behavior, .presentation-icon.tone-behavior { color: var(--accent); }
+.visibility-icon.tone-definition, .presentation-icon.tone-definition,
+.definition-visibility-icon { color: var(--violet); }
+/* A pressed icon inherits the matching selection foreground. Keeping its
+ * semantic chart hue on the selection fill is exactly the cross-theme clash
+ * this state must avoid. Hidden/unpressed icons retain their type hue. */
+.seg.seg-visibility button.on .visibility-icon,
+.seg.seg-presentation button.on .presentation-icon,
+.seg.seg-visibility button.on .definition-visibility-icon,
+.seg.seg-presentation button.on .definition-visibility-icon { color: inherit; }
+/* issue 156 — General View quick filters: one icon chip per element category
+   (parts always show). A chip stays lit in its element-type colour while its
+   category is VISIBLE; hiding one dims and slashes it so an engaged filter is
+   obvious at a glance. */
+.seg.seg-gvfilter button { padding: 2px 5px; position: relative; }
+.seg.seg-gvfilter button.hid { opacity: 0.38; }
+.seg.seg-gvfilter button.hid::after {
+  content: ""; position: absolute; left: 3px; right: 3px; top: 50%;
+  border-top: 1.5px solid var(--red, #e07a7a); transform: rotate(-20deg); }
+/* issue 165 (supersedes 156's side strip) — the chips render inside the one
+   toolbar row in BOTH modes; the toolbar's overlay scroller owns overflow. */
+.tdiv { width: 1px; height: 18px; background: var(--line); margin: 0 5px; display: inline-block; flex: none; }
+.zoom-readout { min-width: 42px; text-align: center; font-family: var(--font-mono); font-size: 11px; color: var(--fg-2); }
+
+.doutline { background: var(--bg-1); border-right: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; }
+.doutline-head { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fg-2); font-weight: 600; }
+.doutline-title { display: inline-flex; align-items: center; gap: 6px; min-width: 0; }
+.doutline-head .kindname { text-transform: none; letter-spacing: normal; color: var(--fg-3); font-weight: 400; }
+.doutline-filter-row { display: flex; gap: 4px; margin: 0 8px 6px; }
+.doutline-filter { flex: 1 1 auto; min-width: 0; margin: 0; padding: 3px 6px; background: var(--bg-2); border: 1px solid var(--line);
+  color: var(--fg-1); border-radius: 3px; font-family: var(--font-ui); font-size: 11px; }
+/* REQ-372 — Browser View current-diagram-only scope toggle. */
+.bv-scope-toggle { flex: none; width: 25px; border: 1px solid var(--line); border-radius: 3px; background: var(--bg-2);
+  color: var(--fg-3); font: 14px var(--font-ui); cursor: pointer; }
+.bv-scope-toggle:hover { color: var(--fg-0); border-color: var(--fg-3); }
+.bv-scope-toggle.on { color: var(--bg-0); background: var(--accent); border-color: var(--accent); }
+.bv-up:disabled { opacity: .4; cursor: default; }
+.doutline-tree { flex: 1; overflow: auto; min-height: 0; }
+.doutline-foot { display: flex; justify-content: space-between; padding: 4px 10px; border-top: 1px solid var(--line-soft);
+  font-family: var(--font-ui); font-size: 10px; color: var(--fg-3); }
+.doutline-foot .sel { color: var(--accent); }
+.dpanel-slot { position: relative; min-width: 0; min-height: 0; display: flex; }
+.dpanel-slot > .doutline { flex: 1; min-width: 0; }
+.dpanel-resize {
+  position: absolute; top: 0; bottom: 0; width: 7px; z-index: 8;
+  cursor: col-resize; opacity: 0;
+}
+.dpanel-resize:hover { opacity: 0.35; background: var(--accent); }
+.dpanel-resize-east { right: -4px; }
+.dpanel-resize-west { left: -4px; }
+.sb-row { display: flex; align-items: center; gap: 4px; padding: 2px 6px; font-size: 12px; cursor: pointer; color: var(--fg-1); }
+.sb-row:hover { background: var(--bg-hover); }
+.sb-row.selected { background: var(--bg-active); }
+.sb-twist { width: 10px; color: var(--fg-3); font-size: 9px; }
+.sb-icon { width: 12px; color: var(--fg-3); font-size: 10px; }
+.sb-icon.port { color: var(--accent); }
+.sb-icon.edge { color: var(--cyan); }
+.sb-label { font-family: var(--font-mono); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sb-detail { color: var(--cyan); font-family: var(--font-mono); font-size: 10px; margin-left: auto; padding-left: 6px; }
+
+.dcanvas { position: relative; overflow: auto; min-height: 0; padding: 28px 40px;
+  background: radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 1px) 0 0/20px 20px, var(--vscode-editor-background, var(--bg-1)); }
+
+.dminimap { position: absolute; right: 12px; bottom: 12px; background: var(--bg-1); border: 1px solid var(--line);
+  border-radius: 4px; padding: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+.dmini-head { display: flex; justify-content: space-between; font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--fg-3); font-family: var(--font-mono); margin-bottom: 4px; }
+.dmini-body { position: relative; overflow: hidden; background: var(--bg-0); cursor: pointer; }
+.dmini-scene { position: absolute; inset: 0; pointer-events: none; }
+.dmini-frame { fill: none; stroke: var(--line); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.dmini-edge { fill: none; stroke: var(--fg-3); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.dmini-node { fill: var(--accent); fill-opacity: 0.62; stroke: none; }
+.dmini-view { position: absolute; border: 1px solid var(--accent); background: rgba(240,165,90,0.12); pointer-events: none; }
+
+.dfooter { display: flex; align-items: center; gap: 14px; padding: 0 12px; height: 24px;
+  background: var(--bg-1); border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 10px; color: var(--fg-3); }
+.dfooter .mid { color: var(--fg-3); }
+.dfooter .right { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.dfooter .ready { color: var(--accent); }
+.dfooter .live { display: inline-flex; align-items: center; gap: 4px; color: var(--green); }
+.dfooter .live .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); display: inline-block; }
+/* Transient "✓ Saved" side-car write confirmation. Fades in on save; the
+   inline unmount when the flash state clears reads as a momentary flash. */
+.dfooter .saved { color: var(--green); font-weight: 600; padding-right: 4px; animation: dsaved-in 120ms ease-out; }
+@keyframes dsaved-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── grv — Grid View (requirements table) ───────────────────────────────── */
+/* issue 145 — Excel-like column model: the table is exactly as wide as the sum
+ * of its per-column widths (set inline from the colgroup, NEVER 100%), so
+ * resizing one column shifts the others without squeezing them, and the wrap
+ * scrolls horizontally when the columns outgrow the pane. border-collapse must
+ * stay "separate" — collapsed borders do not travel with position:sticky. */
+.grv-table { border-collapse: separate; border-spacing: 0; font-family: var(--font-mono); font-size: 11px; table-layout: fixed; }
+/* issue 136 — a resizable/reorderable header cell: the label truncates, the right
+ * edge is a grab strip for resizing, and the whole cell is draggable to reorder. */
+.grv-table th { text-align: left; padding: 6px 10px; color: var(--fg-2); font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.05em; font-size: 10px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line-soft);
+  position: sticky; top: 0; z-index: 2;
+  background: var(--vscode-editor-background, var(--bg-1)); cursor: grab; user-select: none; }
+.grv-table th.dragging { opacity: 0.5; }
+.grv-table th.drop-target { box-shadow: inset 2px 0 0 var(--accent); }
+.grv-th-label { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; pointer-events: none; }
+.grv-col-resize { position: absolute; top: 0; right: -3px; width: 8px; height: 100%; cursor: col-resize; z-index: 1; }
+.grv-col-resize:hover { background: var(--accent); opacity: 0.4; }
+.grv-table td { padding: 7px 10px; border-bottom: 1px solid var(--line-soft); border-right: 1px solid var(--line-soft);
+  vertical-align: top; overflow: hidden; text-overflow: ellipsis; overflow-wrap: anywhere; }
+/* issue 145 — the sticky Excel-style row-number gutter (opaque so rows slide
+ * beneath it on a horizontal scroll; the corner cell also pins left). */
+.grv-table td.grv-rownum { position: sticky; left: 0; z-index: 1; text-align: right; color: var(--fg-3);
+  background: var(--vscode-editor-background, var(--bg-1)); font-size: 10px; user-select: none; cursor: default; }
+.grv-table th.grv-corner { left: 0; z-index: 3; cursor: default; }
+.grv-table tbody tr { cursor: pointer; }
+.grv-table tbody tr:nth-child(even) { background: rgba(127,127,127,0.05); }
+.grv-table tbody tr:hover { background: var(--bg-hover); }
+.grv-table tbody tr.selected { background: var(--grv-selection-bg); }
+.grv-table tbody tr.selected td.grv-rownum { background: var(--grv-selection-bg); }
+.grv-cell { color: var(--fg-1); }
+.grv-cell.violet { color: var(--violet); font-weight: 600; }
+.grv-cell.cyan { color: var(--cyan); }
+/* issue 144 — the Doc (specification) column keeps its paragraph structure. */
+.grv-cell.doc { white-space: pre-wrap; }
+/* issue 56 — the requirement-nesting collapse/expand chevron sits to the right of
+   the name; muted until hovered, and dimmed further while collapsed. */
+.grv-tree-toggle { margin-left: 6px; padding: 0 2px; border: none; background: none; cursor: pointer;
+    color: var(--fg-3); font-size: 10px; line-height: 1; vertical-align: middle; }
+.grv-tree-toggle:hover { color: var(--fg-1); }
+.grv-tree-toggle.collapsed { color: var(--fg-2); }
+.grv-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.grv-pill { font-size: 9.5px; padding: 1px 6px; border-radius: 3px; border: 1px solid var(--line); color: var(--fg-2); white-space: nowrap; }
+.grv-pill.satisfy { border-color: var(--violet); color: var(--violet); }
+.grv-pill.verify { border-color: var(--green); color: var(--green); }
+.grv-pill:hover { background: var(--bg-3); }
+.grv-badge { font-size: 9.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; }
+.grv-badge.ok { background: rgba(136,196,122,0.18); color: var(--green); }
+.grv-badge.bad { background: rgba(224,107,107,0.18); color: var(--red); }
+.grv-badge.warn { background: rgba(230,194,103,0.18); color: var(--yellow); }
+.grv-badge.muted { background: rgba(126,138,161,0.18); color: var(--fg-2); }
+.grv-empty { padding: 16px; color: var(--fg-3); font-style: italic; font-size: 11px; }
+/* issue 145 — both scrollbars live on the wrap (horizontal like a spreadsheet);
+ * no padding, so the sticky gutter/header pin flush to the pane edges. */
+.grv-wrap { padding: 0; overflow: auto; height: 100%; }
+/* issue 117 — editable cells: hover affordance, ghost add-hint, inline editor. */
+.grv-table td.editable:hover { outline: 1px dashed var(--line); outline-offset: -3px; }
+.grv-ghost { color: var(--fg-3); opacity: 0; font-style: italic; }
+.grv-table td.editable:hover .grv-ghost { opacity: 0.9; }
+.grv-edit {
+  width: 100%; min-width: 90px; box-sizing: border-box; padding: 2px 5px;
+  background: var(--bg-0); color: var(--fg-0); border: 1px solid var(--accent); border-radius: 3px;
+  font-family: var(--font-mono); font-size: 11px; outline: none;
+}
+/* issue 144 — the Doc column's multi-line editor (Shift+Enter for a newline). */
+.grv-edit-doc { resize: vertical; min-height: 48px; line-height: 1.45; }
+/* issue 139 — a column TITLE that is a model name renames it from the header;
+ * same dashed hover affordance as an editable cell, and the inline editor keeps
+ * the header's own casing rather than the uppercase title style. */
+.grv-table th.editable:hover { outline: 1px dashed var(--line); outline-offset: -3px; }
+.grv-table th.editable .grv-edit { text-transform: none; letter-spacing: normal; font-weight: 400; }
+
+/* ── React Flow canvas (REQ-224) ─────────────────────────────────────────── */
+.dcanvas-host { flex: 1; min-width: 0; min-height: 0; position: relative; overflow: hidden; }
+.dcanvas-wrap > .dcanvas-host, .dcanvas-wrap > .rp-body { flex: 1; min-width: 0; }
+.dcanvas-host > .rp-body { width: 100%; height: 100%; }
+/* Plain canvas background. AdaptiveGrid paints two fixed CSS grid layers and
+ * updates only their screen-space size/offset; it avoids the two live SVG
+ * pattern trees that React Flow otherwise reconciles for every transform tick. */
+.react-flow { position: relative; width: 100%; height: 100%; background: var(--vscode-editor-background, var(--bg-1)); }
+/* issue 225 — the HAND tool is navigation only. React Flow's own flags stop node
+ * dragging and connecting; these rules stop the hand-drawn editing affordances
+ * (port move strips, connector waypoints, the message reorder grip, resize grips,
+ * the frame hover band that reveals connect points) from taking the pointer, so a
+ * drag anywhere is a pan. Clicks, hover cards and the right-click menus keep
+ * working — placing a connector through the context menu still does. */
+.react-flow.rf-tool-hand .port-drag-hit,
+.react-flow.rf-tool-hand .dedge-waypoints,
+.react-flow.rf-tool-hand .dedge-midpoint,
+.react-flow.rf-tool-hand .dedge-waypoint,
+.react-flow.rf-tool-hand .dedge-handle,
+.react-flow.rf-tool-hand .danchor-pt,
+.react-flow.rf-tool-hand .dport-endpoint-handle,
+.react-flow.rf-tool-hand .message-reorder-grip,
+.react-flow.rf-tool-hand .dframe-hover-band,
+.react-flow.rf-tool-hand .react-flow__handle,
+/* React Flow's own endpoint anchors. The edge array is locked as well (a
+ * per-edge reconnectable outranks the canvas-wide flag), so these normally do
+ * not exist under the hand tool at all; the rule is what makes the guarantee
+ * hold for the frame in which selection and the tool switch disagree. */
+.react-flow.rf-tool-hand .react-flow__edgeupdater,
+.react-flow.rf-tool-hand .react-flow__resize-control { pointer-events: none; }
+/* One cursor everywhere: the pane already gets React Flow's grab/grabbing pair,
+ * so the node surfaces that otherwise advertise a move or a resize must follow it
+ * rather than promise an edit the hand tool will not perform. */
+.react-flow.rf-tool-hand .react-flow__node,
+.react-flow.rf-tool-hand .rf-frame-header,
+.react-flow.rf-tool-hand .rf-node-header,
+.react-flow.rf-tool-hand .rf-lane-header,
+.react-flow.rf-tool-hand .dnode-hit,
+.react-flow.rf-tool-hand .dframe-drag { cursor: grab; }
+.react-flow.rf-tool-hand .react-flow__pane.dragging,
+.react-flow.rf-tool-hand .react-flow__node:active,
+.react-flow.rf-tool-hand .dnode-hit:active { cursor: grabbing; }
+/* issue 225 — plain scrollbars along the canvas edges. Thin, quiet, and only as
+ * present as the toolbar chrome; the thumb spans the whole track ("full") when
+ * the diagram already fits, which reads as "nothing to scroll". */
+.rf-scrollbar { position: absolute; z-index: 4; background: transparent; }
+.rf-scrollbar-y { top: 0; right: 0; bottom: 10px; width: 10px; }
+.rf-scrollbar-x { left: 0; right: 10px; bottom: 0; height: 10px; }
+.rf-scrollbar:hover { background: var(--bg-1); }
+.rf-scrollbar-thumb { position: absolute; border-radius: 5px; background: var(--fg-3); opacity: 0.34; }
+.rf-scrollbar-y .rf-scrollbar-thumb { left: 2px; right: 2px; }
+.rf-scrollbar-x .rf-scrollbar-thumb { top: 2px; bottom: 2px; }
+.rf-scrollbar:hover .rf-scrollbar-thumb { opacity: 0.6; }
+.rf-scrollbar-thumb.full { opacity: 0.14; }
+.rf-grid-layer { pointer-events: none; }
+svg.react-flow__connectionline { z-index: 1; }
+/* REQ-224 — bottom control bar (grid toggle, zoom out / live % / zoom in, fit) */
+.react-flow__panel.rf-controls { display: flex; align-items: center; gap: 2px; margin: 12px;
+  background: var(--bg-1); border: 1px solid var(--line); border-radius: 8px; padding: 3px 5px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.35); }
+.rf-ctl-btn { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 24px;
+  border: 0; background: transparent; color: var(--fg-1); font: 600 15px var(--font-ui); line-height: 1;
+  border-radius: 5px; cursor: pointer; }
+.rf-ctl-btn:hover { background: var(--bg-hover); color: var(--fg-0); }
+.rf-ctl-btn.on { color: var(--accent); }
+/* issue 225 — the live zoom readout IS the reset-to-100% button, so it keeps the
+ * readout's width and typeface while taking the control bar's hover affordance. */
+.rf-ctl-zoom { width: auto; min-width: 42px; padding: 0 4px; text-align: center; font: 600 11px var(--font-mono); color: var(--fg-2); }
+.rf-ctl-sep { width: 1px; height: 16px; background: var(--line); margin: 0 3px; }
+.react-flow__node { font-family: var(--font-mono); font-size: 11px; color: var(--fg-0); }
+/* REQ-361 - Bound hit testing on portless GV cards. The margin retains border
+ * strokes, package tabs and side handles. Port glyphs and their outside labels
+ * remain unbounded. Editing and hover controls also retain their full overflow. */
+/* Keep every card mounted AND rendered. Group cards used to defer their
+ * off-screen contents with content-visibility auto (issue 287). A card that
+ * crosses the viewport edge then lays out and paints inside the navigation
+ * frame, so a pan across a complete inventory pays that work on almost every
+ * frame. Measured on one host with the expanded SDV General View (1569 cards):
+ * the pan p95 fell from 66.7 ms to 33.4 ms and the canvas opened 2.1 s sooner
+ * without the deferral. Paint containment alone bounds these cards. */
+.react-flow__node.rf-bounded-paint { contain: paint; overflow-clip-margin: 16px; }
+.react-flow__node.rf-bounded-paint:is(:hover, :focus-within, .selected) { contain: none; }
+.react-flow__node-sysml, .react-flow__node-frame { background: transparent; border: none; padding: 0; border-radius: 0; box-shadow: none; }
+.rf-node, .rf-frame { position: relative; user-select: none; }
+/* Container frames: the interior is click-through so connectors drawn underneath
+ * stay selectable/reconnectable; drag/select the frame by its header strip, and
+ * keep ports, handles, the +/- toggle, and resize controls interactive. */
+.rf-frame { pointer-events: none; }
+.rf-frame .rf-node-svg { pointer-events: none; }
+.rf-frame .dframe-rect { pointer-events: none; }
+.rf-frame-header { position: absolute; pointer-events: auto; cursor: move; }
+/* issue #58 / user report 2026-08-11 — the matching title strip on an
+ * Interconnection View PART node, so a part reads identically whether it draws
+ * its internals (a frame) or has them hidden (a node). Issue 226 removed the
+ * dragHandle this strip used to select; it stays for the title tooltip and to
+ * keep the title area's cursor the same as a frame's. */
+.rf-node-header { position: absolute; pointer-events: auto; cursor: move; }
+/* issue 226. A node whose whole body moves says so over its whole body. React
+ * Flow's grab hand used to sit next to the title strip's move cross even though
+ * only the strip could be grabbed; both are the move cross now. The hand tool's
+ * rules above outrank this one, and a locked node loses the class anyway. */
+.react-flow.rf-tool-select .rf-node-movable { cursor: move; }
+/* REQ-379 — the frame's BORDER band is hover-sensitive (the interior stays
+ * click-through): hovering it reveals and mounts the frame's side connect points,
+ * which are drawn on that same border. Stroke-only hit testing, so nothing but the
+ * band itself intercepts the pointer. */
+.dframe-hover-band { stroke-width: 12; pointer-events: stroke; }
+.rf-frame .dport-hit { pointer-events: auto; }
+.rf-frame .react-flow__handle { pointer-events: auto; }
+/* REQ-370: a frame is click-through, but its stacked handles still obey React
+ * Flow's active end choice. An inactive twin must not cover an eligible end.
+ * This is also what fixes issue 232: the inactive twin is painted on top, so
+ * while it was reachable elementFromPoint returned it, React Flow read no
+ * connectableend, and the drop was refused across the whole port glyph. The
+ * only dock left was the outer dot, which is why a connector from a contained
+ * part could not land on the inner face of the container's own port. */
+.react-flow.sysml-connecting .rf-frame .react-flow__handle:not(.connectionindicator) { pointer-events: none; }
+.rf-frame .react-flow__resize-control { pointer-events: auto; }
+.rf-node .react-flow__resize-control.fork-join-resize {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--accent);
+  border-radius: 3px;
+  pointer-events: auto;
+  z-index: 12;
+}
+.rf-node-svg { display: block; overflow: visible; }
+.react-flow__node.selected { box-shadow: none; }
+.rf-node.selected .dnode-rect, .rf-node.selected .dnode-shape, .rf-node.selected .usecase { stroke: var(--accent); stroke-width: 2; }
+/* REQ-006/196/198 - circular controls have no card outline, so mark their
+ * actual circumference when selected. */
+.rf-node.selected .dnode-control { stroke: var(--accent); stroke-width: 2; }
+.rf-frame.selected .dframe-rect { stroke: var(--accent); stroke-width: 2; }
+/* REQ-201 — Case View system-boundary box (subject frame) */
+.dframe-rect.boundary { fill: transparent; stroke: var(--shape-outline); stroke-width: 1; }
+.rf-node.drop-target .dnode-rect, .rf-frame.drop-target .dframe-rect { stroke: var(--accent); stroke-width: 3; filter: drop-shadow(0 0 5px var(--accent)); }
+/* REQ-196 — adding/removing an action highlights the performer lane that will
+ * change. A lane spans much more canvas than an action, so use the restrained
+ * action-selection outline without a fill or glow. */
+.rf-frame.drop-target .dframe-rect.performer {
+  stroke: var(--accent); stroke-width: 2; stroke-dasharray: 4 3; filter: none;
+}
+/* REQ-364 — a forbidden drop target (cross-parent move with syncUsageToDef off). */
+.rf-node.drop-forbidden .dnode-rect, .rf-frame.drop-forbidden .dframe-rect { stroke: var(--red, #e07a7a); stroke-width: 3; stroke-dasharray: 5 4; filter: drop-shadow(0 0 5px var(--red, #e07a7a)); }
+.rf-node:hover .dnode-rect, .rf-node:hover .dnode-shape { stroke: var(--accent); }
+.dcompartment-rule { stroke: var(--shape-outline); stroke-width: 0.65; stroke-opacity: 0.55; }
+/* REQ-375/399/405 - Disclosure overlays and source-backed value editors. */
+.dgv-disclosure { position: absolute; top: 3px; right: 5px; z-index: 8;
+  width: 18px; height: 18px; padding: 0; border: 1px solid var(--element-outline, var(--line));
+  border-radius: 3px; color: var(--fg-0); background: var(--bg-2); line-height: 15px;
+  font: 15px var(--font-mono); cursor: pointer; }
+.dgv-disclosure:hover, .dgv-disclosure:focus-visible { border-color: var(--accent); outline: 1px solid var(--accent); }
+/* REQ-361/405 - Keep a card's disclosure in its SVG paint layer. */
+.dgv-disclosure-svg { cursor: pointer; outline: none; }
+.dgv-disclosure, .dgv-disclosure-svg { opacity: 0; pointer-events: none; }
+/* REQ-399/405 - Match the IV controls without reserving any title space.
+ * Keep keyboard focus available while the pointer is outside the element. */
+.rf-node:hover .dgv-disclosure-svg, .rf-node.selected .dgv-disclosure-svg,
+.rf-frame:hover .dgv-disclosure-svg, .rf-frame.selected .dgv-disclosure-svg,
+.rf-node:hover > .dgv-disclosure, .rf-node.selected > .dgv-disclosure,
+.rf-frame:hover > .dgv-disclosure, .rf-frame.selected > .dgv-disclosure,
+.dgv-disclosure:focus-visible, .dgv-disclosure-svg:focus-visible {
+  opacity: 1; pointer-events: auto;
+}
+.dgv-disclosure-svg rect { fill: var(--bg-2); stroke: var(--element-outline, var(--line)); stroke-width: 1; }
+.dgv-disclosure-svg text { fill: var(--fg-0); font: 15px var(--font-mono); pointer-events: none; }
+.dgv-disclosure-svg:hover rect, .dgv-disclosure-svg:focus-visible rect { stroke: var(--accent); stroke-width: 1.5; }
+.dattribute-value { position: absolute; left: 8px; width: calc(100% - 16px); height: 28px;
+  box-sizing: border-box; z-index: 7; padding: 4px 6px; border: 1px solid var(--line);
+  border-radius: 3px; background: var(--bg-2); color: var(--fg-0); font: 11px var(--font-mono);
+  pointer-events: auto; cursor: text; }
+.dattribute-value:hover { border-color: var(--fg-3); }
+.dattribute-value:focus { border-color: var(--accent); outline: 1px solid var(--accent); }
+.dattribute-value-shape rect { fill: var(--bg-2); stroke: var(--line); stroke-width: 0.8; }
+.dcompartment-rule.part, .dcompartment-rule.action, .dcompartment-rule.state { stroke: var(--shape-outline); }
+.dcompartment-rule.structured { stroke: var(--shape-outline); stroke-width: 1.2; stroke-dasharray: 4 3; }
+
+/* REQ-405 - the compartment expand/collapse control, and the same control on a
+   container. It is ALWAYS visible (user direction 2026-09-04, "just add a +/-
+   like in the IV on the top right"): an earlier version faded it in on card
+   hover through a .dnode class that does not exist, so it never appeared at
+   all and no compartment could be opened. */
+.dcompartment-toggle { cursor: pointer; pointer-events: auto; }
+/* A frame's interior is deliberately click-through so connectors underneath stay
+   selectable, and its whole SVG layer opts out of pointer events with it. The
+   compartment control is an actual control, so it opts back in. */
+.rf-frame .rf-node-svg .dcompartment-toggle { pointer-events: auto; }
+/* REQ-405 - the control takes the ELEMENT's colours, so it follows the colour
+   coding settings and reads on any theme. It used to fill from an undefined
+   --surface, which fell back to a hardcoded dark navy and put a dark mark on a
+   dark box: invisible on a light theme. The element fill and outline variables
+   are already in scope on the node's own svg. */
+.dcompartment-toggle-box {
+    fill: var(--element-fill);
+    stroke: var(--element-outline);
+    stroke-width: 1;
+}
+.dcompartment-toggle:hover .dcompartment-toggle-box { stroke: var(--accent, #4c9aff); }
+.dcompartment-toggle-mark {
+    stroke: var(--element-outline);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+}
+.dcompartment-toggle:hover .dcompartment-toggle-mark { stroke: var(--accent, #4c9aff); }
+.dcompartment-rule.parallel { stroke: var(--shape-outline); stroke-width: 1.2; stroke-dasharray: 6 4; }
+.dcompartment-rule.performer { stroke: var(--shape-outline); stroke-width: 1.2; stroke-dasharray: 4 3; }
+
+/* Connection handles are invisible at rest and become visible when their node,
+ * lifeline, or port is hovered/selected. They create the view's default
+ * relationship and remain targets for endpoint reconnection.
+ * Each port exposes two handles, one on its inner face and one on its outer face.
+ * Port handles are the PRIMARY connection target in the
+ * Interconnection View and sit ABOVE node-level side handles (which only serve
+ * part↔part links), so a drop near a port snaps to the port, not the part body. */
+.react-flow__handle.rf-handle { min-width: 0; min-height: 0; border-radius: 50%;
+  background: transparent; border: 0; opacity: 0; cursor: crosshair; }
+.react-flow__handle.rf-handle::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: var(--rf-dot-size, 5px); height: var(--rf-dot-size, 5px);
+  transform: translate(-50%, -50%); border-radius: 50%;
+  background: var(--cyan); border: 1px solid var(--bg-1);
+  box-sizing: border-box;
+}
+/* diagram-rules - two visible port dots sit on the glyph's outer and inner faces.
+ * Each 5px dot has a compact hit box and can start or end a connector. The chosen
+ * handle is the chosen dock point, while the central body stays selectable. */
+.react-flow__handle.rf-handle-port { width: 10px; height: 10px; --rf-dot-size: 5px; z-index: 6; }
+.react-flow__handle.rf-handle-connection-end { width: 12px; height: 12px; z-index: 6; }
+.react-flow__handle.rf-handle-connection-end::after { display: none; }
+.react-flow__handle.rf-handle-side { width: 12px; height: 12px; --rf-dot-size: 5px; z-index: 2; }
+/* REQ-370: body snap points are hollow circles. Port and pin endpoints are
+ * solid squares, so adjacent targets cannot be mistaken for each other. */
+.react-flow__handle.rf-handle-side::after { background: var(--bg-1); border: 1.5px solid var(--cyan); }
+.react-flow__handle.rf-handle-port::after { border-radius: 1px; }
+/* The start, done, and n-ary hub centre stays available for normal node
+ * selection and dragging even though four 12px handle targets meet over these
+ * exact-size glyphs. The perimeter dots remain above the rest of the node and
+ * keep their full hit area. */
+.rf-circular-control-hit {
+  position: absolute; left: 50%; top: 50%; width: 50%; height: 50%;
+  transform: translate(-50%, -50%); border-radius: 50%;
+  pointer-events: auto; z-index: 3; cursor: grab;
+}
+.rf-circular-control-hit:active { cursor: grabbing; }
+.react-flow__handle.rf-handle-port.active { opacity: 0.95; }
+/* REQ-006 — graph nodes advertise their default drag relationship with modest
+ * cyan side dots; all valid targets light up while a drag is in progress. */
+.rf-node-graph:hover .react-flow__handle.rf-handle-side { opacity: 0.85; }
+.react-flow.sysml-connecting .react-flow__handle.rf-handle-side.connectionindicator,
+.react-flow.sysml-connecting .react-flow__handle.rf-handle-lifeline.connectionindicator { opacity: 0.42; }
+.react-flow.sysml-connecting .react-flow__handle.rf-handle-port.connectionindicator { opacity: 0.42; }
+.react-flow.sysml-connecting .react-flow__handle.rf-handle-connection-end.connectionindicator { opacity: 0.42; }
+.react-flow.sysml-connecting .react-flow__handle.rf-handle-port.active { opacity: 1; }
+/* The nearest semantically valid body target is stronger than the candidate
+ * points. Port and pin targets use the highlighted endpoint glyph instead. */
+.react-flow.sysml-connecting .react-flow__handle.rf-handle-side.connectingto.valid { opacity: 1; }
+.react-flow.sysml-connecting .react-flow__handle.rf-handle-side.connectingto.valid::after {
+  background: var(--cyan); box-shadow: 0 0 0 3px rgba(108,209,217,0.4);
+  transform: translate(-50%, -50%) scale(1.35);
+}
+/* issues.md (#2) — the offset "+" bubble lights up (accent, ringed) while a
+ * connector is being CREATED from this port. React Flow flags the start handle
+ * with the connectingfrom class; the SQUARE port (not the bubble) lights up as
+ * the drop end. */
+.react-flow__handle.rf-handle-port.connectingfrom { opacity: 1; }
+.react-flow__handle.rf-handle-port.connectingfrom::after { background: var(--accent); box-shadow: 0 0 0 3px rgba(240,165,90,0.45); }
+.react-flow__handle.rf-handle:hover { opacity: 1; box-shadow: none; }
+.react-flow__handle.rf-handle:hover::after { box-shadow: 0 0 0 3px rgba(108,209,217,0.4); }
+.react-flow__handle.rf-handle.connectionindicator { cursor: crosshair; }
+/* REQ-370: an opaque port or action pin owns its whole footprint. Keep an
+ * overlapping body handle mounted so an existing edge keeps its handle ID, but
+ * never paint or hit-test it in idle, hover, connect, or reconnect states. */
+.react-flow__handle.rf-handle-side.rf-handle-occluded { visibility: hidden; pointer-events: none; }
+/* REQ-006 — port move overlay: a transparent hit-target ON the port glyph; drag
+ * to slide the port along its owner's edge, click to select. Kept interactive even
+ * inside a click-through container frame. */
+.port-drag-hit { pointer-events: auto; cursor: grab; z-index: 4; }
+.port-drag-hit:active { cursor: grabbing; }
+.rf-frame .port-drag-hit { pointer-events: auto; }
+/* REQ-386 — a nested-port host's expansion control, on the port's INNER side
+ * (diagram-rules — Nested port expansion control). Sized by the rule, so only its
+ * colours and type live here; it reads as part of the port, not as chrome, until
+ * hovered. Kept interactive inside a click-through container frame, like the port
+ * strip above, and raised above both the strip and face handles so expanding never
+ * makes the collapse control unreachable. It is click-through during a connection
+ * drag so it can never steal a drop aimed at the port it sits under. */
+.dport-toggle {
+  display: flex; align-items: center; justify-content: center;
+  padding: 0; border: 1px solid var(--fg-3); border-radius: 3px;
+  background: var(--bg-1); color: var(--fg-2);
+  cursor: pointer; pointer-events: auto; z-index: 7;
+}
+.dport-toggle svg { display: block; }
+/* User direction 2026-09-24 - the nested-port control lives on the port's pill:
+ * a round badge with no box of its own. */
+.dport-toggle.dport-pill-control { border-radius: 50%; border-color: transparent; background: transparent; color: var(--fg-1); }
+.dport-toggle:hover { color: var(--accent); border-color: var(--accent); }
+.dport-toggle:focus-visible { outline: 1px solid var(--accent); outline-offset: 1px; }
+.rf-frame .dport-toggle { pointer-events: auto; }
+.react-flow.sysml-connecting .dport-toggle { pointer-events: none; }
+/* While a connector is being dragged, the port-move strip must NOT intercept the
+ * drop: it sits above the port's connect handle, so elementFromPoint would return
+ * the strip (not a handle) and the drop would fall back to the nearest handle,
+ * which lets a competing part-side handle steal a drop aimed at a face snap point.
+ * Making it click-through during a connection leaves both exact port handles
+ * reachable and lets the nearest one win. */
+.react-flow.sysml-connecting .port-drag-hit { pointer-events: none; }
+/* issue 189 — the in-place rename editor over a container-part FRAME header must
+   be typeable even though the frame body is click-through (pointer-events:none). */
+.rf-frame .dinline-edit { pointer-events: auto; }
+/* REQ-202 — sequence lifeline connect strip: invisible full-height band over the
+ * life-line so a message can be started by dragging anywhere along it; a faint
+ * highlight on hover makes the affordance discoverable. */
+/* REQ-202 — sequence connect dots: visible dots ON the lifeline, shown on hover,
+ * dragged to another lifeline to create a message. */
+/* REQ-190 — General View type-bands: a non-interactive labelled background
+ * region painted behind the real nodes. */
+.rf-lane { pointer-events: none; }
+.rf-lane .rf-node-svg { pointer-events: none; }
+/* issue 138 — the type-band header is the move/select handle and the resizer
+ * (when selected) adjusts the band; the band body stays click-through so the
+ * members on top and canvas panning remain fully interactive. */
+.rf-lane-header { position: absolute; pointer-events: auto; cursor: move; }
+.rf-lane-header:hover { background: rgba(127,140,170,0.10); }
+.rf-lane.selected .dlane-rect { stroke: var(--accent); stroke-dasharray: none; }
+/* Legacy lane projection: match the restrained performer-frame drop cue without
+ * replacing the whole lane surface with an accent fill. */
+.rf-lane.drop-target .dlane-rect { stroke: var(--accent); stroke-width: 2; }
+/* issues.md (round 3 #3) — only the small resize HANDLES are interactive; hide the
+ * full-edge resize LINES so the tall lane never intercepts clicks meant for the
+ * actions inside its column. */
+.rf-lane .react-flow__resize-control.handle { pointer-events: auto; }
+.rf-lane .react-flow__resize-control.line { display: none; }
+.dlane-rect { fill: rgba(127,140,170,0.05); stroke: color-mix(in srgb, var(--line, #243047) var(--shape-outline-weight), var(--diagram-canvas)); stroke-width: 1; stroke-dasharray: 4 4; }
+.dlane-label { fill: var(--fg-2, #7e8aa1); font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
+/* issue 138 — a General View type-band is a labelled CONTAINER: a solid header
+ * strip carries its name and doubles as the drag/select handle; the body is a
+ * faint translucent fill so the definitions and their relationship edges inside
+ * stay fully legible. The header hover cue lives on .rf-lane-header. */
+.rf-lane.band .dlane-rect { stroke-dasharray: none; fill: rgba(127,140,170,0.045); }
+.rf-lane.band .rf-lane-header { background: rgba(127,140,170,0.10); border-bottom: 1px solid var(--line); }
+.rf-lane.band .rf-lane-header:hover { background: rgba(127,140,170,0.16); }
+.rf-lane.band .dlane-label { fill: var(--fg-2); }
+.rf-lane.package-section .rf-lane-header { background: transparent; border-bottom: 0; }
+.rf-lane.package-section .rf-lane-header:hover { background: rgba(127,140,170,0.10); }
+.dlane-divider { stroke: var(--fg-3); stroke-width: 1.2; }
+.rf-lane.selected .dlane-divider { stroke: var(--accent); stroke-width: 2; }
+/* REQ-202 — sequence activation (execution) bar + event-occurrence marks. */
+.dseq-activation { fill: var(--bg-2, #1b2333); stroke: var(--accent, #f0a55a); stroke-width: 1; }
+.dseq-event { stroke: var(--fg-2, #7e8aa1); stroke-width: 1.4; }
+.react-flow__handle.rf-handle-lifeline { width: 9px; height: 9px; min-width: 0; min-height: 0; border-radius: 50%;
+  --rf-dot-size: 5px; background: transparent; border: 0; opacity: 0; cursor: crosshair; transition: opacity 0.1s; }
+.react-flow__node:hover .rf-handle-lifeline { opacity: 0.85; }
+.react-flow__handle.rf-handle-lifeline:hover { opacity: 1; box-shadow: 0 0 0 3px rgba(108,209,217,0.35); }
+.dcanvas-wrap.linking .react-flow__node { cursor: crosshair; }
+
+/* edges — the .dlink.<kind> rules above colour/dash the stroke */
+.react-flow__edge-path { stroke: var(--fg-2); stroke-width: 1.2; }
+/* issues 160/164 — match the stronger .dlink.selected halo treatment (--hl). */
+/* User direction 2026-07-20 — colour + weight only, no glow (see .dlink.selected). */
+.react-flow__edge.selected .react-flow__edge-path, .react-flow__edge:focus .react-flow__edge-path {
+  stroke: var(--hl); stroke-width: 3; }
+/* REQ-361 — selected GV relations and a selected node's outgoing relations are
+ * lifted above ordinary edges. Paint a continuous five-pixel background casing
+ * immediately below their 2.8–3px semantic stroke: roughly one clear pixel on
+ * each side at a crossing, with no split path, mask, filter, or extra markers. */
+.react-flow__edge .react-flow__edge-path.dedge-highlight-casing {
+  stroke: var(--bg-1); stroke-width: 5; fill: none; pointer-events: none;
+  stroke-linecap: butt; stroke-linejoin: round;
+}
+/* issues.md (#1) — React Flow draws a transparent reconnect anchor at each
+ * endpoint of a reconnectable edge. Hidden at rest; on the SELECTED connector
+ * (raised above the frames via elevateEdgesOnSelect) they become visible accent
+ * dots, so it is obvious the endpoints can be grabbed and dragged to re-route. */
+/* The VISIBLE connector endpoint dots are drawn by the edge component itself
+ * (.dedge-endpoint) at the line's exact ends. React Flow's own reconnect anchor
+ * (.react-flow__edgeupdater) renders at endpoint + half-the-handle, so it is kept
+ * INVISIBLE here and only serves as a generously-sized grab target over the dot. */
+.react-flow__edgeupdater { fill: transparent; stroke: none; cursor: grab; }
+.react-flow__edge.selected .react-flow__edgeupdater { fill: transparent; stroke: none; r: 12px; }
+/* diagram-rules — Connector: the two endpoint grab-dots, exactly on the line ends.
+ * issue 164 — decorated in the same high-contrast --hl as the selected stroke. */
+.dedge-endpoint { fill: var(--bg-1); stroke: var(--hl); stroke-width: 1.6; pointer-events: none;
+  filter: drop-shadow(0 0 2px var(--hl)); }
+.dedge-endpoints { pointer-events: none; }
+/* diagram-rules — Connector waypoints (issue 15): a filled dot per user waypoint
+ * (drag = move, double-click = remove) and a hollow dot per segment midpoint
+ * (drag = insert). Interactive — they sit above the line on the selected edge. */
+.dedge-waypoints { pointer-events: all; }
+.dedge-waypoint { fill: var(--hl); stroke: var(--bg-1); stroke-width: 1.2; cursor: grab;
+  filter: drop-shadow(0 0 2px var(--hl)); }
+.dedge-waypoint:active { cursor: grabbing; }
+.dedge-midpoint { fill: var(--bg-1); stroke: var(--hl); stroke-width: 1.2; cursor: copy; opacity: .75; }
+.dedge-midpoint:hover { opacity: 1; }
+/* Edge labels live in React Flow's edgelabel-renderer layer, which carries no
+ * z-index — so open container frames (IV/AFV/STV/overview) painted as
+ * nodes would wash the labels out. Raise the whole label layer above the node
+ * surfaces AND above every edge layer: a line inside a frame is drawn in an
+ * svg with the frame children's z (over 1000 once selected), and its wide
+ * invisible hit stroke would otherwise sit over the pill that stands on it
+ * (user direction 2026-09-22). The layer has pointer-events:none, so only the
+ * pills themselves take clicks, and it sits inside the viewport so it still
+ * stays under the control bar/minimap panels. */
+.react-flow__edgelabel-renderer { z-index: 100000; }
+/* REQ-399: connector labels retain model case and sit directly on the
+ * canvas without a background plate. */
+.rf-edge-label { position: absolute; pointer-events: none; font-family: var(--font-mono); font-size: 9px;
+  color: var(--fg-0); background: transparent; border: 0; padding: 0; white-space: nowrap; }
+.rf-edge-label.mult { background: transparent; border: 0; color: var(--fg-2); padding: 0; }
+.rf-edge-label.connector-caption { font-size: 10px; display: flex; flex-direction: column; text-align: center; }
+/* User direction 2026-09-21 - a LINE PILL: the caption of a line inside a rounded
+ * box, bordered in the line's colour (element-colors.ts writes the per-family
+ * rule) and filled with the canvas background so it cuts the line cleanly. It is
+ * the caption's pointer target: click selects the line, right-click opens its
+ * menu. measureConnectorLabel already sizes the pill box for layout. */
+.rf-edge-label.dpill { pointer-events: all; cursor: pointer; box-sizing: border-box; font-size: 10px;
+  display: flex; flex-direction: column; text-align: center; padding: 1px 6px;
+  border: 0.65px solid var(--pill-line, var(--diagram-line-structural)); border-radius: 999px;
+  background: var(--bg-1); color: var(--fg-0); }
+.rf-edge-label.dpill:hover { box-shadow: 0 0 0 1px var(--bg-1), 0 0 3px var(--cyan); }
+.rf-edge-label.dpill.selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); color: var(--fg-0); }
+.rf-edge-label.dpill { flex-direction: row; align-items: center; gap: 4px; }
+.rf-edge-label.dpill .dpill-lines { display: flex; flex-direction: column; text-align: center; }
+/* The plus or minus badge over the pill's right end: opens or closes what the
+ * line holds. It reserves no width and shows only while the pill is hovered,
+ * selected or focused (user direction 2026-09-21). */
+.rf-edge-label.dpill .dpill-control { position: absolute; right: -6px; top: 50%; transform: translateY(-50%);
+  width: 12px; height: 12px; padding: 0; border-radius: 50%;
+  border: 1px solid var(--pill-line, var(--diagram-line-structural)); background: var(--bg-1); color: var(--fg-0); cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 120ms; }
+.rf-edge-label.dpill:hover .dpill-control, .rf-edge-label.dpill.selected .dpill-control,
+.rf-edge-label.dpill .dpill-control:focus-visible { opacity: 1; }
+.rf-edge-label.dpill .dpill-control svg { stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; fill: none; }
+.rf-edge-label.dpill .dpill-control:hover { border-color: var(--accent); color: var(--accent); }
+.rf-edge-label.dpill.movable { cursor: grab; }
+.rf-edge-label.dpill.dragging { cursor: grabbing; box-shadow: 0 0 0 1px var(--accent), 0 2px 6px rgba(0,0,0,0.35); }
+/* The faint dotted tie from a dragged pill to its foot on the line. It exists
+ * only while the pill moves and is never a model relationship. */
+.dpill-leader { fill: none; stroke: var(--fg-2); stroke-width: 1.2; stroke-dasharray: 3 3; pointer-events: none; opacity: 0.9; }
+/* The exported pill: the same box as a rect plus text (svg-export.ts pillSvg). */
+.dpill-shape { fill: var(--bg-1); stroke: var(--pill-line, var(--diagram-line-structural)); stroke-width: 0.65; }
+.dpill g.dpill-control circle { fill: var(--bg-1); stroke: var(--pill-line, var(--diagram-line-structural)); stroke-width: 1; }
+.dpill g.dpill-control path { fill: none; stroke: var(--fg-0); stroke-width: 1.4; stroke-linecap: round; }
+.dpill text.elabel { fill: var(--fg-0); font-size: 10px; }
+.rf-edge-label.connection-end { color: var(--fg-1); display: flex; flex-direction: column;
+  line-height: 1.15; text-align: center; white-space: nowrap; }
+.rf-edge-label.connection-end span:nth-child(n+2) { color: var(--fg-2); }
+
+/* REQ-366/386 — two adjacent, independent container presentation controls.
+ * +/− owns graphical internals; the outlined list owns textual feature
+ * compartments. Their compact hit targets stay interactive over frame chrome.
+ * Both marks are STROKED SVG sized to the whole button (nodes.tsx
+ * ContainerControlGlyph), so nothing here can shift them off centre — a typed
+ * +/− character and a bordered box drawn in CSS both did (user report
+ * 2026-08-11). */
+/* The inset is set inline per shape (nodes.tsx ContainerControls): a rounded
+ * outline needs the pair pulled in from its corner arc, a sharp one does not.
+ * These values are the sharp-corner default. */
+.dcontainer-controls { position: absolute; right: 2px; top: 2px; z-index: 8;
+  display: inline-flex; align-items: center; gap: 1px;
+  opacity: 0; visibility: hidden; pointer-events: none; }
+/* REQ-399: local presentation controls overlay the title and appear only
+ * for the element the user is inspecting. A frame's header and border remain
+ * hover-sensitive even though its interior is deliberately click-through. */
+.rf-node:hover > .dcontainer-controls,
+.rf-node.selected > .dcontainer-controls,
+.rf-frame:hover > .dcontainer-controls,
+.rf-frame.selected > .dcontainer-controls {
+  opacity: 1; visibility: visible; pointer-events: auto;
+}
+/* The BUTTON is only a hit target: no plate, no fill, in any state (user
+ * direction 2026-08-11 — "remove that translucent thing surrounding the box I
+ * just want the hamburger menu"). Neither does STATE live here: the mark itself
+ * carries it — an empty box or a filled one, a + or a −, at one resting colour
+ * ("at best don't even change color"). Only the pointer feedback is a colour. */
+.div-part-toggle, .dfeature-toggle, .dcontents-toggle { width: 20px; height: 20px;
+  padding: 0; margin: 0; border: 0; background: none; cursor: pointer; color: var(--fg-1);
+  display: inline-flex; align-items: center; justify-content: center; }
+.div-part-toggle svg, .dfeature-toggle svg, .dcontents-toggle svg { display: block; }
+/* REQ-405 - the container open/close control draws a plain + / - in the button's
+   own colour, so it picks up the same hover accent as its neighbours. */
+.dcontents-toggle svg line { stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
+.div-part-toggle:hover, .div-part-toggle:active, .div-part-toggle:focus-visible,
+.dfeature-toggle:hover, .dfeature-toggle:active, .dfeature-toggle:focus-visible,
+.dcontents-toggle:hover, .dcontents-toggle:active, .dcontents-toggle:focus-visible { color: var(--accent); outline: none; }
+
+/* React Flow chrome theming (controls / minimap / attribution) */
+.react-flow__controls { box-shadow: 0 2px 10px rgba(0,0,0,0.35); }
+.react-flow__controls-button { background: var(--bg-2); color: var(--fg-1); border-bottom: 1px solid var(--line); width: 22px; height: 22px; }
+.react-flow__controls-button:hover { background: var(--bg-hover); }
+.react-flow__controls-button svg { fill: var(--fg-1); max-width: 12px; max-height: 12px; }
+.react-flow__minimap.rf-minimap { background: var(--bg-1); border: 1px solid var(--line); border-radius: 4px; }
+.rf-compact-minimap { cursor: crosshair; }
+.rf-compact-minimap .react-flow__minimap-svg { background: var(--bg-1); }
+.rf-compact-minimap .react-flow__minimap-mask { fill: rgba(0,0,0,0.55); }
+.rf-compact-minimap-nodes { fill: var(--accent); stroke: none; shape-rendering: crispEdges; pointer-events: none; }
+.react-flow__attribution { display: none; }
+
+.dtab { container-type: inline-size; }
+.dworkspace { grid-area: cv; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  grid-template-areas: 'cv'; position: relative; min-width: 0; min-height: 0; }
+.dfloating-layer { display: contents; }
+.dfloating-host { position: absolute; grid-area: cv; inset: 0; pointer-events: none; z-index: 12; }
+.dfloating-host.front { z-index: 13; }
+.dfloating-header > svg, .dfloating-header button svg { width: 12px; height: 12px; flex-shrink: 0; }
+.dfloating-header > .folder-tree-icon { transform: scale(.8); }
+.dfloating-panel { position: absolute; display: flex; flex-direction: column; min-height: 0;
+  width: max-content; min-width: min(238px, calc(100% - 24px)); max-width: min(400px, calc(100% - 24px));
+  top: 12px; background: var(--bg-1); color: var(--fg-1); border: 1px solid var(--line);
+  border-radius: 10px; pointer-events: auto; overflow: hidden;
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--fg-0) 14%, transparent), 0 2px 5px color-mix(in srgb, var(--fg-0) 8%, transparent); }
+.dfloating-panel[hidden] { display: none; }
+.dfloating-host.right .dfloating-panel { width: 440px; min-width: min(280px, calc(100% - 24px)); max-width: min(560px, calc(100% - 24px)); }
+/* REQ-421 - Pane titles and their controls share the compact diagram title height. */
+.dfloating-header { display: flex; align-items: center; gap: 5px; flex-shrink: 0;
+  height: var(--diagram-title-height, 24px); min-height: var(--diagram-title-height, 24px);
+  padding: 0 6px; border-bottom: 1px solid var(--line-soft);
+  cursor: grab; touch-action: none; user-select: none; font: 11px var(--font-ui); }
+.dfloating-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dfloating-header button { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 20px; height: 20px; padding: 0; border: 0; border-radius: 3px;
+  background: transparent; color: var(--fg-2); font: 14px var(--font-ui); cursor: pointer; }
+.dfloating-header button:hover { color: var(--fg-0); background: var(--bg-hover); }
+.dfloating-header button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.dfloating-content { flex: 1 1 auto; min-height: 0; min-width: 0; overflow: auto; overscroll-behavior: contain; }
+.dfloating-content > .dsemantic-properties, .dfloating-content > .doutline { border: 0; overflow: visible; }
+/* REQ-375 - The table fills the current pane, including manually enlarged panes. */
+.dfloating-content > .dsemantic-properties { width: 100%; max-width: 100%; min-height: 100%; }
+.dfloating-content .doutline-head { display: none; }
+.dfloating-content .doutline-filter-row { margin-top: 10px; }
+/* REQ-421 - Keep Browser controls outside its independently scrolling rows. */
+.dfloating-host.left .dfloating-content { display: flex; overflow: hidden; }
+.dfloating-host.left .dfloating-content > .doutline { flex: 1; min-width: 0; overflow: hidden; }
+.dfloating-content .doutline-filter-row { flex-shrink: 0; }
+.dfloating-content .doutline-tree { display: flex; flex: 1; overflow: hidden; }
+.dfloating-content .doutline-tree > .bv-tree { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+.dfloating-content .bv-actions { flex-shrink: 0; flex-wrap: wrap; }
+.dfloating-content .bv-action-btn { flex-basis: 80px; }
+.dfloating-content .bv-tree-rows { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; }
+.dfloating-content .doutline-foot { display: none; }
+.dfloating-content .bv-tree { width: max-content; min-width: 100%; }
+.dfloating-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  flex-shrink: 0; min-height: 29px; padding: 6px 12px; border-top: 1px solid var(--line-soft);
+  background: var(--bg-2); color: var(--fg-3); font: 10px var(--font-ui); }
+.dfloating-footer > span { min-width: 0; overflow-wrap: anywhere; }
+.dfloating-host.left .dfloating-footer { padding-right: 40px; }
+.dfloating-host.right .dfloating-footer { padding-left: 40px; }
+.dfloating-grip { position: absolute; bottom: 0; width: 20px; height: 20px;
+  border: 0; padding: 0; color: var(--fg-3); background: transparent; font: 16px var(--font-ui); touch-action: none; z-index: 3; }
+.dfloating-host.left .dfloating-grip { right: 0; cursor: nwse-resize; }
+.dfloating-host.right .dfloating-grip { left: 0; cursor: nesw-resize; transform: scaleX(-1); }
+.dfloating-edge { position: absolute; touch-action: none; z-index: 2; }
+.dfloating-edge.n, .dfloating-edge.s { left: 8px; right: 8px; height: 5px; cursor: ns-resize; }
+.dfloating-edge.n { top: 0; } .dfloating-edge.s { bottom: 0; }
+.dfloating-edge.w, .dfloating-edge.e { top: 8px; bottom: 8px; width: 5px; cursor: ew-resize; }
+.dfloating-edge.w { left: 0; } .dfloating-edge.e { right: 0; }
+.dfloating-edge.ne, .dfloating-edge.nw, .dfloating-edge.se, .dfloating-edge.sw { width: 8px; height: 8px; }
+.dfloating-edge.ne, .dfloating-edge.se { right: 0; } .dfloating-edge.nw, .dfloating-edge.sw { left: 0; }
+.dfloating-edge.ne, .dfloating-edge.nw { top: 0; } .dfloating-edge.se, .dfloating-edge.sw { bottom: 0; }
+.dfloating-edge.ne, .dfloating-edge.sw { cursor: nesw-resize; } .dfloating-edge.nw, .dfloating-edge.se { cursor: nwse-resize; }
+.vscode-high-contrast .dfloating-panel, .vscode-high-contrast-light .dfloating-panel { box-shadow: none; border-color: var(--fg-0); }
+/* REQ-421 - Shared side docks return their columns to the canvas when closed. */
+.dworkspace { overflow: hidden;
+  grid-template-columns: min(25cqw, var(--grid-browser-width)) minmax(0, 1fr) min(40cqw, var(--grid-properties-width));
+  grid-template-rows: minmax(0, 1fr); grid-template-areas: 'browser cv properties'; }
+.dworkspace.browser-closed { grid-template-columns: 0 minmax(0, 1fr) min(40cqw, var(--grid-properties-width)); }
+.dworkspace.properties-closed { grid-template-columns: min(25cqw, var(--grid-browser-width)) minmax(0, 1fr) 0; }
+.dworkspace.browser-closed.properties-closed { grid-template-columns: 0 minmax(0, 1fr) 0; }
+.dfloating-host.docked { display: contents; }
+.dfloating-host.docked .dfloating-panel { position: relative; inset: auto; width: auto; height: auto;
+  min-width: 0; max-width: none; border-radius: 0; box-shadow: none; border: 0; z-index: 12; }
+.dfloating-host.docked.left .dfloating-panel { grid-area: browser; border-right: 1px solid var(--line); }
+.dfloating-host.docked.right .dfloating-panel { grid-area: properties; border-left: 1px solid var(--line); }
+.dfloating-host.docked .dfloating-header { cursor: default; background: var(--bg-2); font-weight: 600; }
+.dfloating-host.docked .dfloating-footer { padding: 7px 12px; }
+.dfloating-host.docked .dfloating-content .bv-tree { width: 100%; min-width: 0; box-sizing: border-box; }
+.dfloating-host.docked .bv-row { min-width: 0; }
+.dfloating-host.docked .bv-kw { display: none; }
+.dfloating-host.docked .bv-name { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dworkspace--grid { background: var(--bg-2); grid-template-rows: auto minmax(0, 1fr);
+  grid-template-areas: 'browser title properties' 'browser cv properties'; }
+.dworkspace--grid .dcanvas-wrap { overflow: hidden; }
+.dworkspace--grid .grv-table th { background: var(--bg-2); }
+.dfloating-pin[aria-pressed='true'] { color: var(--accent); background: var(--bg-hover); }
+.dfloating-dock-resize { position: absolute; top: 0; bottom: 0; width: 5px; padding: 0; border: 0;
+  background: transparent; cursor: col-resize; touch-action: none; z-index: 4; }
+.dfloating-host.left .dfloating-dock-resize { right: 0; }
+.dfloating-host.right .dfloating-dock-resize { left: 0; }
+.dfloating-dock-resize:hover, .dfloating-dock-resize:focus-visible { background: var(--accent); outline: none; }
+@container (max-width: 700px) {
+  .dfloating-host.docked .dfloating-header { gap: 4px; padding: 0 4px; }
+  .dfloating-host.docked .dfloating-header > svg, .dfloating-host.docked .dfloating-header > .folder-tree-icon { display: none; }
+  .dfloating-host.docked .bv-tree-members { min-width: 200px; }
+  .dfloating-host.docked .dfloating-content > .dsemantic-properties { min-width: 0; }
+}
+@media (pointer: coarse) {
+  .dfloating-grip { width: 32px; height: 32px; }
+  .dfloating-footer { min-height: 36px; }
+  .dfloating-host.left .dfloating-footer { padding-right: 48px; }
+  .dfloating-host.right .dfloating-footer { padding-left: 48px; }
+}
+
+
+.dsemantic-properties { container-type: inline-size; width: 100%; min-width: 0; padding: 0; background: var(--bg-1); display: flex; flex-direction: column; min-height: 0; }
+.dsemantic-properties > * { flex-shrink: 0; }
+.dsemantic-properties > .dproperty-inherited { margin-top: auto; }
+/* REQ-375 - The identity row names the element; its path reads as crumbs below. */
+.dproperties-heading { display: flex; flex-direction: column; gap: 3px; padding: 9px 8px 9px 12px; border-bottom: 1px solid var(--line-soft); }
+.dproperties-identity { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.dproperties-identity strong { min-width: 0; font-size: 13px; font-weight: 600; color: var(--fg-0); overflow-wrap: anywhere; }
+.dproperties-icon { flex-shrink: 0; }
+.dproperties-kind { flex-shrink: 0; font-size: 10px; line-height: 14px; padding: 0 5px; border: 1px solid var(--line); border-radius: 3px; color: var(--fg-2); white-space: nowrap; }
+.dproperties-spacer { flex: 1; }
+/* REQ-368 - The selected line reads first: its two ends and its kind. */
+.dproperties-relationship { display: flex; flex-direction: column; gap: 3px; padding: 9px 8px 7px 12px; border-bottom: 1px solid var(--line-soft); background: color-mix(in srgb, var(--fg-0) 3%, var(--bg-1)); }
+.dproperties-relationship strong { font-weight: 500; }
+.dproperties-relationship-end { font-weight: 600; }
+.dproperties-relationship-arrow { color: var(--fg-3); font-weight: 400; }
+/* REQ-423 - Line contents share the pane's flush compartment tables. */
+.dproperties-line-contents { min-width: 0; }
+.dproperties-line-contents > .dproperty-compartment:first-child { border-top: 0; }
+.dproperties-line-row { display: flex; gap: 8px; align-items: baseline; font-size: 11px; }
+.dproperties-line-key { flex: none; min-width: 44px; color: var(--fg-2); }
+.dproperties-navigation { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-width: 0; padding-left: 24px; }
+.dproperties-path { flex: 1; min-width: 0; font-size: 10px; color: var(--fg-3); overflow-wrap: anywhere; }
+.dproperties-path-separator { margin: 0 4px; }
+.dproperties-path-current { color: var(--fg-2); }
+.dsemantic-properties button { color: var(--accent); background: transparent; border: 0; border-radius: 4px; padding: 3px 5px; cursor: pointer; font: inherit; }
+.dsemantic-properties button:hover { background: var(--bg-hover); color: var(--fg-0); }
+.dsemantic-properties button:disabled { opacity: .5; cursor: default; }
+.dsemantic-properties button:focus-visible, .dproperty-nav:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+/* REQ-375 - Navigation buttons keep a contrasting framed surface and clear focus. */
+:is(.dsemantic-properties, .dproperties-pending, .dproperties-unavailable) .dproperty-nav { display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex-shrink: 0;
+  min-height: 24px; padding: 3px 8px; border: 1px solid var(--line); border-radius: 5px; background: var(--bg-2); color: var(--fg-0); font: 500 11px var(--font-ui); cursor: pointer; }
+:is(.dsemantic-properties, .dproperties-pending, .dproperties-unavailable) .dproperty-nav-icon { width: 24px; padding: 0; color: var(--fg-1); }
+:is(.dsemantic-properties, .dproperties-pending, .dproperties-unavailable) .dproperty-nav:hover { background: var(--bg-hover); color: var(--fg-0); }
+.dproperties-general { padding: 0; }
+.dproperty-field { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.dproperty-label { color: var(--fg-2); font-size: 10px; }
+/* REQ-375 - Editable controls sit on a quiet well; read-only values are flat text. */
+.dproperty-field input, .dproperty-field textarea, .dproperty-field select { box-sizing: border-box; min-width: 0; width: 100%; min-height: 29px; padding: 5px 6px;
+  border: 1px solid color-mix(in srgb, var(--fg-0) 14%, transparent); border-radius: 3px; background: color-mix(in srgb, var(--fg-0) 6%, var(--bg-1));
+  color: var(--fg-0); font: 11px var(--font-ui); line-height: 1.45; }
+.dproperty-field textarea { resize: none; field-sizing: content; max-height: 240px; }
+.dproperty-field input:hover, .dproperty-field textarea:hover, .dproperty-field select:hover { border-color: color-mix(in srgb, var(--fg-0) 30%, transparent); }
+.dproperty-field input:focus, .dproperty-field textarea:focus, .dproperty-field select:focus { outline: none; background: var(--bg-0); border-color: var(--accent); }
+.dproperty-field input::placeholder, .dproperty-field textarea::placeholder { color: var(--fg-2); opacity: 1; }
+.dproperty-field [data-placeholder-kind="empty"]::placeholder { color: var(--fg-3); }
+.dproperty-readonly { color: var(--fg-1); font: 11px var(--font-ui); line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; user-select: text; }
+.dproperty-empty { color: var(--fg-3); }
+.dproperty-origin { color: var(--fg-3); font-size: 10px; overflow-wrap: anywhere; white-space: pre-wrap; }
+.dproperty-origin ul { margin: 4px 0 0; padding-left: 14px; }
+.dproperty-origin li + li { margin-top: 6px; }
+.dproperty-inherited-expression { color: var(--fg-1); font-size: 11px; }
+.dproperty-editor { position: relative; min-width: 0; }
+.dproperty-editor > input, .dproperty-editor > textarea, .dproperty-editor > select { display: block; }
+.dproperty-actions { position: absolute; top: 4px; right: 3px; display: flex; gap: 1px; border-radius: 4px; background: var(--bg-0); }
+.dsemantic-properties .dproperty-actions button { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 21px; padding: 0; color: var(--fg-1); border-radius: 3px; }
+.dsemantic-properties .dproperty-actions button:hover { background: var(--bg-hover); color: var(--fg-0); }
+.dproperty-field .dproperty-editor.has-draft > input, .dproperty-field .dproperty-editor.has-draft > textarea { padding-right: 46px; }
+.dproperty-status { color: var(--fg-3); font-size: 10px; }
+.dproperty-error, .dproperties-load-error { color: var(--vscode-errorForeground, #c44); font-size: 11px; overflow-wrap: anywhere; }
+.dproperties-load-error { padding: 12px; }
+.dproperties-empty { padding: 8px 12px; color: var(--fg-3); font-size: 11px; }
+.dproperty-text { white-space: pre-wrap; overflow-wrap: anywhere; font: 11px var(--font-ui); line-height: 1.45; user-select: text; }
+.dproperties-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+/* REQ-375 - One quiet disclosure row per category: chevron, type glyph, title, count, add. */
+.dproperty-compartment { border-top: 1px solid var(--line-soft); }
+.dproperty-compartment summary { list-style: none; display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px 0 10px; cursor: pointer; user-select: none; font-size: 11px; color: var(--fg-1); }
+.dproperty-compartment summary::-webkit-details-marker { display: none; }
+.dproperty-chevron { display: inline-flex; flex-shrink: 0; color: var(--fg-3); transition: transform .12s; }
+.dproperty-compartment:not([open]) > summary .dproperty-chevron { transform: rotate(-90deg); }
+.dproperty-category-icon { flex-shrink: 0; }
+.dproperty-category-heading { font-size: 11px; font-weight: 600; color: var(--fg-0); }
+.dproperty-count { font-size: 10px; color: var(--fg-3); }
+.dproperty-origin-caption { margin-left: auto; font-size: 10px; color: var(--fg-3); }
+/* REQ-375 - Add controls sit beside category names and frame only on interaction. */
+.dsemantic-properties .dproperty-add { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 22px; height: 22px; margin-left: 2px; padding: 0;
+  color: var(--fg-2); background: transparent; border: 1px solid transparent; border-radius: 4px; }
+.dsemantic-properties .dproperty-add:hover { color: var(--fg-0); background: var(--bg-hover); border-color: var(--line); }
+.dsemantic-properties .dproperty-add:active { background: var(--bg-hover); border-color: var(--accent); }
+.dproperty-doc-fields { display: flex; flex-direction: column; gap: 6px; padding: 0 6px 6px; }
+.dproperty-doc-fields .dproperty-label { display: none; }
+.dproperty-doc-fields .dproperty-readonly { padding: 5px 6px; }
+/* REQ-375 - Inherited categories nest one step in, in a lighter weight. */
+.dproperty-inherited .dproperty-compartment { border-top: 0; }
+.dproperty-inherited .dproperty-compartment summary { height: 26px; padding-left: 22px; }
+.dproperty-inherited .dproperty-compartment .dproperty-category-heading { font-weight: 500; color: var(--fg-1); }
+.dproperty-inherited .dproperty-doc-fields { padding-left: 34px; }
+/* REQ-375 - Flush, dense tables keep their columns at every pane width. */
+.dsemantic-properties .dproperties-table { table-layout: fixed; width: 100%; border-spacing: 0; border-collapse: collapse; }
+.dsemantic-properties .dproperties-table th { position: relative; text-align: left; padding: 3px 8px 4px; font-size: 10px; font-weight: 500; letter-spacing: .02em; color: var(--fg-3); background: transparent; overflow-wrap: anywhere; }
+.dsemantic-properties .dproperties-table thead th { border-bottom: 1px solid var(--line-soft); }
+.dproperties-table thead th > span:first-child { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dsemantic-properties .dproperties-table td, .dsemantic-properties .dproperties-table tbody th { padding: 2px; vertical-align: top; border-bottom: 1px solid var(--line-soft); }
+.dsemantic-properties .dproperties-table tbody th { padding: 0 8px 0 12px; vertical-align: middle; font-size: 11px; font-weight: 400; letter-spacing: 0; color: var(--fg-2); }
+.dsemantic-properties .dproperties-table th:last-child { width: auto; }
+.dsemantic-properties .dproperties-table tbody tr:hover { background: var(--bg-hover); }
+.dsemantic-properties .dproperties-table .dproperty-label { display: none; }
+.dproperties-table .dproperty-field { gap: 2px; }
+/* REQ-375 - Text uses an inner block so cell padding cannot override its inset. */
+.dproperties-table .dproperty-readonly, .dproperties-table .dproperty-text { padding: 5px 6px; }
+.dproperties-table .dproperty-origin, .dproperties-table .dproperty-error, .dproperties-table .dproperty-status { padding-inline: 6px; }
+/* REQ-375 - Row actions live in 20px slots and show on hover, focus or touch. */
+.dsemantic-properties .dproperties-table td.dproperty-inspect { padding: 2px 0; text-align: center; vertical-align: middle; white-space: nowrap; }
+.dsemantic-properties .dproperty-inspect button { display: inline-flex; align-items: center; justify-content: center; width: 20px; min-height: 24px; padding: 0; color: var(--fg-3); border-radius: 3px; opacity: 0; }
+.dsemantic-properties .dproperty-inspect button:hover { color: var(--fg-0); background: var(--bg-hover); }
+.dproperties-table tbody tr:hover .dproperty-inspect button, .dproperties-table tbody tr:focus-within .dproperty-inspect button,
+.dsemantic-properties .dproperty-inspect button:focus-visible { opacity: 1; }
+.dproperty-literal-actions .dproperty-error { white-space: normal; }
+@media (pointer: coarse) { .dsemantic-properties .dproperty-inspect button { opacity: 1; } }
+.dproperty-column-resize { position: absolute; z-index: 1; top: 0; bottom: 0; right: -4px; width: 8px; cursor: col-resize; touch-action: none; }
+.dproperty-column-resize::after { content: ''; position: absolute; left: 3px; width: 2px; top: 4px; bottom: 4px; border-radius: 1px; background: var(--line-soft); }
+.dproperty-column-resize:hover::after { background: var(--line); }
+.dproperty-column-resize:active::after, .dproperty-column-resize:focus-visible::after { background: var(--accent); }
+.dproperty-column-resize:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 2px; }
+.dproperties-table .dproperty-field input[type="checkbox"] { width: 16px; height: 16px; min-height: 16px; margin: 7px; padding: 0; accent-color: var(--accent); cursor: pointer; }
+.dproperties-table .dproperty-field input[type="checkbox"]:disabled { cursor: default; opacity: .6; }
+
+
+:root{--accent:#f0a55a;--fg-0:#e6ecf5;--fg-1:#b9c4d6;--fg-2:#7e8aa1;--fg-3:#54607a;--bg-0:#0e1320;--bg-1:#161d2e;--bg-2:#1b2333;--bg-3:#222c3d;--line:#243047;--line-soft:#1c2740;--cyan:#6cd1d9;--violet:#b08cf0;--red:#e07a7a;--yellow:#e6c267;--green:#8bd17c;--hl:#ebc5a0;--on-accent:#1a1208;--diagram-canvas:#0e1320;--element-default-outline:#a1a1a1;--element-default-fill:#3c3c3c;--element-package-outline:#b8b8b8;--element-package-fill:#544b43;--element-part-outline:#bec7d3;--element-part-fill:#2e3452;--element-action-outline:#b8b8b8;--element-action-fill:#2d2d2d;--element-state-outline:#b8b8b8;--element-state-fill:#2d2d2d;--element-requirement-outline:#c6b2dd;--element-requirement-fill:#30273b;--element-usecase-outline:#dfa064;--element-usecase-fill:#3a2c21;--element-subject-outline:#c6b2dd;--element-subject-fill:#322a3d;--element-actor-outline:#dfa064;--element-actor-fill:#3a2c21;--element-decision-outline:#b8b8b8;--element-decision-fill:#2d2d2d;--element-annotation-outline:#bac4cb;--element-annotation-fill:#2b3137;--element-port-outline:#bec7d3;--element-port-fill:#2e3452;--element-initial-outline:#b8b8b8;--element-initial-fill:#2d2d2d;--element-final-outline:#b8b8b8;--element-final-fill:#2d2d2d;--element-terminate-outline:#b8b8b8;--element-terminate-fill:#2d2d2d;--element-forkjoin-outline:#b8b8b8;--element-forkjoin-fill:#2d2d2d;--element-performer-outline:#bac4cb;--element-performer-fill:#2b3137;--element-exhibitor-outline:#c6b2dd;--element-exhibitor-fill:#322a3d;--element-structured-outline:#a8c7cc;--element-structured-fill:#27353a;--element-parallel-outline:#b8b8b8;--element-parallel-fill:#2b3137;--element-geometry-part-outline:#72b5e8;--element-geometry-part-fill:#1c3348;--element-activation-outline:#a8c7cc;--element-activation-fill:#27353a;--diagram-line-structural:#d4d7e0;--diagram-line-connection:#5BA8FF;--diagram-line-transition:#b8b8b8;--diagram-line-dependency:#b08cf0;--diagram-line-binding:#e6c267;--diagram-line-annotation:#54607a;--shape-shadow:drop-shadow(0px 2px 2px rgba(0,0,0,0.25));--shape-small-shadow:drop-shadow(0px 1px 1px rgba(0,0,0,0.25));--shape-box-shadow:0px 2px 4px rgba(0,0,0,0.25);--shape-shadow-opacity:0.25;--shape-outline-weight:65%}
+:root{background:#0e1320}
+svg{font-family:ui-monospace,'Cascadia Code',Menlo,Consolas,monospace}
+.rf-export-edges path{fill:none}
+.rf-export-labels text{font-size:10px;fill:var(--fg-1);stroke:none;font-family:ui-monospace,'Cascadia Code',Menlo,Consolas,monospace}
+.rf-export-labels text.mult{fill:var(--fg-2)}
+]]></style><defs><marker markerUnits="userSpaceOnUse" id="arrow-cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--diagram-line-connection, #6cd1d9)"/></marker><marker markerUnits="userSpaceOnUse" id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--diagram-line-transition, #f0a55a)"/></marker><marker markerUnits="userSpaceOnUse" id="arrow-open-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10" fill="none" stroke="var(--diagram-line-dependency, #b08cf0)" stroke-width="1.4"/></marker><marker markerUnits="userSpaceOnUse" id="arrow-open-neutral" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10" fill="none" stroke="var(--diagram-line-structural, #7e8aa1)" stroke-width="1.4"/></marker><marker markerUnits="userSpaceOnUse" id="tri-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--diagram-line-transition, #f0a55a)"/></marker><marker markerUnits="userSpaceOnUse" id="tri-hollow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="11" markerHeight="11" orient="auto"><path d="M0 0L12 6L0 12z" fill="var(--bg-1, #141a23)" stroke="var(--diagram-line-structural, #7e8aa1)" stroke-width="1.2"/></marker><marker markerUnits="userSpaceOnUse" id="tri-hollow-start" viewBox="0 0 12 12" refX="1" refY="6" markerWidth="11" markerHeight="11" orient="auto"><path d="M12 0L0 6L12 12z" fill="var(--bg-1, #141a23)" stroke="var(--diagram-line-structural, #7e8aa1)" stroke-width="1.2"/></marker><marker markerUnits="userSpaceOnUse" id="defined-by" viewBox="0 0 18 12" refX="17" refY="6" markerWidth="12" markerHeight="8" orient="auto"><circle cx="3.2" cy="3.6" r="1.6" fill="var(--diagram-line-structural, #7e8aa1)"/><circle cx="3.2" cy="8.4" r="1.6" fill="var(--diagram-line-structural, #7e8aa1)"/><path d="M7 1L17 6L7 11z" fill="var(--diagram-line-structural, #7e8aa1)"/></marker><marker markerUnits="userSpaceOnUse" id="owning-membership" viewBox="0 0 14 14" refX="1" refY="7" markerWidth="12" markerHeight="12" orient="auto"><circle cx="7" cy="7" r="5.2" fill="var(--bg-1, #141a23)" stroke="var(--diagram-line-structural, #7e8aa1)" stroke-width="1.2"/><path d="M3.8 7H10.2M7 3.8V10.2" fill="none" stroke="var(--diagram-line-structural, #7e8aa1)" stroke-width="1.2"/></marker><marker markerUnits="userSpaceOnUse" id="diamond-filled" viewBox="0 0 14 14" refX="1" refY="7" markerWidth="12" markerHeight="12" orient="auto"><path d="M0 7L7 0L14 7L7 14z" fill="var(--diagram-line-structural, #7e8aa1)"/></marker><marker markerUnits="userSpaceOnUse" id="diamond-open" viewBox="0 0 14 14" refX="1" refY="7" markerWidth="12" markerHeight="12" orient="auto"><path d="M0 7L7 0L14 7L7 14z" fill="var(--bg-1, #141a23)" stroke="var(--diagram-line-structural, #7e8aa1)" stroke-width="1.2"/></marker><marker markerUnits="userSpaceOnUse" id="geo-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--fg-3, #54607a)"/></marker><filter id="shape-rectangle-shadow-0" filterUnits="userSpaceOnUse" x="-9" y="-9" width="1677" height="482" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dy="2"/><feComposite in2="SourceAlpha" operator="out"/></filter><filter id="shape-rectangle-shadow-1" filterUnits="userSpaceOnUse" x="-9" y="-9" width="186" height="90" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dy="2"/><feComposite in2="SourceAlpha" operator="out"/></filter><filter id="shape-rectangle-shadow-2" filterUnits="userSpaceOnUse" x="-9" y="-9" width="195" height="132" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dy="2"/><feComposite in2="SourceAlpha" operator="out"/></filter><filter id="shape-rectangle-shadow-3" filterUnits="userSpaceOnUse" x="-9" y="-9" width="202" height="76" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dy="2"/><feComposite in2="SourceAlpha" operator="out"/></filter><filter id="shape-rectangle-shadow-4" filterUnits="userSpaceOnUse" x="-9" y="-9" width="195" height="76" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dy="2"/><feComposite in2="SourceAlpha" operator="out"/></filter><filter id="shape-rectangle-shadow-5" filterUnits="userSpaceOnUse" x="-9" y="-9" width="189" height="154" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dy="2"/><feComposite in2="SourceAlpha" operator="out"/></filter><filter id="shape-rectangle-shadow-6" filterUnits="userSpaceOnUse" x="-9" y="-9" width="202" height="154" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dy="2"/><feComposite in2="SourceAlpha" operator="out"/></filter><filter id="shape-rectangle-shadow-7" filterUnits="userSpaceOnUse" x="-9" y="-9" width="195" height="154" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="2"/><feOffset dy="2"/><feComposite in2="SourceAlpha" operator="out"/></filter></defs><g class="rf-export-edges"><path class="dlink connect" d="M 216,129.64 L 454.48,129.64 Q 457,129.64 457,132.16 L 457,132.16 Q 457,134.68 459.52,134.68 L 475,134.68"/><path class="dlink connect" d="M 672,134.68 L 916.64,134.68 Q 920,134.68 920,131.32 L 920,131.32 Q 920,127.96 923.36,127.96 L 938,127.96"/></g><g transform="translate(16,16)" class="delement-color-part"><rect class="dshape-export-shadow" x="0" y="0" width="1659" height="464" rx="12" filter="url(#shape-rectangle-shadow-0)"/><rect class="dframe-hover-band" x="0" y="0" width="1659" height="464" rx="12" fill="none" stroke="transparent"></rect><g class="dshape-surface dshape-rectangle"><rect class="dframe-rect container part" x="0" y="0" width="1659" height="464" rx="12"></rect></g><svg width="1659" height="464" overflow="hidden"><text class="dnode-kind" x="10" y="14">«part»</text><text class="dnode-label" x="10" y="28" style="font-size:11px">drone : <tspan class="dnode-type">Drone</tspan></text></svg></g><g transform="translate(38,85)" class="delement-color-part"><rect class="dshape-export-shadow" x="0" y="0" width="168" height="72" rx="14" filter="url(#shape-rectangle-shadow-1)"/><g class="dshape-surface dshape-rectangle"><rect class="dnode-rect part" x="0" y="0" width="168" height="72" rx="14"></rect></g><svg x="-2" y="-10" width="172" height="84" viewBox="-2 -10 172 84" overflow="hidden"><g><text class="dnode-kind" x="84" y="14" text-anchor="middle">«part»</text><text class="dnode-label " x="84" y="28" text-anchor="middle">battery : <tspan class="dnode-type">Battery</tspan></text><g class="dnode-compartment"><line class="dcompartment-rule part" x1="0" y1="36" x2="168" y2="36"></line><text class="dnode-kind" x="8" y="48">performs</text><text class="dnode-label" x="12" y="62" style="font-size:10px">checkPower</text></g></g></svg><g class="dport-hit" data-port-id="AliotShowcase::Architecture::drone::battery.powerOut"><rect class="dport-hitarea" x="152" y="28.64" width="32" height="32" fill="transparent"></rect><g class="dshape-surface dshape-small"><rect class="dnode-port" x="158" y="34.64" width="20" height="20" rx="4"></rect></g><path class="dport-dir" d="M 161 44.64 L 175 44.64"></path><path class="dport-dir head" d="M 175 44.64 L 170 48.14 L 170 41.14 Z"></path><g class="dport-label dport-pill" aria-label="powerOut"><rect class="dport-pill-box" x="182" y="35.64" width="70" height="18" rx="9"></rect><text class="dport-label-text" x="192" y="44.64" dominant-baseline="central">powerOut</text></g></g></g><g transform="translate(485,64)" class="delement-color-part"><rect class="dshape-export-shadow" x="0" y="0" width="177" height="114" rx="14" filter="url(#shape-rectangle-shadow-2)"/><g class="dshape-surface dshape-rectangle"><rect class="dnode-rect part" x="0" y="0" width="177" height="114" rx="14"></rect></g><svg x="-2" y="-10" width="181" height="126" viewBox="-2 -10 181 126" overflow="hidden"><g><text class="dnode-kind" x="88.5" y="14" text-anchor="middle">«part»</text><text class="dnode-label " x="88.5" y="28" text-anchor="middle">controller : <tspan class="dnode-type">Controller</tspan></text><g class="dnode-compartment"><line class="dcompartment-rule part" x1="0" y1="36" x2="177" y2="36"></line><text class="dnode-kind" x="8" y="48">performs</text><text class="dnode-label" x="12" y="62" style="font-size:10px">plan</text><text class="dnode-label" x="12" y="76" style="font-size:10px">checkRoute</text><text class="dnode-label" x="12" y="90" style="font-size:10px">retryLink</text><text class="dnode-label" x="12" y="104" style="font-size:10px">deliver</text></g></g></svg><g class="dport-hit" data-port-id="AliotShowcase::Architecture::drone::controller.powerIn"><rect class="dport-hitarea" x="-16" y="54.67999999999999" width="32" height="32" fill="transparent"></rect><g class="dshape-surface dshape-small"><rect class="dnode-port conjugated" x="-10" y="60.67999999999999" width="20" height="20" rx="4"></rect></g><path class="dport-dir" d="M 7 70.67999999999999 L -7 70.67999999999999"></path><path class="dport-dir head" d="M 7 70.67999999999999 L 2 67.17999999999999 L 2 74.17999999999999 Z"></path><g class="dport-label dport-pill" aria-label="~powerIn"><rect class="dport-pill-box" x="-84" y="61.67999999999999" width="70" height="18" rx="9"></rect><text class="dport-label-text" x="-74" y="70.67999999999999" dominant-baseline="central">~powerIn</text></g></g><g class="dport-hit" data-port-id="AliotShowcase::Architecture::drone::controller.commands"><rect class="dport-hitarea" x="161" y="54.67999999999999" width="32" height="32" fill="transparent"></rect><g class="dshape-surface dshape-small"><rect class="dnode-port" x="167" y="60.67999999999999" width="20" height="20" rx="4"></rect></g><path class="dport-dir" d="M 170 70.67999999999999 L 184 70.67999999999999"></path><path class="dport-dir head" d="M 184 70.67999999999999 L 179 74.17999999999999 L 179 67.17999999999999 Z"></path><g class="dport-label dport-pill" aria-label="commands"><rect class="dport-pill-box" x="191" y="61.67999999999999" width="70" height="18" rx="9"></rect><text class="dport-label-text" x="201" y="70.67999999999999" dominant-baseline="central">commands</text></g></g></g><g transform="translate(1169,64)" class="delement-color-part"><rect class="dshape-export-shadow" x="0" y="0" width="184" height="58" rx="14" filter="url(#shape-rectangle-shadow-3)"/><g class="dshape-surface dshape-rectangle"><rect class="dnode-rect part" x="0" y="0" width="184" height="58" rx="14"></rect></g><svg x="-2" y="-10" width="188" height="70" viewBox="-2 -10 188 70" overflow="hidden"><g><text class="dnode-kind" x="92" y="14" text-anchor="middle">«part»</text><text class="dnode-label " x="92" y="28" text-anchor="middle">reserveBattery : <tspan class="dnode-type">Battery</tspan></text></g></svg><g class="dport-hit" data-port-id="AliotShowcase::Architecture::drone::reserveBattery.powerOut"><rect class="dport-hitarea" x="168" y="19.96" width="32" height="32" fill="transparent"></rect><g class="dshape-surface dshape-small"><rect class="dnode-port" x="174" y="25.96" width="20" height="20" rx="4"></rect></g><path class="dport-dir" d="M 177 35.96 L 191 35.96"></path><path class="dport-dir head" d="M 191 35.96 L 186 39.46 L 186 32.46 Z"></path><g class="dport-label dport-pill" aria-label="powerOut"><rect class="dport-pill-box" x="198" y="26.96" width="70" height="18" rx="9"></rect><text class="dport-label-text" x="208" y="35.96" dominant-baseline="central">powerOut</text></g></g></g><g transform="translate(948,92)" class="delement-color-part"><rect class="dshape-export-shadow" x="0" y="0" width="177" height="58" rx="14" filter="url(#shape-rectangle-shadow-4)"/><g class="dshape-surface dshape-rectangle"><rect class="dnode-rect part" x="0" y="0" width="177" height="58" rx="14"></rect></g><svg x="-2" y="-10" width="181" height="70" viewBox="-2 -10 181 70" overflow="hidden"><g><text class="dnode-kind" x="88.5" y="14" text-anchor="middle">«part»</text><text class="dnode-label " x="88.5" y="28" text-anchor="middle">propulsion : <tspan class="dnode-type">Propulsion</tspan></text></g></svg><g class="dport-hit" data-port-id="AliotShowcase::Architecture::drone::propulsion.commandIn"><rect class="dport-hitarea" x="-16" y="19.96" width="32" height="32" fill="transparent"></rect><g class="dshape-surface dshape-small"><rect class="dnode-port conjugated" x="-10" y="25.96" width="20" height="20" rx="4"></rect></g><path class="dport-dir" d="M 7 35.96 L -7 35.96"></path><path class="dport-dir head" d="M 7 35.96 L 2 32.46 L 2 39.46 Z"></path><g class="dport-label dport-pill" aria-label="~commandIn"><rect class="dport-pill-box" x="-96" y="26.96" width="82" height="18" rx="9"></rect><text class="dport-label-text" x="-86" y="35.96" dominant-baseline="central">~commandIn</text></g></g></g><g transform="translate(1169,154)" class="delement-color-part"><rect class="dshape-export-shadow" x="0" y="0" width="171" height="136" rx="14" filter="url(#shape-rectangle-shadow-5)"/><g class="dshape-surface dshape-rectangle"><rect class="dnode-rect part" x="0" y="0" width="171" height="136" rx="14"></rect></g><svg x="-2" y="-10" width="175" height="148" viewBox="-2 -10 175 148" overflow="hidden"><g><text class="dnode-kind" x="85.5" y="14" text-anchor="middle">«part»</text><text class="dnode-label " x="85.5" y="28" text-anchor="middle">airframe : <tspan class="dnode-type">SpatialItem</tspan></text><g class="dnode-compartment"><line class="dcompartment-rule part" x1="0" y1="36" x2="171" y2="36"></line><text class="dnode-kind" x="8" y="48">attributes</text><text class="dnode-label" x="12" y="62" style="font-size:10px">coordinateFrame</text><text class="dnode-label" x="12" y="76" style="font-size:10px">^cunionNum : Natural</text><text class="dnode-label" x="12" y="90" style="font-size:10px">^componentUnion</text></g><g class="dnode-compartment"><line class="dcompartment-rule part" x1="0" y1="100" x2="171" y2="100"></line><text class="dnode-kind" x="8" y="112">items</text><text class="dnode-label" x="12" y="126" style="font-size:10px">shape : Box</text></g></g></svg></g><g transform="translate(1169,322)" class="delement-color-part"><rect class="dshape-export-shadow" x="0" y="0" width="184" height="136" rx="14" filter="url(#shape-rectangle-shadow-6)"/><g class="dshape-surface dshape-rectangle"><rect class="dnode-rect part" x="0" y="0" width="184" height="136" rx="14"></rect></g><svg x="-2" y="-10" width="188" height="148" viewBox="-2 -10 188 148" overflow="hidden"><g><text class="dnode-kind" x="92" y="14" text-anchor="middle">«part»</text><text class="dnode-label " x="92" y="28" text-anchor="middle">payloadBay : <tspan class="dnode-type">SpatialItem</tspan></text><g class="dnode-compartment"><line class="dcompartment-rule part" x1="0" y1="36" x2="184" y2="36"></line><text class="dnode-kind" x="8" y="48">attributes</text><text class="dnode-label" x="12" y="62" style="font-size:10px">coordinateFrame</text><text class="dnode-label" x="12" y="76" style="font-size:10px">^cunionNum : Natural</text><text class="dnode-label" x="12" y="90" style="font-size:10px">^componentUnion</text></g><g class="dnode-compartment"><line class="dcompartment-rule part" x1="0" y1="100" x2="184" y2="100"></line><text class="dnode-kind" x="8" y="112">items</text><text class="dnode-label" x="12" y="126" style="font-size:10px">shape : Box</text></g></g></svg></g><g transform="translate(1469,64)" class="delement-color-part"><rect class="dshape-export-shadow" x="0" y="0" width="177" height="136" rx="14" filter="url(#shape-rectangle-shadow-7)"/><g class="dshape-surface dshape-rectangle"><rect class="dnode-rect part" x="0" y="0" width="177" height="136" rx="14"></rect></g><svg x="-2" y="-10" width="181" height="148" viewBox="-2 -10 181 148" overflow="hidden"><g><text class="dnode-kind" x="88.5" y="14" text-anchor="middle">«part»</text><text class="dnode-label " x="88.5" y="28" text-anchor="middle">leftRotor : <tspan class="dnode-type">SpatialItem</tspan></text><g class="dnode-compartment"><line class="dcompartment-rule part" x1="0" y1="36" x2="177" y2="36"></line><text class="dnode-kind" x="8" y="48">attributes</text><text class="dnode-label" x="12" y="62" style="font-size:10px">coordinateFrame</text><text class="dnode-label" x="12" y="76" style="font-size:10px">^cunionNum : Natural</text><text class="dnode-label" x="12" y="90" style="font-size:10px">^componentUnion</text></g><g class="dnode-compartment"><line class="dcompartment-rule part" x1="0" y1="100" x2="177" y2="100"></line><text class="dnode-kind" x="8" y="112">items</text><text class="dnode-label" x="12" y="126" style="font-size:10px">shape : Cylinder</text></g></g></svg></g><g transform="translate(1469,232)" class="delement-color-part"><rect class="dshape-export-shadow" x="0" y="0" width="184" height="136" rx="14" filter="url(#shape-rectangle-shadow-6)"/><g class="dshape-surface dshape-rectangle"><rect class="dnode-rect part" x="0" y="0" width="184" height="136" rx="14"></rect></g><svg x="-2" y="-10" width="188" height="148" viewBox="-2 -10 188 148" overflow="hidden"><g><text class="dnode-kind" x="92" y="14" text-anchor="middle">«part»</text><text class="dnode-label " x="92" y="28" text-anchor="middle">rightRotor : <tspan class="dnode-type">SpatialItem</tspan></text><g class="dnode-compartment"><line class="dcompartment-rule part" x1="0" y1="36" x2="184" y2="36"></line><text class="dnode-kind" x="8" y="48">attributes</text><text class="dnode-label" x="12" y="62" style="font-size:10px">coordinateFrame</text><text class="dnode-label" x="12" y="76" style="font-size:10px">^cunionNum : Natural</text><text class="dnode-label" x="12" y="90" style="font-size:10px">^componentUnion</text></g><g class="dnode-compartment"><line class="dcompartment-rule part" x1="0" y1="100" x2="184" y2="100"></line><text class="dnode-kind" x="8" y="112">items</text><text class="dnode-label" x="12" y="126" style="font-size:10px">shape : Cylinder</text></g></g></svg></g><g class="rf-export-labels"><g class="dpill connect connector-caption"><rect class="dpill-shape" x="310" y="121" width="76" height="18" rx="9" ry="9"/><text class="elabel connect" x="348" y="130" text-anchor="middle" dominant-baseline="central">powerFeed</text></g><g class="dpill connect connector-caption"><rect class="dpill-shape" x="767" y="126" width="82" height="18" rx="9" ry="9"/><text class="elabel connect" x="808" y="135" text-anchor="middle" dominant-baseline="central">commandBus</text></g></g></svg>

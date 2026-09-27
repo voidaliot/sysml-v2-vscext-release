@@ -83,6 +83,24 @@ The hierarchy buttons compare still captures. Its GIF links provide the two-stat
 
 ## Sync and publish
 
+### Rebuild the all-view tour
+
+The source is `reference/fabricated/aliot-all-views.sysml`. It covers GV structure and tree, IV, AFV, STV, SV, CV, GEV and the requirements grid. The gallery uses the actual CLI SVG files. Its requirements table is generated from the actual CSV export.
+
+```powershell
+pnpm build
+node media/aliot-site/generate-all-views.mjs
+node media/aliot-site/assemble-all-views-tour.mjs
+```
+
+The generator stages its workspace under `.temp/aliot-view-export/`. Public model and configuration downloads go under `assets/samples/`. Light and dark SVGs, the requirements CSV and `EXPORTS.json` go under `assets/product/all-views/`. The manifest records expected visible labels and file hashes. Tooltip titles do not count as visible labels. Missing labels stop assembly of the published tour.
+
+The 0.45.0 audit found and fixed three shared renderer issues: actor name/type captions used the wrong width measurement, sequence loop conditions could overlap activation bars or message captions, and IV spacing did not reserve enough room for ordinary port and connection pills. All expected labels in this showcase now pass the visible-text audit in both themes. This checks the showcase, not every possible model. Long closed compartment rows can still abbreviate by design. Inspect the SVGs visually after regeneration because text presence alone cannot detect overlap.
+
+Edit the descriptions in `assemble-all-views-tour.mjs`. It owns the marked gallery and user-guide tour blocks. Keep both generators together when refreshing the model. Sequence condition placement and full actor captions must remain readable, in addition to passing the text audit. Grid View is CSV, and Browser is a navigation panel with no standalone CLI export.
+
+### Copy to the release repository
+
 ```powershell
 node scripts/sync-release-page.mjs E:/GitHub/sysml-v2-vscext-release
 ```

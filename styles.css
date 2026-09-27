@@ -978,6 +978,53 @@ pre {
   top: -2px;
 }
 /* View explorer */
+.tour-tabs {
+  flex-wrap: wrap;
+}
+.gallery-panel.tour-panel {
+  display: block;
+}
+.tour-heading {
+  padding: 22px 26px;
+  border-bottom: 1px solid var(--line);
+}
+.tour-heading h3 {
+  font-size: 21px;
+  margin-bottom: 8px;
+}
+.tour-heading p {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 80ch;
+  margin-bottom: 8px;
+}
+.tour-heading .text-link {
+  font-size: 13px;
+}
+.requirements-export {
+  overflow: auto;
+  padding: 20px;
+}
+.requirements-export table {
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 940px;
+  width: 100%;
+}
+.requirements-export caption {
+  text-align: left;
+  color: var(--muted);
+  padding-bottom: 12px;
+}
+.requirements-export th,
+.requirements-export td {
+  border: 1px solid var(--line);
+  padding: 12px;
+  text-align: left;
+}
+.requirements-export th {
+  background: var(--surface-2);
+}
 .explore-section {
   padding-top: 66px;
 }
@@ -3134,6 +3181,14 @@ dialog::backdrop {
 .gallery-art.diagram-viewer {
   height: 380px;
   flex: none;
+}
+.tour-panel .gallery-art.diagram-viewer {
+  height: 740px;
+}
+@media (max-width: 680px) {
+  .tour-panel .gallery-art.diagram-viewer {
+    height: 480px;
+  }
 }
 .diagram-stage {
   position: relative;

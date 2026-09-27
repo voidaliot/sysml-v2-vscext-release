@@ -440,6 +440,150 @@ Put them in `.vscode/settings.json` and commit the file. The language server, th
 - `quotedNames: unquoteSafe` rewrites a name and every use of it in the same file together, and skips any name whose bare spelling that file already uses. Quoted and unquoted spellings are still separate identities to this extension, so leave it off if other files spell the same name quoted.
 - `// sysml-format ignore` outranks all of them: nothing inside the element it protects is rewritten.
 
+<!-- ALL_VIEWS_START -->
+### All-view model tour
+
+Download [aliot-all-views.sysml](assets/samples/aliot-all-views.sysml). One model supplies every view below. The pictures are unmodified SVG exports from the built `sysml-diagram` CLI, in Aliot Light and Aliot Dark. Grid View exports CSV.
+
+Use **SysML: Show Diagram** on the named anchor. In General View, switch between structure (compartments) and tree. Browser remains available beside every view; it is a navigation panel and has no separate CLI image export.
+
+To reproduce the presentation, save [project settings](assets/samples/all-views-project.json) as `.vscode/sysml/project.json` and [view settings](assets/samples/all-views-layout.json) as `.vscode/sysml/diagrams/aliot-all-views.sysml.json` beside the downloaded model. Port labels are enabled. Connections use orthogonal lines; GV tree uses curved lines.
+
+The examples below use the repository build. Replace `node packages/cli/out/main.js` with `sysml-diagram` when using the installed CLI. Run each command from the model's workspace. Add `--theme dark` for the dark export.
+
+#### General View: structure
+
+Definitions, typed parts and feature compartments describe the same drone. Closed compartments may abbreviate long rows; open the model to inspect their full source.
+
+Anchor: `AliotShowcase::Architecture`.
+
+![General View: structure exported by sysml-diagram.](assets/product/all-views/gv-structure-light.svg)
+
+[Light SVG](assets/product/all-views/gv-structure-light.svg) · [Dark SVG](assets/product/all-views/gv-structure-dark.svg)
+
+```sh
+node packages/cli/out/main.js export --file aliot-all-views.sysml --view gv --anchor AliotShowcase::Architecture --gv-mode group --theme light --auto-layout --out gv-structure-light.svg
+```
+
+#### General View: tree
+
+Ownership and typing become a tree. Curved lines keep the relationship paths clear.
+
+Anchor: `AliotShowcase::Architecture`.
+
+![General View: tree exported by sysml-diagram.](assets/product/all-views/gv-tree-light.svg)
+
+[Light SVG](assets/product/all-views/gv-tree-light.svg) · [Dark SVG](assets/product/all-views/gv-tree-dark.svg)
+
+```sh
+node packages/cli/out/main.js export --file aliot-all-views.sysml --view gv --anchor AliotShowcase::Architecture --gv-mode tree --theme light --auto-layout --out gv-tree-light.svg
+```
+
+#### Interconnection View
+
+Follow powerFeed and commandBus between named, directed ports. powerIn and commandIn conjugate their port types.
+
+Anchor: `AliotShowcase::Architecture::drone`.
+
+![Interconnection View exported by sysml-diagram.](assets/product/all-views/iv-light.svg)
+
+[Light SVG](assets/product/all-views/iv-light.svg) · [Dark SVG](assets/product/all-views/iv-dark.svg)
+
+```sh
+node packages/cli/out/main.js export --file aliot-all-views.sysml --view iv --anchor AliotShowcase::Architecture::drone --theme light --auto-layout --out iv-light.svg
+```
+
+#### Action Flow View
+
+The fork runs checkPower and checkRoute in parallel; the join waits for both. Dashed performer lanes name battery and controller. retryLink repeats poll until linkReady.
+
+Anchor: `AliotShowcase::Mission`.
+
+![Action Flow View exported by sysml-diagram.](assets/product/all-views/afv-light.svg)
+
+[Light SVG](assets/product/all-views/afv-light.svg) · [Dark SVG](assets/product/all-views/afv-dark.svg)
+
+```sh
+node packages/cli/out/main.js export --file aliot-all-views.sysml --view afv --anchor AliotShowcase::Mission --theme light --auto-layout --out afv-light.svg
+```
+
+#### State Transition View
+
+active contains concurrent navigation and monitoring regions. Each region has its own initial state. Transition pills show routeClear and lowBattery guards; do compartments show ongoing actions.
+
+Anchor: `AliotShowcase::FlightMode`.
+
+![State Transition View exported by sysml-diagram.](assets/product/all-views/stv-light.svg)
+
+[Light SVG](assets/product/all-views/stv-light.svg) · [Dark SVG](assets/product/all-views/stv-dark.svg)
+
+```sh
+node packages/cli/out/main.js export --file aliot-all-views.sysml --view stv --anchor AliotShowcase::FlightMode --theme light --auto-layout --out stv-light.svg
+```
+
+#### Sequence View
+
+pilot, controller and propulsion exchange named messages with payload types. The loop fragment repeats requestStatus and reportStatus while monitoring. Lifelines are interaction participants, not AFV performer lanes.
+
+Anchor: `AliotShowcase::DeliverySequence`.
+
+![Sequence View exported by sysml-diagram.](assets/product/all-views/sv-light.svg)
+
+[Light SVG](assets/product/all-views/sv-light.svg) · [Dark SVG](assets/product/all-views/sv-dark.svg)
+
+```sh
+node packages/cli/out/main.js export --file aliot-all-views.sysml --view sv --anchor AliotShowcase::DeliverySequence --theme light --auto-layout --out sv-light.svg
+```
+
+#### Case View
+
+deliver and ready sit inside the vehicle subject boundary. pilot : Operator is an external actor, and the include relationship connects the two use cases.
+
+Anchor: `AliotShowcase::Operations`.
+
+![Case View exported by sysml-diagram.](assets/product/all-views/cv-light.svg)
+
+[Light SVG](assets/product/all-views/cv-light.svg) · [Dark SVG](assets/product/all-views/cv-dark.svg)
+
+```sh
+node packages/cli/out/main.js export --file aliot-all-views.sysml --view cv --anchor AliotShowcase::Operations --theme light --auto-layout --out cv-light.svg
+```
+
+#### Geometry View
+
+airframe, payloadBay and the rotors use real ShapeItems solids and coordinate-frame translations. Nonspatial controls are intentionally absent.
+
+Anchor: `AliotShowcase::Architecture::drone`.
+
+![Geometry View exported by sysml-diagram.](assets/product/all-views/gev-light.svg)
+
+[Light SVG](assets/product/all-views/gev-light.svg) · [Dark SVG](assets/product/all-views/gev-dark.svg)
+
+```sh
+node packages/cli/out/main.js export --file aliot-all-views.sysml --view gev --anchor AliotShowcase::Architecture::drone --theme light --auto-layout --out gev-light.svg
+```
+
+#### Grid View: requirements
+
+The CLI exports this table as CSV. PAY-01 and OPS-01 retain their constraints, satisfying drone, verification case and verified status. This website table displays the exported CSV, not a screenshot of Grid View.
+
+Anchor: `AliotShowcase`.
+
+| ﻿Id | Requirement | Doc | Subject | Constraint | Satisfy | Verify | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| OPS-01 | flightTime | Endurance shall be at least 30 minutes. The value is expressed in minutes. | Architecture::Drone | vehicle.endurance >= 30.0 | drone | checkEndurance | verified |
+| PAY-01 | payloadLimit | Payload shall not exceed 3 kg. The value is expressed in kg. | Architecture::Drone | vehicle.payload <= 3.0 | drone | checkPayload | verified |
+
+[Download the exact CSV](assets/product/all-views/requirements.csv).
+
+```sh
+node packages/cli/out/main.js export --file aliot-all-views.sysml --view grv --anchor AliotShowcase --theme light --auto-layout --out requirements.csv
+```
+
+The export audit checks visible text, excluding tooltip-only titles. It covers port and connection names, state guards, performer lanes, loop conditions, messages and payloads, use-case actors, geometry labels and CSV fields. Sequence condition placement, actor sizing and IV caption spacing use the same fixes in the extension and CLI. Very long compartment rows may still use the extension's intentional ellipsis.
+
+<!-- ALL_VIEWS_END -->
+
 ### Diagrams — all nine SysML v2 standard views
 
 Run **SysML: Show Diagram** (editor title button, Command Palette, or the *Show diagram* CodeLens). The extension detects which views have content in the active file and offers only those:

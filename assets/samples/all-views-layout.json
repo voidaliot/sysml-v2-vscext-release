@@ -1,0 +1,36 @@
+{
+  "version": 9,
+  "anchors": {
+    "AliotShowcase::Architecture": {
+      "gv": {
+        "direction": "TB"
+      }
+    },
+    "AliotShowcase::Architecture::drone": {
+      "iv": {
+        "direction": "LR"
+      }
+    },
+    "AliotShowcase::Mission": {
+      "afv": {
+        "direction": "TB"
+      }
+    },
+    "AliotShowcase::FlightMode": {
+      "stv": {
+        "direction": "TB"
+      }
+    },
+    "AliotShowcase::Operations": {
+      "cv": {
+        "direction": "TB",
+        "cvShowDefs": false
+      }
+    },
+    "AliotShowcase": {
+      "grv": {
+        "gridPreset": "requirements"
+      }
+    }
+  }
+}
