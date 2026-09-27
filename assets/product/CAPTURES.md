@@ -1,10 +1,9 @@
 # Aliot release captures
 
 - Captured: 2026-09-27.
-- Extension: 0.45.0, running in the VS Code Extension Development Host.
-- Source head: `db332ce8aa24a12625156f5d1356e0ed2e670417`, branch `feat/interactive-properties`.
+- Extension: 0.45.0 preview in VS Code.
 - Themes: Aliot Light and Aliot Dark, captured independently through the theme picker.
-- Model: `reference/fabricated/aliot-release-demo.sysml`. Downloadable source snapshots and saved layout are in `../samples/release-demo-*`.
+- Model: [release-demo-before.sysml](https://github.com/voidaliot/sysml-v2-samples/blob/main/release-demo-before.sysml). The [after state](https://github.com/voidaliot/sysml-v2-samples/blob/main/release-demo-after.sysml) contains the local capacity override.
 - View: Interconnection View, top-down layout, orthogonal connectors. The drone overview hides propulsion internals. The propulsion diagram shows the four motors and command connections.
 
 These are genuine window captures. The only image processing is rectangular cropping and GIF encoding. No controls, labels, values or diagram geometry were drawn over the captures. The saved stills retain the capture tool's pointer highlight where visible.
@@ -21,13 +20,13 @@ Wide captures crop the extension webview at x=60, y=109, width=1810, height=865 
 - `v045-hierarchy-overview-*`: drone diagram with propulsion collapsed, with its Diagram pill visible in Browser.
 - `v045-hierarchy-subsystem-*`: propulsion opened from that pill, with four connected motors and the Browser rooted at propulsion.
 
-The property edit was made through Properties and verified in source as `attribute :>> capacity = 95;`. Battery's default stays 80 and spareBattery has no override. Both source snapshots validate without diagnostics. The fabricated source returns to the before state for repeatable demonstrations.
+The property edit was made through Properties and verified in source as `attribute :>> capacity = 95;`. Battery's default stays 80 and spareBattery has no override. Both source snapshots validate without diagnostics. Start with the before state to repeat the edit.
 
 The GIFs are still-image sequences. Properties holds before/edit/applied for 2.2/2.2/3.6 seconds. Hierarchy holds overview/subsystem for 3/4 seconds. They do not record cursor movement or show every intermediate UI operation. Up navigation was exercised and returns to the parent's General View; the looping hierarchy comparison shows the two IV states only.
 
-Rebuild GIFs with `node media/aliot-site/assemble-capture-gifs.mjs` from the development repository. This leaves all still captures unchanged. The SVG generator uses separate filenames and cannot overwrite these captures.
+To replace a GIF, record the same workflow in VS Code and save it with the existing asset name. Keep a still image beside it for reduced-motion viewing.
 
-See `MEDIA-GUIDE.md` in the release repository, or `docs/release-media-guide.md` in the development repository, for replacement and recording instructions.
+See [the media guide](../../MEDIA-GUIDE.md) for replacement and recording instructions.
 
 ## Existing Grid View capture
 

@@ -18,7 +18,7 @@ _Actual VS Code capture. Images follow your GitHub light or dark preference._
 ## Get started
 
 1. Install **Aliot SysML v2** from the Marketplace.
-2. Open a `.sysml` or `.kerml` file. Try the [small rover model](assets/samples/aliot-first-model.sysml), or run **SysML: New Model…**.
+2. Open a `.sysml` or `.kerml` file. Try the [small rover model](https://github.com/voidaliot/sysml-v2-samples/blob/main/aliot-first-model.sysml), or run **SysML: New Model…**.
 3. Wait for **SysML: ready**, then run **SysML: Show Diagram**.
 4. Edit source or use diagram Properties and context menus. Save the model and its layout with **Save All**.
 
@@ -48,7 +48,7 @@ Choose the **Diagram** pill beside propulsion in the Browser to open its subsyst
   <img src="assets/product/v045-hierarchy-subsystem-light.png" alt="Actual VS Code capture: Browser and propulsion subsystem with four motors">
 </picture>
 
-Try the [capture model](assets/samples/release-demo-before.sysml). Compare the [light navigation GIF](assets/product/v045-hierarchy-light.gif) or [dark navigation GIF](assets/product/v045-hierarchy-dark.gif).
+Try the [capture model](https://github.com/voidaliot/sysml-v2-samples/blob/main/release-demo-before.sysml). Compare the [light navigation GIF](assets/product/v045-hierarchy-light.gif) or [dark navigation GIF](assets/product/v045-hierarchy-dark.gif).
 
 ## What you can do
 
@@ -64,7 +64,7 @@ AI tools need a separately configured compatible agent. Aliot does not include a
 
 ## Choose a model
 
-- [Small rover](assets/samples/aliot-first-model.sysml): three parts and a value to edit.
+- [Small rover](https://github.com/voidaliot/sysml-v2-samples/blob/main/aliot-first-model.sysml): three parts and a value to edit.
 - [Drone](https://github.com/voidaliot/sysml-v2-samples/blob/main/drone.sysml): parts, ports, connections and behavior.
 - [Software-defined vehicle](https://github.com/voidaliot/sysml-v2-samples/blob/main/sdv.sysml): a larger architecture with interfaces and requirements.
 - [All public samples](https://github.com/voidaliot/sysml-v2-samples): source models and exported diagrams.

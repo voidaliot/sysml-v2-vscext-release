@@ -331,7 +331,7 @@
               <a
                 class="text-link"
                 id="source-download"
-                href="assets/samples/workflow-before.sysml"
+                href="https://github.com/voidaliot/sysml-v2-samples/blob/main/workflow-before.sysml"
                 download
                 >Download this model</a
               >
@@ -420,420 +420,62 @@
             </p>
           </div>
           <!-- ALL_VIEWS_START -->
-          <div class="view-tabs tour-tabs" role="tablist" aria-label="Explore model views">
-            <button
-              class="view-tab"
-              id="tab-tour-0"
-              type="button"
-              role="tab"
-              aria-selected="true"
-              aria-controls="panel-tour-0"
-              tabindex="0"
-            >
-              GV structure
-            </button>
-            <button
-              class="view-tab"
-              id="tab-tour-1"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="panel-tour-1"
-              tabindex="-1"
-            >
-              GV tree
-            </button>
-            <button
-              class="view-tab"
-              id="tab-tour-2"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="panel-tour-2"
-              tabindex="-1"
-            >
-              IV
-            </button>
-            <button
-              class="view-tab"
-              id="tab-tour-3"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="panel-tour-3"
-              tabindex="-1"
-            >
-              AFV
-            </button>
-            <button
-              class="view-tab"
-              id="tab-tour-4"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="panel-tour-4"
-              tabindex="-1"
-            >
-              STV
-            </button>
-            <button
-              class="view-tab"
-              id="tab-tour-5"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="panel-tour-5"
-              tabindex="-1"
-            >
-              SV
-            </button>
-            <button
-              class="view-tab"
-              id="tab-tour-6"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="panel-tour-6"
-              tabindex="-1"
-            >
-              CV
-            </button>
-            <button
-              class="view-tab"
-              id="tab-tour-7"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="panel-tour-7"
-              tabindex="-1"
-            >
-              GEV
-            </button>
-            <button
-              class="view-tab"
-              id="tab-tour-8"
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="panel-tour-8"
-              tabindex="-1"
-            >
-              Requirements
-            </button>
-          </div>
-          <div
-            class="gallery-panel tour-panel"
-            id="panel-tour-0"
-            role="tabpanel"
-            aria-labelledby="tab-tour-0"
-            tabindex="0"
-          >
-            <div class="tour-heading">
-              <h3>General View: structure</h3>
-              <p>
-                Definitions, typed parts and feature compartments describe the same drone. Closed
-                compartments may abbreviate long rows; open the model to inspect their full source.
-              </p>
-              <a
-                class="text-link"
-                href="assets/product/all-views/gv-structure-light.svg"
-                data-light="assets/product/all-views/gv-structure-light.svg"
-                data-dark="assets/product/all-views/gv-structure-dark.svg"
-                target="_blank"
-                rel="noopener"
-                >Open full-size SVG ↗</a
-              >
-            </div>
-            <div class="gallery-art">
-              <img
-                src="assets/product/all-views/gv-structure-light.svg"
-                data-light="assets/product/all-views/gv-structure-light.svg"
-                data-dark="assets/product/all-views/gv-structure-dark.svg"
-                alt="General View: structure. Definitions, typed parts and feature compartments describe the same drone. Closed compartments may abbreviate long rows; open the model to inspect their full source."
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <div
-            class="gallery-panel tour-panel"
-            id="panel-tour-1"
-            role="tabpanel"
-            aria-labelledby="tab-tour-1"
-            tabindex="0"
-            hidden
-          >
-            <div class="tour-heading">
-              <h3>General View: tree</h3>
-              <p>
-                Ownership and typing become a tree. Each usage label sits on the line approaching
-                its target definition, so grouped batteries and rotors stay identifiable.
-              </p>
-              <a
-                class="text-link"
-                href="assets/product/all-views/gv-tree-light.svg"
-                data-light="assets/product/all-views/gv-tree-light.svg"
-                data-dark="assets/product/all-views/gv-tree-dark.svg"
-                target="_blank"
-                rel="noopener"
-                >Open full-size SVG ↗</a
-              >
-            </div>
-            <div class="gallery-art">
-              <img
-                src="assets/product/all-views/gv-tree-light.svg"
-                data-light="assets/product/all-views/gv-tree-light.svg"
-                data-dark="assets/product/all-views/gv-tree-dark.svg"
-                alt="General View: tree. Ownership and typing become a tree. Each usage label sits on the line approaching its target definition, so grouped batteries and rotors stay identifiable."
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <div
-            class="gallery-panel tour-panel"
-            id="panel-tour-2"
-            role="tabpanel"
-            aria-labelledby="tab-tour-2"
-            tabindex="0"
-            hidden
-          >
-            <div class="tour-heading">
-              <h3>Interconnection View</h3>
-              <p>
-                Every part is connected. Opened powerFeed and commandBus blocks show named ends and
-                carried flows. Expanded commands and drives expose nested ports for payload and
-                rotor control. Other connections and interfaces keep their compact labels.
-              </p>
-              <a
-                class="text-link"
-                href="assets/product/all-views/iv-light.svg"
-                data-light="assets/product/all-views/iv-light.svg"
-                data-dark="assets/product/all-views/iv-dark.svg"
-                target="_blank"
-                rel="noopener"
-                >Open full-size SVG ↗</a
-              >
-            </div>
-            <div class="gallery-art">
-              <img
-                src="assets/product/all-views/iv-light.svg"
-                data-light="assets/product/all-views/iv-light.svg"
-                data-dark="assets/product/all-views/iv-dark.svg"
-                alt="Interconnection View. Every part is connected. Opened powerFeed and commandBus blocks show named ends and carried flows. Expanded commands and drives expose nested ports for payload and rotor control. Other connections and interfaces keep their compact labels."
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <div
-            class="gallery-panel tour-panel"
-            id="panel-tour-3"
-            role="tabpanel"
-            aria-labelledby="tab-tour-3"
-            tabindex="0"
-            hidden
-          >
-            <div class="tour-heading">
-              <h3>Action Flow View</h3>
-              <p>
-                The fork runs checkPower and checkRoute in parallel; the join waits for both. Dashed
-                performer lanes name battery and controller. retryLink repeats poll until linkReady.
-              </p>
-              <a
-                class="text-link"
-                href="assets/product/all-views/afv-light.svg"
-                data-light="assets/product/all-views/afv-light.svg"
-                data-dark="assets/product/all-views/afv-dark.svg"
-                target="_blank"
-                rel="noopener"
-                >Open full-size SVG ↗</a
-              >
-            </div>
-            <div class="gallery-art">
-              <img
-                src="assets/product/all-views/afv-light.svg"
-                data-light="assets/product/all-views/afv-light.svg"
-                data-dark="assets/product/all-views/afv-dark.svg"
-                alt="Action Flow View. The fork runs checkPower and checkRoute in parallel; the join waits for both. Dashed performer lanes name battery and controller. retryLink repeats poll until linkReady."
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <div
-            class="gallery-panel tour-panel"
-            id="panel-tour-4"
-            role="tabpanel"
-            aria-labelledby="tab-tour-4"
-            tabindex="0"
-            hidden
-          >
-            <div class="tour-heading">
-              <h3>State Transition View</h3>
-              <p>
-                active contains concurrent navigation and monitoring regions. Each region has its
-                own initial state. Transition pills show routeClear and lowBattery guards; do
-                compartments show ongoing actions.
-              </p>
-              <a
-                class="text-link"
-                href="assets/product/all-views/stv-light.svg"
-                data-light="assets/product/all-views/stv-light.svg"
-                data-dark="assets/product/all-views/stv-dark.svg"
-                target="_blank"
-                rel="noopener"
-                >Open full-size SVG ↗</a
-              >
-            </div>
-            <div class="gallery-art">
-              <img
-                src="assets/product/all-views/stv-light.svg"
-                data-light="assets/product/all-views/stv-light.svg"
-                data-dark="assets/product/all-views/stv-dark.svg"
-                alt="State Transition View. active contains concurrent navigation and monitoring regions. Each region has its own initial state. Transition pills show routeClear and lowBattery guards; do compartments show ongoing actions."
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <div
-            class="gallery-panel tour-panel"
-            id="panel-tour-5"
-            role="tabpanel"
-            aria-labelledby="tab-tour-5"
-            tabindex="0"
-            hidden
-          >
-            <div class="tour-heading">
-              <h3>Sequence View</h3>
-              <p>
-                pilot, controller and propulsion exchange named messages with payload types. The
-                loop fragment repeats requestStatus and reportStatus while monitoring. Lifelines are
-                interaction participants, not AFV performer lanes.
-              </p>
-              <a
-                class="text-link"
-                href="assets/product/all-views/sv-light.svg"
-                data-light="assets/product/all-views/sv-light.svg"
-                data-dark="assets/product/all-views/sv-dark.svg"
-                target="_blank"
-                rel="noopener"
-                >Open full-size SVG ↗</a
-              >
-            </div>
-            <div class="gallery-art">
-              <img
-                src="assets/product/all-views/sv-light.svg"
-                data-light="assets/product/all-views/sv-light.svg"
-                data-dark="assets/product/all-views/sv-dark.svg"
-                alt="Sequence View. pilot, controller and propulsion exchange named messages with payload types. The loop fragment repeats requestStatus and reportStatus while monitoring. Lifelines are interaction participants, not AFV performer lanes."
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <div
-            class="gallery-panel tour-panel"
-            id="panel-tour-6"
-            role="tabpanel"
-            aria-labelledby="tab-tour-6"
-            tabindex="0"
-            hidden
-          >
-            <div class="tour-heading">
-              <h3>Case View</h3>
-              <p>
-                deliver and ready sit inside the vehicle subject boundary. pilot : Operator is an
-                external actor, and the include relationship connects the two use cases.
-              </p>
-              <a
-                class="text-link"
-                href="assets/product/all-views/cv-light.svg"
-                data-light="assets/product/all-views/cv-light.svg"
-                data-dark="assets/product/all-views/cv-dark.svg"
-                target="_blank"
-                rel="noopener"
-                >Open full-size SVG ↗</a
-              >
-            </div>
-            <div class="gallery-art">
-              <img
-                src="assets/product/all-views/cv-light.svg"
-                data-light="assets/product/all-views/cv-light.svg"
-                data-dark="assets/product/all-views/cv-dark.svg"
-                alt="Case View. deliver and ready sit inside the vehicle subject boundary. pilot : Operator is an external actor, and the include relationship connects the two use cases."
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <div
-            class="gallery-panel tour-panel"
-            id="panel-tour-7"
-            role="tabpanel"
-            aria-labelledby="tab-tour-7"
-            tabindex="0"
-            hidden
-          >
-            <div class="tour-heading">
-              <h3>Geometry View</h3>
-              <p>
-                airframe, payloadBay and the rotors use real ShapeItems solids and coordinate-frame
-                translations. Nonspatial controls are intentionally absent.
-              </p>
-              <a
-                class="text-link"
-                href="assets/product/all-views/gev-light.svg"
-                data-light="assets/product/all-views/gev-light.svg"
-                data-dark="assets/product/all-views/gev-dark.svg"
-                target="_blank"
-                rel="noopener"
-                >Open full-size SVG ↗</a
-              >
-            </div>
-            <div class="gallery-art">
-              <img
-                src="assets/product/all-views/gev-light.svg"
-                data-light="assets/product/all-views/gev-light.svg"
-                data-dark="assets/product/all-views/gev-dark.svg"
-                alt="Geometry View. airframe, payloadBay and the rotors use real ShapeItems solids and coordinate-frame translations. Nonspatial controls are intentionally absent."
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <div
-            class="gallery-panel tour-panel"
-            id="panel-tour-8"
-            role="tabpanel"
-            aria-labelledby="tab-tour-8"
-            tabindex="0"
-            hidden
-          >
-            <div class="tour-heading">
-              <h3>Grid View: requirements</h3>
-              <p>
-                Inspect requirements in VS Code and use Export CSV to share the table. The
-                screenshot shows the software-defined vehicle sample; the CSV download uses the
-                all-view drone model.
-              </p>
-              <a
-                class="text-link"
-                href="assets/product/all-views/requirements.csv"
-                target="_blank"
-                rel="noopener"
-                >Download showcase CSV ↗</a
-              >
-            </div>
-            <div class="gallery-art">
-              <img
-                src="assets/product/grid-vscode.png"
-                alt="VS Code Grid View showing requirements for the software-defined vehicle sample, with Export CSV in the toolbar."
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <div class="gallery-footer">
-            <a class="text-link" href="assets/samples/aliot-all-views.sysml" download
-              >Download the all-view model ↓</a
-            ><a class="text-link" href="user-guide.html#all-view-model-tour"
-              >Follow the view-by-view guide ↗</a
-            >
-          </div>
-          <!-- ALL_VIEWS_END -->
+<div class="view-tabs tour-tabs" role="tablist" aria-label="Explore model views"><button class="view-tab" id="tab-tour-0" type="button" role="tab" aria-selected="true" aria-controls="panel-tour-0" tabindex="0">GV structure</button>
+<button class="view-tab" id="tab-tour-1" type="button" role="tab" aria-selected="false" aria-controls="panel-tour-1" tabindex="-1">GV tree</button>
+<button class="view-tab" id="tab-tour-2" type="button" role="tab" aria-selected="false" aria-controls="panel-tour-2" tabindex="-1">IV</button>
+<button class="view-tab" id="tab-tour-3" type="button" role="tab" aria-selected="false" aria-controls="panel-tour-3" tabindex="-1">AFV</button>
+<button class="view-tab" id="tab-tour-4" type="button" role="tab" aria-selected="false" aria-controls="panel-tour-4" tabindex="-1">STV</button>
+<button class="view-tab" id="tab-tour-5" type="button" role="tab" aria-selected="false" aria-controls="panel-tour-5" tabindex="-1">SV</button>
+<button class="view-tab" id="tab-tour-6" type="button" role="tab" aria-selected="false" aria-controls="panel-tour-6" tabindex="-1">CV</button>
+<button class="view-tab" id="tab-tour-7" type="button" role="tab" aria-selected="false" aria-controls="panel-tour-7" tabindex="-1">GEV</button>
+<button class="view-tab" id="tab-tour-8" type="button" role="tab" aria-selected="false" aria-controls="panel-tour-8" tabindex="-1">Requirements</button></div>
+<div class="gallery-panel tour-panel" id="panel-tour-0" role="tabpanel" aria-labelledby="tab-tour-0" tabindex="0">
+    <div class="tour-heading"><h3>General View: structure</h3><p>Definitions, typed parts and feature compartments describe the same drone. Closed compartments may abbreviate long rows; open the model to inspect their full source.</p>
+    <a class="text-link" href="assets/product/all-views/gv-structure-light.svg" data-light="assets/product/all-views/gv-structure-light.svg" data-dark="assets/product/all-views/gv-structure-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
+    <div class="gallery-art"><img src="assets/product/all-views/gv-structure-light.svg" data-light="assets/product/all-views/gv-structure-light.svg" data-dark="assets/product/all-views/gv-structure-dark.svg" alt="General View: structure. Definitions, typed parts and feature compartments describe the same drone. Closed compartments may abbreviate long rows; open the model to inspect their full source." loading="lazy" /></div>
+  </div>
+<div class="gallery-panel tour-panel" id="panel-tour-1" role="tabpanel" aria-labelledby="tab-tour-1" tabindex="0" hidden>
+    <div class="tour-heading"><h3>General View: tree</h3><p>Ownership and typing become a tree. Each usage label sits on the line approaching its target definition, so grouped batteries and rotors stay identifiable.</p>
+    <a class="text-link" href="assets/product/all-views/gv-tree-light.svg" data-light="assets/product/all-views/gv-tree-light.svg" data-dark="assets/product/all-views/gv-tree-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
+    <div class="gallery-art"><img src="assets/product/all-views/gv-tree-light.svg" data-light="assets/product/all-views/gv-tree-light.svg" data-dark="assets/product/all-views/gv-tree-dark.svg" alt="General View: tree. Ownership and typing become a tree. Each usage label sits on the line approaching its target definition, so grouped batteries and rotors stay identifiable." loading="lazy" /></div>
+  </div>
+<div class="gallery-panel tour-panel" id="panel-tour-2" role="tabpanel" aria-labelledby="tab-tour-2" tabindex="0" hidden>
+    <div class="tour-heading"><h3>Interconnection View</h3><p>Every part is connected. Opened powerFeed and commandBus blocks show named ends and carried flows. Expanded commands and drives expose nested ports for payload and rotor control. Other connections and interfaces keep their compact labels.</p>
+    <a class="text-link" href="assets/product/all-views/iv-light.svg" data-light="assets/product/all-views/iv-light.svg" data-dark="assets/product/all-views/iv-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
+    <div class="gallery-art"><img src="assets/product/all-views/iv-light.svg" data-light="assets/product/all-views/iv-light.svg" data-dark="assets/product/all-views/iv-dark.svg" alt="Interconnection View. Every part is connected. Opened powerFeed and commandBus blocks show named ends and carried flows. Expanded commands and drives expose nested ports for payload and rotor control. Other connections and interfaces keep their compact labels." loading="lazy" /></div>
+  </div>
+<div class="gallery-panel tour-panel" id="panel-tour-3" role="tabpanel" aria-labelledby="tab-tour-3" tabindex="0" hidden>
+    <div class="tour-heading"><h3>Action Flow View</h3><p>The fork runs checkPower and checkRoute in parallel; the join waits for both. Dashed performer lanes name battery and controller. retryLink repeats poll until linkReady.</p>
+    <a class="text-link" href="assets/product/all-views/afv-light.svg" data-light="assets/product/all-views/afv-light.svg" data-dark="assets/product/all-views/afv-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
+    <div class="gallery-art"><img src="assets/product/all-views/afv-light.svg" data-light="assets/product/all-views/afv-light.svg" data-dark="assets/product/all-views/afv-dark.svg" alt="Action Flow View. The fork runs checkPower and checkRoute in parallel; the join waits for both. Dashed performer lanes name battery and controller. retryLink repeats poll until linkReady." loading="lazy" /></div>
+  </div>
+<div class="gallery-panel tour-panel" id="panel-tour-4" role="tabpanel" aria-labelledby="tab-tour-4" tabindex="0" hidden>
+    <div class="tour-heading"><h3>State Transition View</h3><p>active contains concurrent navigation and monitoring regions. Each region has its own initial state. Transition pills show routeClear and lowBattery guards; do compartments show ongoing actions.</p>
+    <a class="text-link" href="assets/product/all-views/stv-light.svg" data-light="assets/product/all-views/stv-light.svg" data-dark="assets/product/all-views/stv-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
+    <div class="gallery-art"><img src="assets/product/all-views/stv-light.svg" data-light="assets/product/all-views/stv-light.svg" data-dark="assets/product/all-views/stv-dark.svg" alt="State Transition View. active contains concurrent navigation and monitoring regions. Each region has its own initial state. Transition pills show routeClear and lowBattery guards; do compartments show ongoing actions." loading="lazy" /></div>
+  </div>
+<div class="gallery-panel tour-panel" id="panel-tour-5" role="tabpanel" aria-labelledby="tab-tour-5" tabindex="0" hidden>
+    <div class="tour-heading"><h3>Sequence View</h3><p>pilot, controller and propulsion exchange named messages with payload types. The loop fragment repeats requestStatus and reportStatus while monitoring. Lifelines are interaction participants, not AFV performer lanes.</p>
+    <a class="text-link" href="assets/product/all-views/sv-light.svg" data-light="assets/product/all-views/sv-light.svg" data-dark="assets/product/all-views/sv-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
+    <div class="gallery-art"><img src="assets/product/all-views/sv-light.svg" data-light="assets/product/all-views/sv-light.svg" data-dark="assets/product/all-views/sv-dark.svg" alt="Sequence View. pilot, controller and propulsion exchange named messages with payload types. The loop fragment repeats requestStatus and reportStatus while monitoring. Lifelines are interaction participants, not AFV performer lanes." loading="lazy" /></div>
+  </div>
+<div class="gallery-panel tour-panel" id="panel-tour-6" role="tabpanel" aria-labelledby="tab-tour-6" tabindex="0" hidden>
+    <div class="tour-heading"><h3>Case View</h3><p>deliver and ready sit inside the vehicle subject boundary. pilot : Operator is an external actor, and the include relationship connects the two use cases.</p>
+    <a class="text-link" href="assets/product/all-views/cv-light.svg" data-light="assets/product/all-views/cv-light.svg" data-dark="assets/product/all-views/cv-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
+    <div class="gallery-art"><img src="assets/product/all-views/cv-light.svg" data-light="assets/product/all-views/cv-light.svg" data-dark="assets/product/all-views/cv-dark.svg" alt="Case View. deliver and ready sit inside the vehicle subject boundary. pilot : Operator is an external actor, and the include relationship connects the two use cases." loading="lazy" /></div>
+  </div>
+<div class="gallery-panel tour-panel" id="panel-tour-7" role="tabpanel" aria-labelledby="tab-tour-7" tabindex="0" hidden>
+    <div class="tour-heading"><h3>Geometry View</h3><p>airframe, payloadBay and the rotors use real ShapeItems solids and coordinate-frame translations. Nonspatial controls are intentionally absent.</p>
+    <a class="text-link" href="assets/product/all-views/gev-light.svg" data-light="assets/product/all-views/gev-light.svg" data-dark="assets/product/all-views/gev-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
+    <div class="gallery-art"><img src="assets/product/all-views/gev-light.svg" data-light="assets/product/all-views/gev-light.svg" data-dark="assets/product/all-views/gev-dark.svg" alt="Geometry View. airframe, payloadBay and the rotors use real ShapeItems solids and coordinate-frame translations. Nonspatial controls are intentionally absent." loading="lazy" /></div>
+  </div>
+<div class="gallery-panel tour-panel" id="panel-tour-8" role="tabpanel" aria-labelledby="tab-tour-8" tabindex="0" hidden>
+    <div class="tour-heading"><h3>Grid View: requirements</h3><p>Inspect requirements in VS Code and use Export CSV to share the table. The screenshot shows the software-defined vehicle sample; the CSV download uses the all-view drone model.</p>
+    <a class="text-link" href="assets/product/all-views/requirements.csv" target="_blank" rel="noopener">Download showcase CSV ↗</a></div>
+    <div class="gallery-art"><img src="assets/product/grid-vscode.png" alt="VS Code Grid View showing requirements for the software-defined vehicle sample, with Export CSV in the toolbar." loading="lazy" /></div>
+  </div>
+<div class="gallery-footer"><a class="text-link" href="https://github.com/voidaliot/sysml-v2-samples/blob/main/aliot-all-views.sysml">Open the all-view model ↗</a><a class="text-link" href="user-guide.html#all-view-model-tour">Follow the view-by-view guide ↗</a></div>
+<!-- ALL_VIEWS_END -->
         </div>
       </section>
       <section class="section recording-section" id="editing" aria-labelledby="editing-title">
@@ -842,7 +484,7 @@
           <h2 class="section-title" id="editing-title">Edit the details. Keep the model.</h2>
           <p class="capture-intro">
             Browse the hierarchy, inspect inherited features and change values in Properties. These
-            are actual captures from Aliot 0.45.0 in VS Code.
+            are actual captures from Aliot in VS Code.
           </p>
           <figure class="capture-wide">
             <img
@@ -955,7 +597,7 @@
               </figcaption>
             </figure>
             <p class="capture-downloads">
-              <a href="assets/samples/release-demo-before.sysml" download
+              <a href="https://github.com/voidaliot/sysml-v2-samples/blob/main/release-demo-before.sysml"
                 >Download the capture model</a
               >
               <a href="assets/product/v045-hierarchy-light.gif">Light navigation GIF</a>
@@ -1134,7 +776,7 @@
           </div>
           <p class="sample-footnote">
             Prefer a tiny local example?
-            <a class="text-link" href="assets/samples/aliot-first-model.sysml" download
+            <a class="text-link" href="https://github.com/voidaliot/sysml-v2-samples/blob/main/aliot-first-model.sysml"
               >Download the three-part rover
               <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg
             ></a>

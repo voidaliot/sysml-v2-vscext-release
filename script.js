@@ -132,7 +132,7 @@
     $("#source-before").hidden = after;
     $("#source-after").hidden = !after;
     $("#selection-label").textContent = after ? "After: flightComputer" : "Before: controller";
-    $("#source-download").href = `assets/samples/workflow-${after ? "after" : "before"}.sysml`;
+    $("#source-download").href = `https://github.com/voidaliot/sysml-v2-samples/blob/main/workflow-${after ? "after" : "before"}.sysml`;
     $$("[data-export-step]").forEach((button) =>
       button.setAttribute("aria-pressed", String(button.dataset.exportStep === step)),
     );

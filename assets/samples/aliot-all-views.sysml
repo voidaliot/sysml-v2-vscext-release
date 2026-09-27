@@ -1,12 +1,14 @@
-// Aliot all-view tour. This is a readable model, not a test fixture.
+// Aliot all-view tour. Explore structure, behavior, geometry and requirements.
 // No optional language settings are required. Use curved or orthogonal lines.
 // GV group/tree: AliotShowcase::Architecture. IV/GEV: ::Architecture::drone.
 // AFV: ::Mission. STV: ::FlightMode. SV: ::DeliverySequence.
 // CV: ::Operations. GRV Requirements: AliotShowcase (includes satisfy claims).
-// The media generator supplies per-view presentation settings with port labels on.
+// Use the accompanying view settings to enable port labels and expand the buses.
 // Every physical part is connected. Open powerFeed and commandBus to see flows.
 // Expand controller.commands and propulsion.drives to see their nested ports.
 // IV closes geometry attribute lists; GEV still shows their complete solids.
+// IV auto-layout faces nested ports toward their partners and separates labels.
+// Unconnected or manually placed ports keep their side. Open frames protect titles.
 // GV Tree usage labels sit on the approach to each target part definition.
 // State regions are concurrent; there is no transition from one region to another.
 // AFV lanes are performance claims, not duplicate actions or ownership changes.
