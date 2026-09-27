@@ -3,6 +3,118 @@
   "use strict";
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+  // Viewport controls transform the image, never the exported SVG notation.
+  $$(".canvas-area, .gallery-art").forEach((frame, index) => {
+    const image = $("img", frame);
+    if (!image) return;
+    const stage = document.createElement("div");
+    stage.className = "diagram-stage";
+    stage.id = `diagram-stage-${index}`;
+    stage.tabIndex = 0;
+    stage.setAttribute("role", "region");
+    stage.setAttribute("aria-label", image.alt);
+    const controls = document.createElement("div");
+    controls.className = "diagram-controls";
+    controls.setAttribute("role", "group");
+    controls.setAttribute("aria-label", "Diagram zoom controls");
+    controls.innerHTML = `
+      <button type="button" data-zoom="out" aria-label="Zoom out">−</button>
+      <output aria-label="Zoom relative to fit" aria-live="polite">100%</output>
+      <button type="button" data-zoom="in" aria-label="Zoom in">+</button>
+      <button type="button" data-zoom="fit">Fit</button>
+      <span class="diagram-help" id="diagram-help-${index}">Zoom to explore</span>`;
+    stage.setAttribute("aria-describedby", `diagram-help-${index}`);
+    stage.title = "Zoom with + or -. Pan with arrow keys or drag. Press 0 to fit.";
+    $$("button", controls).forEach((button) => button.setAttribute("aria-controls", stage.id));
+    image.draggable = false;
+    frame.classList.add("diagram-viewer");
+    stage.append(image);
+    frame.append(stage, controls);
+    let zoom = 1;
+    let x = 0;
+    let y = 0;
+    let drag;
+    const clamp = (value, limit) => Math.max(-limit, Math.min(limit, value));
+    function render() {
+      if (!image.naturalWidth || !stage.clientWidth || !stage.clientHeight) return;
+      const fit = Math.min(
+        Math.max(1, stage.clientWidth - 24) / image.naturalWidth,
+        Math.max(1, stage.clientHeight - 24) / image.naturalHeight,
+      );
+      const width = image.naturalWidth * fit;
+      const height = image.naturalHeight * fit;
+      x = clamp(x, Math.max(0, (width * zoom - stage.clientWidth + 24) / 2));
+      y = clamp(y, Math.max(0, (height * zoom - stage.clientHeight + 24) / 2));
+      image.style.width = `${width}px`;
+      image.style.height = `${height}px`;
+      image.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px) scale(${zoom})`;
+      stage.classList.toggle("is-zoomed", zoom > 1);
+      $("output", controls).textContent = `${Math.round(zoom * 100)}%`;
+      $('[data-zoom="out"]', controls).disabled = zoom <= 1;
+      $('[data-zoom="in"]', controls).disabled = zoom >= 4;
+      $(".diagram-help", controls).textContent = zoom > 1 ? "Drag or use arrow keys to pan" : "Zoom to explore";
+    }
+    function fit() {
+      zoom = 1;
+      x = y = 0;
+      render();
+    }
+    function changeZoom(factor) {
+      const next = Math.max(1, Math.min(4, zoom * factor));
+      x *= next / zoom;
+      y *= next / zoom;
+      zoom = next;
+      render();
+    }
+    $(".canvas-fit", frame.parentElement)?.addEventListener("click", fit);
+    controls.addEventListener("click", (event) => {
+      const action = event.target.closest("button")?.dataset.zoom;
+      if (action === "in") changeZoom(1.25);
+      if (action === "out") changeZoom(0.8);
+      if (action === "fit") fit();
+    });
+    stage.addEventListener("keydown", (event) => {
+      if (event.ctrlKey || event.metaKey || event.altKey) return;
+      if (["+", "=", "-", "0", "Home"].includes(event.key)) {
+        event.preventDefault();
+        if (event.key === "+" || event.key === "=") changeZoom(1.25);
+        else if (event.key === "-") changeZoom(0.8);
+        else fit();
+      } else if (zoom > 1 && ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
+        event.preventDefault();
+        if (event.key === "ArrowLeft") x += 40;
+        if (event.key === "ArrowRight") x -= 40;
+        if (event.key === "ArrowUp") y += 40;
+        if (event.key === "ArrowDown") y -= 40;
+        render();
+      }
+    });
+    stage.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0 || !event.isPrimary || zoom <= 1) return;
+      stage.focus({ preventScroll: true });
+      drag = { id: event.pointerId, x: event.clientX, y: event.clientY };
+      stage.setPointerCapture(event.pointerId);
+      stage.classList.add("is-dragging");
+    });
+    stage.addEventListener("pointermove", (event) => {
+      if (!drag || drag.id !== event.pointerId) return;
+      x += event.clientX - drag.x;
+      y += event.clientY - drag.y;
+      drag.x = event.clientX;
+      drag.y = event.clientY;
+      render();
+    });
+    function endDrag() {
+      drag = undefined;
+      stage.classList.remove("is-dragging");
+    }
+    stage.addEventListener("lostpointercapture", endDrag);
+    stage.addEventListener("pointercancel", endDrag);
+    image.addEventListener("load", fit);
+    new ResizeObserver(fit).observe(stage);
+    fit();
+  });
   // Both images are unmodified CLI exports of the downloadable source states.
   function setExportStep(step) {
     const after = step === "1";

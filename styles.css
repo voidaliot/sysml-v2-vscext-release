@@ -2954,13 +2954,45 @@ dialog::backdrop {
 }
 
 /* Exported SVGs are isolated images. Website CSS cannot restyle their notation. */
+.workbench-body > * {
+  min-height: 0;
+}
+.canvas-pane {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.canvas-toolbar {
+  flex-shrink: 0;
+}
+.canvas-fit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 4px;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+}
+.canvas-fit:hover {
+  color: var(--accent);
+  background: var(--selection);
+}
 .canvas-area > img {
+  position: absolute;
+  inset: 8px;
   display: block;
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
   object-fit: contain;
 }
 .canvas-area {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
   padding: 8px;
   background-image: none;
 }
@@ -2991,7 +3023,93 @@ dialog::backdrop {
 .editor-pane {
   overflow: auto;
 }
+.diagram-viewer {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  align-items: stretch;
+  justify-content: stretch;
+  padding: 0;
+  background-image: none;
+}
+.gallery-art.diagram-viewer {
+  height: 380px;
+  flex: none;
+}
+.diagram-stage {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+.diagram-stage > img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: none;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+}
+.diagram-stage.is-zoomed {
+  cursor: grab;
+  touch-action: none;
+}
+.diagram-stage.is-dragging {
+  cursor: grabbing;
+}
+.diagram-stage:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
+}
+.diagram-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 10px;
+}
+.diagram-controls button {
+  min-width: 30px;
+  min-height: 30px;
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+}
+.diagram-controls button:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--selection);
+}
+.diagram-controls button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.diagram-controls output {
+  min-width: 38px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.diagram-help {
+  margin-left: auto;
+  text-align: right;
+  font-size: 9px;
+}
 @media (max-width: 520px) {
+  .gallery-art.diagram-viewer {
+    height: 320px;
+  }
+  .diagram-controls button {
+    min-height: 36px;
+    min-width: 36px;
+  }
   .gallery-art > img {
     height: 280px;
   }

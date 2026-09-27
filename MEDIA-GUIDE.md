@@ -34,6 +34,14 @@ Both themes are exported independently. The website switches its hero, mini-prev
 
 The hero compares precomputed before/after exports and offers each source for download. It runs no parser. SVG export omits editor-only controls. A real screenshot is needed to match the surrounding VS Code UI exactly.
 
+## Interactive website previews
+
+The hero and gallery support zoom, drag to pan, and Fit. Zoom is relative to the fitted image and ranges from 100% to 400%. Focus the diagram to use + or - for zoom, arrow keys for pan, and 0 or Home for Fit. Normal page scrolling is preserved. Touch dragging pans after zooming in.
+
+Each image fits its frame on load, theme or model-state changes, tab changes and viewport resizing. Without JavaScript, images still fit. The SVG files stay unchanged.
+
+These controls run entirely in browser JavaScript and work on GitHub Pages. Arbitrary model renaming would require a browser modeling runtime and an editing bridge. The current Before rename and After rename buttons compare two actual exports. They are not a live editor. GitHub and Marketplace READMEs retain static images and GIFs; link readers to the website for these controls.
+
 ## Replace images and recordings later
 
 Keep replacement files in `media/aliot-site/assets/product/` before syncing. Use the existing light/dark filenames:
