@@ -25,7 +25,7 @@ Prefer a local installer? Find the VSIX packages in [releases](releases/). In VS
 
 ![Illustration placeholder: a part rename and attribute edit shown in source and diagram](assets/product/editing-light.gif)
 
-This sample animation is an illustration, not a recording. The [website](https://voidaliot.github.io/sysml-v2-vscext-release/#workflow) provides a still image and a play/stop control.
+This sample animation is an illustration, not a recording. The [website](https://voidaliot.github.io/sysml-v2-vscext-release/#editing) provides a still image and a play/stop control.
 
 ## What you can do
 

@@ -1,4 +1,181 @@
+/* Aliot website illustration. This demo changes page data only; it runs no SysML parser. */
 (() => {
+  "use strict";
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+  const escapeHTML = (value) =>
+    String(value).replace(
+      /[&<>"']/g,
+      (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char],
+    );
+  const defaults = {
+    battery: { name: "battery", type: "Battery", suggestion: "mainBattery" },
+    controller: { name: "controller", type: "FlightController", suggestion: "flightComputer" },
+    propulsion: { name: "propulsion", type: "Propulsion", suggestion: "rotorSystem" },
+    navigation: { name: "navigation", type: "Navigation", suggestion: "navigationUnit" },
+  };
+  let parts = structuredClone(defaults);
+  let selected = "controller";
+  const input = $("#part-name");
+  const message = $("#rename-message");
+
+  function showDemoMessage(text, isError = false) {
+    message.textContent = text;
+    message.classList.toggle("error", isError);
+    input.setAttribute("aria-invalid", String(isError));
+  }
+  function line(markup, partKey) {
+    const active = partKey === selected;
+    return `<span class="source-line${active ? " current" : ""}"${partKey ? ` data-source-part="${partKey}"` : ""}>${markup}</span>`;
+  }
+  function renderModel(suggest = false) {
+    const lines = [
+      line('<span class="kw">package</span> <span class="type">DeliveryDrone</span> {'),
+    ];
+    for (const part of Object.values(defaults)) {
+      lines.push(
+        line(`  <span class="kw">part def</span> <span class="type">${part.type}</span>;`),
+      );
+    }
+    lines.push(line(" "));
+    lines.push(line('  <span class="kw">part def</span> <span class="type">Drone</span> {'));
+    for (const [key, part] of Object.entries(parts)) {
+      lines.push(
+        line(
+          `    <span class="kw">part</span> <span class="name">${escapeHTML(part.name)}</span> : <span class="type">${part.type}</span>;`,
+          key,
+        ),
+      );
+    }
+    lines.push(line("  }"));
+    lines.push(line('  <span class="kw">part</span> drone : <span class="type">Drone</span>;'));
+    lines.push(line("}"));
+    $("#source-code code").innerHTML = lines.join("");
+    for (const node of $$(".part-node")) {
+      const key = node.dataset.part;
+      node.setAttribute("aria-pressed", String(key === selected));
+      node.setAttribute("aria-label", `Select ${parts[key].name} : ${parts[key].type}`);
+      $("[data-name]", node).textContent = parts[key].name;
+    }
+    $("#selection-label").textContent = `${parts[selected].name} selected`;
+    input.value =
+      suggest && parts[selected].name === defaults[selected].name
+        ? defaults[selected].suggestion
+        : parts[selected].name;
+  }
+  for (const node of $$(".part-node")) {
+    node.addEventListener("click", () => {
+      selected = node.dataset.part;
+      renderModel(true);
+      showDemoMessage(
+        `${parts[selected].name} is highlighted in the source. Apply a new name to see both representations change.`,
+      );
+    });
+  }
+  $("#rename-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    const name = input.value.trim();
+    if (!/^[A-Za-z_][A-Za-z0-9_]{0,21}$/.test(name)) {
+      showDemoMessage(
+        "For this illustration, use 1 to 22 letters, digits, or underscores, starting with a letter or underscore.",
+        true,
+      );
+      input.focus();
+      return;
+    }
+    const reserved = new Set([
+      "package",
+      "part",
+      "def",
+      "port",
+      "item",
+      "action",
+      "state",
+      "attribute",
+      "connection",
+      "interface",
+      "import",
+      "private",
+      "public",
+      "protected",
+      "ref",
+      "in",
+      "out",
+      "inout",
+      "then",
+      "first",
+      "if",
+      "else",
+      "while",
+      "for",
+      "loop",
+      "true",
+      "false",
+      "null",
+      "return",
+      "requirement",
+      "constraint",
+      "view",
+      "comment",
+      "doc",
+      "Drone",
+      "DeliveryDrone",
+      ...Object.values(parts).map((part) => part.type),
+    ]);
+    if (
+      reserved.has(name) ||
+      Object.entries(parts).some(([key, part]) => key !== selected && part.name === name)
+    ) {
+      showDemoMessage(
+        "Choose a distinct part name, not a keyword, type, or the name of another part.",
+        true,
+      );
+      input.focus();
+      return;
+    }
+    const previous = parts[selected].name;
+    if (previous === name) {
+      showDemoMessage("Enter a different name, then apply it to update the illustration.");
+      return;
+    }
+    parts[selected].name = name;
+    renderModel();
+    showDemoMessage(`${previous} → ${name}. Source and diagram updated in this illustration.`);
+  });
+  $("#reset-demo").addEventListener("click", () => {
+    parts = structuredClone(defaults);
+    selected = "controller";
+    renderModel(true);
+    showDemoMessage("Illustration reset. Try renaming controller to flightComputer.");
+  });
+  renderModel(true);
+
+  // Keyboard-accessible tablist. All panel content is present in the HTML.
+  const tabs = $$(".view-tab");
+  function activateTab(tab, focus = false) {
+    for (const item of tabs) {
+      const active = item === tab;
+      item.setAttribute("aria-selected", String(active));
+      item.tabIndex = active ? 0 : -1;
+      document.getElementById(item.getAttribute("aria-controls")).hidden = !active;
+    }
+    if (focus) tab.focus();
+  }
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => activateTab(tab));
+    tab.addEventListener("keydown", (event) => {
+      let next;
+      if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
+      if (event.key === "ArrowLeft") next = (index - 1 + tabs.length) % tabs.length;
+      if (event.key === "Home") next = 0;
+      if (event.key === "End") next = tabs.length - 1;
+      if (next !== undefined) {
+        event.preventDefault();
+        activateTab(tabs[next], true);
+      }
+    });
+  });
+
   const root = document.documentElement;
   const toggle = document.getElementById("theme-toggle");
   const demo = document.getElementById("workflow-image");
@@ -26,10 +203,9 @@
 
   function applyTheme(theme) {
     root.dataset.theme = theme;
-    toggle.textContent = theme === "dark" ? "Light theme" : "Dark theme";
     toggle.setAttribute("aria-label", `Switch to ${theme === "dark" ? "light" : "dark"} theme`);
     document.querySelector('meta[name="theme-color"]').content =
-      theme === "dark" ? "#080c13" : "#f5f7fb";
+      theme === "dark" ? "#080c13" : "#f7f9fc";
     document.querySelectorAll("img[data-light]").forEach((image) => {
       image.src = image.dataset[theme];
     });
@@ -59,4 +235,133 @@
     }
   });
   applyTheme(preference || (system.matches ? "dark" : "light"));
+
+  document.querySelector(".recording-panel").addEventListener("toggle", (event) => {
+    if (!event.currentTarget.open && playing) {
+      playing = false;
+      updateDemo();
+    }
+  });
+  if (location.hash === "#editing") document.querySelector(".recording-panel").open = true;
+
+  const menu = $("#main-nav");
+  const menuButton = $("#menu-toggle");
+  function closeMenu() {
+    menu.classList.remove("is-open");
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.setAttribute("aria-label", "Open navigation");
+  }
+  menuButton.addEventListener("click", () => {
+    const open = !menu.classList.contains("is-open");
+    menu.classList.toggle("is-open", open);
+    menuButton.setAttribute("aria-expanded", String(open));
+    menuButton.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+  });
+  $$("#main-nav a").forEach((link) => link.addEventListener("click", closeMenu));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeMenu();
+  });
+  document.addEventListener("click", (event) => {
+    if (menu.classList.contains("is-open") && !event.target.closest(".site-header")) closeMenu();
+  });
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 760) closeMenu();
+  });
+
+  let toastTimer;
+  function toast(text) {
+    const element = $("#toast");
+    element.textContent = text;
+    element.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => element.classList.remove("show"), 3000);
+  }
+  const commands =
+    "npx sysml-validate models/ --strict\n\nnpx sysml-diagram export \\\n  --file models/drone.sysml \\\n  --view iv --out docs/drone.svg";
+  $("#copy-cli").addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(commands);
+      toast("Example commands copied.");
+    } catch (_) {
+      const textarea = document.createElement("textarea");
+      textarea.value = commands;
+      textarea.style.cssText = "position:fixed;left:-10000px;top:0";
+      document.body.append(textarea);
+      textarea.select();
+      const copied = document.execCommand("copy");
+      textarea.remove();
+      $("#copy-cli").focus();
+      toast(
+        copied
+          ? "Example commands copied."
+          : "Copy is unavailable. Select the displayed commands manually.",
+      );
+    }
+  });
+
+  $$("[data-close-dialog]").forEach((button) =>
+    button.addEventListener("click", () => button.closest("dialog").close()),
+  );
+  $$("dialog").forEach((dialog) =>
+    dialog.addEventListener("click", (event) => {
+      const box = dialog.getBoundingClientRect();
+      if (
+        event.target === dialog &&
+        (event.clientX < box.left ||
+          event.clientX > box.right ||
+          event.clientY < box.top ||
+          event.clientY > box.bottom)
+      )
+        dialog.close();
+    }),
+  );
+
+  // Real repository media is never loaded automatically. The default concept is offline.
+  const captureDialog = $("#capture-dialog");
+  const captureImage = $("#capture-image");
+  const captureMessage = $("#capture-message");
+  const allowedCaptures = new Set([
+    "feature-editor-diagram-workspace.png",
+    "feature-diagram-interconnection.png",
+    "feature-diagram-action-flow.png",
+    "feature-diagram-grid.png",
+  ]);
+  let captureTimer;
+  function failedCapture() {
+    captureImage.hidden = true;
+    captureMessage.hidden = false;
+    $("#capture-status").textContent = "The online capture could not be loaded.";
+    $("#capture-explanation").textContent =
+      "Open the original on GitHub below. Your browser may be offline or may restrict external images.";
+  }
+  $$(".capture-link").forEach((button) =>
+    button.addEventListener("click", () => {
+      const file = button.dataset.capture;
+      if (!allowedCaptures.has(file)) return;
+      clearTimeout(captureTimer);
+      captureImage.hidden = true;
+      captureImage.removeAttribute("src");
+      captureMessage.hidden = false;
+      $("#capture-status").textContent = "Loading the public product capture…";
+      $("#capture-explanation").textContent =
+        "This is an existing release-repository image. An internet connection is required.";
+      $("#capture-title").textContent = `${button.dataset.caption} : existing product capture`;
+      $("#capture-original").href =
+        `https://github.com/voidaliot/sysml-v2-vscext-release/blob/main/assets/screenshots/${file}`;
+      captureImage.alt = `Existing Aliot ${button.dataset.caption.toLowerCase()} screenshot from the public release repository`;
+      captureImage.onload = () => {
+        clearTimeout(captureTimer);
+        captureMessage.hidden = true;
+        captureImage.hidden = false;
+      };
+      captureImage.onerror = () => {
+        clearTimeout(captureTimer);
+        failedCapture();
+      };
+      captureDialog.showModal();
+      captureImage.src = `https://raw.githubusercontent.com/voidaliot/sysml-v2-vscext-release/main/assets/screenshots/${file}`;
+      captureTimer = setTimeout(failedCapture, 10000);
+    }),
+  );
+  captureDialog.addEventListener("close", () => clearTimeout(captureTimer));
 })();

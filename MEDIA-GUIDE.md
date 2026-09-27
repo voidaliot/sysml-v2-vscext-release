@@ -1,6 +1,6 @@
 # Aliot pages and media
 
-The release page and README currently use clearly labeled illustrative media. They are not screenshots of the released extension. Replace them with real captures before presenting them as product evidence.
+The release page retains the draft layout, inline SVG wireframe sample cards, icon set, interactive rename illustration and view tabs. The page and README use clearly labeled illustrative media. They are not screenshots of the released extension. Replace them with real captures before presenting them as product evidence.
 
 ## Files and ownership
 
@@ -25,7 +25,7 @@ This copies files locally. It does not commit, push, publish an extension or dep
 
 ## Replace the images and GIFs
 
-Replace the following files in `media/aliot-site/assets/product/` without changing their names. Each comes in `-light` and `-dark` versions. The website selects them with its theme toggle; the READMEs use the light versions.
+Replace the following files in `media/aliot-site/assets/product/` without changing their names. Each comes in `-light` and `-dark` versions. The recording panel selects its poster and GIF with the website theme toggle. The READMEs use the light versions. The hero and view tabs use inline vector illustrations; replacing PNGs does not replace those illustrations.
 
 | Filename stem | Capture to provide |
 | --- | --- |
@@ -47,7 +47,17 @@ Recommended capture sequence:
 6. Record extension version, model revision, theme, view and capture date in a small `assets/product/CAPTURES.md` file. These fields help keep claims aligned with the release.
 7. Run the sync command above. Commit and push the release repository when ready to publish the site and make the image URLs public. Then package and publish the extension through the normal release flow.
 
-The website starts on a static poster. Play explicitly loads the GIF. Stop restores the poster, and switching away from the page stops playback. The GIF in a Markdown README animates as a normal image. Link longer videos from a static thumbnail to the website instead of depending on embedded video or JavaScript in Marketplace Markdown.
+The website recording panel at `#editing` starts on a static poster. Open the panel to see the playback control. The interactive hero at `#workflow-demo` is a separate website illustration that runs no SysML parser. Play explicitly loads the GIF. Stop restores the poster, and switching away from the page stops playback. The GIF in a Markdown README animates as a normal image. Link longer videos from a static thumbnail to the website instead of depending on embedded video or JavaScript in Marketplace Markdown.
+
+## Keep the draft design
+
+The approved visual base is `media/aliot-landing/`. The maintained release page is `media/aliot-site/`. Edit the release page, then run the sync command. Do not overwrite it with the raw draft, which still contains design-only metadata and notes.
+
+The flashlight, drone and vehicle drawings are inline SVGs inside `.sample-visual`. The shared line icons live in the SVG sprite at the top of `index.html`. Their colors follow CSS theme variables. Keep these illustrations when replacing product recordings. They are editorial drawings, not screenshots that need recapturing.
+
+The hero supports selecting and renaming a part. The four view tabs are illustrative previews. The capture buttons open existing public product screenshots on demand. Install buttons use **Install in VS Code**.
+
+The hero's source model is also saved in `reference/fabricated/aliot-workflow-demo.sysml`. It validates without diagnostics. The website renders a simplified illustration, not a live extension view.
 
 ## Marketplace wiring
 
@@ -84,7 +94,7 @@ It refuses to overwrite existing output. `--replace` regenerates all placeholder
 
 ## Preview and check
 
-Serve the release repository with a local static server and open its root. Check light/dark toggle persistence, the play/stop button, image loading, keyboard focus and mobile wrapping. Without JavaScript, the light page and static posters remain readable.
+Serve the release repository with a local static server and open its root. Check light/dark toggle persistence, selecting and renaming parts, keyboard navigation through view tabs, the mobile menu, capture dialogs, the play/stop button, image loading, keyboard focus and mobile wrapping. Without JavaScript, the light page and static posters remain readable.
 
 For example, from the development repository:
 

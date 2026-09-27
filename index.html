@@ -24,323 +24,1301 @@
     <link rel="canonical" href="https://voidaliot.github.io/sysml-v2-vscext-release/" />
     <link rel="icon" type="image/png" href="assets/brand/aliot-light.png" />
     <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
   </head>
   <body>
-    <a class="skip" href="#main">Skip to content</a>
+    <noscript
+      ><style>
+        .demo-controls,
+        .theme-button,
+        .menu-button,
+        .capture-link,
+        .terminal-copy,
+        .view-tabs,
+        #demo-toggle {
+          display: none !important;
+        }
+        .main-nav {
+          display: flex;
+          position: static;
+        }
+        .gallery-panel[hidden] {
+          display: grid !important;
+        }
+      </style></noscript
+    >
+    <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5" /></symbol>
+        <symbol id="i-external" viewBox="0 0 24 24">
+          <path d="M14 4h6v6m0-6L10 14M10 5H5a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-5" />
+        </symbol>
+        <symbol id="i-code" viewBox="0 0 24 24">
+          <path d="m8 6-6 6 6 6m8-12 6 6-6 6m-3-15-2 18" />
+        </symbol>
+        <symbol id="i-boxes" viewBox="0 0 24 24">
+          <rect x="8" y="2" width="8" height="6" rx="1" />
+          <rect x="2" y="16" width="8" height="6" rx="1" />
+          <rect x="14" y="16" width="8" height="6" rx="1" />
+          <path d="M12 8v4H6v4m6-4h6v4" />
+        </symbol>
+        <symbol id="i-branch" viewBox="0 0 24 24">
+          <circle cx="6" cy="5" r="2" />
+          <circle cx="18" cy="6" r="2" />
+          <circle cx="6" cy="19" r="2" />
+          <path d="M6 7v10m12-9v3a4 4 0 0 1-4 4H6" />
+        </symbol>
+        <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7Z" /></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4 10-10" /></symbol>
+        <symbol id="i-github" viewBox="0 0 24 24">
+          <path
+            d="M9 19c-4 1-4-2-6-2m12 4v-3a3 3 0 0 0-1-2c4 0 7-2 7-6a5 5 0 0 0-1-3 5 5 0 0 0 0-4c-2 0-4 2-4 2a14 14 0 0 0-8 0S6 3 4 3a5 5 0 0 0 0 4 5 5 0 0 0-1 3c0 4 3 6 7 6a3 3 0 0 0-1 2v3"
+          />
+        </symbol>
+        <symbol id="i-vscode" viewBox="0 0 24 24">
+          <path d="m17 3 5 2v14l-5 2L6 12l11-9Zm0 0v18M6 12l-4-3v6l4-3Z" />
+        </symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M19 5l-1.5 1.5m-11 11L5 19"
+          />
+        </symbol>
+        <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" /></symbol>
+        <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6" /></symbol>
+        <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H5v20h14V7Zm0 0v6h5" /></symbol>
+        <symbol id="i-search" viewBox="0 0 24 24">
+          <circle cx="10" cy="10" r="6" />
+          <path d="m15 15 6 6" />
+        </symbol>
+        <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 5 7 7-7 7" /></symbol>
+        <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></symbol>
+        <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 5v5h5M4 9a8 8 0 1 1 0 7" /></symbol>
+        <symbol id="i-mouse" viewBox="0 0 24 24"><path d="m5 3 14 9-7 2-3 7-4-18Z" /></symbol>
+        <symbol id="i-grid" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <path d="M3 9h18M3 15h18M9 3v18" />
+        </symbol>
+        <symbol id="i-flow" viewBox="0 0 24 24">
+          <circle cx="3" cy="12" r="2" />
+          <rect x="8" y="7" width="8" height="10" rx="2" />
+          <circle cx="21" cy="12" r="2" />
+          <path d="M5 12h3m8 0h3" />
+        </symbol>
+        <symbol id="i-ports" viewBox="0 0 24 24">
+          <rect x="2" y="6" width="7" height="12" rx="1" />
+          <rect x="15" y="6" width="7" height="12" rx="1" />
+          <path d="M9 12h6" />
+          <rect x="8" y="10" width="2" height="4" />
+          <rect x="14" y="10" width="2" height="4" />
+        </symbol>
+        <symbol id="i-lock" viewBox="0 0 24 24">
+          <rect x="5" y="10" width="14" height="11" rx="2" />
+          <path d="M8 10V6a4 4 0 0 1 8 0v4m-4 5v2" />
+        </symbol>
+        <symbol id="i-library" viewBox="0 0 24 24">
+          <path d="M3 4h5v17H3Zm7 0h4v17h-4Zm6 1 4-1 3 16-4 1Z" />
+        </symbol>
+        <symbol id="i-globe" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <ellipse cx="12" cy="12" rx="4" ry="9" />
+          <path d="M3 12h18" />
+        </symbol>
+        <symbol id="i-copy" viewBox="0 0 24 24">
+          <rect x="8" y="8" width="12" height="13" rx="1" />
+          <path d="M15 8V3H3v12h5" />
+        </symbol>
+        <symbol id="i-network" viewBox="0 0 24 24">
+          <rect x="9" y="9" width="6" height="6" rx="1" />
+          <path d="M12 3v6m0 6v6M3 12h6m6 0h6" />
+          <circle cx="12" cy="3" r="2" />
+          <circle cx="12" cy="21" r="2" />
+          <circle cx="3" cy="12" r="2" />
+          <circle cx="21" cy="12" r="2" />
+        </symbol>
+        <symbol id="i-info" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 11v6m0-10v.1" />
+        </symbol>
+        <symbol id="i-window" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <path d="M3 8h18M8 8v13" />
+        </symbol>
+        <symbol id="i-image" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <circle cx="8" cy="8" r="1.5" />
+          <path d="m3 17 5-5 4 4 4-6 5 7" />
+        </symbol>
+        <symbol id="i-fit" viewBox="0 0 24 24">
+          <path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5" />
+        </symbol>
+        <symbol id="i-link" viewBox="0 0 24 24">
+          <path
+            d="m10 13 4-4m-5 6-2 2a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0m0 9a4 4 0 0 0 6 0l5-5a4 4 0 0 0-6-6l-2 2"
+          />
+        </symbol>
+      </defs>
+    </svg>
+    <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
-      <nav class="wrap nav" aria-label="Main navigation">
-        <a class="brand" href="#"
-          ><img
-            src="assets/brand/aliot-light.svg"
-            data-light="assets/brand/aliot-light.svg"
-            data-dark="assets/brand/aliot-dark.svg"
-            width="42"
-            height="42"
-            alt=""
-          /><span>aliot</span></a
+      <div class="wrap nav-inner">
+        <a class="brand" href="#top" aria-label="Aliot home"
+          ><svg class="brand-mark" viewBox="0 0 512 512" fill="none" aria-hidden="true">
+            <path
+              d="M256 64 300 212 448 256 300 300 256 448 212 300 64 256 212 212Z"
+              fill="currentColor"
+            />
+            <circle cx="256" cy="256" r="35" fill="var(--bg)" /></svg
+          ><span>aliot</span><span class="brand-sub">SysML v2 for VS Code</span></a
         >
-        <div class="nav-links">
-          <a href="#features">Features</a><a href="#examples">Examples</a
-          ><a href="user-guide.html">Docs</a>
+        <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+          <a href="#features">Why Aliot</a><a href="#views">Views</a><a href="#examples">Examples</a
+          ><a href="user-guide.html" target="_blank" rel="noopener noreferrer">Docs</a>
+        </nav>
+        <div class="nav-actions">
+          <button
+            class="icon-button theme-button"
+            id="theme-toggle"
+            aria-label="Switch to dark theme"
+            title="Switch theme"
+          >
+            <svg class="icon" aria-hidden="true"><use href="#i-sun"></use></svg></button
+          ><a
+            class="button primary small"
+            href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Install in VS Code
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a
+          ><button
+            class="icon-button menu-button"
+            id="menu-toggle"
+            aria-label="Open navigation"
+            aria-expanded="false"
+            aria-controls="main-nav"
+          >
+            <svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg>
+          </button>
         </div>
-        <button id="theme-toggle" type="button" aria-label="Switch to dark theme">
-          Dark theme
-        </button>
-        <a
-          class="button primary nav-install"
-          href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2"
-          >Install in VS Code <span aria-hidden="true">↗</span></a
-        >
-      </nav>
+      </div>
     </header>
     <main id="main">
-      <section class="hero wrap">
-        <p class="eyebrow">SYSML v2 + KerML. INSIDE VS CODE.</p>
-        <h1>Model as code.<br /><span>See the system.</span></h1>
-        <p class="lead">
-          Move between text and diagrams without losing the model.<br />
-          Build your system in the development environment you already use.
-        </p>
-        <div class="actions">
-          <a
-            class="button primary"
-            href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2"
-            >Install Aliot</a
-          ><a class="button" href="#workflow"
-            >Explore diagram editing <span aria-hidden="true">↓</span></a
-          >
-        </div>
-        <p class="proof">
-          Local model processing <span>·</span> Bundled OMG library <span>·</span> Git-friendly
-          files
-        </p>
-        <figure class="hero-media">
-          <img
-            src="assets/product/workspace-light.png"
-            data-light="assets/product/workspace-light.png"
-            data-dark="assets/product/workspace-dark.png"
-            width="1200"
-            height="680"
-            fetchpriority="high"
-            alt="Illustration placeholder: SysML source beside a diagram with battery, controller and motor parts."
-          />
-          <figcaption>
-            Illustration placeholder. Replace with a capture of the released extension.
-          </figcaption>
-        </figure>
-      </section>
-      <section class="section wrap" id="features">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">ONE MODEL. TWO WAYS TO WORK.</p>
-            <h2>From an idea to a system.</h2>
-          </div>
-          <p>Write, inspect and change your model.<br />Keep the structure in view as it grows.</p>
-        </div>
-        <div class="features">
-          <article>
-            <span class="number">01</span>
-            <h3>Write with context.</h3>
-            <p>
-              Completion, hover, navigation, rename and diagnostics for SysML v2 and KerML.
-              Standard-library definitions are already at hand.
-            </p>
-          </article>
-          <article>
-            <span class="number">02</span>
-            <h3>Edit what you see.</h3>
-            <p>
-              Add elements, change names and values, and create relationships through supported
-              diagram views. Semantic edits update your source.
-            </p>
-          </article>
-          <article>
-            <span class="number">03</span>
-            <h3>Bring your workflow.</h3>
-            <p>
-              Keep text and diagram layouts in Git. Validate and export in CI. Optional tools give
-              compatible VS Code AI agents model context.
-            </p>
-          </article>
-        </div>
-      </section>
-      <section class="section workflow-section" id="workflow">
+      <section class="hero" id="top" aria-labelledby="hero-title">
         <div class="wrap">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">TEXT + DIAGRAMS</p>
-              <h2>Make the change.<br />See it in the model.</h2>
+          <div class="hero-copy">
+            <div class="eyebrow center">
+              <span class="small-dot"></span>SYSML v2 + KerML. INSIDE VS CODE.
             </div>
+            <h1 id="hero-title">Model as code.<br /><span class="tint">See the system.</span></h1>
+            <p class="hero-description">
+              Move between text and diagrams without losing the model.<br class="desktop-break" />
+              Build your system in the development environment you already use.
+            </p>
+            <div class="hero-actions">
+              <a
+                class="button primary"
+                href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><svg class="icon" aria-hidden="true"><use href="#i-vscode"></use></svg>Install in
+                VS Code <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a
+              ><a class="button" href="#workflow-demo"
+                >Explore the workflow
+                <svg class="icon" aria-hidden="true"><use href="#i-chevron-down"></use></svg
+              ></a>
+            </div>
+            <div class="hero-proof">
+              <span
+                ><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Local model
+                processing</span
+              ><span
+                ><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Bundled
+                standard library</span
+              ><span
+                ><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Git-friendly
+                files</span
+              >
+            </div>
+          </div>
+          <div class="product-wrap" id="workflow-demo">
+            <div
+              class="workbench"
+              aria-label="Interactive workflow illustration, not a running instance of Aliot"
+            >
+              <div class="window-bar">
+                <div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="window-label">
+                  <svg class="icon" aria-hidden="true"><use href="#i-boxes"></use></svg>ALIOT /
+                  DELIVERY DRONE
+                </div>
+                <span class="window-note">Interactive illustration · not a live editor</span>
+              </div>
+              <div class="workbench-body">
+                <div class="activity-bar" aria-hidden="true">
+                  <svg class="icon active" aria-hidden="true"><use href="#i-file"></use></svg
+                  ><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg
+                  ><svg class="icon" aria-hidden="true"><use href="#i-branch"></use></svg
+                  ><svg class="icon" aria-hidden="true"><use href="#i-boxes"></use></svg
+                  ><svg class="icon" aria-hidden="true"><use href="#i-grid"></use></svg>
+                </div>
+                <div class="editor-pane">
+                  <div class="editor-tab">
+                    <span class="file-dot">◈</span>drone.sysml<span
+                      class="tab-close"
+                      aria-hidden="true"
+                      >×</span
+                    >
+                  </div>
+                  <div class="editor-breadcrumb">DeliveryDrone &nbsp;›&nbsp; Drone</div>
+                  <pre
+                    class="source-code"
+                    id="source-code"
+                    aria-label="Illustrative SysML source"
+                  ><code>package DeliveryDrone {
+  part def Battery;
+  part def FlightController;
+  part def Navigation;
+  part def Propulsion;
+  part def Drone {
+    part battery : Battery;
+    part controller : FlightController;
+    part navigation : Navigation;
+    part propulsion : Propulsion;
+  }
+  part drone : Drone;
+}</code></pre>
+                </div>
+                <div class="canvas-pane">
+                  <div class="canvas-toolbar">
+                    <svg class="icon" aria-hidden="true"><use href="#i-boxes"></use></svg
+                    ><span class="view-select">General View</span
+                    ><svg class="icon" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+                    <div class="toolbar-right">
+                      <span>Structure</span><span aria-hidden="true">│</span
+                      ><svg class="icon" aria-hidden="true"><use href="#i-fit"></use></svg>
+                    </div>
+                  </div>
+                  <div class="canvas-area">
+                    <div class="drone-boundary">
+                      <div class="boundary-head">
+                        <div><span class="stereo">«part def»</span><strong>Drone</strong></div>
+                        <span class="minus" aria-hidden="true">−</span>
+                      </div>
+                      <div class="part-grid" id="part-grid">
+                        <button class="part-node" data-part="battery" aria-pressed="false">
+                          <span class="stereo">«part»</span
+                          ><span class="node-name mono" data-name="battery">battery</span
+                          ><small>: Battery</small>
+                        </button>
+                        <button class="part-node" data-part="controller" aria-pressed="true">
+                          <span class="stereo">«part»</span
+                          ><span class="node-name mono" data-name="controller">controller</span
+                          ><small>: FlightController</small>
+                        </button>
+                        <button class="part-node" data-part="navigation" aria-pressed="false">
+                          <span class="stereo">«part»</span
+                          ><span class="node-name mono" data-name="navigation">navigation</span
+                          ><small>: Navigation</small>
+                        </button>
+                        <button class="part-node" data-part="propulsion" aria-pressed="false">
+                          <span class="stereo">«part»</span
+                          ><span class="node-name mono" data-name="propulsion">propulsion</span
+                          ><small>: Propulsion</small>
+                        </button>
+                      </div>
+                    </div>
+                    <span class="canvas-caption">Select a part to find it in the source.</span
+                    ><span class="canvas-zoom">100%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="workbench-footer">
+                <svg class="icon" aria-hidden="true"><use href="#i-branch"></use></svg
+                ><span>main</span><span style="color: var(--mint)">◆</span
+                ><span id="selection-label">controller selected</span
+                ><span class="right">Source ⇄ Diagram &nbsp;·&nbsp; Website illustration</span>
+              </div>
+            </div>
+            <div class="demo-controls">
+              <span class="demo-hint"
+                ><svg class="icon" aria-hidden="true"><use href="#i-mouse"></use></svg>Try it:
+                select a part, then change its name.</span
+              >
+              <form class="rename-form" id="rename-form">
+                <label for="part-name">Rename to</label
+                ><input
+                  class="mono"
+                  id="part-name"
+                  name="partName"
+                  value="controller"
+                  maxlength="22"
+                  autocomplete="off"
+                  spellcheck="false"
+                  aria-describedby="rename-message"
+                /><button class="button small" type="submit">
+                  Apply <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </button>
+              </form>
+              <button class="reset-button" id="reset-demo" type="button">Reset</button>
+            </div>
+            <p class="demo-live" id="rename-message" role="status" aria-live="polite"></p>
+          </div>
+          <div class="hero-divider">
+            <span>YOUR MODEL. YOUR WORKFLOW.</span
+            ><span
+              ><svg class="icon" aria-hidden="true"><use href="#i-file"></use></svg
+              ><strong>SysML v2 + KerML</strong></span
+            ><span
+              ><svg class="icon" aria-hidden="true"><use href="#i-vscode"></use></svg>VS Code</span
+            ><span
+              ><svg class="icon" aria-hidden="true"><use href="#i-branch"></use></svg>Git</span
+            ><span
+              ><svg class="icon" aria-hidden="true"><use href="#i-library"></use></svg>OMG standard
+              library</span
+            >
+          </div>
+        </div>
+      </section>
+      <section class="section section-muted" id="features" aria-labelledby="features-title">
+        <div class="wrap">
+          <div class="section-top">
             <div>
+              <div class="eyebrow">THE SAME MODEL. MORE WAYS TO WORK.</div>
+              <h2 id="features-title">
+                Text when you need precision.<br />Diagrams when you need perspective.
+              </h2>
+            </div>
+            <p>
+              Code is a powerful way to describe a system.<br />A diagram is a powerful way to
+              understand it.<br />Aliot brings the two together.
+            </p>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <div class="feature-num">
+                <span>01 / AUTHOR</span
+                ><svg class="icon" aria-hidden="true"><use href="#i-code"></use></svg>
+              </div>
+              <h3>Write with context.</h3>
               <p>
-                Rename a part in the diagram. Inspect the source.<br />Adjust a value and keep
-                working in either view.
+                Navigate definitions, discover library types, and catch issues with completion,
+                diagnostics, and quick fixes.
+              </p>
+              <div class="feature-visual">
+                <div class="mini-code">
+                  <span class="kw">part def</span> <span class="type">Drone</span> {<br />
+                  <span class="kw">part</span> battery : <span class="type">Battery</span>;<br />
+                  <span class="comment">// Your architecture, in text.</span><br />}<span
+                    class="caret"
+                    aria-hidden="true"
+                  ></span>
+                </div>
+              </div>
+            </article>
+            <article class="feature-card">
+              <div class="feature-num">
+                <span>02 / UNDERSTAND</span
+                ><svg class="icon" aria-hidden="true"><use href="#i-boxes"></use></svg>
+              </div>
+              <h3>Work visually.</h3>
+              <p>
+                Explore structure, interfaces, and behavior. Make supported edits in the diagram and
+                keep the source in sync.
+              </p>
+              <div class="feature-visual">
+                <div class="mini-filebar">Source and diagram, together</div>
+                <div class="mini-graph" aria-hidden="true">
+                  <div class="node">Model</div>
+                  <div class="edge"></div>
+                  <div class="node">Views</div>
+                </div>
+              </div>
+            </article>
+            <article class="feature-card">
+              <div class="feature-num">
+                <span>03 / REVIEW</span
+                ><svg class="icon" aria-hidden="true"><use href="#i-branch"></use></svg>
+              </div>
+              <h3>Keep the change clear.</h3>
+              <p>
+                Review model text in Git. Commit your diagram layouts alongside it, without mixing
+                presentation into your source.
+              </p>
+              <div class="feature-visual">
+                <div class="mini-filebar">
+                  drone.sysml <span style="float: right">Illustrative diff</span>
+                </div>
+                <div class="mini-code">
+                  <div class="diff-minus">− part controller : FlightController;</div>
+                  <div class="diff-plus">+ part flightComputer : FlightController;</div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section explore-section" id="views" aria-labelledby="views-title">
+        <div class="wrap">
+          <div class="section-top">
+            <div>
+              <div class="eyebrow">A VIEW FOR THE QUESTION</div>
+              <h2 id="views-title">One system.<br />Every useful perspective.</h2>
+            </div>
+            <p>
+              Start with the question you need to answer. Then choose the view that makes the model
+              easier to work with.
+            </p>
+          </div>
+          <div class="view-tabs" role="tablist" aria-label="Explore model views">
+            <button
+              class="view-tab"
+              id="tab-structure"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="panel-structure"
+              tabindex="0"
+              data-view="structure"
+            >
+              <svg class="icon" aria-hidden="true"><use href="#i-boxes"></use></svg
+              >Structure</button
+            ><button
+              class="view-tab"
+              id="tab-interfaces"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-interfaces"
+              tabindex="-1"
+              data-view="interfaces"
+            >
+              <svg class="icon" aria-hidden="true"><use href="#i-ports"></use></svg
+              >Interfaces</button
+            ><button
+              class="view-tab"
+              id="tab-behavior"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-behavior"
+              tabindex="-1"
+              data-view="behavior"
+            >
+              <svg class="icon" aria-hidden="true"><use href="#i-flow"></use></svg>Behavior</button
+            ><button
+              class="view-tab"
+              id="tab-requirements"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-requirements"
+              tabindex="-1"
+              data-view="requirements"
+            >
+              <svg class="icon" aria-hidden="true"><use href="#i-grid"></use></svg>Requirements
+            </button>
+          </div>
+          <div
+            class="gallery-panel"
+            id="panel-structure"
+            role="tabpanel"
+            aria-labelledby="tab-structure"
+            tabindex="0"
+          >
+            <div class="gallery-copy">
+              <span class="view-id">GENERAL VIEW</span>
+              <h3>See the parts.<br />Understand the whole.</h3>
+              <p>
+                Explore definitions, usages, and the relationships that make your system. Open what
+                matters and keep the rest out of the way.
+              </p>
+              <ul class="gallery-points">
+                <li>
+                  <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg
+                  ><span>Definitions and usages</span>
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg
+                  ><span>Nested structures</span>
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg
+                  ><span>Relationships in context</span>
+                </li>
+              </ul>
+              <button
+                class="capture-link"
+                data-capture="feature-editor-diagram-workspace.png"
+                data-caption="Structure"
+              >
+                <svg class="icon" aria-hidden="true"><use href="#i-image"></use></svg>View the
+                existing product capture
+                <svg class="icon" aria-hidden="true"><use href="#i-external"></use></svg>
+              </button>
+            </div>
+            <div class="gallery-visual">
+              <div class="gallery-topline">
+                <span>General View · Structure</span><span>Illustrative preview</span>
+              </div>
+              <div class="gallery-art">
+                <svg
+                  class="diagram-svg"
+                  viewBox="0 0 670 300"
+                  role="img"
+                  aria-label="Illustrative composition of a drone into battery, controller, navigation, and propulsion parts."
+                >
+                  <path
+                    class="wire"
+                    d="M335 83V121H88V164M335 121H253V164M335 121H418V164M335 121H583V164"
+                  />
+                  <path d="m335 75 4 6-4 6-4-6Z" fill="var(--muted)" />
+                  <rect class="highlight-box" x="254" y="23" width="162" height="51" rx="5" />
+                  <text class="stereo" x="335" y="42" text-anchor="middle">«part def»</text>
+                  <text class="label" x="335" y="59" text-anchor="middle">Drone</text>
+                  <rect class="box" x="25" y="164" width="126" height="66" rx="5" />
+                  <text class="stereo" x="88.0" y="181" text-anchor="middle">«part»</text>
+                  <text class="label" x="88.0" y="199" text-anchor="middle">battery</text>
+                  <text class="stereo" x="88.0" y="215" text-anchor="middle">: Battery</text>
+                  <rect class="highlight-box" x="190" y="164" width="126" height="66" rx="5" />
+                  <text class="stereo" x="253.0" y="181" text-anchor="middle">«part»</text>
+                  <text class="label" x="253.0" y="199" text-anchor="middle">controller</text>
+                  <text class="stereo" x="253.0" y="215" text-anchor="middle">
+                    : FlightController
+                  </text>
+                  <rect class="box" x="355" y="164" width="126" height="66" rx="5" />
+                  <text class="stereo" x="418.0" y="181" text-anchor="middle">«part»</text>
+                  <text class="label" x="418.0" y="199" text-anchor="middle">navigation</text>
+                  <text class="stereo" x="418.0" y="215" text-anchor="middle">: Navigation</text>
+                  <rect class="box" x="520" y="164" width="126" height="66" rx="5" />
+                  <text class="stereo" x="583.0" y="181" text-anchor="middle">«part»</text>
+                  <text class="label" x="583.0" y="199" text-anchor="middle">propulsion</text>
+                  <text class="stereo" x="583.0" y="215" text-anchor="middle">: Propulsion</text>
+                  <text class="tiny" x="335" y="265" text-anchor="middle">
+                    One system. Explicit parts. Reusable definitions.
+                  </text>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div
+            class="gallery-panel"
+            id="panel-interfaces"
+            role="tabpanel"
+            aria-labelledby="tab-interfaces"
+            tabindex="0"
+            hidden
+          >
+            <div class="gallery-copy">
+              <span class="view-id">INTERCONNECTION VIEW</span>
+              <h3>Follow the connections.<br />Find the dependencies.</h3>
+              <p>
+                Look inside the system. Explore nested parts, inspect their ports, and follow the
+                interfaces that bring the architecture together.
+              </p>
+              <ul class="gallery-points">
+                <li>
+                  <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg
+                  ><span>Parts and ports</span>
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg
+                  ><span>Interfaces and connections</span>
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg
+                  ><span>Item flows</span>
+                </li>
+              </ul>
+              <button
+                class="capture-link"
+                data-capture="feature-diagram-interconnection.png"
+                data-caption="Interfaces"
+              >
+                <svg class="icon" aria-hidden="true"><use href="#i-image"></use></svg>View the
+                existing product capture
+                <svg class="icon" aria-hidden="true"><use href="#i-external"></use></svg>
+              </button>
+            </div>
+            <div class="gallery-visual">
+              <div class="gallery-topline">
+                <span>Interconnection View</span><span>Illustrative preview</span>
+              </div>
+              <div class="gallery-art">
+                <svg
+                  class="diagram-svg"
+                  viewBox="0 0 670 300"
+                  role="img"
+                  aria-label="Illustrative internal drone interfaces: battery power, navigation data, and propulsion control."
+                >
+                  <rect class="box" x="14" y="12" width="642" height="276" rx="7" />
+                  <text class="stereo" x="30" y="32">«part» drone : Drone</text>
+                  <path class="accent-wire" d="M178 185H271M407 185H505M339 119V163" />
+                  <path class="wire" d="M107 228V258H571V228" />
+                  <text class="tiny" x="224" y="175" text-anchor="middle">power</text>
+                  <text class="tiny" x="455" y="175" text-anchor="middle">command</text>
+                  <text class="tiny" x="355" y="145">position</text>
+                  <text class="tiny" x="340" y="252" text-anchor="middle">power distribution</text>
+                  <rect class="box" x="40" y="163" width="138" height="66" rx="5" />
+                  <text class="stereo" x="109.0" y="180" text-anchor="middle">«part»</text>
+                  <text class="label" x="109.0" y="198" text-anchor="middle">battery</text>
+                  <text class="stereo" x="109.0" y="214" text-anchor="middle">: Battery</text>
+                  <rect class="highlight-box" x="270" y="163" width="138" height="66" rx="5" />
+                  <text class="stereo" x="339.0" y="180" text-anchor="middle">«part»</text>
+                  <text class="label" x="339.0" y="198" text-anchor="middle">controller</text>
+                  <text class="stereo" x="339.0" y="214" text-anchor="middle">
+                    : FlightController
+                  </text>
+                  <rect class="box" x="504" y="163" width="132" height="66" rx="5" />
+                  <text class="stereo" x="570.0" y="180" text-anchor="middle">«part»</text>
+                  <text class="label" x="570.0" y="198" text-anchor="middle">propulsion</text>
+                  <text class="stereo" x="570.0" y="214" text-anchor="middle">: Propulsion</text>
+                  <rect class="box" x="270" y="53" width="138" height="66" rx="5" />
+                  <text class="stereo" x="339.0" y="70" text-anchor="middle">«part»</text>
+                  <text class="label" x="339.0" y="88" text-anchor="middle">navigation</text>
+                  <text class="stereo" x="339.0" y="104" text-anchor="middle">: Navigation</text>
+                  <rect class="port" x="175" y="181" width="7" height="7" />
+                  <rect class="port" x="267" y="181" width="7" height="7" />
+                  <rect class="port" x="405" y="181" width="7" height="7" />
+                  <rect class="port" x="501" y="181" width="7" height="7" />
+                  <rect class="port" x="335" y="115" width="7" height="7" />
+                  <rect class="port" x="335" y="159" width="7" height="7" />
+                  <rect class="port" x="103" y="225" width="7" height="7" />
+                  <rect class="port" x="566" y="225" width="7" height="7" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div
+            class="gallery-panel"
+            id="panel-behavior"
+            role="tabpanel"
+            aria-labelledby="tab-behavior"
+            tabindex="0"
+            hidden
+          >
+            <div class="gallery-copy">
+              <span class="view-id">ACTION FLOW + STATE TRANSITION</span>
+              <h3>Make the behavior<br />easy to follow.</h3>
+              <p>
+                Describe what happens, in what order, and under which conditions. Explore action
+                flows and state transitions alongside your structure.
+              </p>
+              <ul class="gallery-points">
+                <li>
+                  <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg
+                  ><span>Actions and control flow</span>
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg
+                  ><span>States and transitions</span>
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg
+                  ><span>Guards and effects</span>
+                </li>
+              </ul>
+              <button
+                class="capture-link"
+                data-capture="feature-diagram-action-flow.png"
+                data-caption="Behavior"
+              >
+                <svg class="icon" aria-hidden="true"><use href="#i-image"></use></svg>View the
+                existing product capture
+                <svg class="icon" aria-hidden="true"><use href="#i-external"></use></svg>
+              </button>
+            </div>
+            <div class="gallery-visual">
+              <div class="gallery-topline">
+                <span>Action Flow · Mission</span><span>Illustrative preview</span>
+              </div>
+              <div class="gallery-art">
+                <svg
+                  class="diagram-svg"
+                  viewBox="0 0 670 300"
+                  role="img"
+                  aria-label="Illustrative mission action flow from planning through takeoff and delivery."
+                >
+                  <defs>
+                    <marker
+                      id="arrowhead-gallery"
+                      viewBox="0 0 10 10"
+                      refX="9"
+                      refY="5"
+                      markerWidth="5"
+                      markerHeight="5"
+                      orient="auto-start-reverse"
+                    >
+                      <path
+                        d="m1 1 8 4-8 4"
+                        fill="none"
+                        stroke="var(--accent)"
+                        stroke-width="1.3"
+                      />
+                    </marker>
+                  </defs>
+                  <rect class="box" x="17" y="32" width="637" height="226" rx="8" />
+                  <text class="stereo" x="35" y="55">«action» executeMission</text>
+                  <path class="accent-wire" marker-end="url(#arrowhead-gallery)" d="M53 149H90" />
+                  <path class="accent-wire" marker-end="url(#arrowhead-gallery)" d="M225 149H268" />
+                  <path class="accent-wire" marker-end="url(#arrowhead-gallery)" d="M403 149H446" />
+                  <path class="accent-wire" marker-end="url(#arrowhead-gallery)" d="M581 149H621" />
+                  <circle cx="47" cy="149" r="6" fill="var(--accent)" />
+                  <circle cx="629" cy="149" r="9" fill="none" stroke="var(--accent)" />
+                  <circle cx="629" cy="149" r="5" fill="var(--accent)" />
+                  <rect class="box" x="90" y="119" width="135" height="61" rx="10" />
+                  <text class="stereo" x="157.5" y="140" text-anchor="middle">«action»</text>
+                  <text class="label" x="157.5" y="160" text-anchor="middle">Plan mission</text>
+                  <rect class="highlight-box" x="268" y="119" width="135" height="61" rx="10" />
+                  <text class="stereo" x="335.5" y="140" text-anchor="middle">«action»</text>
+                  <text class="label" x="335.5" y="160" text-anchor="middle">
+                    Arm &amp; take off
+                  </text>
+                  <rect class="box" x="446" y="119" width="135" height="61" rx="10" />
+                  <text class="stereo" x="513.5" y="140" text-anchor="middle">«action»</text>
+                  <text class="label" x="513.5" y="160" text-anchor="middle">Deliver payload</text>
+                  <text class="tiny" x="335" y="227" text-anchor="middle">
+                    Control flow keeps the sequence of work visible.
+                  </text>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div
+            class="gallery-panel"
+            id="panel-requirements"
+            role="tabpanel"
+            aria-labelledby="tab-requirements"
+            tabindex="0"
+            hidden
+          >
+            <div class="gallery-copy">
+              <span class="view-id">GRID VIEW</span>
+              <h3>Connect requirements<br />to the model.</h3>
+              <p>
+                Work with requirements in a table. Keep the requirement text, its satisfying
+                elements, and its verification relationships in context.
+              </p>
+              <ul class="gallery-points">
+                <li>
+                  <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg
+                  ><span>Editable tables</span>
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg
+                  ><span>Satisfaction relationships</span>
+                </li>
+                <li>
+                  <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg
+                  ><span>Verification relationships</span>
+                </li>
+              </ul>
+              <button
+                class="capture-link"
+                data-capture="feature-diagram-grid.png"
+                data-caption="Requirements"
+              >
+                <svg class="icon" aria-hidden="true"><use href="#i-image"></use></svg>View the
+                existing product capture
+                <svg class="icon" aria-hidden="true"><use href="#i-external"></use></svg>
+              </button>
+            </div>
+            <div class="gallery-visual">
+              <div class="gallery-topline">
+                <span>Grid View · Requirements</span><span>Illustrative preview</span>
+              </div>
+              <div class="gallery-art">
+                <div class="grid-preview">
+                  <table>
+                    <caption>
+                      Illustrative model relationships, not executed verification results.
+                    </caption>
+                    <thead>
+                      <tr>
+                        <th style="width: 15%">ID</th>
+                        <th style="width: 38%">Requirement</th>
+                        <th style="width: 24%">Satisfied by</th>
+                        <th style="width: 23%">Verified by</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="req-id">REQ-01</td>
+                        <td>Carry a 1 kg payload</td>
+                        <td>drone</td>
+                        <td>payloadTest</td>
+                      </tr>
+                      <tr>
+                        <td class="req-id">REQ-02</td>
+                        <td>Return on low battery</td>
+                        <td>controller</td>
+                        <td>returnTest</td>
+                      </tr>
+                      <tr>
+                        <td class="req-id">REQ-03</td>
+                        <td>Report navigation status</td>
+                        <td>navigation</td>
+                        <td>Not linked</td>
+                      </tr>
+                      <tr>
+                        <td class="req-id">REQ-04</td>
+                        <td>Protect the payload</td>
+                        <td>Not linked</td>
+                        <td>Not linked</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="gallery-footer">
+            <span
+              >Also explore Sequence, Case, and Geometry views. The Browser panel stays alongside
+              your diagram.</span
+            ><a class="text-link" href="user-guide.html" target="_blank" rel="noopener noreferrer"
+              >Explore all views
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg
+            ></a>
+          </div>
+        </div>
+      </section>
+      <section class="section recording-section" id="editing" aria-labelledby="editing-title">
+        <div class="wrap">
+          <details class="recording-panel">
+            <summary id="editing-title">
+              <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>See diagram
+              editing in motion<span class="recording-note">Sample animation</span>
+            </summary>
+            <div class="recording-body">
+              <p>
+                Rename a part, follow the source update, then change a value. This replaceable
+                preview is an illustration of the workflow.
               </p>
               <button
                 id="demo-toggle"
-                class="button"
+                class="button small"
                 type="button"
                 aria-pressed="false"
                 aria-controls="workflow-image"
               >
                 Play sample animation
               </button>
+              <figure>
+                <img
+                  id="workflow-image"
+                  src="assets/product/editing-poster-light.png"
+                  data-light="assets/product/editing-poster-light.png"
+                  data-dark="assets/product/editing-poster-dark.png"
+                  width="1200"
+                  height="680"
+                  loading="lazy"
+                  alt="Illustration placeholder for diagram editing. This is not a recording of the extension."
+                />
+                <figcaption id="demo-caption" aria-live="polite">
+                  Illustration placeholder, not a product recording. Animation starts only when you
+                  press Play.
+                </figcaption>
+              </figure>
+            </div>
+          </details>
+        </div>
+      </section>
+      <section class="section section-muted" id="workflow" aria-labelledby="workflow-title">
+        <div class="wrap workflow-layout">
+          <div class="workflow-copy">
+            <div class="eyebrow">PART OF YOUR ENGINEERING WORKFLOW</div>
+            <h2 class="section-title" id="workflow-title">
+              Your files.<br />Your tools. Your process.
+            </h2>
+            <p>
+              No separate modeling repository to maintain. Keep the system description where the
+              rest of your engineering work happens.
+            </p>
+            <div class="workflow-list">
+              <div class="workflow-item">
+                <svg class="icon" aria-hidden="true"><use href="#i-branch"></use></svg>
+                <div>
+                  <h3>Version the model and its layout.</h3>
+                  <p>Review text changes and keep diagram presentation files in your repository.</p>
+                </div>
+              </div>
+              <div class="workflow-item">
+                <svg class="icon" aria-hidden="true"><use href="#i-code"></use></svg>
+                <div>
+                  <h3>Validate and export in your pipeline.</h3>
+                  <p>Use the companion command-line tools for model checks and diagram exports.</p>
+                </div>
+              </div>
+              <div class="workflow-item">
+                <svg class="icon" aria-hidden="true"><use href="#i-network"></use></svg>
+                <div>
+                  <h3>Give compatible agents model context.</h3>
+                  <p>
+                    Optional VS Code agent tools expose language-server context, library search, and
+                    draft validation.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-          <figure>
-            <img
-              id="workflow-image"
-              src="assets/product/editing-poster-light.png"
-              data-light="assets/product/editing-poster-light.png"
-              data-dark="assets/product/editing-poster-dark.png"
-              width="1200"
-              height="680"
-              loading="lazy"
-              alt="Illustration placeholder for a diagram rename workflow. This is not a recording of the extension."
-            />
-            <figcaption id="demo-caption" aria-live="polite">
-              Illustration placeholder, not a product recording. Animation starts only when you
-              press Play.
-            </figcaption>
-          </figure>
+          <div class="terminal">
+            <div class="terminal-top">
+              <span class="label"
+                ><svg class="icon" aria-hidden="true"><use href="#i-branch"></use></svg
+                >delivery-drone /</span
+              ><button class="terminal-copy" id="copy-cli">
+                <svg class="icon" aria-hidden="true"><use href="#i-copy"></use></svg
+                ><span>Copy commands</span>
+              </button>
+            </div>
+            <div class="terminal-content">
+              <pre class="terminal-files"><span class="lit">delivery-drone/</span>
+<span class="dim">├──</span> models/
+<span class="dim">│   └──</span> drone.sysml
+<span class="dim">├──</span> .vscode/sysml/
+<span class="dim">│   ├──</span> project.json
+<span class="dim">│   └──</span> diagrams/
+<span class="dim">└──</span> docs/</pre>
+              <div class="terminal-rule"></div>
+              <div class="command-caption">EXAMPLE CLI WORKFLOW · NOT EXECUTED IN THIS PAGE</div>
+              <pre
+                class="cli-command"
+              ><span class="dollar">$</span> <span class="executable">npx sysml-validate</span> models/ --strict
+
+<span class="dollar">$</span> <span class="executable">npx sysml-diagram</span> export \
+    --file models/drone.sysml \
+    --view iv --out docs/drone.svg</pre>
+            </div>
+            <div class="terminal-bottom">Text models + versioned layouts + repeatable exports</div>
+          </div>
         </div>
       </section>
-      <section class="section wrap" id="views">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">CHOOSE YOUR PERSPECTIVE</p>
-            <h2>Explore the same system.</h2>
+      <section class="section" id="examples" aria-labelledby="examples-title">
+        <div class="wrap">
+          <div class="section-top">
+            <div>
+              <div class="eyebrow">LESS BLANK CANVAS. MORE FIRST STEPS.</div>
+              <h2 id="examples-title">Start with something real.</h2>
+            </div>
+            <p>
+              Open a sample, explore its structure, and make it your own. Move from a first model to
+              a larger architecture.
+            </p>
           </div>
-          <p>
-            Structure, connections, behavior and requirements.<br /><a
-              class="text-link"
-              href="user-guide.html"
-              >Read the diagram guide →</a
-            >
+          <div class="sample-grid">
+            <a
+              class="sample-card"
+              href="https://github.com/voidaliot/sysml-v2-samples/blob/main/flashlight.sysml"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><div class="sample-visual">
+                <span class="sample-type">THE FIRST MODEL</span
+                ><svg viewBox="0 0 200 120" aria-hidden="true">
+                  <path class="dim-stroke" d="M21 100h159M36 19v83" />
+                  <path
+                    d="m54 63 16-16 30 30-16 16Z M70 47l10-19 47 47-27 2M80 28l10-7 44 44-7 10M89 86l10-10"
+                  />
+                  <path class="accent-stroke" d="m108 16 30 12m-17-18 31 5m-13 29 26 20" />
+                  <path d="m54 63-5 5 29 29 6-4" />
+                  <text class="axis-label" x="151" y="110">PART / 01</text>
+                </svg>
+              </div>
+              <div class="sample-content">
+                <div class="sample-level">START SMALL</div>
+                <h3>A flashlight.</h3>
+                <p>Learn definitions, usages, and the structure of a simple system.</p>
+                <span class="sample-cta"
+                  >Open the model
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg
+                ></span></div
+            ></a>
+            <a
+              class="sample-card featured"
+              href="https://github.com/voidaliot/sysml-v2-samples/blob/main/drone.sysml"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><div class="sample-visual">
+                <span class="sample-type">THE CONNECTED SYSTEM</span
+                ><svg viewBox="0 0 200 120" aria-hidden="true">
+                  <ellipse class="dim-stroke" cx="100" cy="65" rx="84" ry="38" />
+                  <path d="m65 34 70 47M65 81l70-47" />
+                  <path d="m82 45 18-9 18 9v31l-18 10-18-10Z" />
+                  <path class="accent-stroke" d="m82 45 18 9 18-9m-18 9v32" />
+                  <ellipse cx="54" cy="28" rx="24" ry="10" />
+                  <ellipse cx="147" cy="28" rx="24" ry="10" />
+                  <ellipse cx="54" cy="87" rx="24" ry="10" />
+                  <ellipse cx="147" cy="87" rx="24" ry="10" />
+                  <path d="M47 28h14m-7-5v10m86-5h14m-7-5v10M47 87h14m-7-5v10m86-5h14m-7-5v10" />
+                  <text class="axis-label" x="147" y="112">SYSTEM / 02</text>
+                </svg>
+              </div>
+              <div class="sample-content">
+                <div class="sample-level">EXPLORE CONNECTIONS</div>
+                <h3>A delivery drone.</h3>
+                <p>Discover parts, ports, connections, and system behavior.</p>
+                <span class="sample-cta"
+                  >Open the model
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg
+                ></span></div
+            ></a>
+            <a
+              class="sample-card"
+              href="https://github.com/voidaliot/sysml-v2-samples/blob/main/sdv.sysml"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><div class="sample-visual">
+                <span class="sample-type">THE BIGGER PICTURE</span
+                ><svg viewBox="0 0 200 120" aria-hidden="true">
+                  <path class="dim-stroke" d="M15 99h170M19 17v84" />
+                  <path
+                    d="m24 76 10-29 38-9h55l38 24 10 3v22H24Z M52 45l-6 19h103l-27-19ZM83 44v20M39 72h-9m132 0h8"
+                  />
+                  <circle cx="55" cy="87" r="13" />
+                  <circle cx="145" cy="87" r="13" />
+                  <circle cx="55" cy="87" r="6" />
+                  <circle cx="145" cy="87" r="6" />
+                  <path class="accent-stroke" d="M76 78h47m-38-7v14m27-14v14" />
+                  <text class="axis-label" x="134" y="113">ARCHITECTURE / 03</text>
+                </svg>
+              </div>
+              <div class="sample-content">
+                <div class="sample-level">GO DEEPER</div>
+                <h3>A software-defined vehicle.</h3>
+                <p>Explore a larger architecture with interfaces and requirements.</p>
+                <span class="sample-cta"
+                  >Open the model
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg
+                ></span></div
+            ></a>
+          </div>
+          <p class="sample-footnote">
+            Prefer a tiny local example?
+            <a class="text-link" href="assets/samples/aliot-first-model.sysml" download
+              >Download the three-part rover
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg
+            ></a>
           </p>
         </div>
-        <div class="gallery">
-          <figure>
-            <img
-              src="assets/product/structure-light.png"
-              data-light="assets/product/structure-light.png"
-              data-dark="assets/product/structure-dark.png"
-              width="1200"
-              height="680"
-              loading="lazy"
-              alt="Illustration placeholder for nested parts in General View."
-            />
-            <figcaption>
-              <strong>Understand the structure.</strong> Packages, definitions and usages in General
-              View. Illustration placeholder.
-            </figcaption>
-          </figure>
-          <figure>
-            <img
-              src="assets/product/interconnection-light.png"
-              data-light="assets/product/interconnection-light.png"
-              data-dark="assets/product/interconnection-dark.png"
-              width="1200"
-              height="680"
-              loading="lazy"
-              alt="Illustration placeholder for ports and connections."
-            />
-            <figcaption>
-              <strong>Follow the connections.</strong> Parts, ports and interfaces in
-              Interconnection View. Illustration placeholder.
-            </figcaption>
-          </figure>
-        </div>
-        <p class="view-list">
-          Also explore Action Flow, State Transition, Sequence, Case, Geometry and Grid, with
-          Browser navigation alongside your diagrams.
-        </p>
       </section>
-      <section class="section wrap" id="examples">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">START SMALL. GO FURTHER.</p>
-            <h2>A model worth opening.</h2>
+      <section class="section start-section" id="start" aria-labelledby="start-title">
+        <div class="wrap">
+          <h2 class="sr-only" id="start-title">Your first model in three steps</h2>
+          <div class="start-panel">
+            <div class="start-step">
+              <span class="step-number">1</span>
+              <div>
+                <h3>Install Aliot.</h3>
+                <p>
+                  Find
+                  <a
+                    href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Aliot SysML v2</a
+                  >
+                  in the VS Code Marketplace.
+                </p>
+              </div>
+            </div>
+            <div class="start-step">
+              <span class="step-number">2</span>
+              <div>
+                <h3>Open a model.</h3>
+                <p>Choose a sample or run<br /><code>SysML: New Model…</code></p>
+              </div>
+            </div>
+            <div class="start-step">
+              <span class="step-number">3</span>
+              <div>
+                <h3>See the system.</h3>
+                <p>Run <code>SysML: Show Diagram</code>.<br />Explore, edit, and save.</p>
+              </div>
+            </div>
           </div>
-          <p>Use a small example to learn the workflow.<br />Then explore a larger architecture.</p>
-        </div>
-        <div class="samples">
-          <a href="assets/samples/aliot-first-model.sysml" download
-            ><span class="number">FIRST STEPS</span>
-            <h3>A small rover.</h3>
-            <p>Three parts, one value and a source file you can read in a minute.</p>
-            <span class="text-link">Download the model ↓</span></a
-          >
-          <a href="https://github.com/voidaliot/sysml-v2-samples/blob/main/drone.sysml"
-            ><span class="number">CONNECTIONS</span>
-            <h3>A drone.</h3>
-            <p>Explore parts, ports, connections and behavior in a compact system.</p>
-            <span class="text-link">Open the sample ↗</span></a
-          >
-          <a href="https://github.com/voidaliot/sysml-v2-samples/blob/main/sdv.sysml"
-            ><span class="number">ARCHITECTURE</span>
-            <h3>A software-defined vehicle.</h3>
-            <p>Navigate a larger system with interfaces and requirements.</p>
-            <span class="text-link">Open the sample ↗</span></a
-          >
         </div>
       </section>
-      <section class="section wrap start" id="start">
-        <h2>Your first model.</h2>
-        <ol>
-          <li><strong>Install Aliot.</strong> Find Aliot SysML v2 in the VS Code Marketplace.</li>
-          <li>
-            <strong>Open a model.</strong> Use a sample or run <code>SysML: New Model…</code>.
-          </li>
-          <li>
-            <strong>See the system.</strong> Run <code>SysML: Show Diagram</code>. Explore, edit and
-            save.
-          </li>
-        </ol>
-      </section>
-      <section class="section wrap faq">
-        <div>
-          <p class="eyebrow">BEFORE YOU START</p>
-          <h2>A few practical details.</h2>
+      <section class="section" id="questions" aria-labelledby="faq-title">
+        <div class="wrap faq-layout">
+          <div class="faq-intro">
+            <div class="eyebrow">BEFORE YOU START</div>
+            <h2 class="section-title" id="faq-title">A few practical details.</h2>
+            <p>
+              The tools, the files, and what stays local. Find the full setup and feature guidance
+              in the documentation.
+            </p>
+            <a class="text-link" href="user-guide.html" target="_blank" rel="noopener noreferrer"
+              >Read the user guide
+              <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg
+            ></a>
+          </div>
+          <div class="faq-list">
+            <details>
+              <summary>Do I need Java or a diagram server?</summary>
+              <p>
+                No separate Java runtime or PlantUML server is required for the extension’s modeling
+                workflow. The extension includes its language service and the standard library.
+              </p>
+            </details>
+            <details>
+              <summary>Where are my models and layouts stored?</summary>
+              <p>
+                The model stays in your <code>.sysml</code> or <code>.kerml</code> files. Diagram
+                presentation is stored separately under <code>.vscode/sysml/diagrams/</code>. You
+                decide which files to commit to Git.
+              </p>
+            </details>
+            <details>
+              <summary>Does it work in browser-hosted VS Code?</summary>
+              <p>
+                The documented web support includes language services and editable diagrams.
+                Features that require local filesystem or Node.js access, including the companion
+                CLIs and archive workflows, have desktop-specific requirements. Check the
+                <a href="user-guide.html" target="_blank" rel="noopener noreferrer">user guide</a>
+                for the current compatibility details.
+              </p>
+            </details>
+            <details>
+              <summary>Is an AI account required?</summary>
+              <p>
+                No. The modeling workflow does not require an AI model or AI account. Agent tools
+                are optional. A separately enabled agent or service may transmit the context you
+                choose to share under that service’s own policies.
+              </p>
+            </details>
+            <details>
+              <summary>Which themes are included?</summary>
+              <p>
+                Choose Aliot Light or Aliot Dark in VS Code. Diagrams follow your active editor
+                theme. This page has its own light and dark switch.
+              </p>
+            </details>
+            <details>
+              <summary>What is the current license?</summary>
+              <p>
+                Aliot is available under its Freeware License. Bundled libraries retain their
+                upstream licenses. Read the
+                <a
+                  href="https://github.com/voidaliot/sysml-v2-vscext-release/blob/main/LICENSE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >license</a
+                >
+                for the terms.
+              </p>
+            </details>
+          </div>
         </div>
-        <div>
-          <details>
-            <summary>Do I need Java or a diagram server?</summary>
-            <p>
-              No. Aliot includes its language service and the OMG standard library. You do not need
-              Java or PlantUML.
-            </p>
-          </details>
-          <details>
-            <summary>Does it work in the browser?</summary>
-            <p>
-              Language services and editable diagrams work in vscode.dev and github.dev. Archive and
-              abstract-syntax interchange operations, and the companion CLIs, require a desktop
-              environment.
-            </p>
-          </details>
-          <details>
-            <summary>Is an AI account required?</summary>
-            <p>
-              No. AI tools are optional and need a compatible, separately configured VS Code agent.
-              Aliot includes no AI model or credentials. A chosen agent service handles shared
-              context under its own policies.
-            </p>
-          </details>
-          <details>
-            <summary>Where does my model live?</summary>
-            <p>
-              Your .sysml and .kerml files stay in the workspace. Diagram layouts live under
-              .vscode/sysml/diagrams/. Aliot collects no telemetry. You choose what to share or
-              commit.
-            </p>
-          </details>
-          <details>
-            <summary>Which theme should I use?</summary>
-            <p>
-              Choose Aliot Dark for a dark editor, or Aliot Light for a light gray editor.
-              Diagrams also follow your active VS Code theme.
-            </p>
-          </details>
-          <details>
-            <summary>Is Aliot free?</summary>
-            <p>
-              Aliot is available under its <a href="LICENSE">Freeware License</a>. Bundled libraries
-              retain their upstream licenses. The project is under active development; small
-              reproductions make useful bug reports.
-            </p>
-          </details>
-        </div>
       </section>
-      <section class="wrap closing">
-        <div>
-          <h2>Bring your system into view.</h2>
-          <p>Start with a model. Keep it close to your code.</p>
-        </div>
-        <a
-          class="button primary"
-          href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2"
-          >Install Aliot SysML v2</a
-        >
-      </section>
-    </main>
-    <footer class="wrap">
-      <div class="footer-links">
-        <span class="brand">aliot</span><a href="user-guide.html">User guide</a
-        ><a href="https://github.com/voidaliot/sysml-v2-vscext-release/blob/main/CHANGELOG.md"
-          >Release notes</a
-        ><a href="https://github.com/voidaliot/sysml-v2-vscext-release/issues">Feedback</a
-        ><a href="https://github.com/voidaliot/sysml-v2-vscext-release">GitHub</a>
+      <div class="wrap">
+        <section class="end-cta" aria-labelledby="cta-title">
+          <svg class="cta-star" viewBox="0 0 100 100" aria-hidden="true">
+            <path d="m50 2 12 36 36 12-36 12-12 36-12-36L2 50l36-12Z" />
+            <path d="m50 15 9 26 26 9-26 9-9 26-9-26-26-9 26-9Z" />
+          </svg>
+          <div>
+            <div class="eyebrow">START WITH A MODEL. BUILD AN UNDERSTANDING.</div>
+            <h2 id="cta-title">Put your system in perspective.</h2>
+            <p>SysML v2 and KerML. Text and diagrams. Inside VS Code.</p>
+          </div>
+          <div class="cta-actions">
+            <a
+              class="button primary"
+              href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><svg class="icon" aria-hidden="true"><use href="#i-vscode"></use></svg>Install in VS
+              Code <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a
+            ><a
+              class="text-link"
+              href="https://open-vsx.org/extension/voidaliot/vscode-sysml-v2"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Also available on Open VSX
+              <svg class="icon" aria-hidden="true"><use href="#i-external"></use></svg
+            ></a>
+          </div>
+        </section>
       </div>
-      <p class="origin">
-        Architecture, Language, Integration, Orchestration, Traceability. The ideas behind the Aliot
-        name.
-      </p>
-      <p class="fine">
-        Aliot SysML v2. Freeware. Built with open-source components. Media currently includes
-        labeled illustrations.
-      </p>
+    </main>
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footer-top">
+          <a class="brand" href="#top" aria-label="Back to Aliot home"
+            ><svg class="brand-mark" viewBox="0 0 512 512" fill="none" aria-hidden="true">
+              <path
+                d="M256 64 300 212 448 256 300 300 256 448 212 300 64 256 212 212Z"
+                fill="currentColor"
+              />
+              <circle cx="256" cy="256" r="35" fill="var(--bg)" /></svg
+            ><span>aliot</span></a
+          >
+          <nav class="footer-nav" aria-label="Footer navigation">
+            <a href="user-guide.html" target="_blank" rel="noopener noreferrer">Documentation</a
+            ><a
+              href="https://github.com/voidaliot/sysml-v2-samples"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Examples</a
+            ><a
+              href="https://github.com/voidaliot/sysml-v2-vscext-release/tree/main/releases"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Releases</a
+            ><a
+              href="https://github.com/voidaliot/sysml-v2-vscext-release/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Report an issue</a
+            ><a
+              href="https://github.com/voidaliot/sysml-v2-vscext-release/blob/main/LICENSE"
+              target="_blank"
+              rel="noopener noreferrer"
+              >License</a
+            ><a
+              href="https://github.com/voidaliot/sysml-v2-vscext-release"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub</a
+            >
+          </nav>
+        </div>
+        <div class="footer-bottom">
+          <span>Aliot · SysML v2 and KerML for VS Code</span
+          ><span>Architecture, Language, Integration, Orchestration, Traceability.</span>
+        </div>
+      </div>
     </footer>
+    <dialog id="capture-dialog" aria-labelledby="capture-title">
+      <div class="dialog-top">
+        <h2 id="capture-title">Existing product capture</h2>
+        <button class="icon-button" data-close-dialog aria-label="Close product capture">
+          <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
+        </button>
+      </div>
+      <div class="dialog-body">
+        <div class="capture-stage">
+          <div class="capture-message" id="capture-message">
+            <svg class="icon" aria-hidden="true"><use href="#i-image"></use></svg
+            ><strong id="capture-status">Loading the public product capture…</strong>
+            <p id="capture-explanation">
+              This image is hosted in the release repository and needs an internet connection.
+            </p>
+          </div>
+          <img id="capture-image" alt="" hidden />
+        </div>
+        <div class="capture-bottom">
+          <span>Existing release-repository asset · not a new screenshot</span
+          ><a
+            id="capture-original"
+            href="https://github.com/voidaliot/sysml-v2-vscext-release/tree/main/assets/screenshots"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Open original on GitHub
+            <svg class="icon" aria-hidden="true"><use href="#i-external"></use></svg
+          ></a>
+        </div>
+      </div>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="script.js"></script>
   </body>
 </html>
