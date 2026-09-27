@@ -556,17 +556,18 @@ attribute mass : ISQ::MassValue;
 <pre><code class="language-sh">node packages/cli/out/main.js export --file aliot-all-views.sysml --view gv --anchor AliotShowcase::Architecture --gv-mode group --theme light --auto-layout --out gv-structure-light.svg
 </code></pre>
 <h4 id="general-view-tree">General View: tree</h4>
-<p>Ownership and typing become a tree. Curved lines keep the relationship paths clear.</p>
+<p>Ownership and typing become a tree. Each usage label sits on the line approaching its target definition, so grouped batteries and rotors stay identifiable.</p>
 <p>Anchor: <code>AliotShowcase::Architecture</code>.</p>
 <p><img src="assets/product/all-views/gv-tree-light.svg" alt="General View: tree exported by sysml-diagram." loading="lazy" data-light="assets/product/all-views/gv-tree-light.svg" data-dark="assets/product/all-views/gv-tree-dark.svg"></p>
 <p><a href="assets/product/all-views/gv-tree-light.svg">Light SVG</a> · <a href="assets/product/all-views/gv-tree-dark.svg">Dark SVG</a></p>
 <pre><code class="language-sh">node packages/cli/out/main.js export --file aliot-all-views.sysml --view gv --anchor AliotShowcase::Architecture --gv-mode tree --theme light --auto-layout --out gv-tree-light.svg
 </code></pre>
 <h4 id="interconnection-view">Interconnection View</h4>
-<p>Follow powerFeed and commandBus between named, directed ports. powerIn and commandIn conjugate their port types.</p>
+<p>Every part is connected. Opened powerFeed and commandBus blocks show named ends and carried flows. Expanded commands and drives expose nested ports for payload and rotor control. Other connections and interfaces keep their compact labels.</p>
 <p>Anchor: <code>AliotShowcase::Architecture::drone</code>.</p>
 <p><img src="assets/product/all-views/iv-light.svg" alt="Interconnection View exported by sysml-diagram." loading="lazy" data-light="assets/product/all-views/iv-light.svg" data-dark="assets/product/all-views/iv-dark.svg"></p>
 <p><a href="assets/product/all-views/iv-light.svg">Light SVG</a> · <a href="assets/product/all-views/iv-dark.svg">Dark SVG</a></p>
+<p>Use <strong>+</strong> on a connection or interface pill to open its block. Use <strong>+</strong> on commands or drives to expose their nested ports. The saved view settings open these details and use a top-down layout. Geometry attribute lists are closed here to focus on connections; Geometry View still uses their complete solids.</p>
 <pre><code class="language-sh">node packages/cli/out/main.js export --file aliot-all-views.sysml --view iv --anchor AliotShowcase::Architecture::drone --theme light --auto-layout --out iv-light.svg
 </code></pre>
 <h4 id="action-flow-view">Action Flow View</h4>

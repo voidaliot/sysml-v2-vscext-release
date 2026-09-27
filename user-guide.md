@@ -467,7 +467,7 @@ node packages/cli/out/main.js export --file aliot-all-views.sysml --view gv --an
 
 #### General View: tree
 
-Ownership and typing become a tree. Curved lines keep the relationship paths clear.
+Ownership and typing become a tree. Each usage label sits on the line approaching its target definition, so grouped batteries and rotors stay identifiable.
 
 Anchor: `AliotShowcase::Architecture`.
 
@@ -481,13 +481,15 @@ node packages/cli/out/main.js export --file aliot-all-views.sysml --view gv --an
 
 #### Interconnection View
 
-Follow powerFeed and commandBus between named, directed ports. powerIn and commandIn conjugate their port types.
+Every part is connected. Opened powerFeed and commandBus blocks show named ends and carried flows. Expanded commands and drives expose nested ports for payload and rotor control. Other connections and interfaces keep their compact labels.
 
 Anchor: `AliotShowcase::Architecture::drone`.
 
 ![Interconnection View exported by sysml-diagram.](assets/product/all-views/iv-light.svg)
 
 [Light SVG](assets/product/all-views/iv-light.svg) · [Dark SVG](assets/product/all-views/iv-dark.svg)
+
+Use **+** on a connection or interface pill to open its block. Use **+** on commands or drives to expose their nested ports. The saved view settings open these details and use a top-down layout. Geometry attribute lists are closed here to focus on connections; Geometry View still uses their complete solids.
 
 ```sh
 node packages/cli/out/main.js export --file aliot-all-views.sysml --view iv --anchor AliotShowcase::Architecture::drone --theme light --auto-layout --out iv-light.svg

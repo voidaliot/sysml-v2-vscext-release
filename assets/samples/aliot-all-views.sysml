@@ -4,7 +4,10 @@
 // AFV: ::Mission. STV: ::FlightMode. SV: ::DeliverySequence.
 // CV: ::Operations. GRV Requirements: AliotShowcase (includes satisfy claims).
 // The media generator supplies per-view presentation settings with port labels on.
-// An unconnected reserve battery is deliberate. No diagnostic is expected.
+// Every physical part is connected. Open powerFeed and commandBus to see flows.
+// Expand controller.commands and propulsion.drives to see their nested ports.
+// IV closes geometry attribute lists; GEV still shows their complete solids.
+// GV Tree usage labels sit on the approach to each target part definition.
 // State regions are concurrent; there is no transition from one region to another.
 // AFV lanes are performance claims, not duplicate actions or ownership changes.
 // Sequence lifelines refer to existing parts, not additional physical components.
@@ -22,12 +25,39 @@ package AliotShowcase {
         item def Command;
         port def PowerPort { out item supply : Power; }
         port def CommandPort { out item command : Command; }
+        port def CommandBus {
+            port drive : CommandPort;
+            port payload : CommandPort;
+        }
+        port def RotorBus {
+            port left : CommandPort;
+            port right : CommandPort;
+        }
+        port def MountPort;
+        connection def PowerCable {
+            end source : PowerPort;
+            end target : ~PowerPort;
+            flow powerTransfer from source.supply to target.supply;
+        }
+        interface def CommandLink {
+            end source : CommandPort;
+            end target : ~CommandPort;
+            flow commandTransfer from source.command to target.command;
+        }
         part def Battery { port powerOut : PowerPort; }
         part def Controller {
             port powerIn : ~PowerPort;
-            port commands : CommandPort;
+            port reservePowerIn : ~PowerPort;
+            port commands : CommandBus;
         }
-        part def Propulsion { port commandIn : ~CommandPort; }
+        part def Propulsion {
+            port commandIn : ~CommandPort;
+            port drives : RotorBus;
+            port mount : MountPort;
+        }
+        part def Airframe :> SpatialItem { port mount : MountPort; }
+        part def PayloadBay :> SpatialItem { port controlIn : ~CommandPort; }
+        part def Rotor :> SpatialItem { port commandIn : ~CommandPort; }
         part def Drone :> SpatialItem {
             attribute payload : Real = 2.0;
             attribute endurance : Real = 35.0;
@@ -43,11 +73,24 @@ package AliotShowcase {
                 perform AliotShowcase::Mission.deliver;
             }
             part propulsion : Propulsion;
-            connection powerFeed connect battery.powerOut to controller.powerIn;
-            connection commandBus connect controller.commands to propulsion.commandIn;
+            // Open these two relationships: named ends and carried flows appear
+            // inside their blocks. The other links keep their compact pills.
+            connection powerFeed : PowerCable connect source references battery.powerOut
+                to target references controller.powerIn;
+            connection backupFeed : PowerCable connect source references reserveBattery.powerOut
+                to target references controller.reservePowerIn;
+            interface commandBus : CommandLink connect source references controller.commands.drive
+                to target references propulsion.commandIn;
+            interface payloadCommands : CommandLink connect source references controller.commands.payload
+                to target references payloadBay.controlIn;
+            interface leftDrive : CommandLink connect source references propulsion.drives.left
+                to target references leftRotor.commandIn;
+            interface rightDrive : CommandLink connect source references propulsion.drives.right
+                to target references rightRotor.commandIn;
+            connection frameMount connect airframe.mount to propulsion.mount;
 
             // These are the actual physical parts, placed in the drone frame.
-            part airframe : SpatialItem {
+            part airframe : Airframe {
                 item :>> shape : Box {
                     :>> length = 0.60 [m]; :>> width = 0.24 [m]; :>> height = 0.12 [m];
                 }
@@ -57,7 +100,7 @@ package AliotShowcase {
                     }
                 }
             }
-            part payloadBay : SpatialItem {
+            part payloadBay : PayloadBay {
                 item :>> shape : Box {
                     :>> length = 0.24 [m]; :>> width = 0.18 [m]; :>> height = 0.12 [m];
                 }
@@ -67,7 +110,7 @@ package AliotShowcase {
                     }
                 }
             }
-            part leftRotor : SpatialItem {
+            part leftRotor : Rotor {
                 item :>> shape : Cylinder { :>> radius = 0.14 [m]; :>> height = 0.03 [m]; }
                 attribute :>> coordinateFrame {
                     :>> transformation : TranslationRotationSequence {
@@ -75,7 +118,7 @@ package AliotShowcase {
                     }
                 }
             }
-            part rightRotor : SpatialItem {
+            part rightRotor : Rotor {
                 item :>> shape : Cylinder { :>> radius = 0.14 [m]; :>> height = 0.03 [m]; }
                 attribute :>> coordinateFrame {
                     :>> transformation : TranslationRotationSequence {

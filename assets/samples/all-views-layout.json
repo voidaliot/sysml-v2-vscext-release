@@ -8,7 +8,21 @@
     },
     "AliotShowcase::Architecture::drone": {
       "iv": {
-        "direction": "LR"
+        "direction": "TB",
+        "visibleFeatureCompartments": {
+          "AliotShowcase::Architecture::drone::airframe": false,
+          "AliotShowcase::Architecture::drone::payloadBay": false,
+          "AliotShowcase::Architecture::drone::leftRotor": false,
+          "AliotShowcase::Architecture::drone::rightRotor": false
+        },
+        "expandedPorts": {
+          "AliotShowcase::Architecture::drone::controller.commands": true,
+          "AliotShowcase::Architecture::drone::propulsion.drives": true
+        },
+        "openConnections": {
+          "AliotShowcase::Architecture::drone::__connection_powerFeed": true,
+          "AliotShowcase::Architecture::drone::__interface_commandBus": true
+        }
       }
     },
     "AliotShowcase::Mission": {

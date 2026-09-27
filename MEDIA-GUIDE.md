@@ -85,7 +85,7 @@ The hierarchy buttons compare still captures. Its GIF links provide the two-stat
 
 ### Rebuild the all-view tour
 
-The source is `reference/fabricated/aliot-all-views.sysml`. It covers GV structure and tree, IV, AFV, STV, SV, CV, GEV and the requirements grid. The gallery uses the actual CLI SVG files. Its Requirements tab shows a genuine VS Code Grid View screenshot and links to the actual CLI CSV export.
+The source is `reference/fabricated/aliot-all-views.sysml`. It covers GV structure and tree, IV, AFV, STV, SV, CV, GEV and the requirements grid. The gallery uses the actual CLI SVG files. Every IV part is connected. Saved presentation settings open powerFeed and commandBus to show their carried flows, and expand commands and drives to show nested ports. GV Tree captions are automatically placed beside the target definitions. Its Requirements tab shows a genuine VS Code Grid View screenshot and links to the actual CLI CSV export.
 
 ```powershell
 pnpm build
