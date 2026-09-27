@@ -2954,6 +2954,10 @@ dialog::backdrop {
 }
 
 /* Exported SVGs are isolated images. Website CSS cannot restyle their notation. */
+.workbench-body {
+  height: auto;
+  min-height: 389px;
+}
 .workbench-body > * {
   min-height: 0;
 }
@@ -3020,8 +3024,19 @@ dialog::backdrop {
   font-size: 11px;
   margin-left: 10px;
 }
-.editor-pane {
-  overflow: auto;
+.workbench-body .editor-pane {
+  height: auto;
+  overflow: visible;
+}
+.source-code {
+  overflow: visible;
+}
+.source-code > code {
+  display: block;
+}
+.source-line {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 .diagram-viewer {
   display: grid;
@@ -3102,7 +3117,33 @@ dialog::backdrop {
   text-align: right;
   font-size: 9px;
 }
+.canvas-area .diagram-help {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.canvas-area .diagram-controls {
+  flex-wrap: wrap;
+}
+.diagram-controls .export-steps {
+  margin-left: auto;
+  gap: 6px;
+}
+.diagram-controls .export-steps button {
+  white-space: nowrap;
+}
 @media (max-width: 520px) {
+  .workbench-body {
+    min-height: 0;
+  }
+  .diagram-controls .export-steps {
+    flex-basis: 100%;
+    justify-content: flex-end;
+  }
   .gallery-art.diagram-viewer {
     height: 320px;
   }
@@ -3114,7 +3155,7 @@ dialog::backdrop {
     height: 280px;
   }
   .workbench-body .editor-pane {
-    height: 350px;
+    height: auto;
   }
   .workbench-body .canvas-pane {
     height: 340px;

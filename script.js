@@ -31,6 +31,8 @@
     frame.classList.add("diagram-viewer");
     stage.append(image);
     frame.append(stage, controls);
+    const steps = $(".export-steps", frame);
+    if (steps) controls.append(steps);
     let zoom = 1;
     let x = 0;
     let y = 0;

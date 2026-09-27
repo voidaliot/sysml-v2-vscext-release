@@ -36,7 +36,7 @@ The hero compares precomputed before/after exports and offers each source for do
 
 ## Interactive website previews
 
-The hero and gallery support zoom, drag to pan, and Fit. Zoom is relative to the fitted image and ranges from 100% to 400%. Focus the diagram to use + or - for zoom, arrow keys for pan, and 0 or Home for Fit. Normal page scrolling is preserved. Touch dragging pans after zooming in.
+The hero and gallery support zoom, drag to pan, and Fit. The hero's bottom toolbar also holds Before rename and After rename. The source pane grows to show the full sample without an internal scrollbar. Zoom is relative to the fitted image and ranges from 100% to 400%. Focus the diagram to use + or - for zoom, arrow keys for pan, and 0 or Home for Fit. Normal page scrolling is preserved. Touch dragging pans after zooming in.
 
 Each image fits its frame on load, theme or model-state changes, tab changes and viewport resizing. Without JavaScript, images still fit. The SVG files stay unchanged.
 
