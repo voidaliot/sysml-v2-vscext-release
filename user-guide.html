@@ -97,7 +97,7 @@
 <li>Inspect the source. A local <code>attribute :&gt;&gt; capacity = 95;</code> now belongs to this battery. The <code>Battery</code> definition and <code>spareBattery</code> still use <code>80</code>.</li>
 <li>Use native Undo to reverse the edit. Escape cancels an unapplied draft. Clearing the local override restores the inherited value.</li>
 </ol>
-<p><img src="assets/product/v045-properties-after-light.png" alt="Battery Properties after applying a local capacity override." loading="lazy" data-light="assets/product/v045-properties-after-light.png" data-dark="assets/product/v045-properties-after-dark.png" class="guide-properties"></p>
+<p><img src="assets/product/v045-properties-after-light.png" alt="Battery Properties after applying a local capacity override." loading="lazy" width="530" height="823" data-light="assets/product/v045-properties-after-light.png" data-dark="assets/product/v045-properties-after-dark.png" class="guide-properties"></p>
 <p>Inspect <code>powerOutput</code> to see inherited <code>voltage</code> and <code>current</code> members, the calculated direction and the <strong>Conjugated</strong> control. Use a member row's arrow to inspect its details, then <strong>Back</strong> to return. Choose <strong>Open declaration</strong> when you intend to edit the shared definition.</p>
 <p>The <a href="assets/product/v045-properties-light.gif">Properties sequence</a> shows the before, editing and saved states. It is a sequence of real captures, not a continuous recording.</p>
 <h3 id="navigate-the-model-hierarchy">Navigate the model hierarchy</h3>
@@ -107,7 +107,7 @@
 <li>Use <strong>Up</strong> beside the Browser filter to return to the parent's <strong>General View</strong>. This clears the Browser filters. Up is disabled at the file root.</li>
 <li>Select a Browser row to inspect its Properties. Use its Diagram pill when you want to change the diagram's root.</li>
 </ol>
-<p><img src="assets/product/v045-hierarchy-subsystem-light.png" alt="Browser and Interconnection View focused on the propulsion subsystem." loading="lazy" data-light="assets/product/v045-hierarchy-subsystem-light.png" data-dark="assets/product/v045-hierarchy-subsystem-dark.png"></p>
+<p><img src="assets/product/v045-hierarchy-subsystem-light.png" alt="Browser and Interconnection View focused on the propulsion subsystem." loading="lazy" width="1810" height="865" data-light="assets/product/v045-hierarchy-subsystem-light.png" data-dark="assets/product/v045-hierarchy-subsystem-dark.png"></p>
 <p>See the <a href="assets/product/v045-hierarchy-light.gif">hierarchy sequence</a> or download the <a href="https://github.com/voidaliot/sysml-v2-samples/blob/main/release-demo-after.sysml">model after editing</a> to compare the source.</p>
 <hr>
 <h2 id="3-core-language-concepts">3. Core Language Concepts</h2>
@@ -552,7 +552,7 @@ attribute mass : ISQ::MassValue;
 <p>Definitions, typed parts and feature compartments describe the same drone. Closed compartments may abbreviate long rows; open the model to inspect their full source.</p>
 <p>Anchor: <code>AliotShowcase::Architecture</code>.</p>
 <p><strong>Open and edit in VS Code:</strong> Select <strong>General View</strong> and <strong>Compartments</strong>. Use <strong>+</strong> on a card to open its members. Right-click the canvas to add a definition or usage. Select a card and edit its Name, Type or attribute Value in Properties. Dragging cards changes the saved layout.</p>
-<p><img src="assets/product/all-views/gv-structure-light.svg" alt="General View: structure exported by sysml-diagram." loading="lazy" data-light="assets/product/all-views/gv-structure-light.svg" data-dark="assets/product/all-views/gv-structure-dark.svg"></p>
+<p><img src="assets/product/all-views/gv-structure-light.svg" alt="General View: structure exported by sysml-diagram." loading="lazy" width="778" height="548" data-light="assets/product/all-views/gv-structure-light.svg" data-dark="assets/product/all-views/gv-structure-dark.svg"></p>
 <p><a href="assets/product/all-views/gv-structure-light.svg">Light SVG</a> · <a href="assets/product/all-views/gv-structure-dark.svg">Dark SVG</a></p>
 <pre><code class="language-sh">sysml-diagram export --file aliot-all-views.sysml --view gv --anchor AliotShowcase::Architecture --gv-mode group --theme light --auto-layout --out gv-structure-light.svg
 </code></pre>
@@ -560,7 +560,7 @@ attribute mass : ISQ::MassValue;
 <p>Ownership and typing become a tree. Each usage label sits on the line approaching its target definition, so grouped batteries and rotors stay identifiable.</p>
 <p>Anchor: <code>AliotShowcase::Architecture</code>.</p>
 <p><strong>Open and edit in VS Code:</strong> Select <strong>General View</strong> and <strong>Tree</strong>. Open a package with <strong>+</strong> and follow the usage lines to their definitions. Select a usage line to edit each part's Name and Multiplicity in Properties. Use <strong>+</strong> on a grouped usage pill to expand its individual parts.</p>
-<p><img src="assets/product/all-views/gv-tree-light.svg" alt="General View: tree exported by sysml-diagram." loading="lazy" data-light="assets/product/all-views/gv-tree-light.svg" data-dark="assets/product/all-views/gv-tree-dark.svg"></p>
+<p><img src="assets/product/all-views/gv-tree-light.svg" alt="General View: tree exported by sysml-diagram." loading="lazy" width="1130" height="647" data-light="assets/product/all-views/gv-tree-light.svg" data-dark="assets/product/all-views/gv-tree-dark.svg"></p>
 <p><a href="assets/product/all-views/gv-tree-light.svg">Light SVG</a> · <a href="assets/product/all-views/gv-tree-dark.svg">Dark SVG</a></p>
 <pre><code class="language-sh">sysml-diagram export --file aliot-all-views.sysml --view gv --anchor AliotShowcase::Architecture --gv-mode tree --theme light --auto-layout --out gv-tree-light.svg
 </code></pre>
@@ -568,7 +568,7 @@ attribute mass : ISQ::MassValue;
 <p>Every part is connected. Opened powerFeed and commandBus blocks show named ends and carried flows. Expanded commands and drives expose nested ports for payload and rotor control. Other connections and interfaces keep their compact labels.</p>
 <p>Anchor: <code>AliotShowcase::Architecture::drone</code>.</p>
 <p><strong>Open and edit in VS Code:</strong> Select <strong>Interconnection View</strong>. Use <strong>+</strong> on powerFeed and commandBus to inspect their ends and flows. Open commands and drives to see nested ports. Drag between compatible port snap points to create a connection, or use the source port's context menu to choose an interface. Select a connection and drag an endpoint to reconnect it. Properties edits port names, types and conjugation. Auto-layout places ports toward their partners; manual port placements stay where you put them.</p>
-<p><img src="assets/product/all-views/iv-light.svg" alt="Interconnection View exported by sysml-diagram." loading="lazy" data-light="assets/product/all-views/iv-light.svg" data-dark="assets/product/all-views/iv-dark.svg"></p>
+<p><img src="assets/product/all-views/iv-light.svg" alt="Interconnection View exported by sysml-diagram." loading="lazy" width="1093" height="1340" data-light="assets/product/all-views/iv-light.svg" data-dark="assets/product/all-views/iv-dark.svg"></p>
 <p><a href="assets/product/all-views/iv-light.svg">Light SVG</a> · <a href="assets/product/all-views/iv-dark.svg">Dark SVG</a></p>
 <p>Use <strong>+</strong> on a connection or interface pill to open its block. Use <strong>+</strong> on commands or drives to expose their nested ports. The saved view settings open these details and use a top-down layout. Geometry attribute lists are closed here to focus on connections; Geometry View still uses their complete solids.</p>
 <pre><code class="language-sh">sysml-diagram export --file aliot-all-views.sysml --view iv --anchor AliotShowcase::Architecture::drone --theme light --auto-layout --out iv-light.svg
@@ -577,7 +577,7 @@ attribute mass : ISQ::MassValue;
 <p>The fork runs checkPower and checkRoute in parallel; the join waits for both. Dashed performer lanes name battery and controller. retryLink repeats poll until linkReady.</p>
 <p>Anchor: <code>AliotShowcase::Mission</code>.</p>
 <p><strong>Open and edit in VS Code:</strong> Select <strong>Action Flow View</strong>. Right-click inside Mission to add actions, fork/join nodes or a loop. Drag between action handles to create a succession, or between compatible pins to create an item flow. Select an action and choose <strong>Add performer</strong> to assign a part. Edit conditions in the control frame or Properties. Change the poll and until expressions in source to explore retryLink.</p>
-<p><img src="assets/product/all-views/afv-light.svg" alt="Action Flow View exported by sysml-diagram." loading="lazy" data-light="assets/product/all-views/afv-light.svg" data-dark="assets/product/all-views/afv-dark.svg"></p>
+<p><img src="assets/product/all-views/afv-light.svg" alt="Action Flow View exported by sysml-diagram." loading="lazy" width="798" height="1182" data-light="assets/product/all-views/afv-light.svg" data-dark="assets/product/all-views/afv-dark.svg"></p>
 <p><a href="assets/product/all-views/afv-light.svg">Light SVG</a> · <a href="assets/product/all-views/afv-dark.svg">Dark SVG</a></p>
 <pre><code class="language-sh">sysml-diagram export --file aliot-all-views.sysml --view afv --anchor AliotShowcase::Mission --theme light --auto-layout --out afv-light.svg
 </code></pre>
@@ -585,7 +585,7 @@ attribute mass : ISQ::MassValue;
 <p>active contains concurrent navigation and monitoring regions. Each region has its own initial state. Transition pills show routeClear and lowBattery guards; do compartments show ongoing actions.</p>
 <p>Anchor: <code>AliotShowcase::FlightMode</code>.</p>
 <p><strong>Open and edit in VS Code:</strong> Select <strong>State Transition View</strong>. Right-click inside the machine to add states. Drag between state handles to create a transition. Select a transition to edit its trigger, guard and effect in Properties. Select active and use the Parallel property for concurrent regions. Open entry, do or exit details with <strong>+</strong> when they have a body.</p>
-<p><img src="assets/product/all-views/stv-light.svg" alt="State Transition View exported by sysml-diagram." loading="lazy" data-light="assets/product/all-views/stv-light.svg" data-dark="assets/product/all-views/stv-dark.svg"></p>
+<p><img src="assets/product/all-views/stv-light.svg" alt="State Transition View exported by sysml-diagram." loading="lazy" width="810" height="1206" data-light="assets/product/all-views/stv-light.svg" data-dark="assets/product/all-views/stv-dark.svg"></p>
 <p><a href="assets/product/all-views/stv-light.svg">Light SVG</a> · <a href="assets/product/all-views/stv-dark.svg">Dark SVG</a></p>
 <pre><code class="language-sh">sysml-diagram export --file aliot-all-views.sysml --view stv --anchor AliotShowcase::FlightMode --theme light --auto-layout --out stv-light.svg
 </code></pre>
@@ -593,7 +593,7 @@ attribute mass : ISQ::MassValue;
 <p>pilot, controller and propulsion exchange named messages with payload types. The loop fragment repeats requestStatus and reportStatus while monitoring. Lifelines are interaction participants, not AFV performer lanes.</p>
 <p>Anchor: <code>AliotShowcase::DeliverySequence</code>.</p>
 <p><strong>Open and edit in VS Code:</strong> Select <strong>Sequence View</strong>. Drag from a point on one lifeline to a point on another to create a message. Select a message to edit its name and payload in Properties. Drag it vertically to change its order. Edit the interaction's loop condition and participant references in source, then inspect the updated fragment. Participant header boxes do not start messages.</p>
-<p><img src="assets/product/all-views/sv-light.svg" alt="Sequence View exported by sysml-diagram." loading="lazy" data-light="assets/product/all-views/sv-light.svg" data-dark="assets/product/all-views/sv-dark.svg"></p>
+<p><img src="assets/product/all-views/sv-light.svg" alt="Sequence View exported by sysml-diagram." loading="lazy" width="736" height="420" data-light="assets/product/all-views/sv-light.svg" data-dark="assets/product/all-views/sv-dark.svg"></p>
 <p><a href="assets/product/all-views/sv-light.svg">Light SVG</a> · <a href="assets/product/all-views/sv-dark.svg">Dark SVG</a></p>
 <pre><code class="language-sh">sysml-diagram export --file aliot-all-views.sysml --view sv --anchor AliotShowcase::DeliverySequence --theme light --auto-layout --out sv-light.svg
 </code></pre>
@@ -601,7 +601,7 @@ attribute mass : ISQ::MassValue;
 <p>deliver and ready sit inside the vehicle subject boundary. pilot : Operator is an external actor, and the include relationship connects the two use cases.</p>
 <p>Anchor: <code>AliotShowcase::Operations</code>.</p>
 <p><strong>Open and edit in VS Code:</strong> Select <strong>Case View</strong>. Enable the subject boundary box in the view settings. Select deliver and inspect its Subject and Actors in Properties. Use its context menu to add an include relationship, then choose ready. Edit case names in Properties; edit subject and actor declarations in source when the desired field is read-only.</p>
-<p><img src="assets/product/all-views/cv-light.svg" alt="Case View exported by sysml-diagram." loading="lazy" data-light="assets/product/all-views/cv-light.svg" data-dark="assets/product/all-views/cv-dark.svg"></p>
+<p><img src="assets/product/all-views/cv-light.svg" alt="Case View exported by sysml-diagram." loading="lazy" width="491" height="328" data-light="assets/product/all-views/cv-light.svg" data-dark="assets/product/all-views/cv-dark.svg"></p>
 <p><a href="assets/product/all-views/cv-light.svg">Light SVG</a> · <a href="assets/product/all-views/cv-dark.svg">Dark SVG</a></p>
 <pre><code class="language-sh">sysml-diagram export --file aliot-all-views.sysml --view cv --anchor AliotShowcase::Operations --theme light --auto-layout --out cv-light.svg
 </code></pre>
@@ -609,7 +609,7 @@ attribute mass : ISQ::MassValue;
 <p>airframe, payloadBay and the rotors use real ShapeItems solids and coordinate-frame translations. Nonspatial controls are intentionally absent.</p>
 <p>Anchor: <code>AliotShowcase::Architecture::drone</code>.</p>
 <p><strong>Open and edit in VS Code:</strong> Select <strong>Geometry View</strong>. Pan and zoom to inspect the assembly. The model's spatial data determines its plan or isometric presentation. Select a part to inspect its model properties. Edit its ShapeItems dimensions and coordinateFrame translation or rotation in source. Geometry follows those model values; moving a diagram label does not change a physical part's position.</p>
-<p><img src="assets/product/all-views/gev-light.svg" alt="Geometry View exported by sysml-diagram." loading="lazy" data-light="assets/product/all-views/gev-light.svg" data-dark="assets/product/all-views/gev-dark.svg"></p>
+<p><img src="assets/product/all-views/gev-light.svg" alt="Geometry View exported by sysml-diagram." loading="lazy" width="1106" height="798" data-light="assets/product/all-views/gev-light.svg" data-dark="assets/product/all-views/gev-dark.svg"></p>
 <p><a href="assets/product/all-views/gev-light.svg">Light SVG</a> · <a href="assets/product/all-views/gev-dark.svg">Dark SVG</a></p>
 <pre><code class="language-sh">sysml-diagram export --file aliot-all-views.sysml --view gev --anchor AliotShowcase::Architecture::drone --theme light --auto-layout --out gev-light.svg
 </code></pre>
@@ -617,7 +617,7 @@ attribute mass : ISQ::MassValue;
 <p>Inspect requirements in VS Code and use Export CSV to share the table. The screenshot shows the software-defined vehicle sample; the CSV download uses the all-view drone model.</p>
 <p>Anchor: <code>AliotShowcase</code>.</p>
 <p><strong>Open and edit in VS Code:</strong> Select <strong>Grid View</strong>, then the <strong>Requirements</strong> preset. Edit a supported cell by double-clicking it. Use Properties for the selected requirement and the column controls to adjust the table. Choose <strong>Export CSV</strong> to share it. The screenshot below is the SDV sample; the downloaded CSV is the all-view model.</p>
-<p><img src="assets/product/grid-vscode.png" alt="VS Code Grid View showing requirements for the software-defined vehicle sample." loading="lazy"></p>
+<p><img src="assets/product/grid-vscode.png" alt="VS Code Grid View showing requirements for the software-defined vehicle sample." loading="lazy" width="2606" height="1520"></p>
 <p>Use <strong>Export CSV</strong> in the Grid View toolbar, or run the command below. <a href="assets/product/all-views/requirements.csv">Download the all-view model requirements CSV</a>.</p>
 <pre><code class="language-sh">sysml-diagram export --file aliot-all-views.sysml --view grv --anchor AliotShowcase --theme light --auto-layout --out requirements.csv
 </code></pre>
