@@ -36,7 +36,7 @@
         .capture-link,
         .terminal-copy,
         .view-tabs,
-        #demo-toggle {
+        .properties-steps {
           display: none !important;
         }
         .main-nav {
@@ -420,8 +420,8 @@
             </p>
           </div>
           <!-- ALL_VIEWS_START -->
-<div class="view-tabs tour-tabs" role="tablist" aria-label="Explore model views"><button class="view-tab" id="tab-tour-0" type="button" role="tab" aria-selected="true" aria-controls="panel-tour-0" tabindex="0">GV structure</button>
-<button class="view-tab" id="tab-tour-1" type="button" role="tab" aria-selected="false" aria-controls="panel-tour-1" tabindex="-1">GV tree</button>
+<div class="view-tabs tour-tabs" role="tablist" aria-label="Explore model views"><button class="view-tab" id="tab-tour-0" type="button" role="tab" aria-label="General View structure" aria-selected="true" aria-controls="panel-tour-0" tabindex="0">GV <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2.4" y="2.8" width="11.2" height="3.1" rx="1" /><rect x="2.4" y="6.9" width="11.2" height="3.1" rx="1" /><rect x="2.4" y="11" width="7.2" height="2.6" rx="1" /></g></svg></button>
+<button class="view-tab" id="tab-tour-1" type="button" role="tab" aria-label="General View tree" aria-selected="false" aria-controls="panel-tour-1" tabindex="-1">GV <svg class="icon" viewBox="0 0 16 16" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6.1" y="1.6" width="3.8" height="2.7" rx="0.6" /><rect x="2.2" y="11.1" width="3.8" height="2.7" rx="0.6" /><rect x="10" y="11.1" width="3.8" height="2.7" rx="0.6" /><path d="M8 4.3v3.1M8 7.4H4.1v3.7M8 7.4h3.9v3.7" /></g></svg></button>
 <button class="view-tab" id="tab-tour-2" type="button" role="tab" aria-selected="false" aria-controls="panel-tour-2" tabindex="-1">IV</button>
 <button class="view-tab" id="tab-tour-3" type="button" role="tab" aria-selected="false" aria-controls="panel-tour-3" tabindex="-1">AFV</button>
 <button class="view-tab" id="tab-tour-4" type="button" role="tab" aria-selected="false" aria-controls="panel-tour-4" tabindex="-1">STV</button>
@@ -430,49 +430,49 @@
 <button class="view-tab" id="tab-tour-7" type="button" role="tab" aria-selected="false" aria-controls="panel-tour-7" tabindex="-1">GEV</button>
 <button class="view-tab" id="tab-tour-8" type="button" role="tab" aria-selected="false" aria-controls="panel-tour-8" tabindex="-1">Requirements</button></div>
 <div class="gallery-panel tour-panel" id="panel-tour-0" role="tabpanel" aria-labelledby="tab-tour-0" tabindex="0">
-    <div class="tour-heading"><h3>General View: structure</h3><p>Definitions, typed parts and feature compartments describe the same drone. Closed compartments may abbreviate long rows; open the model to inspect their full source.</p>
+    <div class="tour-heading"><h3>General View</h3><p>Structure mode groups definitions, usages and features within their owning containers. Expand compartments to inspect members and follow relationships between elements.</p>
     <a class="text-link" href="assets/product/all-views/gv-structure-light.svg" data-light="assets/product/all-views/gv-structure-light.svg" data-dark="assets/product/all-views/gv-structure-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
-    <div class="gallery-art"><img src="assets/product/all-views/gv-structure-light.svg" data-light="assets/product/all-views/gv-structure-light.svg" data-dark="assets/product/all-views/gv-structure-dark.svg" alt="General View: structure. Definitions, typed parts and feature compartments describe the same drone. Closed compartments may abbreviate long rows; open the model to inspect their full source." loading="lazy" /></div>
+    <div class="gallery-art"><img src="assets/product/all-views/gv-structure-light.svg" data-light="assets/product/all-views/gv-structure-light.svg" data-dark="assets/product/all-views/gv-structure-dark.svg" alt="General View structure mode groups definitions, usages and features within their owning containers." loading="lazy" /></div>
   </div>
 <div class="gallery-panel tour-panel" id="panel-tour-1" role="tabpanel" aria-labelledby="tab-tour-1" tabindex="0" hidden>
-    <div class="tour-heading"><h3>General View: tree</h3><p>Ownership and typing become a tree. Each usage label sits on the line approaching its target definition, so grouped batteries and rotors stay identifiable.</p>
+    <div class="tour-heading"><h3>General View</h3><p>Tree mode lays out feature membership from parent to child in source order. Branches and links reveal ownership, typing and other relationships across the model.</p>
     <a class="text-link" href="assets/product/all-views/gv-tree-light.svg" data-light="assets/product/all-views/gv-tree-light.svg" data-dark="assets/product/all-views/gv-tree-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
-    <div class="gallery-art"><img src="assets/product/all-views/gv-tree-light.svg" data-light="assets/product/all-views/gv-tree-light.svg" data-dark="assets/product/all-views/gv-tree-dark.svg" alt="General View: tree. Ownership and typing become a tree. Each usage label sits on the line approaching its target definition, so grouped batteries and rotors stay identifiable." loading="lazy" /></div>
+    <div class="gallery-art"><img src="assets/product/all-views/gv-tree-light.svg" data-light="assets/product/all-views/gv-tree-light.svg" data-dark="assets/product/all-views/gv-tree-dark.svg" alt="General View tree mode lays out feature membership from parent to child in source order." loading="lazy" /></div>
   </div>
 <div class="gallery-panel tour-panel" id="panel-tour-2" role="tabpanel" aria-labelledby="tab-tour-2" tabindex="0" hidden>
-    <div class="tour-heading"><h3>Interconnection View</h3><p>Every part is connected. Opened powerFeed and commandBus blocks show named ends and carried flows. Expanded commands and drives expose nested ports for payload and rotor control. Other connections and interfaces keep their compact labels.</p>
+    <div class="tour-heading"><h3>Interconnection View</h3><p>Shows how parts, ports, interfaces and connections form a system. Expand connection and interface blocks to inspect their ends, flows and nested ports.</p>
     <a class="text-link" href="assets/product/all-views/iv-light.svg" data-light="assets/product/all-views/iv-light.svg" data-dark="assets/product/all-views/iv-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
-    <div class="gallery-art"><img src="assets/product/all-views/iv-light.svg" data-light="assets/product/all-views/iv-light.svg" data-dark="assets/product/all-views/iv-dark.svg" alt="Interconnection View. Every part is connected. Opened powerFeed and commandBus blocks show named ends and carried flows. Expanded commands and drives expose nested ports for payload and rotor control. Other connections and interfaces keep their compact labels." loading="lazy" /></div>
+    <div class="gallery-art"><img src="assets/product/all-views/iv-light.svg" data-light="assets/product/all-views/iv-light.svg" data-dark="assets/product/all-views/iv-dark.svg" alt="Interconnection View shows parts, ports, interfaces and connections." loading="lazy" /></div>
   </div>
 <div class="gallery-panel tour-panel" id="panel-tour-3" role="tabpanel" aria-labelledby="tab-tour-3" tabindex="0" hidden>
-    <div class="tour-heading"><h3>Action Flow View</h3><p>The fork runs checkPower and checkRoute in parallel; the join waits for both. Dashed performer lanes name battery and controller. retryLink repeats poll until linkReady.</p>
+    <div class="tour-heading"><h3>Action Flow View</h3><p>Shows how actions proceed through control and item flows. Forks, joins, loops and performer lanes make concurrency and responsibility visible.</p>
     <a class="text-link" href="assets/product/all-views/afv-light.svg" data-light="assets/product/all-views/afv-light.svg" data-dark="assets/product/all-views/afv-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
-    <div class="gallery-art"><img src="assets/product/all-views/afv-light.svg" data-light="assets/product/all-views/afv-light.svg" data-dark="assets/product/all-views/afv-dark.svg" alt="Action Flow View. The fork runs checkPower and checkRoute in parallel; the join waits for both. Dashed performer lanes name battery and controller. retryLink repeats poll until linkReady." loading="lazy" /></div>
+    <div class="gallery-art"><img src="assets/product/all-views/afv-light.svg" data-light="assets/product/all-views/afv-light.svg" data-dark="assets/product/all-views/afv-dark.svg" alt="Action Flow View shows actions, control and item flows, and performer lanes." loading="lazy" /></div>
   </div>
 <div class="gallery-panel tour-panel" id="panel-tour-4" role="tabpanel" aria-labelledby="tab-tour-4" tabindex="0" hidden>
-    <div class="tour-heading"><h3>State Transition View</h3><p>active contains concurrent navigation and monitoring regions. Each region has its own initial state. Transition pills show routeClear and lowBattery guards; do compartments show ongoing actions.</p>
+    <div class="tour-heading"><h3>State Transition View</h3><p>Shows the states and transitions of a state machine, including triggers, guards, effects and concurrent regions.</p>
     <a class="text-link" href="assets/product/all-views/stv-light.svg" data-light="assets/product/all-views/stv-light.svg" data-dark="assets/product/all-views/stv-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
-    <div class="gallery-art"><img src="assets/product/all-views/stv-light.svg" data-light="assets/product/all-views/stv-light.svg" data-dark="assets/product/all-views/stv-dark.svg" alt="State Transition View. active contains concurrent navigation and monitoring regions. Each region has its own initial state. Transition pills show routeClear and lowBattery guards; do compartments show ongoing actions." loading="lazy" /></div>
+    <div class="gallery-art"><img src="assets/product/all-views/stv-light.svg" data-light="assets/product/all-views/stv-light.svg" data-dark="assets/product/all-views/stv-dark.svg" alt="State Transition View shows states, transitions and concurrent regions." loading="lazy" /></div>
   </div>
 <div class="gallery-panel tour-panel" id="panel-tour-5" role="tabpanel" aria-labelledby="tab-tour-5" tabindex="0" hidden>
-    <div class="tour-heading"><h3>Sequence View</h3><p>pilot, controller and propulsion exchange named messages with payload types. The loop fragment repeats requestStatus and reportStatus while monitoring. Lifelines are interaction participants, not AFV performer lanes.</p>
+    <div class="tour-heading"><h3>Sequence View</h3><p>Shows interactions over time as lifelines and ordered messages. Fragments express repetition or other control around message exchanges.</p>
     <a class="text-link" href="assets/product/all-views/sv-light.svg" data-light="assets/product/all-views/sv-light.svg" data-dark="assets/product/all-views/sv-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
-    <div class="gallery-art"><img src="assets/product/all-views/sv-light.svg" data-light="assets/product/all-views/sv-light.svg" data-dark="assets/product/all-views/sv-dark.svg" alt="Sequence View. pilot, controller and propulsion exchange named messages with payload types. The loop fragment repeats requestStatus and reportStatus while monitoring. Lifelines are interaction participants, not AFV performer lanes." loading="lazy" /></div>
+    <div class="gallery-art"><img src="assets/product/all-views/sv-light.svg" data-light="assets/product/all-views/sv-light.svg" data-dark="assets/product/all-views/sv-dark.svg" alt="Sequence View shows lifelines and ordered messages between participants." loading="lazy" /></div>
   </div>
 <div class="gallery-panel tour-panel" id="panel-tour-6" role="tabpanel" aria-labelledby="tab-tour-6" tabindex="0" hidden>
-    <div class="tour-heading"><h3>Case View</h3><p>deliver and ready sit inside the vehicle subject boundary. pilot : Operator is an external actor, and the include relationship connects the two use cases.</p>
+    <div class="tour-heading"><h3>Case View</h3><p>Shows cases in relation to their subject and actors. Relationships between cases make shared or dependent behavior visible.</p>
     <a class="text-link" href="assets/product/all-views/cv-light.svg" data-light="assets/product/all-views/cv-light.svg" data-dark="assets/product/all-views/cv-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
-    <div class="gallery-art"><img src="assets/product/all-views/cv-light.svg" data-light="assets/product/all-views/cv-light.svg" data-dark="assets/product/all-views/cv-dark.svg" alt="Case View. deliver and ready sit inside the vehicle subject boundary. pilot : Operator is an external actor, and the include relationship connects the two use cases." loading="lazy" /></div>
+    <div class="gallery-art"><img src="assets/product/all-views/cv-light.svg" data-light="assets/product/all-views/cv-light.svg" data-dark="assets/product/all-views/cv-dark.svg" alt="Case View shows cases, their subject and actors, and relationships between cases." loading="lazy" /></div>
   </div>
 <div class="gallery-panel tour-panel" id="panel-tour-7" role="tabpanel" aria-labelledby="tab-tour-7" tabindex="0" hidden>
-    <div class="tour-heading"><h3>Geometry View</h3><p>airframe, payloadBay and the rotors use real ShapeItems solids and coordinate-frame translations. Nonspatial controls are intentionally absent.</p>
+    <div class="tour-heading"><h3>Geometry View</h3><p>Shows model geometry from shapes and coordinate frames, making spatial position, orientation and dimensions visible.</p>
     <a class="text-link" href="assets/product/all-views/gev-light.svg" data-light="assets/product/all-views/gev-light.svg" data-dark="assets/product/all-views/gev-dark.svg" target="_blank" rel="noopener">Open full-size SVG ↗</a></div>
-    <div class="gallery-art"><img src="assets/product/all-views/gev-light.svg" data-light="assets/product/all-views/gev-light.svg" data-dark="assets/product/all-views/gev-dark.svg" alt="Geometry View. airframe, payloadBay and the rotors use real ShapeItems solids and coordinate-frame translations. Nonspatial controls are intentionally absent." loading="lazy" /></div>
+    <div class="gallery-art"><img src="assets/product/all-views/gev-light.svg" data-light="assets/product/all-views/gev-light.svg" data-dark="assets/product/all-views/gev-dark.svg" alt="Geometry View shows shapes and their spatial relationships." loading="lazy" /></div>
   </div>
 <div class="gallery-panel tour-panel" id="panel-tour-8" role="tabpanel" aria-labelledby="tab-tour-8" tabindex="0" hidden>
-    <div class="tour-heading"><h3>Grid View: requirements</h3><p>Inspect requirements in VS Code and use Export CSV to share the table. The screenshot shows the software-defined vehicle sample; the CSV download uses the all-view drone model.</p>
+    <div class="tour-heading"><h3>Grid View: requirements</h3><p>Lists requirements in a table for scanning, selection and editing supported fields. Adjust columns to focus on the data you need, or export the table as CSV.</p>
     <a class="text-link" href="assets/product/all-views/requirements.csv" target="_blank" rel="noopener">Download showcase CSV ↗</a></div>
-    <div class="gallery-art"><img src="assets/product/grid-vscode.png" alt="VS Code Grid View showing requirements for the software-defined vehicle sample, with Export CSV in the toolbar." loading="lazy" /></div>
+    <div class="gallery-art"><img src="assets/product/grid-vscode.png" alt="VS Code Grid View showing a requirements table and Export CSV in the toolbar." loading="lazy" /></div>
   </div>
 <div class="gallery-footer"><a class="text-link" href="https://github.com/voidaliot/sysml-v2-samples/blob/main/aliot-all-views.sysml">Open the all-view model ↗</a><a class="text-link" href="user-guide.html#all-view-model-tour">Follow the view-by-view guide ↗</a></div>
 <!-- ALL_VIEWS_END -->
@@ -512,16 +512,40 @@
                 Change the battery capacity from 80 to 95. Applying the inherited value creates a
                 local override. The Battery definition and spare battery keep their original value.
               </p>
-              <button
-                id="demo-toggle"
-                class="button small"
-                type="button"
-                aria-pressed="false"
-                aria-controls="workflow-image"
+              <div
+                class="capture-steps properties-steps"
+                role="group"
+                aria-label="Properties capture selection"
               >
-                Play sample animation
-              </button>
-              <div class="capture-pair">
+                <button
+                  class="button small"
+                  type="button"
+                  data-properties-state="before"
+                  aria-pressed="false"
+                  aria-controls="workflow-image"
+                >
+                  Before editing
+                </button>
+                <button
+                  class="button small"
+                  type="button"
+                  data-properties-state="after"
+                  aria-pressed="true"
+                  aria-controls="workflow-image"
+                >
+                  After editing
+                </button>
+                <button
+                  class="button small"
+                  type="button"
+                  data-properties-state="animation"
+                  aria-pressed="false"
+                  aria-controls="workflow-video"
+                >
+                  Play animation
+                </button>
+              </div>
+              <div class="properties-capture">
                 <figure>
                   <img
                     id="workflow-image"
@@ -533,25 +557,24 @@
                     loading="lazy"
                     alt="Properties shows capacity 95 as a local attribute, with voltage and mass still inherited from Battery"
                   />
+                  <video
+                    id="workflow-video"
+                    src="assets/video/properties.mp4"
+                    controls
+                    playsinline
+                    preload="none"
+                    aria-label="Properties editing animation"
+                    hidden
+                  ></video>
                   <figcaption id="demo-caption" aria-live="polite">
-                    Actual VS Code screenshots. Press Play for the before, edit and applied states.
+                    After editing: capacity 95 is applied as a local override.
                   </figcaption>
                 </figure>
-                <figure>
-                  <img
-                    src="assets/product/v045-properties-port-light.png"
-                    data-light="assets/product/v045-properties-port-light.png"
-                    data-dark="assets/product/v045-properties-port-dark.png"
-                    width="530"
-                    height="823"
-                    loading="lazy"
-                    alt="Port Properties with calculated direction, Conjugated control and inherited voltage and current members"
-                  />
-                  <figcaption>
-                    Inspect a port without leaving the diagram. Edit its type, conjugation and
-                    directed features, then return with Back.
-                  </figcaption>
-                </figure>
+                <div class="properties-animation-copy" id="properties-animation-copy" hidden>
+                  <h3>Explore and edit in Properties</h3>
+                  <p>Browse features and edit them directly in the Properties pane.</p>
+                  <p>Undo and redo work across diagram and code changes.</p>
+                </div>
               </div>
             </div>
           </details>

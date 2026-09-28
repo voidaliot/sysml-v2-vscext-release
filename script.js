@@ -170,11 +170,11 @@
   const root = document.documentElement;
   const toggle = document.getElementById("theme-toggle");
   const demo = document.getElementById("workflow-image");
-  const play = document.getElementById("demo-toggle");
+  const demoVideo = document.getElementById("workflow-video");
+  const animationCopy = document.getElementById("properties-animation-copy");
   const caption = document.getElementById("demo-caption");
   const system = matchMedia("(prefers-color-scheme: dark)");
   let preference;
-  let playing = false;
   try {
     preference = localStorage.getItem("aliot-theme");
   } catch {
@@ -182,18 +182,34 @@
   }
   if (!["light", "dark"].includes(preference)) preference = null;
 
-  function updateDemo() {
-    const theme = root.dataset.theme;
-    demo.src = playing ? `assets/product/v045-properties-${theme}.gif` : demo.dataset[theme];
-    demo.alt = playing
-      ? "Actual VS Code screenshots: inherited capacity 80, pending edit 95, and the applied local override"
-      : "Properties shows capacity 95 as a local attribute, with voltage and mass still inherited from Battery";
-    play.textContent = playing ? "Stop sample animation" : "Play sample animation";
-    play.setAttribute("aria-pressed", String(playing));
-    caption.textContent = playing
-      ? "A sequence of actual VS Code screenshots, not a continuous recording. Press Stop for the applied state."
-      : "Actual VS Code screenshots. Press Play for the before, edit and applied states.";
-  }
+  $$("[data-properties-state]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const state = button.dataset.propertiesState;
+      const animation = state === "animation";
+      demo.hidden = animation;
+      demoVideo.hidden = !animation;
+      animationCopy.hidden = !animation;
+      if (animation) {
+        demoVideo.currentTime = 0;
+        demoVideo.play();
+        caption.textContent = "Properties editing animation.";
+      } else {
+        demoVideo.pause();
+        demo.dataset.light = `assets/product/v045-properties-${state}-light.png`;
+        demo.dataset.dark = `assets/product/v045-properties-${state}-dark.png`;
+        demo.src = demo.dataset[root.dataset.theme];
+        demo.alt = state === "before"
+          ? "Properties shows capacity 80 inherited from Battery before editing"
+          : "Properties shows capacity 95 as a local attribute, with voltage and mass still inherited from Battery";
+        caption.textContent = state === "before"
+          ? "Before editing: capacity 80 is inherited from Battery."
+          : "After editing: capacity 95 is applied as a local override.";
+      }
+      $$("[data-properties-state]").forEach((item) => {
+        item.setAttribute("aria-pressed", String(item === button));
+      });
+    });
+  });
 
   $$("[data-hierarchy-state]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -227,7 +243,6 @@
     document.querySelectorAll("a[data-light]").forEach((link) => {
       link.href = link.dataset[theme];
     });
-    updateDemo();
   }
 
   toggle.addEventListener("click", () => {
@@ -242,23 +257,10 @@
   system.addEventListener("change", (event) => {
     if (!preference) applyTheme(event.matches ? "dark" : "light");
   });
-  play.addEventListener("click", () => {
-    playing = !playing;
-    updateDemo();
-  });
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden && playing) {
-      playing = false;
-      updateDemo();
-    }
-  });
   applyTheme(preference || (system.matches ? "dark" : "light"));
 
   document.querySelector(".recording-panel").addEventListener("toggle", (event) => {
-    if (!event.currentTarget.open && playing) {
-      playing = false;
-      updateDemo();
-    }
+    if (!event.currentTarget.open) demoVideo.pause();
   });
   if (location.hash === "#editing") document.querySelector(".recording-panel").open = true;
 

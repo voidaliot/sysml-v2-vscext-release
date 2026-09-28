@@ -2922,12 +2922,30 @@ dialog::backdrop {
   font-size: 13px;
   color: var(--muted);
 }
-.capture-pair {
+.properties-capture {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 530px));
-  gap: 28px;
-  justify-content: center;
+  grid-template-columns: minmax(0, 530px) minmax(0, 1fr);
+  gap: 48px;
   align-items: start;
+}
+.properties-animation-copy {
+  max-width: 480px;
+  padding-top: 8px;
+}
+.properties-animation-copy h3 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+.properties-animation-copy p {
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+@media (max-width: 780px) {
+  .properties-capture {
+    grid-template-columns: minmax(0, 530px);
+    gap: 24px;
+  }
 }
 .capture-hierarchy {
   margin-top: 48px;
@@ -2944,11 +2962,6 @@ dialog::backdrop {
 .capture-steps [aria-pressed="true"] {
   border-color: var(--accent);
   color: var(--accent);
-}
-@media (max-width: 680px) {
-  .capture-pair {
-    grid-template-columns: minmax(0, 530px);
-  }
 }
 .recording-panel {
   border: 1px solid var(--line);
@@ -2995,12 +3008,16 @@ dialog::backdrop {
 .recording-body .button {
   margin-bottom: 20px;
 }
-.recording-body img {
+.recording-body img,
+.recording-body video {
   display: block;
   width: 100%;
   height: auto;
   border: 1px solid var(--line);
   border-radius: 8px;
+}
+.recording-body [hidden] {
+  display: none;
 }
 .recording-body figcaption {
   font-size: 11px;

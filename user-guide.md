@@ -73,7 +73,7 @@ Download the [delivery drone model](https://github.com/voidaliot/sysml-v2-sample
 
 Inspect `powerOutput` to see inherited `voltage` and `current` members, the calculated direction and the **Conjugated** control. Use a member row's arrow to inspect its details, then **Back** to return. Choose **Open declaration** when you intend to edit the shared definition.
 
-The [Properties sequence](assets/product/v045-properties-light.gif) shows the before, editing and saved states. It is a sequence of real captures, not a continuous recording.
+Compare the [before](assets/product/v045-properties-before-light.png) and [after](assets/product/v045-properties-after-light.png) Properties captures to see the applied local override.
 
 ### Navigate the model hierarchy
 
@@ -453,7 +453,7 @@ Install the [sysml-diagram npm package](https://www.npmjs.com/package/sysml-diag
 
 #### General View: structure
 
-Definitions, typed parts and feature compartments describe the same drone. Closed compartments may abbreviate long rows; open the model to inspect their full source.
+Structure mode groups definitions, usages and features within their owning containers. Expand compartments to inspect members and follow relationships between elements.
 
 Anchor: `AliotShowcase::Architecture`.
 
@@ -469,7 +469,7 @@ sysml-diagram export --file aliot-all-views.sysml --view gv --anchor AliotShowca
 
 #### General View: tree
 
-Ownership and typing become a tree. Each usage label sits on the line approaching its target definition, so grouped batteries and rotors stay identifiable.
+Tree mode lays out feature membership from parent to child in source order. Branches and links reveal ownership, typing and other relationships across the model.
 
 Anchor: `AliotShowcase::Architecture`.
 
@@ -485,7 +485,7 @@ sysml-diagram export --file aliot-all-views.sysml --view gv --anchor AliotShowca
 
 #### Interconnection View
 
-Every part is connected. Opened powerFeed and commandBus blocks show named ends and carried flows. Expanded commands and drives expose nested ports for payload and rotor control. Other connections and interfaces keep their compact labels.
+Shows how parts, ports, interfaces and connections form a system. Expand connection and interface blocks to inspect their ends, flows and nested ports.
 
 Anchor: `AliotShowcase::Architecture::drone`.
 
@@ -503,7 +503,7 @@ sysml-diagram export --file aliot-all-views.sysml --view iv --anchor AliotShowca
 
 #### Action Flow View
 
-The fork runs checkPower and checkRoute in parallel; the join waits for both. Dashed performer lanes name battery and controller. retryLink repeats poll until linkReady.
+Shows how actions proceed through control and item flows. Forks, joins, loops and performer lanes make concurrency and responsibility visible.
 
 Anchor: `AliotShowcase::Mission`.
 
@@ -519,7 +519,7 @@ sysml-diagram export --file aliot-all-views.sysml --view afv --anchor AliotShowc
 
 #### State Transition View
 
-active contains concurrent navigation and monitoring regions. Each region has its own initial state. Transition pills show routeClear and lowBattery guards; do compartments show ongoing actions.
+Shows the states and transitions of a state machine, including triggers, guards, effects and concurrent regions.
 
 Anchor: `AliotShowcase::FlightMode`.
 
@@ -535,7 +535,7 @@ sysml-diagram export --file aliot-all-views.sysml --view stv --anchor AliotShowc
 
 #### Sequence View
 
-pilot, controller and propulsion exchange named messages with payload types. The loop fragment repeats requestStatus and reportStatus while monitoring. Lifelines are interaction participants, not AFV performer lanes.
+Shows interactions over time as lifelines and ordered messages. Fragments express repetition or other control around message exchanges.
 
 Anchor: `AliotShowcase::DeliverySequence`.
 
@@ -551,7 +551,7 @@ sysml-diagram export --file aliot-all-views.sysml --view sv --anchor AliotShowca
 
 #### Case View
 
-deliver and ready sit inside the vehicle subject boundary. pilot : Operator is an external actor, and the include relationship connects the two use cases.
+Shows cases in relation to their subject and actors. Relationships between cases make shared or dependent behavior visible.
 
 Anchor: `AliotShowcase::Operations`.
 
@@ -567,7 +567,7 @@ sysml-diagram export --file aliot-all-views.sysml --view cv --anchor AliotShowca
 
 #### Geometry View
 
-airframe, payloadBay and the rotors use real ShapeItems solids and coordinate-frame translations. Nonspatial controls are intentionally absent.
+Shows model geometry from shapes and coordinate frames, making spatial position, orientation and dimensions visible.
 
 Anchor: `AliotShowcase::Architecture::drone`.
 
@@ -583,7 +583,7 @@ sysml-diagram export --file aliot-all-views.sysml --view gev --anchor AliotShowc
 
 #### Grid View: requirements
 
-Inspect requirements in VS Code and use Export CSV to share the table. The screenshot shows the software-defined vehicle sample; the CSV download uses the all-view drone model.
+Lists requirements in a table for scanning, selection and editing supported fields. Adjust columns to focus on the data you need, or export the table as CSV.
 
 Anchor: `AliotShowcase`.
 

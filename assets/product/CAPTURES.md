@@ -14,7 +14,6 @@ Wide captures crop the extension webview at x=60, y=109, width=1810, height=865 
 
 - `v045-workspace-*`: Browser, drone diagram and battery Properties after a local override.
 - `v045-properties-before-*`: capacity 80 inherited from Battery.
-- `v045-properties-edit-*`: capacity 95 entered into the inherited field.
 - `v045-properties-after-*`: applied local capacity override 95. nominalVoltage and mass stay inherited.
 - `v045-properties-port-*`: powerOutput inspection, calculated direction, Conjugated control and directed voltage/current members.
 - `v045-hierarchy-overview-*`: drone diagram with propulsion collapsed, with its Diagram pill visible in Browser.
@@ -22,7 +21,7 @@ Wide captures crop the extension webview at x=60, y=109, width=1810, height=865 
 
 The property edit was made through Properties and verified in source as `attribute :>> capacity = 95;`. Battery's default stays 80 and spareBattery has no override. Both source snapshots validate without diagnostics. Start with the before state to repeat the edit.
 
-The GIFs are still-image sequences. Properties holds before/edit/applied for 2.2/2.2/3.6 seconds. Hierarchy holds overview/subsystem for 3/4 seconds. They do not record cursor movement or show every intermediate UI operation. Up navigation was exercised and returns to the parent's General View; the looping hierarchy comparison shows the two IV states only.
+The hierarchy GIFs are still-image sequences. They hold overview/subsystem for 3/4 seconds and do not record cursor movement or show every intermediate UI operation. Up navigation was exercised and returns to the parent's General View; the looping hierarchy comparison shows the two IV states only. Properties uses separate before and after stills.
 
 To replace a GIF, record the same workflow in VS Code and save it with the existing asset name. Keep a still image beside it for reduced-motion viewing.
 

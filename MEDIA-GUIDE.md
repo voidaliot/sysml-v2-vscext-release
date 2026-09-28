@@ -30,16 +30,16 @@ Use the [release demo](https://github.com/voidaliot/sysml-v2-samples/blob/main/r
 4. Capture the drone overview. Use the **Diagram** pill beside propulsion in Browser to open the subsystem. Capture its four motors and use **Up** to return.
 5. Repeat with Aliot Dark. Crop unrelated windows and workspace information, while retaining enough UI to explain the action.
 
-Replace the corresponding `v045-properties-*`, `v045-hierarchy-*` and `v045-workspace-*` files under `assets/product/`. Keep light and dark stills. Current GIFs are sequences of real captured states, not continuous recordings.
+Replace the corresponding `v045-properties-*`, `v045-hierarchy-*` and `v045-workspace-*` files under `assets/product/`. Keep light and dark stills. The hierarchy GIFs are sequences of real captured states, not continuous recordings.
 
 ## Record a short GIF
 
-Record one workflow for about 8 to 15 seconds. Pause before and after the edit so viewers can read the result. Save a GIF using the existing `v045-properties-light.gif` or `v045-hierarchy-light.gif` name, and provide the matching dark variant. Keep a still image for people who prefer reduced motion. The landing page provides Play and Stop controls.
+For Properties, capture the before and after states as separate PNGs in both themes. The landing page lets viewers select each state. For hierarchy navigation, save a GIF using the existing `v045-hierarchy-light.gif` name and provide the matching dark variant. Keep still images for people who prefer reduced motion.
 
 GitHub README and Marketplace pages can display linked PNGs and GIFs. They do not run interactive diagram JavaScript. Use the GitHub Pages site for the zoomable preview and link to it from the README. A simple embed is:
 
 ```md
-![Edit a battery value in Properties](https://raw.githubusercontent.com/voidaliot/sysml-v2-vscext-release/main/assets/product/v045-properties-light.gif)
+![Battery Properties after applying a local capacity override](https://raw.githubusercontent.com/voidaliot/sysml-v2-vscext-release/main/assets/product/v045-properties-after-light.png)
 ```
 
 Keep animations small enough to load quickly. Update alt text and captions whenever the demonstrated behavior changes.
