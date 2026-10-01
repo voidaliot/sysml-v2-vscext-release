@@ -1,5 +1,57 @@
 # Changelog
 
+## [0.45.0] - 2026-10-01
+
+### Added
+
+- Sequence View loops and alternatives can be selected, edited and dragged in time. Messages move into and out of them, and nested frames no longer overlap.
+- Explicit standard view usages open the matching diagram mode from Show diagram. BrowserView reveals the Browser pane.
+- General View usage labels sit on the branch beside their target definition, making bundled parts easier to follow.
+- New Aliot icon with a SysML v2 badge and a light Marketplace banner. The bundled themes are now named Aliot Light and Aliot Dark.
+- Editable Properties tables cover names, types, values, directions, notes, enum literals and inherited members, with local overrides and native Undo.
+- Browser and Properties panes support docking, resizing and navigation. Drafts stay available when a field edit is rejected.
+- Relationship lines open their statements and members in Properties. Reconnect declaration relationships by dragging their target.
+- Connections and interfaces open from labelled lines or buses into blocks with ends, item pins and carried flows.
+- Shared lines keep separate flow, interface and connection pills. Pills show names or fall back to types, and drag with a guide.
+- Port pills support selection and dragging. Nested ports expand, resize and arrange by hand. Conjugated ports have hollow outlines.
+- Part ports expand into nested ports. Open interface and connection ends also show directed item pins.
+- State roles and transition effects offer saved detail controls. General View Tree can expand bundled parts from the line pill.
+- Interconnection View offers performed-action and constraint filters. Layout diagnostics are available from the canvas context menu.
+- Softer shapes, Aliot Light and consistent toolbar highlights make diagrams easier to read.
+- Views save complete connector geometry and retain independent pan and zoom when switching or reopening.
+- Large Interconnection Views prepare routing in the background and retain all enabled content.
+- Diagram layouts organize relationships, source order and nested boundaries. Routing keeps captions clear of nearby shapes.
+- Self-transitions and return loops support every line style. Accept payloads and pins inside loops and conditional bodies support flows.
+
+### Changed
+
+- General View Structure places each definition under the part that uses it, with port and item types just below. Lines cross far less and no longer cut through neighbouring cards. An item used only inside a closed port card now sits next to it.
+- The General View Compartments mode is now named Structure. Saved layouts and the CLI option `--gv-mode compartments` still work.
+- General View Tree keeps a shared definition in the definition row, centered under its usages.
+- General View Tree cards move freely, also above their parent. Layout still arranges the tree top-down.
+- «defined by» and specialization lines show a handle at both ends. Move the source end to any point on its own element.
+- Redefinition lines are now drawn as a double line. Redefinition, subsetting and disjoint lines no longer carry a text label.
+- Interconnection View has one layout: parts read left to right from input to output, unwired parts pack compactly, and the direction buttons are gone.
+- A saved Interconnection View no longer rearranges itself when opened. New elements get a free slot; use Reset Layout to lay it out again.
+
+### Fixed
+
+- Lines stay attached after you move a card out past the top or left of its container. Sequence lifelines release cleanly too.
+- Reconnected endpoints keep their relationship identity and save their updated geometry through model refreshes.
+- Sequence loop conditions stay clear of activation bars and message captions in the diagram and exported SVG.
+- Unnamed messages and flows can be named from Properties or the canvas. Their payload type can be added, changed or cleared in Properties.
+- Sequence message arrows stop at the edge of the activation bar instead of running under it, also in exported SVG.
+- Case View actor labels keep their full name and type at the automatic size, including in CLI exports.
+- Run Verification finds `verify` statements inside the objective ([#6](https://github.com/voidaliot/sysml-v2-vscext-release/issues/6)).
+- Requirements with redefined subjects evaluate their bindings ([#7](https://github.com/voidaliot/sysml-v2-vscext-release/issues/7)).
+- Adding or editing inherited action parameters preserves parameter order and direction. SSM025 checks ordinary action correspondence.
+- Adding nested ports preserves their port kind. Connections to ports several parts deep remain visible.
+- Orthogonal connectors meet ports without diagonal stubs.
+- Repeated typed actions retain inherited branch flows. State diagrams retain named entry routes and distinct transitions.
+- Legal dialect-specific names retain editor support. Comparisons follow standard precedence, and interval quick fixes preserve grouping.
+- Reference diagnostics recognize effective bindings, explain completeness policy and identify local self-bindings.
+- Saved General View connector styles are restored consistently.
+
 ## [0.44.0] - 2026-09-17
 
 ### Added
