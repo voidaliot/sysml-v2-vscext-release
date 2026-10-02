@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.45.1] - 2026-10-02
+
+### Fixed
+
+- Properties lists exhibit states, exhibited states, and the elements that exhibit a state, also from other files. Diagrams stay unchanged.
+
 ## [0.45.0] - 2026-10-01
 
 ### Added
