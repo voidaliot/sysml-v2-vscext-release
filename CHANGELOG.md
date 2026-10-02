@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.45.2] - 2026-10-02
+
+### Fixed
+
+- An initial `first` member can carry a visibility, for example `private first start;`, as the SysML v2 grammar allows.
+
 ## [0.45.1] - 2026-10-02
 
 ### Fixed
