@@ -198,9 +198,10 @@ pre {
   line-height: 1;
 }
 .brand-mark {
-  height: 31px;
-  width: 31px;
-  color: var(--accent);
+  height: 42px;
+  width: 42px;
+  display: block;
+  flex-shrink: 0;
 }
 .brand-sub {
   font-size: 11px;
@@ -1655,8 +1656,8 @@ pre {
   font-size: 24px;
 }
 .footer .brand-mark {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
 }
 .footer-nav {
   display: flex;
@@ -1955,8 +1956,8 @@ dialog::backdrop {
     font-size: 27px;
   }
   .brand-mark {
-    width: 28px;
-    height: 28px;
+    width: 36px;
+    height: 36px;
   }
   .main-nav {
     position: absolute;

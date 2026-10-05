@@ -43,3 +43,9 @@ GitHub README and Marketplace pages can display linked PNGs and GIFs. They do no
 ```
 
 Keep animations small enough to load quickly. Update alt text and captions whenever the demonstrated behavior changes.
+
+## Brand icons
+
+The refined icon pack lives under `assets/brand/`. Use `aliot-star-light.svg` and `aliot-star-dark.svg` for the landing page header and footer and the HTML and Markdown user guides. These SVGs isolate the rays, ring and white centre from the supplied website artwork, with a tight viewBox and no background or frame. The header displays the star at 42 px (36 px on narrow screens), and the footer at 32 px. The original framed `aliot-web-star-*.svg` masters remain available. The landing page and HTML guide theme switches update images with `data-light` / `data-dark` paths and the matching `aliot-favicon-*.svg`. The favicon contains only the star, blue ring and white centre on a transparent background, with no tile or frame.
+
+The README uses the 512 px `aliot-marketplace-system-*.png` pair in a theme-aware `<picture>`. Matching SVG masters and PNG exports for both designs are included. Preserve the solid white centre, separate blue ring and transparent outer corners when replacing artwork.

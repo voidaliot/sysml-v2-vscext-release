@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="36 36 440 440" fill="none">
+  <title>Aliot star — light</title>
+  <defs>
+    <linearGradient id="north" x1="256" y1="52" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a2c9ff" />
+      <stop offset=".60" stop-color="#84baff" />
+      <stop offset="1" stop-color="#b0a4ee" />
+    </linearGradient>
+    <linearGradient id="south" x1="256" y1="460" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a2c9ff" />
+      <stop offset=".60" stop-color="#84baff" />
+      <stop offset="1" stop-color="#b0a4ee" />
+    </linearGradient>
+    <linearGradient id="west" x1="62" y1="256" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a2c9ff" />
+      <stop offset=".58" stop-color="#84baff" />
+      <stop offset="1" stop-color="#b0a4ee" />
+    </linearGradient>
+    <linearGradient id="east" x1="450" y1="256" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a2c9ff" />
+      <stop offset=".58" stop-color="#84baff" />
+      <stop offset="1" stop-color="#b0a4ee" />
+    </linearGradient>
+    <linearGradient id="ring" x1="211" y1="204" x2="301" y2="312" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2265c0" />
+      <stop offset=".44" stop-color="#2562d7" />
+      <stop offset="1" stop-color="#2265c0" />
+    </linearGradient>
+  </defs>
+  <g id="rays">
+    <path d="M256 52 L295 256 H217 Z" fill="url(#north)" />
+    <path d="M256 460 L217 256 H295 Z" fill="url(#south)" />
+    <path d="M62 256 L256 217 V295 Z" fill="url(#west)" />
+    <path d="M450 256 L256 295 V217 Z" fill="url(#east)" />
+  </g>
+  <circle id="cobalt-ring" cx="256" cy="256" r="65" fill="url(#ring)" />
+  <circle id="white-centre" cx="256" cy="256" r="47" fill="#ffffff" />
+</svg>

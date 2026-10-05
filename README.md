@@ -1,4 +1,9 @@
-<p align="center"><img src="assets/brand/aliot-light.png" width="88" height="88" alt="Aliot"></p>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/aliot-marketplace-system-dark.png">
+    <img src="assets/brand/aliot-marketplace-system-light.png" width="112" height="112" alt="Aliot SysML v2: four-ray star with a white centre, blue ring and four system nodes">
+  </picture>
+</p>
 
 # Aliot SysML v2
 
@@ -31,10 +36,6 @@ Edit inherited values in Properties to create local overrides. The battery capac
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/product/v045-properties-after-dark.png">
   <img src="assets/product/v045-properties-after-light.png" alt="Properties after creating a local capacity override" width="400">
-</picture>
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/product/v045-properties-port-dark.png">
-  <img src="assets/product/v045-properties-port-light.png" alt="Port Properties with directed features and conjugation" width="400">
 </picture>
 
 [Play the real screenshot sequence](https://voidaliot.github.io/sysml-v2-vscext-release/#editing). The page provides stills and a Play/Stop control. These are captured states, not a continuous recording.

@@ -10,12 +10,14 @@
   }
   function apply(theme) {
     root.dataset.theme = theme;
-    button.textContent = theme === "dark" ? "Light theme" : "Dark theme";
     button.setAttribute("aria-label", `Switch to ${theme === "dark" ? "light" : "dark"} theme`);
     document.querySelector('meta[name="theme-color"]').content =
       theme === "dark" ? "#080c13" : "#f7f9fc";
     document.querySelectorAll("img[data-light]").forEach((image) => {
       image.src = image.dataset[theme];
+    });
+    document.querySelectorAll('link[rel="icon"][data-light]').forEach((icon) => {
+      icon.href = icon.dataset[theme];
     });
   }
   button.hidden = false;

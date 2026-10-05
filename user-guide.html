@@ -13,7 +13,14 @@
       rel="canonical"
       href="https://voidaliot.github.io/sysml-v2-vscext-release/user-guide.html"
     />
-    <link rel="icon" href="assets/brand/aliot-light.png" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      sizes="any"
+      href="assets/brand/aliot-favicon-light.svg"
+      data-light="assets/brand/aliot-favicon-light.svg"
+      data-dark="assets/brand/aliot-favicon-dark.svg"
+    />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="user-guide.css" />
     <script src="user-guide.js" defer></script>
@@ -21,14 +28,34 @@
   <body>
     <header class="guide-header">
       <a class="guide-brand" href="index.html"
-        ><img src="assets/brand/aliot-light.png" alt="" width="36" height="36" />Aliot SysML v2</a
+        ><img
+          class="brand-mark"
+          src="assets/brand/aliot-star-light.svg"
+          data-light="assets/brand/aliot-star-light.svg"
+          data-dark="assets/brand/aliot-star-dark.svg"
+          alt=""
+          width="42"
+          height="42"
+        />Aliot SysML v2</a
       >
       <nav aria-label="Guide navigation">
         <a href="index.html">Home</a>
         <a href="https://marketplace.visualstudio.com/items?itemName=voidaliot.vscode-sysml-v2"
           >Install in VS Code</a
         >
-        <button id="guide-theme" type="button" hidden>Dark theme</button>
+        <button
+          class="icon-button theme-button"
+          id="guide-theme"
+          type="button"
+          aria-label="Switch to dark theme"
+          title="Switch theme"
+          hidden
+        >
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M19 5l-1.5 1.5m-11 11L5 19" />
+          </svg>
+        </button>
       </nav>
     </header>
     <div class="guide-layout">
@@ -617,7 +644,7 @@ attribute mass : ISQ::MassValue;
 <p>Lists requirements in a table for scanning, selection and editing supported fields. Adjust columns to focus on the data you need, or export the table as CSV.</p>
 <p>Anchor: <code>AliotShowcase</code>.</p>
 <p><strong>Open and edit in VS Code:</strong> Select <strong>Grid View</strong>, then the <strong>Requirements</strong> preset. Edit a supported cell by double-clicking it. Use Properties for the selected requirement and the column controls to adjust the table. Choose <strong>Export CSV</strong> to share it. The screenshot below is the SDV sample; the downloaded CSV is the all-view model.</p>
-<p><img src="assets/product/grid-vscode.png" alt="VS Code Grid View showing requirements for the software-defined vehicle sample." loading="lazy" width="2606" height="1520"></p>
+<p><img src="assets/product/grid-vscode.png" data-light="assets/product/grid-vscode.png" data-dark="assets/product/grid-vscode-dark.png" alt="VS Code Grid View showing requirements for the software-defined vehicle sample." loading="lazy" width="2055" height="1342"></p>
 <p>Use <strong>Export CSV</strong> in the Grid View toolbar, or run the command below. <a href="assets/product/all-views/requirements.csv">Download the all-view model requirements CSV</a>.</p>
 <pre><code class="language-sh">sysml-diagram export --file aliot-all-views.sysml --view grv --anchor AliotShowcase --theme light --auto-layout --out requirements.csv
 </code></pre>

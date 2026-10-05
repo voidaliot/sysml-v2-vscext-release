@@ -240,7 +240,7 @@
     document.querySelectorAll("img[data-light]").forEach((image) => {
       image.src = image.dataset[theme];
     });
-    document.querySelectorAll("a[data-light]").forEach((link) => {
+    document.querySelectorAll('a[data-light], link[rel="icon"][data-light]').forEach((link) => {
       link.href = link.dataset[theme];
     });
   }

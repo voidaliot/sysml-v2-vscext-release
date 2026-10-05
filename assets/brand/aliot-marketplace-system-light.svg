@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none" role="img" aria-labelledby="title description">
+  <title id="title">Aliot SysML v2 Marketplace — light, refined</title>
+  <desc id="description">Four slender pale blue-to-violet rays behind a separate deep-blue circular ring and an opaque white centre. Four violet corner system nodes and a faint background square grid with the label &lt;SysML v2&gt; below. Light rounded tile, with transparent outer corners. Typography is outlined.</desc>
+  <defs>
+    <linearGradient id="tile" x1="100" y1="4" x2="372" y2="512" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff"/><stop offset="1" stop-color="#f7f9fc"/>
+    </linearGradient>
+    <radialGradient id="ambience" cx="256" cy="230" r="213" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2562d7" stop-opacity=".025"/>
+      <stop offset=".64" stop-color="#2562d7" stop-opacity=".015"/>
+      <stop offset="1" stop-color="#2562d7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="north" x1="256" y1="50" x2="256" y2="230" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a2c9ff"/><stop offset=".60" stop-color="#84baff"/><stop offset="1" stop-color="#b0a4ee"/>
+    </linearGradient>
+    <linearGradient id="south" x1="256" y1="398" x2="256" y2="230" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a2c9ff"/><stop offset=".60" stop-color="#84baff"/><stop offset="1" stop-color="#b0a4ee"/>
+    </linearGradient>
+    <linearGradient id="west" x1="74" y1="230" x2="256" y2="230" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a2c9ff"/><stop offset=".58" stop-color="#84baff"/><stop offset="1" stop-color="#b0a4ee"/>
+    </linearGradient>
+    <linearGradient id="east" x1="438" y1="230" x2="256" y2="230" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a2c9ff"/><stop offset=".58" stop-color="#84baff"/><stop offset="1" stop-color="#b0a4ee"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="211" y1="178" x2="301" y2="286" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2265c0"/><stop offset=".44" stop-color="#2562d7"/><stop offset="1" stop-color="#2265c0"/>
+    </linearGradient>
+    <linearGradient id="node" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#7060b8"/><stop offset="1" stop-color="#6456c5"/>
+    </linearGradient>
+    <clipPath id="tile-clip"><rect x="3" y="3" width="506" height="506" rx="101"/></clipPath>
+  </defs>
+  <rect x="3" y="3" width="506" height="506" rx="101" fill="url(#tile)" stroke="#d6dfec" stroke-width="3"/>
+  <g clip-path="url(#tile-clip)">
+    <rect x="3" y="3" width="506" height="506" fill="url(#ambience)"/>
+    <!-- The grid remains behind the rays and the opaque centre. -->
+    <path d="M118 100H394V360H118Z M118 230H394" stroke="#d6dfec" stroke-width="4.3" stroke-opacity="1" stroke-linejoin="round"/>
+    <circle cx="118" cy="100" r="18" fill="#6456c5" fill-opacity=".13"/>
+    <circle cx="118" cy="100" r="16" stroke="#6456c5" stroke-width="2" stroke-opacity=".6"/>
+    <circle cx="118" cy="100" r="12.5" fill="url(#node)"/>
+    <circle cx="394" cy="100" r="18" fill="#6456c5" fill-opacity=".13"/>
+    <circle cx="394" cy="100" r="16" stroke="#6456c5" stroke-width="2" stroke-opacity=".6"/>
+    <circle cx="394" cy="100" r="12.5" fill="url(#node)"/>
+    <circle cx="118" cy="360" r="18" fill="#6456c5" fill-opacity=".13"/>
+    <circle cx="118" cy="360" r="16" stroke="#6456c5" stroke-width="2" stroke-opacity=".6"/>
+    <circle cx="118" cy="360" r="12.5" fill="url(#node)"/>
+    <circle cx="394" cy="360" r="18" fill="#6456c5" fill-opacity=".13"/>
+    <circle cx="394" cy="360" r="16" stroke="#6456c5" stroke-width="2" stroke-opacity=".6"/>
+    <circle cx="394" cy="360" r="12.5" fill="url(#node)"/>
+    <!-- Four rays are independent shapes, not a cut-out star. -->
+    <g id="rays">
+      <path d="M256 50 L294 230 H218 Z" fill="url(#north)"/>
+      <path d="M256 398 L218 230 H294 Z" fill="url(#south)"/>
+      <path d="M74 230 L256 192 V268 Z" fill="url(#west)"/>
+      <path d="M438 230 L256 268 V192 Z" fill="url(#east)"/>
+    </g>
+    <!-- Separate circular body, followed by a solid white dot in BOTH themes. -->
+    <circle id="cobalt-ring" cx="256" cy="230" r="61" fill="url(#ring)"/>
+    <circle id="white-centre" cx="256" cy="230" r="44.5" fill="#ffffff"/>
+    <g id="marketplace-caption" transform="matrix(0.75 0 0 0.75 64 109.25)">
+      <g id="sysml-v2-label" fill="#15253b" aria-label="&lt;SysML v2&gt;">
+        <path d="M663 -24C1016 -24 1237 152 1237 430C1237 649 1098 778 789 847L638 882C444 927 367 983 367 1083C367 1205 484 1290 649 1290C823 1290 937 1195 948 1038H1199C1190 1334 983 1514 650 1514C321 1514 102 1336 102 1070C102 861 239 730 537 662L697 626C896 580 974 519 974 414C974 283 851 199 665 199C458 199 334 306 332 486H73C73 167 294 -24 663 -24ZM1441 -418H1606C1759 -418 1863 -339 1926 -174L2398 1056H2134L1941 506C1914 428 1889 350 1865 272C1841 350 1815 428 1789 506L1595 1056H1328L1735 6L1696 -96C1666 -179 1634 -213 1566 -213H1441ZM2942 -25C3203 -25 3390 105 3390 311C3390 466 3293 558 3084 602L2894 641C2806 660 2754 699 2754 762C2754 834 2822 890 2933 890C3048 890 3125 821 3127 727H3364C3358 944 3183 1079 2927 1079C2669 1079 2502 948 2502 754C2502 594 2608 491 2810 449L2990 412C3079 393 3134 356 3134 292C3134 217 3060 164 2938 164C2812 164 2738 223 2727 326H2478C2494 99 2685 -25 2942 -25ZM3574 0H3834V760C3834 860 3829 1015 3826 1162C3878 1001 3928 847 3959 760L4245 0H4461L4745 760C4777 851 4828 1015 4881 1183C4877 1030 4872 865 4872 760V0H5132V1490H4750L4465 707C4438 624 4390 475 4355 359C4320 475 4272 624 4244 707L3954 1490H3574ZM5380 0H6335V229H5644V1490H5380ZM7260 0H7536L7933 1056H7669L7479 506C7452 423 7427 339 7402 256C7376 339 7350 423 7323 506L7130 1056H6863ZM8032 0H9071V218H8392V220L8736 525C8948 710 9064 851 9064 1054C9064 1331 8851 1514 8554 1514C8235 1514 8031 1303 8031 988H8276C8276 1179 8380 1296 8554 1296C8715 1296 8816 1198 8816 1042C8816 897 8724 808 8573 674L8032 201Z" transform="matrix(0.03222938 0 0 -0.03222938 108.647255 460.795288)"/>
+      </g>
+      <path d="M99 419 L69 437 L99 455 M413 419 L443 437 L413 455" stroke="#2265c0" stroke-width="7" stroke-linecap="square" stroke-linejoin="miter"/>
+    </g>
+  </g>
+</svg>

@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/aliot-star-dark.svg">
+    <img src="assets/brand/aliot-star-light.svg" width="56" height="56" alt="Aliot: four-ray star with a blue ring and white centre">
+  </picture>
+</p>
+
 # Aliot SysML v2 User Guide
 
 This guide explains how to use the SysML v2 VS Code extension to author and navigate SysML v2 and KerML models.
@@ -589,7 +596,10 @@ Anchor: `AliotShowcase`.
 
 **Open and edit in VS Code:** Select **Grid View**, then the **Requirements** preset. Edit a supported cell by double-clicking it. Use Properties for the selected requirement and the column controls to adjust the table. Choose **Export CSV** to share it. The screenshot below is the SDV sample; the downloaded CSV is the all-view model.
 
-![VS Code Grid View showing requirements for the software-defined vehicle sample.](assets/product/grid-vscode.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/product/grid-vscode-dark.png">
+  <img src="assets/product/grid-vscode.png" alt="VS Code Grid View showing requirements for the software-defined vehicle sample.">
+</picture>
 
 Use **Export CSV** in the Grid View toolbar, or run the command below. [Download the all-view model requirements CSV](assets/product/all-views/requirements.csv).
 
