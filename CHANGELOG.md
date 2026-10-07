@@ -1,5 +1,94 @@
 # Changelog
 
+## [0.46.0] (2026-10-06)
+
+### Added
+
+- General View relations stepper with three stops: None, Structural and All. Structural is the default in Structure and Tree, so large models start readable.
+- Right-click a General View card to show None, Structural or All of its own relations. A small marker shows the card has its own choice.
+- General View level stepper: open or close one level of containers at a time. Right-click a container to open one level, open all levels or close it.
+- Click the level stepper's layers icon for an overview in one Undo step. General View resets to Structural relations with every container closed. IV, AFV and STV close every level.
+- Sequence View draws a message to the same lifeline as a neat loop. A part's performed actions show as dots on its lifeline, where their messages start and end.
+- Sequence View keeps lifeline titles pinned at the top while you scroll down. Only the title box selects or moves a lifeline.
+- Hide any diagram element with the eye on its Browser row. Its lines go too, also in export. A Show all button brings everything back, and the choice is saved.
+- Clicking a Browser row selects that element on the diagram and scrolls it into view.
+- Sequence View: drag a message from a lifeline dot and release anywhere on another lifeline. Release on its own lifeline, or right-click a dot, for a self message.
+- Every port definition P now has its implicit conjugated port definition P::'~P'. It resolves, completes, hovers and renames like ~P.
+
+### Changed
+
+- General View draws only OMG relationship lines. Perform and disjoint lines are gone. Derivations and causations draw as plain connections named `name : Type`.
+- Package overview tiles show the element name. Only tiles that share a name show their owner too.
+- Action Flow View performer lanes show the part name only. The full path stays in Properties.
+- Action Flow View draws performer lanes for parts in another package, for example parts performing the steps of a use case.
+- Interconnection View shows the parts of a usage typed like one of its owners, for example two nested SpatialItem parts.
+- Action Flow View part frames show only their actions, parts, ports and notes. Attributes, constraints and connections stay in the General and Interconnection Views.
+- AFV, IV and STV lines follow simpler paths through title bands. Different pins and ports keep separate tracks.
+- Action Flow pins face their flow: down to an action below, sideways to an action beside. Item flows and control flow drop straight and never share a line.
+- Action Flow and State Transition lines between the same two cards share one corridor, side by side, and nest without crossing.
+- GV connection drags offer valid relation types after the drop. Escape or clicking outside cancels without editing.
+- GV keeps structure and traceability. Wiring and behavior stay in dedicated views. Named connections and interfaces retain typing links.
+- Reference parts have distinct banners and outlines. Open references link from their own cards. Occurrence menus add reference parts.
+- Diagrams omit redefinition and redundant local claim lines. GV part-to-part drags no longer guess a redefinition.
+- IV, AFV and STV omit ordinary items, values and unrelated child kinds. Parameter pins and flow labels remain. The Items filter is removed.
+- Open IV, AFV and STV titles share the container background, matching General View Structure.
+- IV, AFV and STV share category icons. Core elements stay visible. Package filters hide containers. Nested ports and pins open individually.
+- Action Flow, State Transition and Case View use top-down layouts without direction buttons. Saved diagram choices remain intact.
+- General View Re-run automatic layout tries several Structure placements in every line style and keeps the most readable one. Lines drop straight, not in long detours.
+- After an automatic Structure layout, lines no longer cut through cards. Lines with different ends never share a track, and nearly aligned lines drop straight.
+- Structure stands the members whose lines leave a container in its bottom rows, also in nested containers, so their lines drop straight to the cards below.
+- Structure stacks a crowded row of members in staggered rows. Each member stays over the card it uses, and its line drops between the cards below.
+- In Structure, lines of one kind that meet the same side of a card share one end point and join like the branches of a tree.
+- General View lines leave the bottom of the upper card and enter the top of the lower card, for every relation and line style. Manual routes stay intact.
+- Selected diagram lines are red, with matching arrowheads and end rings. Their labels keep readable text on a soft red plate.
+- The Sequence View toolbar no longer shows the line type buttons. Messages are always straight.
+- Browser View Expand all and Collapse all are now small icons beside the parent button. The current diagram filter uses an eye icon.
+- Aliot Light uses warmer content backgrounds, a muted gray-blue frame and clearer Browser highlights. Blue selections stay the same.
+- The Aliot icon centers the star and grid, with a two-line SysML v2 label in the lower-right node.
+- Aliot Light adds clearer sidebars and selections. Selected diagram buttons use Aliot blue with white labels. Syntax colors stay the same.
+- Explorer rows and sidebar controls have clearer hover highlights. The active activity-bar icon has a stronger blue tile.
+
+### Fixed
+
+- Orthogonal lines you route by hand, and lines that follow a card while you move it, now have rounded corners like every other line.
+- Reset Connector Routing now draws the same lines as the automatic layout.
+- General View: when you move a card, its lines dock again and run around the other cards. A line under a dropped card moves around it.
+- Wiring views show movable constraint and calculation pins without duplicate parameter or result text. Leaf action and state cards fit their content.
+- General View omits message, flow, transition and action-flow control cards. Real structural children remain visible.
+- Action Flow omits parts that only own calculations. Calculations inside action flows stay visible.
+- The Browser current-diagram filter follows the visible hierarchy depth, including nested ports and pins.
+- Browser and Properties remember closed panes when diagrams reopen. Pin choices and pane sizes persist across diagrams.
+- Closing a diagram also closes its background JSON tabs. Unsaved changes use the normal VS Code save confirmation.
+- General View Tree fans and lines no longer run on top of each other.
+- Sequential Action Flow performers share a column instead of forming a staircase. Parallel performers and saved sizes keep their space.
+- Action Flow hides structural-only parts and keeps inherited action owners. Performers retain their lanes.
+- Closed states hide entry, do and exit controls. Opened role and effect bodies show children once and respect child filters.
+- State views retain user-defined inherited roles when library roles share the same lifecycle slot.
+- Long case and inheritance chains no longer overflow the call stack. Nested-port disclosure and Browser search avoid repeated subtree work.
+- Silent diagram inspection and edit planning time out. Closing views cancels worker startup. Rapid navigation and restoration keep current settings.
+- Usages typed through aliases retain inherited ports, actions and states.
+- Structured views no longer turn satisfaction into cards. Large SDV views skip inherited library children before building them.
+- Distinct feature-chain redefinitions keep separate diagram cards, Browser rows and source targets, even when their short names match.
+- The editor title Show Diagram button now opens the current model correctly, including when VS Code supplies an editor group context.
+- Structured views show child text when closed and child nodes when open. Child-type filters share General View icons.
+- Structured views hide inherited SysML library children while keeping locally declared members.
+- New IV, AFV and STV diagrams open local content and collapse inherited nested content. Titles no longer have a divider.
+- IV, AFV and STV preserve saved disclosure and use a level stepper to open or close one level at a time.
+- Hide packages keeps their disclosed contents and saved positions visible in General View.
+- Interconnection View shows locally asserted constraints. Inherited assertions remain available in Properties.
+- Send, accept and assignment actions now report invalid ownership. Canvas creation choices follow the same placement rules.
+- Explicit member declarations retain metadata, visibility, navigation and edit ranges across diagram views. Aliases keep their target ownership.
+- Allocations share binary ends across diagrams and Properties. Tree keeps undrawn usage cards.
+- Allocation diagnostics count inherited and redefined ends, including abstract forms. Invalid counts and ambiguous ends receive precise messages.
+- Sequence View messages and sends written with a participant's short name now draw and keep their source and proxy rows.
+- Parallel automatic transitions keep separate paths around blocking states and stay attached to their original endpoints.
+- Fit to view now shows every card of a large diagram, also the cards that were off screen.
+- A General View that opens with new elements keeps your saved layout. Only the new cards get a free spot, so nothing lands on top of a saved card.
+- Opening a diagram on a standard-library file such as Parts.sysml no longer runs the language server out of memory.
+- Cross-file redefinitions written by a short name now resolve both names to the local usage, including its nested members.
+- Calculation bindings in Action Flow use the same pin checks as actions. Inherited returns and state behavior references keep their usual presentation.
+- Diagram flows, successions and connectors written with a short name, such as P1.a, now draw. ([#8](https://github.com/voidaliot/sysml-v2-vscext-release/issues/8))
+
 ## [0.45.2] - 2026-10-02
 
 ### Fixed
