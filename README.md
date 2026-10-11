@@ -1,8 +1,8 @@
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/brand/aliot-marketplace-system-dark.png">
-    <img src="assets/brand/aliot-marketplace-system-light.png" width="112" height="112" alt="Aliot SysML v2: four-ray star with a white centre, blue ring and four system nodes">
-  </picture>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/brand/aliot-star-dark.png">
+  <img src="assets/brand/aliot-star-light.png" width="88" height="88" alt="Aliot star with a blue ring and white centre">
+</picture>
 </p>
 
 # Aliot SysML v2

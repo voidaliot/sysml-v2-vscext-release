@@ -3304,3 +3304,11 @@ dialog::backdrop {
     font-size: 9px;
   }
 }
+
+/* The landing page uses the plain star. System nodes belong to the store icon. */
+.hero-brand-mark {
+  display: block;
+  width: 132px;
+  height: 132px;
+  margin: 0 auto 24px;
+}

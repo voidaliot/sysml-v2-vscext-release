@@ -44,8 +44,10 @@ GitHub README and Marketplace pages can display linked PNGs and GIFs. They do no
 
 Keep animations small enough to load quickly. Update alt text and captions whenever the demonstrated behavior changes.
 
-## Brand icons
+## Brand assets
 
-The refined icon pack lives under `assets/brand/`. Use `aliot-star-light.svg` and `aliot-star-dark.svg` for the landing page header and footer and the HTML and Markdown user guides. These SVGs isolate the rays, ring and white centre from the supplied website artwork, with a tight viewBox and no background or frame. The header displays the star at 42 px (36 px on narrow screens), and the footer at 32 px. The original framed `aliot-web-star-*.svg` masters remain available. The landing page and HTML guide theme switches update images with `data-light` / `data-dark` paths and the matching `aliot-favicon-*.svg`. The favicon contains only the star, blue ring and white centre on a transparent background, with no tile or frame.
+Use `aliot-star-light.svg` and `aliot-star-dark.svg` for the landing page, guides and repository READMEs. These contain only the four rays, blue ring and solid white centre. The header, hero and footer share this mark. Favicons use the same star.
 
-The README uses the 512 px `aliot-marketplace-system-*.png` pair in a theme-aware `<picture>`. Matching SVG masters and PNG exports for both designs are included. Preserve the solid white centre, separate blue ring and transparent outer corners when replacing artwork.
+Use `aliot-marketplace-system-light.png` and `aliot-marketplace-system-dark.png` only for the extension and Marketplace content. This is the approved C design: 20 percent larger artwork, system grid and circular SysML v2 label, with no background box. Keep the SVG masters and PNG exports together. Do not use the framed historical artwork for new pages.
+
+Website theme controls switch both artwork and captures. README images use `<picture>` with a dark source and a light fallback. Renderers that strip `picture`, `media` or `srcset` show the fallback; the Marketplace README also links to both captures. The store manifest supports one PNG icon, so its transparent light version serves both backgrounds. Leave the optional fixed gallery banner unset so the host controls the page appearance.
