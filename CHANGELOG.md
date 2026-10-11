@@ -1,5 +1,79 @@
 # Changelog
 
+## [0.47.0] (2026-10-11)
+
+### Changed
+
+- State Transition View: each state has one +/- for its sub-states and entry, do and exit actions, inherited ones too. The level control opens action bodies.
+- Action Flow and State Transition View: opening or closing an action or state moves the elements around it, so nothing overlaps and no gap stays.
+- Selected lines move from any point along them, and their ends turn to face the new bends. A click selects the nearest of two close lines.
+- Action Flow and State Transition View: returning lines take the nearest outer side, and containers keep no empty band below their content.
+- Line labels no longer overlap. Long labels wrap into rounded boxes. Drag the bar on a selected label's left edge to change its width.
+- State Transition View: fewer line crossings. Self-transitions spread over the corners of their state and nest without sharing a track.
+
+- Action Flow View: performer lanes have a translucent part fill. Calculations appear only inside actions, not as stand-alone elements.
+- New checks: connected ports that exchange nothing, sends to a port feature instead of via the port, and self-transitions that restart a do action.
+- Moving or resizing an element keeps every other line and label where it is. Lines at the moving element go around other elements during the drag.
+- Interconnection View: a connection with three or more ends is a bus. Its name pill lies on a thin trunk beside its parts; each port line joins the trunk.
+- Interconnection View: nested parts stand on the side facing the parts they connect to. Very wide groups fold into left to right rows.
+- Interconnection View: ports stand level with the ports they connect to, so lines run straight, also across big parts.
+- Action Flow, State Transition and General View Structure: three or more lines from or into one side of an element merge into a fan, as in the Tree.
+- Automatic layouts aim for a page shape about 1.4 times as wide as tall, without adding crossings to reach it.
+- General View Structure: parts that use one definition stand together above it, their lines leave from the bottom, and parts without lines move out of the way.
+- Interconnection View: a part no longer lists the directed features its drawn flows already show, so parts stay small.
+- A running bar in the diagram footer shows that an automatic layout, a line reset or an export is still working.
+- State Transition View: a state machine reads from its start, and lines back to earlier states use both sides without crossing.
+- Action Flow and State Transition View: frames hold their side lines and labels. Labels stand on a plate, so lines do not show between words.
+
+### Fixed
+
+- Rejected connector edits keep earlier endpoint choices when a source refresh renumbers identical flows.
+
+- Exported diagrams round the corners of merged lines, as the canvas does.
+- Misspelled names in satisfy targets, connection ends, via ports and subject paths are now reported.
+- General View: moving a part keeps its docking points while they still face the other end. Lines that share a dock stay joined.
+
+- Closed states list their sub-states and inherited entry, do and exit actions (marked ^). Open states show those inherited actions as cards.
+- First-open Outline keeps local types correct. Open diagrams follow changes to closed supplier files.
+- Startup and diagram failures show useful errors with a direct link to the language-server output.
+- Sequence View handles long event chains without a stack overflow.
+- Finite Real values keep their numeric meaning while unsafe Integer calculations remain inconclusive.
+- Inline values and expressions keep unfinished edits and focus when an earlier update refreshes the diagram.
+- Diagrams recover after slow document preparation. Ready canvases open before the Browser tree when saved hidden elements allow it.
+- Large models prepare and refresh diagrams faster, including models with inherited performed actions.
+- Inherited performed actions keep stable diagram identities after unrelated short-name edits.
+- Variant diagrams keep inherited base features without drawing sibling choices.
+- Performed actions keep local identities and names. Cross-file edits refresh names, and ambiguous targets stay unnamed.
+- Conjugated types retain qualified members and feature types from their original type.
+- Connection and association end redefinitions check actual end bounds and preserve written navigation cardinality.
+- Properties keeps generic features visible after clearing their local direction.
+- Renamed feature redefinitions now replace inherited members consistently in navigation, completion, Properties and diagrams.
+- Qualified names respect membership visibility. Protected library imports refresh, and private homonyms no longer hide public targets.
+- Sequence View orders and draws actual event successions. Plain event siblings no longer imply a temporal chain.
+- Sequence View shows exhibited states and participant-owned included use cases as event dots on their message and succession rows.
+- Requirement verdicts keep unit identity. Unsupported conversions and unsafe integers stay inconclusive instead of producing a false answer.
+- Abstract-syntax JSON keeps qualified targets, multiple types, collection properties and escaped names. Omitted content is reported.
+- Owned feature chains keep their identities in type derivation and abstract-syntax JSON, including ordered links and simple chained values.
+- Rename quotes keyword names and checks every edited document before returning the workspace edit.
+- Metadata access reads model elements. Runtime extents are flagged only where metadata requires a model-level value.
+- Bare and parenthesized all expressions keep the extent operator through values, formatting and JSON projection.
+- Metadata self operands navigate to their local or inherited Feature declaration, including anonymous constraints.
+
+## [0.46.2] (2026-10-09)
+
+### Fixed
+
+- Stale reconnects leave other flows unchanged. The diagram refreshes before retry, preserving the selected flow, pin faces and saved routes.
+- Diagrams and Grid exports omit KerML-only constructs. Browser and Properties keep them available.
+- IV parts and ports keep the first move after layout, with attached lines and saved positions. Unchanged cards retain their size on refresh.
+- General View keeps stationary line ends when a connected card moves, including when its package grows.
+
+## [0.46.1] (2026-10-07)
+
+### Fixed
+
+- Action Flow headers show regular action and type names when references use short names. Editing keeps the original source spelling.
+
 ## [0.46.0] (2026-10-06)
 
 ### Added
