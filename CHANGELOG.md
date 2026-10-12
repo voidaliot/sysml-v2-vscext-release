@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.48.0] (2026-10-10)
+
+### Added
+
+- `frame` and `render` references accept a multiplicity, specialization and body, for example `frame safety [0..*];` and `render r [1] :> s;`.
+- Prefix metadata can follow `actor`, `subject`, `stakeholder`, `objective`, `frame` and `render`, for example `actor #Primary driver;`. A tagged `frame #T c;` declares a new concern.
+- KerML `multiplicity m subsets zeroToMany;` parses. It takes the range of the multiplicity it names. A cycle or a target that is not a feature is reported.
+- `accept` payloads take a specialization and multiplicity in either order, then a value, for example `accept sig : Sig = expected;` or `accept : Sig = expected;`.
+- `transition accept S if g do e then t;`, `transition then t;` and `if g do e then t;` parse. The State Transition View draws them from the state before them.
+- `if`, `while`, `loop`, `for`, `accept`, `send`, `assign` and `terminate` take a prefix such as `private`. A `for` variable takes a short name, multiplicity and specialization.
+
+### Changed
+
+- The extension listing uses the host banner colors instead of forcing a light background.
+
 ## [0.47.0] (2026-10-11)
 
 ### Changed
