@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>SwaML - teal star with architecture layers</title>
+
+  <defs>
+    <radialGradient id="body" cx=".36" cy=".3" r=".75"><stop stop-color="#f4fffc"/><stop offset=".35" stop-color="#ccf7ee"/><stop offset=".67" stop-color="#79cbbb"/><stop offset="1" stop-color="#208a80"/></radialGradient>
+    <radialGradient id="glow"><stop offset=".45" stop-color="#a0eddf" stop-opacity=".5"/><stop offset="1" stop-color="#34b09b" stop-opacity="0"/></radialGradient>
+  </defs>
+  <circle cx="32" cy="32" r="31" fill="url(#glow)"/>
+  <path d="m32 1 3.6 17.5L32 22l-3.6-3.5L32 1ZM63 32l-17.5 3.6L42 32l3.5-3.6L63 32ZM32 63l-3.6-17.5L32 42l3.6 3.5L32 63ZM1 32l17.5-3.6L22 32l-3.5 3.6L1 32Z" fill="#79cbbb"/>
+  <circle cx="32" cy="32" r="18.5" fill="url(#body)" stroke="#000" stroke-width="2.4"/><g fill="none" stroke="#1b5d55" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="m22 26 10-5 10 5-10 5zm0 7 10 5 10-5m-20 7 10 5 10-5"/></g><path d="M19 24c5-9 18-11 26-1" stroke="white" stroke-opacity=".5" stroke-width="1.3" stroke-linecap="round"/></svg>

@@ -46,8 +46,10 @@ Keep animations small enough to load quickly. Update alt text and captions whene
 
 ## Brand assets
 
-Use `aliot-star-light.svg` and `aliot-star-dark.svg` for the landing page, guides and repository READMEs. These contain only the four rays, blue ring and solid white centre. The header, hero and footer share this mark. Favicons use the same star.
+Use `aliot-star-light.svg` and `aliot-star-dark.svg` for the landing page, guides and repository READMEs. Both contain the approved blue-white star with connected blocks, four rays and a black space border. The header, hero, footer and favicons share this mark.
 
-Use `aliot-marketplace-system-light.png` and `aliot-marketplace-system-dark.png` only for the extension and Marketplace content. This is the approved C design: 20 percent larger artwork, system grid and circular SysML v2 label, with no background box. Keep the SVG masters and PNG exports together. Do not use the framed historical artwork for new pages.
+The legacy `aliot-marketplace-system-light` and `aliot-marketplace-system-dark` filenames now contain the same compact connected-block star, with 512 by 512 PNG exports. The private extension uses this exact icon in `packages/extension/resources/aliot-marketplace.png`. Existing VSIX releases retain their original assets until a new extension version is packaged and published. Keep SVG and PNG copies together.
 
 Website theme controls switch both artwork and captures. README images use `<picture>` with a dark source and a light fallback. Renderers that strip `picture`, `media` or `srcset` show the fallback; the Marketplace README also links to both captures. The store manifest supports one PNG icon, so its transparent light version serves both backgrounds. Leave the optional fixed gallery banner unset so the host controls the page appearance.
+
+Shared SVG masters are maintained in the aliot.dev repository under `brand/icons/`. Run `npm run brand:sync -- --all --repos-root E:/GitHub` there to regenerate and copy the icons, or add `--check` to verify them. The family uses connected blocks for SysML v2, an amber `>_` prompt for CLI, violet `</>` brackets for Codbase, and teal architecture layers for SwaML. All websites serve local copies.

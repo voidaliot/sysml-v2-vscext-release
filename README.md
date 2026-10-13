@@ -1,7 +1,7 @@
 <p align="center">
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/brand/aliot-star-dark.png">
-  <img src="assets/brand/aliot-star-light.png" width="88" height="88" alt="Aliot star with a blue ring and white centre">
+  <img src="assets/brand/aliot-star-light.png" width="88" height="88" alt="SysML v2 blue star with connected blocks and a black space border">
 </picture>
 </p>
 
