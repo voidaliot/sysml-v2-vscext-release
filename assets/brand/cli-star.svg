@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <title>CLI, amber star with a command prompt</title>
-  <defs>
-    <radialGradient id="body" cx=".36" cy=".3" r=".75"><stop stop-color="#fff9e9"/><stop offset=".35" stop-color="#ffe4af"/><stop offset=".67" stop-color="#efba72"/><stop offset="1" stop-color="#b46723"/></radialGradient>
-    <radialGradient id="glow"><stop offset="0.8215075503885765" stop-color="#ffd398" stop-opacity="0.1656891495601173"/><stop offset="1" stop-color="#d98f32" stop-opacity="0"/></radialGradient>
-  </defs>
-  <circle cx="32" cy="32" r="31.654000000000003" fill="url(#glow)"/>
-
-  <g transform="translate(32 32) scale(1.32) translate(-32 -32)"><circle cx="32" cy="32" r="18.5" fill="url(#body)" stroke="#744116" stroke-width="2.4"/>
-  <path d="m23 25 8 7-8 7m12 0h8" stroke="#744116" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M19 24c5-9 18-11 26-1" stroke="#fff9ed" stroke-opacity=".8" stroke-width="1.6" stroke-linecap="round"/>
-
-</g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><title>CLI, white symbol and dark matching halo</title><defs><radialGradient id="surface" cx=".36" cy=".28" r=".85"><stop stop-color="#f6cf8d"/><stop offset=".45" stop-color="#efba72"/><stop offset="1" stop-color="#b46723"/></radialGradient><radialGradient id="glow"><stop offset=".78" stop-color="#efba72" stop-opacity=".16"/><stop offset="1" stop-color="#b46723" stop-opacity="0"/></radialGradient></defs><circle cx="32" cy="32" r="31" fill="url(#glow)"/><circle cx="32" cy="32" r="24.5" fill="url(#surface)" stroke="#744116" stroke-width="2.7"/><path d="m21 23 10 9-10 9m15 0h11" stroke="white" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
